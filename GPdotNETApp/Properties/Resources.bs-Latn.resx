@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SR_ApplicationName" xml:space="preserve">
+    <value>GPdotNET</value>
+  </data>
+  <data name="SR_AskForSave" xml:space="preserve">
+    <value>Sačuvati promjene?</value>
+  </data>
+  <data name="SR_AvgFitness" xml:space="preserve">
+    <value>Prosiječni Fitness</value>
+  </data>
+  <data name="SR_Check" xml:space="preserve">
+    <value>Označito</value>
+  </data>
+  <data name="SR_ChangedLangWarning" xml:space="preserve">
+    <value>Za promjenu jezika, potreno je restartati aplikaciju.</value>
+  </data>
+  <data name="SR_Compleated" xml:space="preserve">
+    <value>Završeno!</value>
+  </data>
+  <data name="SR_ConditionInvalid" xml:space="preserve">
+    <value>Uslov prekida evolucije nije validan. Molimo unesite broj realnog tipa!</value>
+  </data>
+  <data name="SR_Constant" xml:space="preserve">
+    <value>Konstanta</value>
+  </data>
+  <data name="SR_ConstantIncorectNumber" xml:space="preserve">
+    <value>Nepravilan broj intervala konstanti. Potrebno je da bude cjelobrojan!</value>
+  </data>
+  <data name="SR_ConstantModified" xml:space="preserve">
+    <value>Promjena slučajnih konstanti uzrokovaće da se ponište sva dosadašnja rješenja.\n Da liđelite nastaviti?</value>
+  </data>
+  <data name="SR_ControlPoint" xml:space="preserve">
+    <value>Kontrolne tačke</value>
+  </data>
+  <data name="SR_CrossOverdepthInvalid" xml:space="preserve">
+    <value>Dubina ukrštanja nije pravilna.</value>
+  </data>
+  <data name="SR_DataEmpty" xml:space="preserve">
+    <value>Experimentalni podaci su prazni. Molimo učitajte experiment!</value>
+  </data>
+  <data name="SR_ExperimentModel" xml:space="preserve">
+    <value>Eksperiment/Model</value>
+  </data>
+  <data name="SR_FittValue" xml:space="preserve">
+    <value>Fitness vrijednost</value>
+  </data>
+  <data name="SR_FunctionSetNull" xml:space="preserve">
+    <value>Funkcijski skup je prazan.</value>
+  </data>
+  <data name="SR_FunctionValue" xml:space="preserve">
+    <value>Vrijednost funkcije</value>
+  </data>
+  <data name="SR_Generation" xml:space="preserve">
+    <value>Generacija</value>
+  </data>
+  <data name="SR_InitialDepthInvalid" xml:space="preserve">
+    <value>Početna dubina nije validna.</value>
+  </data>
+  <data name="SR_LoadSeriesFirst" xml:space="preserve">
+    <value>Molimo učitajte prvo serje.</value>
+  </data>
+  <data name="SR_MaxFit" xml:space="preserve">
+    <value>Maksimum Fitness</value>
+  </data>
+  <data name="SR_ModelCreationError" xml:space="preserve">
+    <value>Greška u formiranju modela!</value>
+  </data>
+  <data name="SR_ModelSet" xml:space="preserve">
+    <value>Graf Modela</value>
+  </data>
+  <data name="SR_MutationDepthInvalid" xml:space="preserve">
+    <value>Dubina mutacije nije validna!</value>
+  </data>
+  <data name="SR_NumPoints" xml:space="preserve">
+    <value>Broj tačaka</value>
+  </data>
+  <data name="SR_Output" xml:space="preserve">
+    <value>Izlaz</value>
+  </data>
+  <data name="SR_Populaction" xml:space="preserve">
+    <value>Populacija</value>
+  </data>
+  <data name="SR_PopulationSizeInvalid" xml:space="preserve">
+    <value>Veličina populacije nije validna!</value>
+  </data>
+  <data name="SR_probCrossOverInvalid" xml:space="preserve">
+    <value>Vjerojatnost ukrštanja nije validna!</value>
+  </data>
+  <data name="SR_ProbMutationInvalid" xml:space="preserve">
+    <value>Vjerojatnost mutacije nije validna!</value>
+  </data>
+  <data name="SR_ProbPermutationInvalid" xml:space="preserve">
+    <value>Vjerojatnost permutacije nije validna!</value>
+  </data>
+  <data name="SR_ProbSelectionInvalid" xml:space="preserve">
+    <value>Vjerojatnost selekcija nije validna!</value>
+  </data>
+  <data name="SR_RSquare" xml:space="preserve">
+    <value>R Korijen</value>
+  </data>
+  <data name="SR_SampleNumber" xml:space="preserve">
+    <value>RB</value>
+  </data>
+  <data name="SR_SDI_Warning" xml:space="preserve">
+    <value>Prvo je potreno je zatvoriti postojeći dokument!</value>
+  </data>
+  <data name="SR_Selected" xml:space="preserve">
+    <value>Označeno</value>
+  </data>
+  <data name="SR_SeriesCorectNumVartest" xml:space="preserve">
+    <value>Potrebno je ispraviti broj varijabli testnih podataka!</value>
+  </data>
+  <data name="SR_SeriesCorrectNumbVari" xml:space="preserve">
+    <value>Potrebno je ispraviti broj varijabli!</value>
+  </data>
+  <data name="Sr_SeriesCorrectNumTestSamples" xml:space="preserve">
+    <value>Potrebno je ispraviti broj pokusa</value>
+  </data>
+  <data name="SR_SolutionGraph" xml:space="preserve">
+    <value>Graf rješenja</value>
+  </data>
+  <data name="SR_TerminalSetNull" xml:space="preserve">
+    <value>Skupterminala je prazan.</value>
+  </data>
+  <data name="SR_TestingData" xml:space="preserve">
+    <value>Graf experimenta testa</value>
+  </data>
+  <data name="SR_testingModelError" xml:space="preserve">
+    <value>Greška u formiranju testnog modela!</value>
+  </data>
+  <data name="SR_TrainingData" xml:space="preserve">
+    <value>Graf eksperimenta </value>
+  </data>
+  <data name="SR_TrainingDataFirst" xml:space="preserve">
+    <value>Potrebno prvo učitati podatke za trening!</value>
+  </data>
+  <data name="SR_TrainingSet" xml:space="preserve">
+    <value>Graf Experimenta</value>
+  </data>
+  <data name="SR_Undefined" xml:space="preserve">
+    <value>Nedefinisano</value>
+  </data>
+  <data name="SR_Value" xml:space="preserve">
+    <value>Vrijednost</value>
+  </data>
+  <data name="SR_Aritry" xml:space="preserve">
+    <value>Argumenata</value>
+  </data>
+  <data name="SR_Definition" xml:space="preserve">
+    <value>Definicija</value>
+  </data>
+  <data name="SR_Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="SR_IsDistribution" xml:space="preserve">
+    <value>Je Distribucija</value>
+  </data>
+  <data name="SR_Name" xml:space="preserve">
+    <value>Naziv</value>
+  </data>
+  <data name="SR_ReadOnly" xml:space="preserve">
+    <value>Samo Čitanje</value>
+  </data>
+  <data name="SR_ExcelDefinition" xml:space="preserve">
+    <value>Excel Definicija</value>
+  </data>
+  <data name="SR_ChangeFunctionSet" xml:space="preserve">
+    <value>Promjenom skupa funkcija, populacija će biti resetovana.Želite li nastaviti?</value>
+  </data>
+</root>
