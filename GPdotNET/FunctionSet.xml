@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--Function Set definition-->
+<FunctionSets version="1.0">
+  <FunctionSet>
+    <Aritry>2</Aritry>
+    <Name>+</Name>
+    <Description>Addition</Description>
+    <Definition>x1+x2</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>2</Aritry>
+    <Name>-</Name>
+    <Description>Substraction</Description>
+    <Definition>x1-x2</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>2</Aritry>
+    <Name>*</Name>
+    <Description>Multiplication</Description>
+    <Definition>x1*x2</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+	<FunctionSet>
+		<Aritry>2</Aritry>
+		<Name>/</Name>
+		<Description>Division</Description>
+		<Definition>x1/x2</Definition>
+		<Selected> false</Selected>
+		<ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+
+
+  <FunctionSet>
+    <Aritry>3</Aritry>
+    <Name>Add3</Name>
+    <Description>Addition with with 3 arguments</Description>
+    <Definition>x1+x2+x3</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>3</Aritry>
+    <Name>Sub3</Name>
+    <Description>Substraction with 3 arguments</Description>
+    <Definition>x1-x2-x3</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>3</Aritry>
+    <Name>Mul3</Name>
+    <Description>Multiplication  with 3 arguments</Description>
+    <Definition>x1*x2*x3</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>3</Aritry>
+    <Name>Div3</Name>
+    <Description>Division  with 3 arguments</Description>
+    <Definition>x1/x2/x3</Definition>
+    <Selected> false</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+
+  <FunctionSet>
+    <Aritry>4</Aritry>
+    <Name>Add4</Name>
+    <Description>Addition with with 4 arguments</Description>
+    <Definition>x1+x2+x3+x4</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>4</Aritry>
+    <Name>Sub4</Name>
+    <Description>Substraction with 4 arguments</Description>
+    <Definition>x1-x2-x3-x4</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>4</Aritry>
+    <Name>Mul4</Name>
+    <Description>Multiplication  with 4 arguments</Description>
+    <Definition>x1*x2*x3*x4</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>4</Aritry>
+    <Name>Div4</Name>
+    <Description>Division  with 4 arguments</Description>
+    <Definition>x1/x2/x3/x4</Definition>
+    <Selected> false</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>x^2</Name>
+		<Description>x to the power of 2</Description>
+		<Definition>x^2</Definition>
+		<Selected> false</Selected>
+		<ReadOnly> true</ReadOnly>
+		<IsDistribution>false</IsDistribution>
+	</FunctionSet>
+
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>x^3</Name>
+		<Description>x to the power of 3</Description>
+		<Definition>x^3</Definition>
+		<Selected> false</Selected>
+		<ReadOnly> true</ReadOnly>
+		<IsDistribution>false</IsDistribution>
+	</FunctionSet>
+
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>x^4</Name>
+		<Description>x to the power of 4</Description>
+		<Definition>x^4</Definition>
+		<Selected> false</Selected>
+		<ReadOnly> true</ReadOnly>
+		<IsDistribution>false</IsDistribution>
+	</FunctionSet>
+
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>x^5</Name>
+		<Description>x to the power of 5</Description>
+		<Definition>x^5</Definition>
+		<Selected> false</Selected>
+		<ReadOnly> true</ReadOnly>
+		<IsDistribution>false</IsDistribution>
+	</FunctionSet>
+
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>sqrt</Name>
+		<Description>square root</Description>
+		<Definition>sqrt(x1)</Definition>
+		<Selected> true</Selected>
+		<ReadOnly> true</ReadOnly>
+		<IsDistribution>false</IsDistribution>
+	</FunctionSet>
+
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>1/x</Name>
+		<Description>Inverse</Description>
+		<Definition>1/x</Definition>
+		<Selected> false</Selected>
+		<ReadOnly> true</ReadOnly>
+		<IsDistribution>false</IsDistribution>
+	</FunctionSet>
+	
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>x^1/5</Name>
+		<Description>Quintic root</Description>
+		<Definition>x^1/5</Definition>
+		<Selected> false</Selected>
+		<ReadOnly> true</ReadOnly>
+		<IsDistribution>false</IsDistribution>
+	</FunctionSet>
+
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>x^1/4</Name>
+		<Description>Quartic root</Description>
+		<Definition>x^1/4</Definition>
+		<Selected> false</Selected>
+		<ReadOnly> true</ReadOnly>
+		<IsDistribution>false</IsDistribution>
+	</FunctionSet>
+
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>x^1/3</Name>
+		<Description>Cube root</Description>
+		<Definition>x^1/3</Definition>
+		<Selected> false</Selected>
+		<ReadOnly> true</ReadOnly>
+		<IsDistribution>false</IsDistribution>
+	</FunctionSet>
+	
+	
+	
+  <FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>sin</Name>
+		<Description>sinus function</Description>
+		<Definition>sin(x1)</Definition>
+		<Selected> false</Selected>
+		<ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>cos</Name>
+		<Description>cosine function</Description>
+		<Definition>cos(x1)</Definition>
+		<Selected> false</Selected>
+		<ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>tan</Name>
+		<Description>Tangent function</Description>
+		<Definition>tan(x1)</Definition>
+		<Selected> false</Selected>
+		<ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+
+  <FunctionSet>
+    <Aritry>1</Aritry>
+    <Name>asin</Name>
+    <Description>arc sinus function</Description>
+    <Definition>asin(x1)</Definition>
+    <Selected> false</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>1</Aritry>
+    <Name>acos</Name>
+    <Description>arc cosine function</Description>
+    <Definition>acos(x1)</Definition>
+    <Selected> false</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>1</Aritry>
+    <Name>atan</Name>
+    <Description>arc tangent function</Description>
+    <Definition>atan(x1)</Definition>
+    <Selected> false</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  
+  <FunctionSet>
+    <Aritry>1</Aritry>
+    <Name>sinh</Name>
+    <Description>hyperbolic sinus function</Description>
+    <Definition>sinh(x1)</Definition>
+    <Selected> false</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>1</Aritry>
+    <Name>cosh</Name>
+    <Description>hyperbolic cosine function</Description>
+    <Definition>cosh(x1)</Definition>
+    <Selected> false</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>1</Aritry>
+    <Name>tanh</Name>
+    <Description>hyperbolic tangent function</Description>
+    <Definition>tanh(x1)</Definition>
+    <Selected> false</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  
+  
+	
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>exp</Name>
+		<Description>e raised to the specified power</Description>
+		<Definition>Exp(x1)</Definition>
+		<Selected> true</Selected>
+		<ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>log10</Name>
+		<Description>Log with base 10</Description>
+		<Definition>Log10(x1)</Definition>
+		<Selected> true</Selected>
+		<ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+	<FunctionSet>
+		<Aritry>1</Aritry>
+		<Name>log</Name>
+		<Description>Natural log</Description>
+		<Definition>Log(x1)</Definition>
+		<Selected> true</Selected>
+		<ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  
+	<FunctionSet>
+		<Aritry>2</Aritry>
+		<Name>p(x,2)</Name>
+		<Description>Polynom</Description>
+		<Definition>x1^2+x1*x2+x2^x2</Definition>
+		<Selected> true</Selected>
+		<ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+	<FunctionSet>
+		<Aritry>3</Aritry>
+		<Name>p(x,3)</Name>
+		<Description>Polynom</Description>
+		<Definition>x1^3+x2^3+x3^3+x1*x2*x3+x1*x2+x1*x3+x2*x3</Definition>
+		<Selected> true</Selected>
+		<ReadOnly> true</ReadOnly>
+    <IsDistribution>false</IsDistribution>
+  </FunctionSet>
+  
+  <FunctionSet>
+    <Aritry>1</Aritry>
+    <Name>G(x)</Name>
+    <Description>Gaussian</Description>
+    <Definition>Gaussian(x)</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>true</IsDistribution>
+  </FunctionSet>
+  <FunctionSet>
+    <Aritry>2</Aritry>
+    <Name>G(x,y)</Name>
+    <Description>Gaussian</Description>
+    <Definition>Gaussian(x,y)</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>true</IsDistribution>
+  </FunctionSet>
+  
+  <FunctionSet>
+    <Aritry>1</Aritry>
+    <Name>Sk(x)</Name>
+    <Description>Skewness</Description>
+    <Definition>Skewness(x)</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>true</IsDistribution>
+  </FunctionSet>
+  
+  <FunctionSet>
+    <Aritry>1</Aritry>
+    <Name>Ku(x)</Name>
+    <Description>Kurtosis</Description>
+    <Definition>Kurtosis(x)</Definition>
+    <Selected> true</Selected>
+    <ReadOnly> true</ReadOnly>
+    <IsDistribution>true</IsDistribution>
+  </FunctionSet>
+  
+	
+	
+  
+</FunctionSets>
