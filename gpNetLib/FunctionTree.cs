@@ -1,0 +1,94 @@
+﻿// Copyright 2006-2009 Bahrudin Hrnjica (bhrnjica@hotmail.com)
+// gpNETLib 
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
+
+namespace GPNETLib
+{
+    [Serializable]
+    public class FunctionTree:ICloneable
+    {
+       // public ushort MaxLevel { get; set; }//Maximum level of tree
+      //  public int itemNumber { get; set; }//Maximum level of tree
+        public GPGenNode NodeValue;
+        public List<FunctionTree> SubFunctionTree;
+        //CTOR
+        public FunctionTree()
+        {
+            NodeValue = new GPGenNode();
+        }
+        public FunctionTree(FunctionTree node)
+        {
+            NodeValue = node.NodeValue.Clone();
+            SubFunctionTree = node.SubFunctionTree;
+        }
+        #region ICloneable Members
+
+        public object Clone()
+        {
+            FunctionTree clone = new FunctionTree();
+
+            // clone node2 value
+            clone.NodeValue = this.NodeValue.Clone();
+
+            // clone its subtrees
+            if (this.SubFunctionTree != null)
+            {
+                clone.SubFunctionTree = new List<FunctionTree>();
+                // clone each child gene
+                for (int i = 0; i < this.SubFunctionTree.Count; i++)
+                {
+                    FunctionTree cl = (FunctionTree)this.SubFunctionTree[i].Clone();
+                    clone.SubFunctionTree.Add(cl);
+                }
+            }
+            return clone;
+        }
+
+        #endregion
+ 
+        /// <summary>
+        /// String reprezentacija čvora
+        /// </summary>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (SubFunctionTree != null)
+                // pretraži sve čvorove
+                for (int i = 0; i < SubFunctionTree.Count; i++)
+                    sb.Append(SubFunctionTree[i].ToString());
+
+            // dodavanja vrijednosti genu
+            sb.Append(NodeValue.Decode());
+            sb.Append(";");
+            return sb.ToString();
+        }
+        public static void ToListExpression(List<int> lstExpr, FunctionTree node)
+        {
+            //If subFunctTree is not null
+            if (node.SubFunctionTree != null )
+            {
+                Debug.Assert(node.SubFunctionTree.Count!=0);
+                // pretraži sve čvorove
+                for (int i = 0; i < node.SubFunctionTree.Count; i++)
+                    ToListExpression(lstExpr, node.SubFunctionTree[i]);
+            }
+            lstExpr.Add(node.NodeValue.IndexValue);
+        }    
+        public void ToListExpression(List<int> lstExpr, FunctionTree node, int currentLevel)
+        {
+            //If subFunctTree is not null
+            if (node.SubFunctionTree != null)
+            {
+                currentLevel--;
+                // pretraži sve čvorove
+                for (int i = 0; i < node.SubFunctionTree.Count; i++)
+                    ToListExpression(lstExpr, node.SubFunctionTree[i], currentLevel);
+            }
+            lstExpr.Add(node.NodeValue.IndexValue);
+        }        
+    }
+}
