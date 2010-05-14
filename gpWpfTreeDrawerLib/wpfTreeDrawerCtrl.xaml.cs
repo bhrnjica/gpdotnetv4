@@ -53,15 +53,15 @@ namespace gpWpfTreeDrawerLib
             btn.IsHitTestVisible = false;
             btn.Background = Brushes.Transparent;
 
-            if (treeNode.NodeValue.IndexValue >= 1000 && treeNode.NodeValue.IndexValue < 2000)
+            if (treeNode.NodeValue >= 1000 && treeNode.NodeValue < 2000)
             {
                 btn.FontWeight = FontWeights.Bold;
-                btn.Content = functionSet.terminals[treeNode.NodeValue.IndexValue - 1000].Name;
+                btn.Content = functionSet.terminals[treeNode.NodeValue - 1000].Name;
             }
             else//Ako je token funkcija tada ubacene argumente evaluiramo preko odredjene funkcije
             {
                 btn.FontWeight = FontWeights.Medium;
-                btn.Content = functionSet.functions[treeNode.NodeValue.IndexValue - 2000].Name;
+                btn.Content = functionSet.functions[treeNode.NodeValue - 2000].Name;
             }
         		
 			if (tnControl == null)
