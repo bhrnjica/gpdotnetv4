@@ -229,10 +229,10 @@ namespace GPNETLib
 
             // Kada se je generirao Cvor (GEN) gornji kod, tada se trea generirati i 
             // potomci toga Gena. Odnosno generiraj onoliko potomaka koliko funkcija ima argumenata
-            if (treeNode.NodeValue.IsFunction)
+            if (treeNode.NodeValue>1999)
             {   
                 //Number of aritry of node function  
-                int numAritry = gpFunctionSet.functions[treeNode.NodeValue.IndexValue - 2000].Aritry;
+                int numAritry = gpFunctionSet.functions[treeNode.NodeValue - 2000].Aritry;
 
                 //Formiraj onoliko potomaka koliko ima argumenata
                 treeNode.SubFunctionTree = new List<FunctionTree>(numAritry);
@@ -259,25 +259,24 @@ namespace GPNETLib
 
         private void GenerateGene(FunctionTree gPGenNode, bool isFunction)
         {
-            //Specifikacija vrste gena
-            gPGenNode.NodeValue.IsFunction = isFunction;
-
+           
             //Ako je broj terminala veći od 1000
             if (gpFunctionSet.terminals.Count > 999)
                 throw new Exception("Maximum number of terminals must be less than 999");
+
             // Brojevi veci od 2000 oznacavat ce funkcije
-            if (gPGenNode.NodeValue.IsFunction)
+            if (isFunction)
             {
-                ushort f = (ushort)rand.Next(gpFunctionSet.functions.Count);
-                gPGenNode.NodeValue.IndexValue = (ushort)(2000 + f);
+                short f = (short)rand.Next(gpFunctionSet.functions.Count);
+                gPGenNode.NodeValue = (short)(2000 + f);
             }
 
             //Brojevi od 1000-2000 oznacavat ce slobodne koeficijente i ulazne parametre
             else
             {
                 //Slucajno biramo jedan od terminala
-                ushort r = (ushort)rand.Next(gpFunctionSet.terminals.Count);
-                gPGenNode.NodeValue.IndexValue = (ushort)(1000 + r);
+                short r = (short)rand.Next(gpFunctionSet.terminals.Count);
+                gPGenNode.NodeValue = (short)(1000 + r);
             }
         }
 
@@ -376,7 +375,7 @@ namespace GPNETLib
                     geneNode.SubFunctionTree = null;
                 }
                 // a cvor funkcija generiraj kao terminal
-                if(geneNode.NodeValue.IndexValue>=2000)
+                if(geneNode.NodeValue>=2000)
                     GenerateGene(geneNode, false);
             }
             else //Ako nivo nije 0 tada udji u novo za 1 manji
@@ -493,7 +492,7 @@ namespace GPNETLib
 
                     // Ako smo regenerirani cvor postao terminal tada njegovi potomci 
                     // trebaju biti odbacenu
-                    if (node.NodeValue.IsFunction == false)// || currentLevel >= maxLevel)
+                    if (node.NodeValue<2000)// || currentLevel >= maxLevel)
                         node.SubFunctionTree = null;
 
                     else//Ako je novogenerirani (mutirani cvor ) funkcija tada dalje regeneriramo hromosom
@@ -504,12 +503,12 @@ namespace GPNETLib
                         if (node.SubFunctionTree == null)
                         {
                             //I to onoliko koliko ima argumanata mutirani cvor
-                            count = gpFunctionSet.functions[node.NodeValue.IndexValue - 2000].Aritry;
+                            count = gpFunctionSet.functions[node.NodeValue - 2000].Aritry;
                             node.SubFunctionTree = new List<FunctionTree>(count);
                         }
                         else
                         {
-                            count = gpFunctionSet.functions[node.NodeValue.IndexValue - 2000].Aritry;
+                            count = gpFunctionSet.functions[node.NodeValue - 2000].Aritry;
                             //Debug.Assert(count == gpFunctionSet.functions[node.NodeValue.IndexValue - 2000].Aritry);
                         }
                         // Sada uskladjujemo potomke sa brojem argumenata 

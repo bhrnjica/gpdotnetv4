@@ -71,7 +71,6 @@
     <Compile Include="GPChromosome.cs" />
     <Compile Include="GPFunction.cs" />
     <Compile Include="GPFunctionSet.cs" />
-    <Compile Include="GPNode.cs" />
     <Compile Include="GPParameters.cs" />
     <Compile Include="GPPopulation.cs" />
     <Compile Include="GPTerminal.cs" />

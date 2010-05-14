@@ -10,18 +10,16 @@ namespace GPNETLib
     [Serializable]
     public class FunctionTree:ICloneable
     {
-       // public ushort MaxLevel { get; set; }//Maximum level of tree
-      //  public int itemNumber { get; set; }//Maximum level of tree
-        public GPGenNode NodeValue;
+        public short NodeValue;
         public List<FunctionTree> SubFunctionTree;
         //CTOR
         public FunctionTree()
         {
-            NodeValue = new GPGenNode();
+            NodeValue = -1;
         }
         public FunctionTree(FunctionTree node)
         {
-            NodeValue = node.NodeValue.Clone();
+            NodeValue = node.NodeValue;
             SubFunctionTree = node.SubFunctionTree;
         }
         #region ICloneable Members
@@ -31,7 +29,7 @@ namespace GPNETLib
             FunctionTree clone = new FunctionTree();
 
             // clone node2 value
-            clone.NodeValue = this.NodeValue.Clone();
+            clone.NodeValue = this.NodeValue;
 
             // clone its subtrees
             if (this.SubFunctionTree != null)
@@ -62,7 +60,7 @@ namespace GPNETLib
                     sb.Append(SubFunctionTree[i].ToString());
 
             // dodavanja vrijednosti genu
-            sb.Append(NodeValue.Decode());
+            sb.Append(NodeValue.ToString());
             sb.Append(";");
             return sb.ToString();
         }
@@ -76,7 +74,7 @@ namespace GPNETLib
                 for (int i = 0; i < node.SubFunctionTree.Count; i++)
                     ToListExpression(lstExpr, node.SubFunctionTree[i]);
             }
-            lstExpr.Add(node.NodeValue.IndexValue);
+            lstExpr.Add(node.NodeValue);
         }    
         public void ToListExpression(List<int> lstExpr, FunctionTree node, int currentLevel)
         {
@@ -88,7 +86,7 @@ namespace GPNETLib
                 for (int i = 0; i < node.SubFunctionTree.Count; i++)
                     ToListExpression(lstExpr, node.SubFunctionTree[i], currentLevel);
             }
-            lstExpr.Add(node.NodeValue.IndexValue);
+            lstExpr.Add(node.NodeValue);
         }        
     }
 }
