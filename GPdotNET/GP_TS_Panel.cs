@@ -11,6 +11,7 @@ using ZedGraph;
 using System.Xml.Linq;
 using System.Diagnostics;
 using GPNETLib;
+using System.Deployment.Application;
 namespace GPDOTNET
 {
     public partial class GP_TS_Panel : Form
@@ -200,8 +201,21 @@ namespace GPDOTNET
         }
         private void NapuniGridViewSaDefinisanimFunkcijama()
         {
-            // Loading from a file, you can also load from a stream
-            doc = XDocument.Load(@"FunctionSet.xml");
+            string strPath = "FunctionSet.xml";
+            // When app is deployed with ClickOnce we have diferent path of file FunctionSet.xml
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                try
+                {
+                    strPath = ApplicationDeployment.CurrentDeployment.DataDirectory + @"\FunctionSet.xml";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Could not read file. Error message: " + ex.Message);
+                }
+            }
+            //Open XML file with function definition
+            doc = XDocument.Load(strPath);
             DataGridViewCheckBoxColumn col = new DataGridViewCheckBoxColumn();
             col.HeaderText = "Chcek";
 
