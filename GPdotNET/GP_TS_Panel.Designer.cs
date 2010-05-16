@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Series = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -382,13 +381,13 @@
             this.zedEksperiment.Dock = System.Windows.Forms.DockStyle.Fill;
             this.zedEksperiment.Location = new System.Drawing.Point(3, 156);
             this.zedEksperiment.Name = "zedEksperiment";
-            this.zedEksperiment.ScrollGrace = 0;
-            this.zedEksperiment.ScrollMaxX = 0;
-            this.zedEksperiment.ScrollMaxY = 0;
-            this.zedEksperiment.ScrollMaxY2 = 0;
-            this.zedEksperiment.ScrollMinX = 0;
-            this.zedEksperiment.ScrollMinY = 0;
-            this.zedEksperiment.ScrollMinY2 = 0;
+            this.zedEksperiment.ScrollGrace = 0D;
+            this.zedEksperiment.ScrollMaxX = 0D;
+            this.zedEksperiment.ScrollMaxY = 0D;
+            this.zedEksperiment.ScrollMaxY2 = 0D;
+            this.zedEksperiment.ScrollMinX = 0D;
+            this.zedEksperiment.ScrollMinY = 0D;
+            this.zedEksperiment.ScrollMinY2 = 0D;
             this.zedEksperiment.Size = new System.Drawing.Size(700, 224);
             this.zedEksperiment.TabIndex = 1;
             // 
@@ -673,7 +672,6 @@
             this.evjerojatnostPermutacije.Name = "evjerojatnostPermutacije";
             this.evjerojatnostPermutacije.Size = new System.Drawing.Size(81, 20);
             this.evjerojatnostPermutacije.TabIndex = 29;
-            this.evjerojatnostPermutacije.Text = "0,05";
             // 
             // label38
             // 
@@ -717,7 +715,6 @@
             this.evjerojatnostMutacije.Name = "evjerojatnostMutacije";
             this.evjerojatnostMutacije.Size = new System.Drawing.Size(81, 20);
             this.evjerojatnostMutacije.TabIndex = 25;
-            this.evjerojatnostMutacije.Text = "0,05";
             // 
             // evjerojatnostUkrstanja
             // 
@@ -725,7 +722,6 @@
             this.evjerojatnostUkrstanja.Name = "evjerojatnostUkrstanja";
             this.evjerojatnostUkrstanja.Size = new System.Drawing.Size(81, 20);
             this.evjerojatnostUkrstanja.TabIndex = 24;
-            this.evjerojatnostUkrstanja.Text = "0,95";
             // 
             // evjerojatnostReprodukcije
             // 
@@ -733,7 +729,6 @@
             this.evjerojatnostReprodukcije.Name = "evjerojatnostReprodukcije";
             this.evjerojatnostReprodukcije.Size = new System.Drawing.Size(81, 20);
             this.evjerojatnostReprodukcije.TabIndex = 23;
-            this.evjerojatnostReprodukcije.Text = "0,20";
             // 
             // label16
             // 
@@ -1001,13 +996,13 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.zedGraphPopulation.Location = new System.Drawing.Point(3, 28);
             this.zedGraphPopulation.Name = "zedGraphPopulation";
-            this.zedGraphPopulation.ScrollGrace = 0;
-            this.zedGraphPopulation.ScrollMaxX = 0;
-            this.zedGraphPopulation.ScrollMaxY = 0;
-            this.zedGraphPopulation.ScrollMaxY2 = 0;
-            this.zedGraphPopulation.ScrollMinX = 0;
-            this.zedGraphPopulation.ScrollMinY = 0;
-            this.zedGraphPopulation.ScrollMinY2 = 0;
+            this.zedGraphPopulation.ScrollGrace = 0D;
+            this.zedGraphPopulation.ScrollMaxX = 0D;
+            this.zedGraphPopulation.ScrollMaxY = 0D;
+            this.zedGraphPopulation.ScrollMaxY2 = 0D;
+            this.zedGraphPopulation.ScrollMinX = 0D;
+            this.zedGraphPopulation.ScrollMinY = 0D;
+            this.zedGraphPopulation.ScrollMinY2 = 0D;
             this.zedGraphPopulation.Size = new System.Drawing.Size(440, 159);
             this.zedGraphPopulation.TabIndex = 24;
             // 
@@ -1040,13 +1035,13 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.zedChart.Location = new System.Drawing.Point(3, 218);
             this.zedChart.Name = "zedChart";
-            this.zedChart.ScrollGrace = 0;
-            this.zedChart.ScrollMaxX = 0;
-            this.zedChart.ScrollMaxY = 0;
-            this.zedChart.ScrollMaxY2 = 0;
-            this.zedChart.ScrollMinX = 0;
-            this.zedChart.ScrollMinY = 0;
-            this.zedChart.ScrollMinY2 = 0;
+            this.zedChart.ScrollGrace = 0D;
+            this.zedChart.ScrollMaxX = 0D;
+            this.zedChart.ScrollMaxY = 0D;
+            this.zedChart.ScrollMaxY2 = 0D;
+            this.zedChart.ScrollMinX = 0D;
+            this.zedChart.ScrollMinY = 0D;
+            this.zedChart.ScrollMinY2 = 0D;
             this.zedChart.Size = new System.Drawing.Size(440, 159);
             this.zedChart.TabIndex = 23;
             // 
@@ -1523,13 +1518,13 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.zedGraphTestData.Location = new System.Drawing.Point(3, 219);
             this.zedGraphTestData.Name = "zedGraphTestData";
-            this.zedGraphTestData.ScrollGrace = 0;
-            this.zedGraphTestData.ScrollMaxX = 0;
-            this.zedGraphTestData.ScrollMaxY = 0;
-            this.zedGraphTestData.ScrollMaxY2 = 0;
-            this.zedGraphTestData.ScrollMinX = 0;
-            this.zedGraphTestData.ScrollMinY = 0;
-            this.zedGraphTestData.ScrollMinY2 = 0;
+            this.zedGraphTestData.ScrollGrace = 0D;
+            this.zedGraphTestData.ScrollMaxX = 0D;
+            this.zedGraphTestData.ScrollMaxY = 0D;
+            this.zedGraphTestData.ScrollMaxY2 = 0D;
+            this.zedGraphTestData.ScrollMinX = 0D;
+            this.zedGraphTestData.ScrollMinY = 0D;
+            this.zedGraphTestData.ScrollMinY2 = 0D;
             this.zedGraphTestData.Size = new System.Drawing.Size(676, 161);
             this.zedGraphTestData.TabIndex = 25;
             // 
@@ -1573,8 +1568,8 @@
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // GP_TS_Panel
             // 

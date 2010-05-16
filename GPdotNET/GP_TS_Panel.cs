@@ -66,6 +66,12 @@ namespace GPDOTNET
             cmetodaSelekcije.SelectedIndex = 0;
 
            GPParameters parameters = new GPParameters();
+
+           evjerojatnostMutacije.Text = (5.0 / 100.0).ToString();
+           evjerojatnostPermutacije.Text = (5.0 / 100.0).ToString();
+           evjerojatnostReprodukcije.Text = (20.0 / 100.0).ToString();
+           evjerojatnostUkrstanja.Text = (90.0 / 100.0).ToString();
+
                       
         }
         
