@@ -37,7 +37,7 @@ namespace GPNETLib
                 //izvlacimo mu vrijednost iz skupa terminala i konstanti
                 if (tokens[i] >= 1000 && tokens[i] < 2000)
                 {
-                    arguments.Push(gpTerminalSet.data[numRow][tokens[i] - 1000]);
+                    arguments.Push(gpTerminalSet.TrainingData[numRow][tokens[i] - 1000]);
                 }
                 else//Ako je token funkcija tada ubacene argumente evaluiramo preko odredjene funkcije
                 {
@@ -59,9 +59,9 @@ namespace GPNETLib
                     double [] values = null;
                     if (functions[tokens[i] - 2000].IsDistribution)
                     {
-                        values= new double[gpTerminalSet.NumVariable];
-                        for(int k=0;k<gpTerminalSet.NumVariable;k++)
-                            values[k]=gpTerminalSet.data[numRow][k];
+                        values= new double[gpTerminalSet.NumVariables];
+                        for(int k=0;k<gpTerminalSet.NumVariables;k++)
+                            values[k]=gpTerminalSet.TrainingData[numRow][k];
                     }
 
                     double result = Evaluate(functions[tokens[i] - 2000], values, val);
@@ -79,12 +79,12 @@ namespace GPNETLib
 
         }
 
-        public  double Evaluate(GPFunction fun,double[] values, params double[] tt)
+        public double Evaluate(GPFunction fun, double[] values, params double[] tt)
         {
             for (int i = 0; i < tt.Length; i++)
             {
-                if (double.IsNaN(tt[i]))
-                    return double.NaN;
+                if (double.IsNaN(tt[i]) || double.IsInfinity(tt[i]))
+                    return double.NegativeInfinity;
             }
             switch (fun.Name)
             {
@@ -141,7 +141,7 @@ namespace GPNETLib
 
                 case "x^2":
                     {
-                        return Math.Pow(tt[0],2);
+                        return Math.Pow(tt[0], 2);
                     }
                 case "x^3":
                     {
@@ -159,25 +159,45 @@ namespace GPNETLib
 
                 case "x^1/3":
                     {
-                        return Math.Pow(tt[0], 1/3.0);
+                        return Math.Pow(tt[0], 1 / 3.0);
                     }
                 case "x^1/4":
                     {
-                        return Math.Pow(tt[0], 1/4.0);
+                        return Math.Pow(tt[0], 1 / 4.0);
                     }
 
                 case "x^1/5":
                     {
-                        return Math.Pow(tt[0], 1/5.0);
+                        return Math.Pow(tt[0], 1 / 5.0);
                     }
                 case "1/x":
                     {
-                        return 1.0/tt[0];
+                        return 1.0 / tt[0];
                     }
-
+                case "abs":
+                    {
+                        return Math.Abs(tt[0]);
+                    }
+                case "floor":
+                    {
+                        return Math.Floor(tt[0]);
+                    }
+                case "ceiling":
+                    {
+                        return Math.Ceiling(tt[0]);
+                    }
+                case "truncate":
+                    {
+                        return Math.Truncate(tt[0]);
+                    }
                 case "sin":
                     {
                         return Math.Sin(tt[0]);
+                    }
+
+                case "round":
+                    {
+                        return Math.Round(tt[0]);
                     }
                 case "cos":
                     {
@@ -200,8 +220,6 @@ namespace GPNETLib
                     {
                         return Math.Atan(tt[0]);
                     }
-
-
                 case "sinh":
                     {
                         return Math.Sinh(tt[0]);
@@ -214,8 +232,6 @@ namespace GPNETLib
                     {
                         return Math.Tanh(tt[0]);
                     }
-
-
                 case "sqrt":
                     {
                         return Math.Sqrt(tt[0]);
@@ -226,11 +242,11 @@ namespace GPNETLib
                     }
                 case "log10":
                     {
-                      return Math.Log10(tt[0]);
+                        return Math.Log10(tt[0]);
                     }
                 case "log":
                     {
-                      return Math.Log(tt[0], Math.E);
+                        return Math.Log(tt[0], Math.E);
                     }
                 case "p(x,2)":
                     {
@@ -245,11 +261,11 @@ namespace GPNETLib
                     {
                         if (values == null)
                             return double.NaN;
-                        if(values.Length<2)
+                        if (values.Length < 2)
                             return double.NaN;
                         double stdDev = Statistics.StdDev(values);
                         stdDev = Math.Max(0.00000001, stdDev);
-                        return Math.Exp(tt[0] * tt[0] / (-2 * stdDev*stdDev)) / (Math.Sqrt(2 * Math.PI) * stdDev);
+                        return Math.Exp(tt[0] * tt[0] / (-2 * stdDev * stdDev)) / (Math.Sqrt(2 * Math.PI) * stdDev);
                     }
                 //Gaussian(x,y)
                 case "G(x,y)":
@@ -292,7 +308,7 @@ namespace GPNETLib
                     string varaiable = terminals[tokens[i] - 1000].Name;
 
                     if (terminals[tokens[i] - 1000].IsConstant)
-                        var = gpTerminalSet.data[0][tokens[i] - 1000];
+                        var = gpTerminalSet.TrainingData[0][tokens[i] - 1000];
                     else
                         var = double.NaN;
                     arguments.Push(var);
@@ -320,9 +336,9 @@ namespace GPNETLib
                     double[] values = null;
                     if (functions[tokens[i] - 2000].IsDistribution)
                     {
-                        values = new double[gpTerminalSet.NumVariable];
-                        for (int k = 0; k < gpTerminalSet.NumVariable; k++)
-                            values[k] = gpTerminalSet.data[numRow][k];
+                        values = new double[gpTerminalSet.NumVariables];
+                        for (int k = 0; k < gpTerminalSet.NumVariables; k++)
+                            values[k] = gpTerminalSet.TrainingData[numRow][k];
                     }*/
                     double result = Evaluate(functions[tokens[i] - 2000], val);
                     if (!double.IsNaN(result))
@@ -386,7 +402,56 @@ namespace GPNETLib
             return expression.Pop();
         }
 
+        public string DecodeExpressionInExcellForm(List<int> tokens, GPTerminalSet gpTerminalSet)
+        {
+            //Prepare chromoseme for evaluation
+            //    List<int> tokens = new List<int>();
+            //    FunctionTree.ToListExpression(tokens, c.Root);
+            int countT = tokens.Count;
 
+            //Stack fr evaluation
+            Stack<string> expression = new Stack<string>();
+
+            for (int i = 0; i < countT; i++)
+            {
+                //Debug.Assert(tokens[i] != 2004 || countT <= 2);
+                // Ako je token argument onda na osnovu naziv tog argumenta 
+                //izvlacimo mu vrijednost iz skupa terminala i konstanti
+                if (tokens[i] >= 1000 && tokens[i] < 2000)
+                {
+                    string varaiable = terminals[tokens[i] - 1000].Name;
+                    expression.Push(varaiable);
+                }
+                else//Ako je token funkcija tada ubacene argumente evaluiramo preko odredjene funkcije
+                {
+                    //Evaluacija funkcije. Svaka funkcija ima bar 1 argument
+                    int count = functions[tokens[i] - 2000].Aritry;
+                    string function = functions[tokens[i] - 2000].ExcelDefinition;
+                    //Ovdje moramo unazad zapisati varijable zbog Staka
+                    double[] val = new double[count];
+                    for (int j = count; j > 0; j--)
+                    {
+                        string oldStr = "x" + (j).ToString();
+                        string newStr = expression.Pop();
+                        function = function.Replace(oldStr, newStr);
+                    }
+                    if (functions[tokens[i] - 2000].IsDistribution)
+                    {
+                        string oldStr = "xn";
+                        string newStr = "X" + gpTerminalSet.NumVariables.ToString();
+                        function = function.Replace(oldStr, newStr);
+                        function = function.Replace("x0", "X1");
+                    }
+                    //Izracunavanje rezultata 
+                    expression.Push("(" + function + ")");
+                    //Izracunavanje izraza
+                }
+            }
+            // return the only value from stack
+            Debug.Assert(expression.Count == 1);
+            // return arguments.Pop();
+            return expression.Pop();
+        }
 
         
     }

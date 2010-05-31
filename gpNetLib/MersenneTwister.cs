@@ -140,13 +140,13 @@ namespace NPack
 
         /// <summary>
         /// Returns the next pseudo-random <see cref="UInt32"/> 
-        /// up to <paramref name="maxValue"/>.
+        /// up to <paramref name="MaxValue"/>.
         /// </summary>
-        /// <param name="maxValue">
+        /// <param name="MaxValue">
         /// The maximum value of the pseudo-random number to create.
         /// </param>
         /// <returns>
-        /// A pseudo-random <see cref="UInt32"/> value which is at most <paramref name="maxValue"/>.
+        /// A pseudo-random <see cref="UInt32"/> value which is at most <paramref name="MaxValue"/>.
         /// </returns>
 //        [CLSCompliant(false)]
         public virtual UInt32 NextUInt32(UInt32 maxValue)
@@ -156,16 +156,16 @@ namespace NPack
 
         /// <summary>
         /// Returns the next pseudo-random <see cref="UInt32"/> at least 
-        /// <paramref name="minValue"/> and up to <paramref name="maxValue"/>.
+        /// <paramref name="MinValue"/> and up to <paramref name="MaxValue"/>.
         /// </summary>
-        /// <param name="minValue">The minimum value of the pseudo-random number to create.</param>
-        /// <param name="maxValue">The maximum value of the pseudo-random number to create.</param>
+        /// <param name="MinValue">The minimum value of the pseudo-random number to create.</param>
+        /// <param name="MaxValue">The maximum value of the pseudo-random number to create.</param>
         /// <returns>
         /// A pseudo-random <see cref="UInt32"/> value which is at least 
-        /// <paramref name="minValue"/> and at most <paramref name="maxValue"/>.
+        /// <paramref name="MinValue"/> and at most <paramref name="MaxValue"/>.
         /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// If <c><paramref name="minValue"/> &gt;= <paramref name="maxValue"/></c>.
+        /// If <c><paramref name="MinValue"/> &gt;= <paramref name="MaxValue"/></c>.
         /// </exception>
 //        [CLSCompliant(false)]
         public virtual UInt32 NextUInt32(UInt32 minValue, UInt32 maxValue) /* throws ArgumentOutOfRangeException */
@@ -188,14 +188,14 @@ namespace NPack
         }
 
         /// <summary>
-        /// Returns the next pseudo-random <see cref="Int32"/> up to <paramref name="maxValue"/>.
+        /// Returns the next pseudo-random <see cref="Int32"/> up to <paramref name="MaxValue"/>.
         /// </summary>
-        /// <param name="maxValue">The maximum value of the pseudo-random number to create.</param>
+        /// <param name="MaxValue">The maximum value of the pseudo-random number to create.</param>
         /// <returns>
-        /// A pseudo-random <see cref="Int32"/> value which is at most <paramref name="maxValue"/>.
+        /// A pseudo-random <see cref="Int32"/> value which is at most <paramref name="MaxValue"/>.
         /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// When <paramref name="maxValue"/> &lt; 0.
+        /// When <paramref name="MaxValue"/> &lt; 0.
         /// </exception>
         public override Int32 Next(Int32 maxValue)
         {
@@ -214,15 +214,15 @@ namespace NPack
 
         /// <summary>
         /// Returns the next pseudo-random <see cref="Int32"/> 
-        /// at least <paramref name="minValue"/> 
-        /// and up to <paramref name="maxValue"/>.
+        /// at least <paramref name="MinValue"/> 
+        /// and up to <paramref name="MaxValue"/>.
         /// </summary>
-        /// <param name="minValue">The minimum value of the pseudo-random number to create.</param>
-        /// <param name="maxValue">The maximum value of the pseudo-random number to create.</param>
-        /// <returns>A pseudo-random Int32 value which is at least <paramref name="minValue"/> and at 
-        /// most <paramref name="maxValue"/>.</returns>
+        /// <param name="MinValue">The minimum value of the pseudo-random number to create.</param>
+        /// <param name="MaxValue">The maximum value of the pseudo-random number to create.</param>
+        /// <returns>A pseudo-random Int32 value which is at least <paramref name="MinValue"/> and at 
+        /// most <paramref name="MaxValue"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// If <c><paramref name="minValue"/> &gt;= <paramref name="maxValue"/></c>.
+        /// If <c><paramref name="MinValue"/> &gt;= <paramref name="MaxValue"/></c>.
         /// </exception>
         public override Int32 Next(Int32 minValue, Int32 maxValue)
         {

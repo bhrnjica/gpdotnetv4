@@ -8,7 +8,7 @@
     <ProjectGuid>{D032B96C-3076-4B5D-9D7A-1B176898E617}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GPDOTNET</RootNamespace>
+    <RootNamespace>GPdotNET</RootNamespace>
     <AssemblyName>GPdotNET</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -62,6 +62,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -99,6 +103,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutGPdotNET.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutGPdotNET.designer.cs">
+      <DependentUpon>AboutGPdotNET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChooseModelDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseModelDlg.designer.cs">
+      <DependentUpon>ChooseModelDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExcelFormulaDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExcelFormulaDlg.designer.cs">
+      <DependentUpon>ExcelFormulaDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="GP_TS_Panel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,11 +135,31 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutGPdotNET.resx">
+      <DependentUpon>AboutGPdotNET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseModelDlg.resx">
+      <DependentUpon>ChooseModelDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExcelFormulaDlg.resx">
+      <DependentUpon>ExcelFormulaDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPdotNetApp.bs.resx">
+      <DependentUpon>GPdotNetApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GP_TS_Panel.bs.resx">
+      <DependentUpon>GP_TS_Panel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GP_TS_Panel.resx">
       <DependentUpon>GP_TS_Panel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GPdotNetApp.resx">
       <DependentUpon>GPdotNetApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.bs-Latn.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.bs-Latn.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -127,6 +169,11 @@
     <EmbeddedResource Include="TreeExpression.resx">
       <DependentUpon>TreeExpression.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="Properties\Resources.bs-Latn.Designer.cs">
+      <DependentUpon>Resources.bs-Latn.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -164,6 +211,14 @@
     <Content Include="FunctionSet.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\gpLogo.ico" />
+    <None Include="Resources\gpabout.png" />
+    <None Include="Resources\gp128.png" />
+    <None Include="Resources\gp64.png" />
+    <None Include="Resources\gp48.png" />
+    <None Include="Resources\gp32.png" />
+    <None Include="Resources\gp24.png" />
+    <None Include="Resources\gp16.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

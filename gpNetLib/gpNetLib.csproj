@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExcelHelper.cs" />
     <Compile Include="FunctionTree.cs" />
     <Compile Include="GPChromosome.cs" />
     <Compile Include="GPFunction.cs" />
