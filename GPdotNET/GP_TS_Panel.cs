@@ -1,18 +1,28 @@
-﻿// Copyright 2006-2009 Bahrudin Hrnjica (bhrnjica@hotmail.com)
-// GPdotNET 
+﻿//////////////////////////////////////////////////////////////////////////////////////////
+// GPdotNET Tree based genetic programming tool                                         //
+// Copyright 2006-2010 Bahrudin Hrnjica                                                 //
+//                                                                                      //
+// This code is free software under the GNU Library General Public License (LGPL)       //
+// See licence section of  http://gpdotnet.codeplex.com/license                         //
+//                                                                                      //
+// Bahrudin Hrnjica                                                                     //
+// bhrnjica@hotmail.com                                                                 //
+// Bihac,Bosnia and Herzegovina                                                         //
+// http://bhrnjica.wordpress.com                                                        //
+//////////////////////////////////////////////////////////////////////////////////////////
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Deployment.Application;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.IO;
-using ZedGraph;
 using System.Xml.Linq;
-using System.Diagnostics;
-using GPNETLib;
-using System.Deployment.Application;
 using GPdotNET.Properties;
+using GPNETLib;
+using ZedGraph;
 namespace GPdotNET
 {
     public partial class GP_TS_Panel : Form

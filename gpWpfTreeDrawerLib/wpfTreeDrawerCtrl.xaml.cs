@@ -1,19 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿//////////////////////////////////////////////////////////////////////////////////////////
+// GPdotNET Tree based genetic programming tool                                         //
+// Copyright 2006-2010 Bahrudin Hrnjica                                                 //
+//                                                                                      //
+// This code is free software under the GNU Library General Public License (LGPL)       //
+// See licence section of  http://gpdotnet.codeplex.com/license                         //
+//                                                                                      //
+// Bahrudin Hrnjica                                                                     //
+// bhrnjica@hotmail.com                                                                 //
+// Bihac,Bosnia and Herzegovina                                                         //
+// http://bhrnjica.wordpress.com                                                        //
+//////////////////////////////////////////////////////////////////////////////////////////
+using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TreeContainer;
-using System.IO;
 using GPNETLib;
+using TreeContainer;
 
 namespace gpWpfTreeDrawerLib
 {
@@ -81,8 +86,7 @@ namespace gpWpfTreeDrawerLib
 			
 		}
 
-
-        public void SaveAsBitmap(string fileName)
+       public void SaveAsBitmap(string fileName)
         {
             FileStream fs=null;
             try
@@ -119,8 +123,6 @@ namespace gpWpfTreeDrawerLib
                 // add the RenderTargetBitmap to a Bitmapencoder
                 BmpBitmapEncoder encoder = new BmpBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(targetBitmap));
-                
-
                 // save file to disk
                 fs = File.Open(fileName, FileMode.OpenOrCreate);
                 encoder.Save(fs);

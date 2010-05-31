@@ -1,5 +1,15 @@
-﻿// Copyright 2006-2009 Bahrudin Hrnjica (bhrnjica@hotmail.com)
-// gpNETLib 
+﻿//////////////////////////////////////////////////////////////////////////////////////////
+// GPdotNET Tree based genetic programming tool                                         //
+// Copyright 2006-2010 Bahrudin Hrnjica                                                 //
+//                                                                                      //
+// This code is free software under the GNU Library General Public License (LGPL)       //
+// See licence section of  http://gpdotnet.codeplex.com/license                         //
+//                                                                                      //
+// Bahrudin Hrnjica                                                                     //
+// bhrnjica@hotmail.com                                                                 //
+// Bihac,Bosnia and Herzegovina                                                         //
+// http://bhrnjica.wordpress.com                                                        //
+//////////////////////////////////////////////////////////////////////////////////////////
 using System;
 
 namespace GPNETLib
@@ -25,7 +35,7 @@ namespace GPNETLib
         }
 
         /// <summary>
-        /// Calculate standard deviation of discreate values is Rooth Mean Square error
+        /// Standard deviation of discreate values
         /// </summary>
         public static double StdDev(double[] values)
         {
@@ -41,7 +51,7 @@ namespace GPNETLib
             return Math.Sqrt(stddev / values.Length-1);
         }
         /// <summary>
-        /// Calculate standard deviation of discreate values is Rooth Mean Square error
+        ///Square of Standard deviation -Variance 
         /// </summary>
         public static double StdDev_Square(double[] values)
         {
@@ -78,11 +88,7 @@ namespace GPNETLib
         }
         /// <summary>
         /// Kurtosis is a measure of whether the TrainingData are peaked or flat relative
-        /// to a normal distribution. That is, TrainingData sets with high kurtosis tend to
-        /// have a distinct peak near the mean, decline rather rapidly, and have 
-        /// heavy tails. Data sets with low kurtosis tend to have a flat top 
-        /// near the mean rather than a sharp peak. A uniform distribution 
-        /// would be the extreme case. 
+        /// to a normal distribution. 
         /// </summary>
         public static double Kurtosis(double[] values)
         {
@@ -98,20 +104,6 @@ namespace GPNETLib
 
             return (b / values.Length - 1);
         }
-
-        /// <summary>
-        /// Calculate median value
-        /// </summary>
-       
-
-        /// <summary>
-        /// Get range around median containing specified percentage of values
-        /// </summary>
-
-
-        /// <summary>
-        /// Calculate an entropy
-        /// </summary>
         
     }
 }
