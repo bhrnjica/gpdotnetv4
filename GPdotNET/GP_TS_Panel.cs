@@ -12,15 +12,17 @@ using System.Xml.Linq;
 using System.Diagnostics;
 using GPNETLib;
 using System.Deployment.Application;
-namespace GPDOTNET
+using GPdotNET.Properties;
+namespace GPdotNET
 {
     public partial class GP_TS_Panel : Form
     {
         public string filePath;
 
         GPPopulation population;
-        GPFunctionSet functionSet;
-        GPTerminalSet terminalSet;
+        public GPFunctionSet functionSet { get; private set; }
+        public GPTerminalSet terminalSet { get; private set; }
+        public bool IsGPRunning { get; private set; }
         GPParameters parameters;
         //Varijabla za izracunavanje vremena jednog una
         DateTime vrijemeZaJedanRun;
@@ -32,29 +34,28 @@ namespace GPDOTNET
         //Model sa podacima za Graf
         LineItem modelItem;
         LineItem modelTestIten;
-        LineItem maxFitness, avgFitness, rSquare;
+        LineItem maxFitness, avgFitness;
         
         //Podaci experimenta za treniranje GP modela
-        double[][] trainingData;
+        public double[][] GPTrainingData { get; private set; }
         double[,] gpModel;
 
         //Podaci experimenta za testiranje GP modela
-        double[][] testingData;
+        public double[][] GPTestingData { get; private set; }
         double[,] gpTestModel;
 
         //POdaci o time series prediction
-
-        bool timeSeriesPrediction = false;
+        public bool TimeSeriesPrediction { get; set; }
         double[] timeSerie;
 
-        double[] gpConstants;
+        public double[] GPConstants { get; private set; }
         //karakteristke populacije
-        GPChromosome bestHromosome;
+        public GPChromosome GPBestHromosome { get; private set; }
         int velPopulacije;
         bool bParalel;
         int busloviEvolucije;
         float conditionValue;
-
+      
         bool ignoreediting = true;
         public GP_TS_Panel()
         {
@@ -71,6 +72,7 @@ namespace GPDOTNET
            evjerojatnostPermutacije.Text = (5.0 / 100.0).ToString();
            evjerojatnostReprodukcije.Text = (20.0 / 100.0).ToString();
            evjerojatnostUkrstanja.Text = (90.0 / 100.0).ToString();
+           IsGPRunning = false;
 
                       
         }
@@ -78,28 +80,28 @@ namespace GPDOTNET
         private void Form1_Load(object sender, EventArgs e)
         {
             //Podesavanje grafika            
-            this.zedEksperiment.GraphPane.Title.Text = "Eksperiment/Model";
-            this.zedEksperiment.GraphPane.XAxis.Title.Text = "Kontrol points";
-            this.zedEksperiment.GraphPane.YAxis.Title.Text = "Function value";
+            this.zedEksperiment.GraphPane.Title.Text = Resources.SR_ExperimentModel;
+            this.zedEksperiment.GraphPane.XAxis.Title.Text = Resources.SR_ControlPoint;
+            this.zedEksperiment.GraphPane.YAxis.Title.Text = Resources.SR_FunctionValue;
 
-            this.zedChart.GraphPane.Title.Text = "Solution graph";
-            this.zedChart.GraphPane.XAxis.Title.Text = "Number of points";
-            this.zedChart.GraphPane.YAxis.Title.Text = "Output";
+            this.zedChart.GraphPane.Title.Text = Resources.SR_SolutionGraph;
+            this.zedChart.GraphPane.XAxis.Title.Text = Resources.SR_NumPoints;
+            this.zedChart.GraphPane.YAxis.Title.Text = Resources.SR_Output;
 
-            this.zedGraphPopulation.GraphPane.Title.Text = "Populations";
-            this.zedGraphPopulation.GraphPane.XAxis.Title.Text = "Generation";
-            this.zedGraphPopulation.GraphPane.YAxis.Title.Text = "Fitness value";
+            this.zedGraphPopulation.GraphPane.Title.Text = Resources.SR_Populaction;
+            this.zedGraphPopulation.GraphPane.XAxis.Title.Text = Resources.SR_Generation;
+            this.zedGraphPopulation.GraphPane.YAxis.Title.Text = Resources.SR_FittValue;
 
-            maxFitness = zedGraphPopulation.GraphPane.AddCurve("Maximum Fitness", null, null, Color.Red, ZedGraph.SymbolType.None);
-            avgFitness = zedGraphPopulation.GraphPane.AddCurve("Average Fitness", null, null, Color.Blue, ZedGraph.SymbolType.None);
-            rSquare = zedGraphPopulation.GraphPane.AddCurve("R Square", null, null, Color.Gray, ZedGraph.SymbolType.None);
+            maxFitness = zedGraphPopulation.GraphPane.AddCurve(Resources.SR_MaxFit, null, null, Color.Red, ZedGraph.SymbolType.None);
+            avgFitness = zedGraphPopulation.GraphPane.AddCurve(Resources.SR_AvgFitness, null, null, Color.Blue, ZedGraph.SymbolType.None);
+            // rSquare = zedGraphPopulation.GraphPane.AddCurve(Resources.SR_RSquare, null, null, Color.Gray, ZedGraph.SymbolType.None);
             //Podešavanje grafa
             zedGraphPopulation.GraphPane.XAxis.Scale.Max = 500;
             zedGraphPopulation.GraphPane.XAxis.Scale.Min = 0;
             zedGraphPopulation.GraphPane.YAxis.Scale.Min = 0;
-            zedGraphPopulation.GraphPane.YAxis.Scale.Max = 1000;
+            zedGraphPopulation.GraphPane.YAxis.Scale.Max = 1;
             this.zedGraphPopulation.GraphPane.AxisChange(this.CreateGraphics());
-
+            
             comboBox2.SelectedIndex = 0;
 
             NapuniGridViewSaDefinisanimFunkcijama();
@@ -107,8 +109,13 @@ namespace GPDOTNET
             //selektovati one funkcije koje su selektovane u datoteci
             if (population != null)
             {
+                //TO DO: Implement Time Series TrainingData serilization
                 InitFile();
             }
+
+           if (!TimeSeriesPrediction)
+                tabControl1.TabPages.Remove(Series);
+            
         }
 
         private void InitFile()
@@ -117,6 +124,7 @@ namespace GPDOTNET
             functionSet = population.gpFunctionSet;
             terminalSet = population.gpTerminalSet;
             parameters = population.gpParameters;
+            TimeSeriesPrediction=terminalSet.IsTimeSeries;
 
             for (int i = 0; i < dataGridViewBuiltInFunction.Rows.Count; i++)
             {
@@ -155,49 +163,46 @@ namespace GPDOTNET
             evelicinaPopulacije.Text = population.population.Count.ToString();
             //Ucitavanje modela 
 
-            //    terminalSet.NumConstant
-            gpConstants = new double[terminalSet.NumConstant];
-            for (int i = 0; i < terminalSet.NumConstant; i++)
+            //    terminalSet.NumConstants
+            GPConstants = new double[terminalSet.NumConstants];
+            for (int i = 0; i < terminalSet.NumConstants; i++)
             {
-                gpConstants[i] = terminalSet.data[0][terminalSet.NumVariable + i];
+                GPConstants[i] = terminalSet.TrainingData[0][terminalSet.NumVariables + i];
             }
             PopunuGridSaKonstantama();
 
-            //Testing data
+            //Testing TrainingData
 
-            trainingData = new double[terminalSet.NumVariable + 1][];
-            for (int i = 0; i < terminalSet.NumVariable + 1; i++)
+            GPTrainingData = new double[terminalSet.NumVariables + 1][];
+            for (int i = 0; i < terminalSet.NumVariables + 1; i++)
             {
-                trainingData[i] = new double[terminalSet.RowCount];
+                GPTrainingData[i] = new double[terminalSet.RowCount];
 
                 for (int j = 0; j < terminalSet.RowCount; j++)
                 {
-                    if (i == terminalSet.NumVariable)
-                        trainingData[i][j] = terminalSet.data[j][terminalSet.data[0].Length - 1];
+                    if (i == terminalSet.NumVariables)
+                        GPTrainingData[i][j] = terminalSet.TrainingData[j][terminalSet.TrainingData[0].Length - 1];
                     else
-                        trainingData[i][j] = terminalSet.data[j][i];
+                        GPTrainingData[i][j] = terminalSet.TrainingData[j][i];
                 }
 
             }
             //Na osnovu experimenta definisemo kakav ce modle biti
-            gpModel = new double[trainingData[0].Length, 2];
+            gpModel = new double[GPTrainingData[0].Length, 2];
             // update list and chart
             UpdateDataGridView();
-            UpdateChart(trainingData);
+            UpdateChart(GPTrainingData);
 
             //testni podaci
-            if (population.gpTerminalSet.testingData != null)
+            if (population.gpTerminalSet.TestingData != null)
             {
-                testingData = population.gpTerminalSet.testingData;
+                GPTestingData = population.gpTerminalSet.TestingData;
                 NapuniGridTestnimPodacima();
             }
-            bestHromosome = population.bestChromosome;
+            GPBestHromosome = population.bestChromosome;
             // set current iteration's info
-            currentErrorBox.Text = bestHromosome.Fitness.ToString("F6");
-            if (bestHromosome.RSquare >= 0)
-                rsquareEditbix.Text = bestHromosome.RSquare.ToString("F6");
-            else
-                rsquareEditbix.Text = 0.ToString("F6");
+            currentErrorBox.Text = GPBestHromosome.Fitness.ToString("F6");
+            
 
             IzracunajModel();
             this.zedChart.Invalidate();
@@ -220,10 +225,10 @@ namespace GPDOTNET
                     MessageBox.Show("Could not read file. Error message: " + ex.Message);
                 }
             }
-            //Open XML file with function definition
+            // Loading from a file, you can also load from a stream
             doc = XDocument.Load(strPath);
             DataGridViewCheckBoxColumn col = new DataGridViewCheckBoxColumn();
-            col.HeaderText = "Chcek";
+            col.HeaderText = Resources.SR_Check;
 
             col.ReadOnly = false;
             // 
@@ -231,8 +236,10 @@ namespace GPDOTNET
                     select new GPFunction
                     {
                         Selected = bool.Parse(c.Element("Selected").Value),
+                        Weight = int.Parse(c.Element("Weight").Value),
                         Name = c.Element("Name").Value,
                         Definition = c.Element("Definition").Value,
+                        ExcelDefinition = c.Element("ExcelDefinition").Value,
                         Aritry = ushort.Parse(c.Element("Aritry").Value),
                         Description = c.Element("Description").Value,
                         IsReadOnly = bool.Parse(c.Element("ReadOnly").Value),
@@ -244,14 +251,38 @@ namespace GPDOTNET
                 if (functionSetsList.Count > 0)
                     functionSetsList.Clear();
             }
-            functionSetsList = q.ToList();
-            dataGridViewBuiltInFunction.DataSource = functionSetsList;           
+            try
+            {
+                functionSetsList = q.ToList();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, Properties.Resources.SR_ApplicationName);
+            }
+
+            dataGridViewBuiltInFunction.DataSource = functionSetsList;
+
+            dataGridViewBuiltInFunction.Columns[0].ReadOnly = false;
             dataGridViewBuiltInFunction.Columns[1].ReadOnly = true;
             dataGridViewBuiltInFunction.Columns[2].ReadOnly = true;
             dataGridViewBuiltInFunction.Columns[3].ReadOnly = true;
             dataGridViewBuiltInFunction.Columns[4].ReadOnly = true;
-            dataGridViewBuiltInFunction.Columns[5].Visible = false;
-            dataGridViewBuiltInFunction.Columns[6].Visible = false;
+            dataGridViewBuiltInFunction.Columns[5].ReadOnly = true;
+            dataGridViewBuiltInFunction.Columns[6].ReadOnly = true;
+            dataGridViewBuiltInFunction.Columns[7].ReadOnly = true;
+            dataGridViewBuiltInFunction.Columns[8].ReadOnly = false;
+
+            dataGridViewBuiltInFunction.Columns[0].HeaderText = Resources.SR_Selected;
+            dataGridViewBuiltInFunction.Columns[1].HeaderText = Resources.SR_Aritry;
+            dataGridViewBuiltInFunction.Columns[2].HeaderText = Resources.SR_Name;
+            dataGridViewBuiltInFunction.Columns[3].HeaderText = Resources.SR_Description;
+            dataGridViewBuiltInFunction.Columns[4].HeaderText = Resources.SR_Definition;
+            dataGridViewBuiltInFunction.Columns[5].HeaderText = Resources.SR_ExcelDefinition;
+            dataGridViewBuiltInFunction.Columns[6].HeaderText = Resources.SR_ReadOnly;
+            dataGridViewBuiltInFunction.Columns[7].HeaderText = Resources.SR_IsDistribution;
+            dataGridViewBuiltInFunction.Columns[8].HeaderText = Resources.SR_Weight;
+
             dataGridViewBuiltInFunction.AutoResizeColumns();
         }
         private bool PodesiParametreGP()
@@ -265,7 +296,7 @@ namespace GPDOTNET
             int pocetnaDubina = 0;
             if (!int.TryParse(epocetnaDubinaDrveta.Text, out pocetnaDubina))
             {
-                MessageBox.Show("Initial depth is not valid!");
+                MessageBox.Show(Resources.SR_InitialDepthInvalid, Properties.Resources.SR_ApplicationName);
                 return false;
             }
             parameters.maxInitLevel = pocetnaDubina;
@@ -273,7 +304,7 @@ namespace GPDOTNET
             int ukrstanjeDubina = 0;
             if (!int.TryParse(edubinaUkrstanja.Text, out ukrstanjeDubina))
             {
-                MessageBox.Show("Corssover depth is not valid!");
+                MessageBox.Show(Resources.SR_CrossOverdepthInvalid, Properties.Resources.SR_ApplicationName);
                 return false;
             }
             parameters.maxCossoverLevel = ukrstanjeDubina;
@@ -281,7 +312,7 @@ namespace GPDOTNET
             int mutacijaDubina = 0;
             if (!int.TryParse(edubinaMutacije.Text, out mutacijaDubina))
             {
-                MessageBox.Show("Mutation depth is not valid!");
+                MessageBox.Show(Resources.SR_MutationDepthInvalid, Properties.Resources.SR_ApplicationName);
                 return false;
             }
             parameters.maxMutationLevel = mutacijaDubina;
@@ -290,7 +321,7 @@ namespace GPDOTNET
             float vjerUkrstanje = 0;
             if (!float.TryParse(evjerojatnostUkrstanja.Text, out vjerUkrstanje))
             {
-                MessageBox.Show("Probability of crossover is not valid!");
+                MessageBox.Show(Resources.SR_probCrossOverInvalid, Properties.Resources.SR_ApplicationName);
                 return false;
             }
             parameters.probCrossover = vjerUkrstanje;
@@ -298,7 +329,7 @@ namespace GPDOTNET
             float vjerMutacija = 0;
             if (!float.TryParse(evjerojatnostMutacije.Text, out vjerMutacija))
             {
-                MessageBox.Show("Probability of mutation is not valid!");
+                MessageBox.Show(Resources.SR_ProbMutationInvalid, Properties.Resources.SR_ApplicationName);
                 return false;
             }
             parameters.probMutation = vjerMutacija;
@@ -306,7 +337,7 @@ namespace GPDOTNET
             float vjerSelekcija = 0;
             if (!float.TryParse(evjerojatnostReprodukcije.Text, out vjerSelekcija))
             {
-                MessageBox.Show("Probability of selection is not valid!");
+                MessageBox.Show(Resources.SR_ProbSelectionInvalid, Properties.Resources.SR_ApplicationName);
                 return false;
             }
             parameters.probReproduction = vjerSelekcija;
@@ -314,7 +345,7 @@ namespace GPDOTNET
             float vjerPermutacija = 0;
             if (!float.TryParse(evjerojatnostPermutacije.Text, out vjerPermutacija))
             {
-                MessageBox.Show("Probability of selection is not valid!");
+                MessageBox.Show(Resources.SR_ProbPermutationInvalid, Properties.Resources.SR_ApplicationName);
                 return false;
             }
             parameters.probPermutation = vjerPermutacija;
@@ -344,7 +375,20 @@ namespace GPDOTNET
             }
 
             //Nastale promjene zapisuju se u XML file
-            doc.Save(@"FunctionSet.xml");
+            string strPath = "FunctionSet.xml";
+            // When app is deployed with ClickOnce we have diferent path of file FunctionSet.xml
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                try
+                {
+                    strPath = ApplicationDeployment.CurrentDeployment.DataDirectory + @"\FunctionSet.xml";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Resources.SR_Cannot_Read + ex.Message);
+                }
+            }
+            doc.Save(strPath);
         }
 
         private void GeneriranjeFunkcija()
@@ -369,8 +413,8 @@ namespace GPDOTNET
         }
         void TerminaliIzExperimenta()
         {
-            int numVariable = terminalSet.NumVariable;
-            int numConst = terminalSet.NumConstant;
+            int numVariable = terminalSet.NumVariables;
+            int numConst = terminalSet.NumConstants;
             if (functionSet.terminals == null)
                 functionSet.terminals = new List<GPTerminal>();
             else
@@ -400,57 +444,60 @@ namespace GPDOTNET
         //Generiranje teminala iz experimantalnih podataka i slucajnih konstanti
         bool Generateterminals()
         {
-            if (trainingData == null)
+            if (GPTrainingData == null)
             {
-                MessageBox.Show("Load training data first!");
+                MessageBox.Show(Resources.SR_TrainingDataFirst, Properties.Resources.SR_ApplicationName);
                 return false;
             }
             if(terminalSet==null)
                 terminalSet= new GPTerminalSet();
 
+            
+            terminalSet.IsTimeSeries = TimeSeriesPrediction;
+            
             int intOD = 0;
             if (!int.TryParse(intervalOdTextBox.Text, out intOD))
             {
-                MessageBox.Show("Incorect number of constants interval!It must be an integer!");
+                MessageBox.Show(Resources.SR_ConstantIncorectNumber, Properties.Resources.SR_ApplicationName);
                 return false;
             }
             int intDO = 0;
             if (!int.TryParse(intervalDoTextBox.Text, out intDO))
             {
-                MessageBox.Show("Incorect number of constants interval!It must be an integer!");
+                MessageBox.Show(Resources.SR_ConstantIncorectNumber, Properties.Resources.SR_ApplicationName);
                 return false;
             }
-            int numConst = 0;
-            if (!int.TryParse(brojKonstantiTextBox.Text, out numConst))
+            short numConst = 0;
+            if (!short.TryParse(brojKonstantiTextBox.Text, out numConst))
             {
-                MessageBox.Show("Incorect number of constants!It must be an integer!");
+                MessageBox.Show(Resources.SR_ConstantIncorectNumber, Properties.Resources.SR_ApplicationName);
                 return false;
             }
-            if (gpConstants == null)
+            if (GPConstants == null)
                 GenerateConstants(intOD, intDO, numConst);
 
             //Kada znamo broj konstanti i podatke o experimenti sada mozemo popuniti podatke
-            terminalSet.NumConstant = numConst;
-            terminalSet.NumVariable=trainingData.Length-1;
-            terminalSet.RowCount=trainingData[0].Length;
+            terminalSet.NumConstants = numConst;
+            terminalSet.NumVariables=(short)(GPTrainingData.Length-1);
+            terminalSet.RowCount = (short)GPTrainingData[0].Length;
             
-            terminalSet.data = new double[terminalSet.RowCount][];
-            int numOfVariables = terminalSet.NumVariable+terminalSet.NumConstant+1/*Output Value of experiment*/;
+            terminalSet.TrainingData = new double[terminalSet.RowCount][];
+            int numOfVariables = terminalSet.NumVariables+terminalSet.NumConstants+1/*Output Value of experiment*/;
             for (int i = 0; i < terminalSet.RowCount; i++)
             {
-                terminalSet.data[i] = new double[numOfVariables];
+                terminalSet.TrainingData[i] = new double[numOfVariables];
                 for (int j = 0; j < numOfVariables; j++)
                 {
-                    if (j < terminalSet.NumVariable)//Nezavisne varijable
-                        terminalSet.data[i][j] = trainingData[j][i];
-                    else if (j >= terminalSet.NumVariable && j < numOfVariables-1)//Konstante
-                        terminalSet.data[i][j] = gpConstants[j - terminalSet.NumVariable];
+                    if (j < terminalSet.NumVariables)//Nezavisne varijable
+                        terminalSet.TrainingData[i][j] = GPTrainingData[j][i];
+                    else if (j >= terminalSet.NumVariables && j < numOfVariables-1)//Konstante
+                        terminalSet.TrainingData[i][j] = GPConstants[j - terminalSet.NumVariables];
                     else
-                        terminalSet.data[i][j] = trainingData[j - terminalSet.NumConstant][i];//Izlazna varijabla iz eperimenta
+                        terminalSet.TrainingData[i][j] = GPTrainingData[j - terminalSet.NumConstants][i];//Izlazna varijabla iz eperimenta
                 }
             }
             //Ako smo ucitali podatke za testiranje Predikciju ovjde je ucitavam
-            terminalSet.Izracunaj();
+            terminalSet.CalculateStat();
             // Sada na osnovu experimenta formiramo terminale
             TerminaliIzExperimenta();
             return true;
@@ -461,7 +508,7 @@ namespace GPDOTNET
         {
             if (population != null)
             {
-                DialogResult retVal = MessageBox.Show("Changing random constants, current population will be discarded.\n Do you want to continue?", "GPdotNET", MessageBoxButtons.YesNo);
+                DialogResult retVal = MessageBox.Show(Resources.SR_ConstantModified, Resources.SR_ApplicationName, MessageBoxButtons.YesNo);
 
                 if (DialogResult.No == retVal)
                 {
@@ -471,40 +518,39 @@ namespace GPDOTNET
                 {
                     population = null;
                     currentErrorBox.Text = "0";
-                    rsquareEditbix.Text = "0";
 
                 }
             }
             int intOD = 0;
             if (!int.TryParse(intervalOdTextBox.Text, out intOD))
             {
-                MessageBox.Show("Incorect number of constants interval!It must be an integer!");
+                MessageBox.Show(Resources.SR_ConstantIncorectNumber, Resources.SR_ApplicationName);
                 return ;
             }
             int intDO = 0;
             if (!int.TryParse(intervalDoTextBox.Text, out intDO))
             {
-                MessageBox.Show("Incorect number of constants interval!It must be an integer!");
+                MessageBox.Show(Resources.SR_ConstantIncorectNumber, Resources.SR_ApplicationName);
                 return ;
             }
             int numConst = 0;
             if (!int.TryParse(brojKonstantiTextBox.Text, out numConst))
             {
-                MessageBox.Show("Incorect number of constants!It must be an integer!");
+                MessageBox.Show(Resources.SR_ConstantIncorectNumber, Resources.SR_ApplicationName);
                 return ;
             }
             GenerateConstants(intOD, intDO, numConst);
-            MessageBox.Show("Compleated!");
+            MessageBox.Show(Resources.SR_Compleated, Resources.SR_ApplicationName);
         }
         //Generiranje konstanti iz podrucja vrijednosti
         public void GenerateConstants(int from, int to, int number)
         {
-            gpConstants = new double[number];
+            GPConstants = new double[number];
 
             for (int i = 0; i < number; i++)
             {
                 decimal val =(decimal) (GPPopulation.rand.Next(from, to) + GPPopulation.rand.NextDouble());
-                gpConstants[i] = (double)decimal.Round(val, 5);
+                GPConstants[i] = (double)decimal.Round(val, 5);
             }
 
             PopunuGridSaKonstantama();
@@ -515,16 +561,16 @@ namespace GPDOTNET
         {
             dataGridViewRandomConstants.Columns.Clear();
             dataGridViewRandomConstants.Rows.Clear();
-            dataGridViewRandomConstants.Columns.Add("colRB", "RB");
-            dataGridViewRandomConstants.Columns.Add("colConst", "Constant");
+            dataGridViewRandomConstants.Columns.Add("colRB", Resources.SR_SampleNumber);
+            dataGridViewRandomConstants.Columns.Add("colConst", Resources.SR_Constant);
             dataGridViewRandomConstants.Columns[0].Width = 30;
             dataGridViewRandomConstants.Columns[1].Width = 70;
 
-            for (int i = 0; i < gpConstants.Length; i++)
+            for (int i = 0; i < GPConstants.Length; i++)
             {
                 int r = dataGridViewRandomConstants.Rows.Add();
                 dataGridViewRandomConstants.Rows[r].Cells[0].Value = "R" + (i + 1).ToString();
-                dataGridViewRandomConstants.Rows[r].Cells[1].Value = gpConstants[i];
+                dataGridViewRandomConstants.Rows[r].Cells[1].Value = GPConstants[i];
             }
         }
 
@@ -550,15 +596,15 @@ namespace GPDOTNET
             {
                 zedChart.GraphPane.CurveList.Clear();
                 zedEksperiment.GraphPane.CurveList.Clear();
-                if (terminalSet.data != null)
-                    terminalSet.data = null;
+                if (terminalSet.TrainingData != null)
+                    terminalSet.TrainingData = null;
                 StreamReader reader = null;
 
                 try
                 {
                     // open selected file
                     reader = System.IO.File.OpenText(openFileDialog1.FileName);
-                    //read data in to buffer
+                    //read TrainingData in to buffer
                     string buffer = reader.ReadToEnd();
                     //Remove delimating chars
                     char[] sep = { '\r', '\n' };
@@ -566,27 +612,27 @@ namespace GPDOTNET
                     string[] vrste = buffer.Split(sep, StringSplitOptions.RemoveEmptyEntries);
                     //Define the columns
                     string[] kolone = vrste[0].Split(';');
-                    //Define inner data
-                    trainingData = new double[kolone.Length][];
+                    //Define inner TrainingData
+                    GPTrainingData = new double[kolone.Length][];
                     
 
                     for (int j = 0; j < kolone.Length; j++)
                     {
-                        trainingData[j] = new double[vrste.Length];
+                        GPTrainingData[j] = new double[vrste.Length];
 
                         for (int k = 0; k < vrste.Length; k++)
                         {
                             kolone = vrste[k].Split(';');
-                            trainingData[j][k] = double.Parse(kolone[j]);
+                            GPTrainingData[j][k] = double.Parse(kolone[j]);
                         }
                     }
 
                     //Na osnovu experimenta definisemo kakav ce modle biti
-                    gpModel = new double[trainingData[0].Length, 2];
+                    gpModel = new double[GPTrainingData[0].Length, 2];
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Error reding file!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, Resources.SR_ApplicationName);
                     return;
                 }
                 finally
@@ -598,11 +644,11 @@ namespace GPDOTNET
 
                 // update list and chart
                 UpdateDataGridView();
-                UpdateChart(trainingData);
+                UpdateChart(GPTrainingData);
 
                 // enable "Start" button
                 startButton.Enabled = true;
-                timeSeriesPrediction = false;
+                TimeSeriesPrediction = false;
             }
         }
         private void UpdateChart(double[][] dd)
@@ -613,28 +659,28 @@ namespace GPDOTNET
             for (int k = 0; k < dd[0].Length; k++)
                 x[k] = k + 1;
 
-            zedChart.GraphPane.AddCurve("Training Set", x, dd[dd.Length - 1], Color.Red, ZedGraph.SymbolType.Triangle);
-            modelItem = zedChart.GraphPane.AddCurve("Model Set", null, null, Color.Blue, ZedGraph.SymbolType.Diamond);
+            zedChart.GraphPane.AddCurve(Resources.SR_TrainingSet, x, dd[dd.Length - 1], Color.Red, ZedGraph.SymbolType.Triangle);
+            modelItem = zedChart.GraphPane.AddCurve(Resources.SR_ModelSet, null, null, Color.Blue, ZedGraph.SymbolType.Triangle);
             zedChart.GraphPane.XAxis.Scale.Max = dd[0].Length+1;
             this.zedChart.GraphPane.AxisChange(this.CreateGraphics());
 
-            zedEksperiment.GraphPane.AddCurve("Training set data", x, dd[dd.Length - 1], Color.Red, ZedGraph.SymbolType.Triangle);
+            zedEksperiment.GraphPane.AddCurve(Resources.SR_TrainingSet, x, dd[dd.Length - 1], Color.Red, ZedGraph.SymbolType.Triangle);
             zedEksperiment.GraphPane.XAxis.Scale.Max = dd[0].Length+1;
             this.zedEksperiment.GraphPane.AxisChange(this.CreateGraphics());
             this.zedEksperiment.Invalidate();
         }
-        //Osvjezavanje gridKontrole sa podacima u varijabli trainingData
+        //Osvjezavanje gridKontrole sa podacima u varijabli GPTrainingData
         private void UpdateDataGridView()
         {
             dataGridViewPodaci.Columns.Clear();
             dataGridViewPodaci.Rows.Clear();
 
-            dataGridViewPodaci.Columns.Add("colRB", "RB");
+            dataGridViewPodaci.Columns.Add("colRB", Resources.SR_SampleNumber);
             string str;
 
-            for (int i = 0; i < trainingData.Length; i++)
+            for (int i = 0; i < GPTrainingData.Length; i++)
             {
-                if (trainingData.Length == i + 1)
+                if (GPTrainingData.Length == i + 1)
                     str = "Y";
                 else
                     str = "X" + i.ToString();
@@ -643,13 +689,13 @@ namespace GPDOTNET
             }
 
 
-            for (int i = 0; i < trainingData[0].Length; i++)
+            for (int i = 0; i < GPTrainingData[0].Length; i++)
             {
                 int r = dataGridViewPodaci.Rows.Add();
                 dataGridViewPodaci.Rows[r].Cells[0].Value = i + 1;
 
-                for (int j = 0; j < trainingData.Length; j++)
-                    dataGridViewPodaci.Rows[r].Cells[j + 1].Value = trainingData[j][i];
+                for (int j = 0; j < GPTrainingData.Length; j++)
+                    dataGridViewPodaci.Rows[r].Cells[j + 1].Value = GPTrainingData[j][i];
 
             }
         }
@@ -677,7 +723,7 @@ namespace GPDOTNET
             //Velicina populacije
             if (!int.TryParse(evelicinaPopulacije.Text, out velPopulacije))
             {
-                MessageBox.Show("Population size is not valid.");
+                MessageBox.Show(Resources.SR_PopulationSizeInvalid, Resources.SR_ApplicationName);
                 return;
             }
             
@@ -691,7 +737,7 @@ namespace GPDOTNET
             //Uslov za evoluciju
             if (!float.TryParse(brojIteracija.Text, out conditionValue))
             {
-                MessageBox.Show("Condition of evolution is not valid. Please enter the float number!");
+                MessageBox.Show(Resources.SR_ConditionInvalid);
                 return;
             }
 
@@ -705,7 +751,6 @@ namespace GPDOTNET
             //Podešavanje grafa
             maxFitness.Clear();
             avgFitness.Clear();
-            rSquare.Clear();
 
             //Podesavanje vreman startanja
             vrijemeZaJedanRun = DateTime.Now;
@@ -721,6 +766,8 @@ namespace GPDOTNET
         //DOWOrk
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
+            IsGPRunning = true;
+
             //Argument koji smo proslijedili iz osnovne niti a tice se iteracija algoritma
             Nullable<float> brIteracija = e.Argument as Nullable<float>;
 
@@ -748,19 +795,13 @@ namespace GPDOTNET
                 //Kada smo izvrsili korekturu broja populacije
                 population.popSize= population.population.Count();
             }
-            if (testingData != null)
-                population.gpTerminalSet.testingData = testingData;
+            if (GPTestingData != null)
+                population.gpTerminalSet.TestingData = GPTestingData;
                 
-            //Uslov za kriterij
-            if (busloviEvolucije == 2)
-                population.fitnessCriteria = false;
-            else
-                population.fitnessCriteria = true;
-
             //Nakon pocetne populacije ide startanje evolucije i 
             int tekucaEvolucija=1;
 
-            bestHromosome= population.bestChromosome;
+            GPBestHromosome= population.bestChromosome;
 
             //Raportiraj o progresu
             backgroundWorker1.ReportProgress(tekucaEvolucija, population.bestChromosome);
@@ -773,7 +814,6 @@ namespace GPDOTNET
                     //Dodavanje tacaka za dijagram
                     maxFitness.AddPoint(tekucaEvolucija, population.fitnessMax);
                     avgFitness.AddPoint(tekucaEvolucija, population.fitnessAvg);
-                    rSquare.AddPoint(tekucaEvolucija, population.bestChromosome.RSquare*1000.0);
 
                     //Raportiraj o progresu
                     backgroundWorker1.ReportProgress(tekucaEvolucija, population.bestChromosome);
@@ -805,11 +845,7 @@ namespace GPDOTNET
             }
             else if (busloviEvolucije == 1)
             {
-                return bestHromosome.Fitness <= conditionValue;
-            }
-            else if (busloviEvolucije == 2)
-            {
-                return bestHromosome.RSquare < conditionValue;
+                return GPBestHromosome.Fitness <= conditionValue;
             }
             else
                 return tekucaEvolucija <= (int)conditionValue;
@@ -854,29 +890,30 @@ namespace GPDOTNET
                 }
                 else
                 {
-                    eTimeleft.Text = "Undefined";
-                    eTimeToCompleate.Text = "Undefined";
+                    eTimeleft.Text = Resources.SR_Undefined;
+                    eTimeToCompleate.Text = Resources.SR_Undefined;
                 }
                 
                 GPChromosome chrom = (GPChromosome)e.UserState;
-
-                zedGraphPopulation.Invalidate();
 
                 // set current iteration's info
                 currentIterationBox.Text = e.ProgressPercentage.ToString();
                 if (currentErrorBox.Text != chrom.Fitness.ToString("F6"))
                 {
+                    zedGraphPopulation.GraphPane.YAxis.Scale.Max = chrom.Fitness + 0.5 * chrom.Fitness;
+                    if (zedGraphPopulation.GraphPane.XAxis.Scale.Max < e.ProgressPercentage)
+                        zedGraphPopulation.GraphPane.XAxis.Scale.Max = e.ProgressPercentage + 5;
+                    this.zedGraphPopulation.GraphPane.AxisChange(this.CreateGraphics());
+                    
                     currentErrorBox.Text = chrom.Fitness.ToString("F6");
-                    if (chrom.RSquare >= 0)
-                        rsquareEditbix.Text = chrom.RSquare.ToString("F6");
-                    else
-                        rsquareEditbix.Text = 0.ToString("F6");
-
                     bestFitnessAtGenerationEditBox.Text = e.ProgressPercentage.ToString();
-                    bestHromosome = chrom;
+                    GPBestHromosome = chrom;
                     IzracunajModel();
                     this.zedChart.Invalidate();
                 }
+                
+                zedGraphPopulation.Invalidate();
+
                 //Kada uslov za evaluaciju nije brojiteracija onda se mora povecavati 
                 // maximalna vrijednost progres bara
                 if(progressBar1.Maximum >= e.ProgressPercentage)
@@ -895,6 +932,7 @@ namespace GPDOTNET
         {
             try
             {
+                IsGPRunning = false;
                 eDuration.Text = ((float)(vrijemeZaJedanRun - pocetakEvolucije).TotalMinutes).ToString("F1"); 
                 progressBar1.Value = progressBar1.Maximum;
                 ZamrzniUSlobodnoVrijeme();
@@ -908,9 +946,9 @@ namespace GPDOTNET
         private void IzracunajModel()
         {
              //Translate chromosome to list expressions
-            int indexOutput = terminalSet.NumConstant + terminalSet.NumVariable-1;
+            int indexOutput = terminalSet.NumConstants + terminalSet.NumVariables-1;
             List<int> lst = new List<int>();
-            FunctionTree.ToListExpression(lst, bestHromosome.Root);
+            FunctionTree.ToListExpression(lst, GPBestHromosome.Root);
             double y=0;
             modelItem.Clear();
             for (int i = 0; i < terminalSet.RowCount; i++)
@@ -927,7 +965,7 @@ namespace GPDOTNET
                 //Napravi graf od novog rjesenja
                 modelItem.AddPoint(gpModel[i, 0], gpModel[i, 1]);
             }
-            if (!timeSeriesPrediction)
+            if (!TimeSeriesPrediction)
                 IzracunajPredikcijskiModel(lst);
             else
                 IzracunajPredikcijskiModelSerie(lst);
@@ -938,29 +976,29 @@ namespace GPDOTNET
         {
             double y;
             //Ako testni podaci nisu ucitani onda nista
-            if (testingData == null)
+            if (GPTestingData == null)
                 return;
             //Izracunavanje Testnih podataka na osnovu modela
             GPTerminalSet testingSet = new GPTerminalSet();
-            testingSet.NumConstant = terminalSet.NumConstant;
-            testingSet.NumVariable = testingData.Length - 1;
-            testingSet.RowCount = testingData[0].Length;
-            int numOfVariables = testingSet.NumVariable + testingSet.NumConstant + 1/*Output Value of experiment*/;
-            testingSet.data = new double[testingSet.RowCount][];
+            testingSet.NumConstants = terminalSet.NumConstants;
+            testingSet.NumVariables = (short)(GPTestingData.Length - 1);
+            testingSet.RowCount = (short)GPTestingData[0].Length;
+            int numOfVariables = testingSet.NumVariables + testingSet.NumConstants + 1/*Output Value of experiment*/;
+            testingSet.TrainingData = new double[testingSet.RowCount][];
             for (int i = 0; i < testingSet.RowCount; i++)
             {
-                testingSet.data[i] = new double[numOfVariables];
+                testingSet.TrainingData[i] = new double[numOfVariables];
                 for (int j = 0; j < numOfVariables; j++)
                 {
-                    if (j < testingSet.NumVariable)//Nezavisne varijable
-                        testingSet.data[i][j] = testingData[j][i];
-                    else if (j >= terminalSet.NumVariable && j < numOfVariables - 1)//Konstante
-                        testingSet.data[i][j] = terminalSet.data[0][j];
+                    if (j < testingSet.NumVariables)//Nezavisne varijable
+                        testingSet.TrainingData[i][j] = GPTestingData[j][i];
+                    else if (j >= terminalSet.NumVariables && j < numOfVariables - 1)//Konstante
+                        testingSet.TrainingData[i][j] = terminalSet.TrainingData[0][j];
                     else
-                        testingSet.data[i][j] = testingData[j - terminalSet.NumConstant][i];//Izlazna varijabla iz eperimenta
+                        testingSet.TrainingData[i][j] = GPTestingData[j - terminalSet.NumConstants][i];//Izlazna varijabla iz eperimenta
                 }
             }
-            testingSet.Izracunaj();
+            testingSet.CalculateStat();
 
             y = 0;
             modelTestIten.Clear();
@@ -984,30 +1022,30 @@ namespace GPDOTNET
         {
             double y;
             //Ako testni podaci nisu ucitani onda nista
-            if (testingData == null)
+            if (GPTestingData == null)
                 return;
             //Izracunavanje Testnih podataka na osnovu modela
             GPTerminalSet testingSet = new GPTerminalSet();
-            testingSet.NumConstant = terminalSet.NumConstant;
-            testingSet.NumVariable = testingData.Length - 1;
-            testingSet.RowCount = testingData[0].Length;
-            int numOfTerminals = testingSet.NumVariable + testingSet.NumConstant + 1/*Output Value of experiment*/;
-            testingSet.data = new double[testingSet.RowCount][];
+            testingSet.NumConstants = terminalSet.NumConstants;
+            testingSet.NumVariables = GPTestingData.Length - 1;
+            testingSet.RowCount = GPTestingData[0].Length;
+            int numOfTerminals = testingSet.NumVariables + testingSet.NumConstants + 1/*Output Value of experiment*/;
+            testingSet.TrainingData = new double[testingSet.RowCount][];
             
             for (int i = 0; i < testingSet.RowCount; i++)
             {
-                testingSet.data[i] = new double[numOfTerminals];
+                testingSet.TrainingData[i] = new double[numOfTerminals];
                 for (int j = 0; j < numOfTerminals; j++)
                 {
-                    if (j < testingSet.NumVariable)//Nezavisne varijable
-                        testingSet.data[i][j] = testingData[j][i];
-                    else if (j >= terminalSet.NumVariable && j < numOfTerminals - 1)//Konstante
-                        testingSet.data[i][j] = terminalSet.data[0][j];
+                    if (j < testingSet.NumVariables)//Nezavisne varijable
+                        testingSet.TrainingData[i][j] = GPTestingData[j][i];
+                    else if (j >= terminalSet.NumVariables && j < numOfTerminals - 1)//Konstante
+                        testingSet.TrainingData[i][j] = terminalSet.TrainingData[0][j];
                     else
-                        testingSet.data[i][j] = testingData[j - terminalSet.NumConstant][i];//Izlazna varijabla iz eperimenta
+                        testingSet.TrainingData[i][j] = GPTestingData[j - terminalSet.NumConstants][i];//Izlazna varijabla iz eperimenta
                 }
             }
-            testingSet.Izracunaj();
+            testingSet.CalculateStat();
 
             y = 0;
             modelTestIten.Clear();
@@ -1019,16 +1057,16 @@ namespace GPDOTNET
                 // check for correct numeric value
                 if (double.IsNaN(y) || double.IsInfinity(y))
                     y = 0;
-                int k = testingSet.NumVariable;
+                int k = testingSet.NumVariables;
                 int j=0;
                 //Kod time series potrebno je podesiti ulazne varijable u odnosu na neto izracunate vrijednosti
                 for (j = i; j < testingSet.RowCount && k>=0; j++)
                 {
                     
-                    if(k==testingSet.NumVariable)
-                        testingSet.data[j][testingSet.NumVariable +testingSet.NumConstant] = y;
+                    if(k==testingSet.NumVariables)
+                        testingSet.TrainingData[j][testingSet.NumVariables +testingSet.NumConstants] = y;
                     else
-                        testingSet.data[j][k] = y;
+                        testingSet.TrainingData[j][k] = y;
                     k--;
                 }
                 gpTestModel[i, 0] = i + 1;
@@ -1046,7 +1084,7 @@ namespace GPDOTNET
                 dataGridViewRezultat.Rows.Clear();
                 dataGridViewRezultat.Columns.Add("colRB", "RB");
                 string str;
-                for (int i = 1; i < trainingData.Length; i++)
+                for (int i = 1; i < GPTrainingData.Length; i++)
                 {
                     str = "X" + i.ToString();
                     dataGridViewRezultat.Columns.Add(str, str);
@@ -1055,18 +1093,18 @@ namespace GPDOTNET
                 dataGridViewRezultat.Columns.Add("colYa", "Ya");
                 dataGridViewRezultat.Columns.Add("colD", "R");
 
-                for (int i = 0; i < trainingData[0].Length; i++)
+                for (int i = 0; i < GPTrainingData[0].Length; i++)
                 {
                     int r = dataGridViewRezultat.Rows.Add();
                     dataGridViewRezultat.Rows[r].Cells[0].Value = i + 1;
-                    for (int j = 0; j < trainingData.Length; j++)
+                    for (int j = 0; j < GPTrainingData.Length; j++)
                     {
-                        dataGridViewRezultat.Rows[r].Cells[j+1].Value = trainingData[j][i];
+                        dataGridViewRezultat.Rows[r].Cells[j+1].Value = GPTrainingData[j][i];
 
                     }
-                    dataGridViewRezultat.Rows[r].Cells[trainingData.Length + 1].Value = gpModel[i,1];
+                    dataGridViewRezultat.Rows[r].Cells[GPTrainingData.Length + 1].Value = gpModel[i,1];
 
-                    dataGridViewRezultat.Rows[r].Cells[trainingData.Length + 2].Value = trainingData[trainingData.Length - 1][i] - gpModel[i,1];
+                    dataGridViewRezultat.Rows[r].Cells[GPTrainingData.Length + 2].Value = GPTrainingData[GPTrainingData.Length - 1][i] - gpModel[i,1];
                 }
 
                 PrikaziIOptimizirajGPModel();
@@ -1074,29 +1112,29 @@ namespace GPDOTNET
             }
             catch
             {
-                MessageBox.Show("Greška u formiranju modela experimentalnih podataka");
+                MessageBox.Show(Resources.SR_ModelCreationError, Resources.SR_ApplicationName);
             }
         }
         private void PrikaziModelTesta()
         {
             //Ako testni podaci nisu ucitani onda nista
-            if (testingData == null)
+            if (GPTestingData == null)
                 return;
             try
             {
                 //Dodavanje dodatnih kolona na testne podatke
-                if (dataGridViewTestData.Columns.Count != terminalSet.NumVariable + 4)
+                if (dataGridViewTestData.Columns.Count != terminalSet.NumVariables + 4)
                 {
                     dataGridViewTestData.Columns.Add("colYa", "Ya");
                     dataGridViewTestData.Columns.Add("colD", "R");
                 }
 
-                for (int i = 0; i < testingData[0].Length; i++)
+                for (int i = 0; i < GPTestingData[0].Length; i++)
                 {
 
-                    dataGridViewTestData.Rows[i].Cells[testingData.Length + 1].Value = gpTestModel[i, 1];
+                    dataGridViewTestData.Rows[i].Cells[GPTestingData.Length + 1].Value = gpTestModel[i, 1];
 
-                    dataGridViewTestData.Rows[i].Cells[testingData.Length + 2].Value = testingData[testingData.Length - 1][i] - gpTestModel[i, 1];
+                    dataGridViewTestData.Rows[i].Cells[GPTestingData.Length + 2].Value = GPTestingData[GPTestingData.Length - 1][i] - gpTestModel[i, 1];
                 }
 
                 dataGridViewTestData.Refresh();
@@ -1111,21 +1149,21 @@ namespace GPDOTNET
         private void PrikaziIOptimizirajGPModel()
         {
             List<int> lst = new List<int>();
-            FunctionTree.ToListExpression(lst, bestHromosome.Root);
+            FunctionTree.ToListExpression(lst, GPBestHromosome.Root);
             eoptMatematickiModel.Text = functionSet.DecodeWithOptimisationExpression(lst, terminalSet);
             enooptMatematickiModel.Text = functionSet.DecodeExpression(lst, terminalSet);
         }
         //Visual presentation of the tree
         private void button1_Click(object sender, EventArgs e)
         {
-            if (bestHromosome == null)
+            if (GPBestHromosome == null)
                 return;
             TreeExpression dlg = new TreeExpression();
-            dlg.TreeDrawer.DrawTreeExpression(bestHromosome.Root, functionSet);
+            dlg.TreeDrawer.DrawTreeExpression(GPBestHromosome.Root, functionSet);
             dlg.ShowDialog();
             dlg.Dispose();
         }
-        //Load testing data
+        //Load testing TrainingData
         private void button2_Click(object sender, EventArgs e)
         {
             // show file selection dialog
@@ -1137,7 +1175,7 @@ namespace GPDOTNET
                 {
                     // open selected file
                     reader = System.IO.File.OpenText(openFileDialog1.FileName);
-                    //read data in to buffer
+                    //read TrainingData in to buffer
                     string buffer = reader.ReadToEnd();
                     //Remove delimating chars
                     char[] sep = { '\r', '\n' };
@@ -1145,26 +1183,26 @@ namespace GPDOTNET
                     string[] vrste = buffer.Split(sep, StringSplitOptions.RemoveEmptyEntries);
                     //Define the columns
                     string[] kolone = vrste[0].Split(';');
-                    //Define inner data
-                    testingData = new double[kolone.Length][];
+                    //Define inner TrainingData
+                    GPTestingData = new double[kolone.Length][];
 
 
                     for (int j = 0; j < kolone.Length; j++)
                     {
-                        testingData[j] = new double[vrste.Length];
+                        GPTestingData[j] = new double[vrste.Length];
 
                         for (int k = 0; k < vrste.Length; k++)
                         {
                             kolone = vrste[k].Split(';');
-                            testingData[j][k] = double.Parse(kolone[j]);
+                            GPTestingData[j][k] = double.Parse(kolone[j]);
                         }
                     }
 
                    
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Error reding file!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, Properties.Resources.SR_ApplicationName);
                     return;
                 }
                 finally
@@ -1183,17 +1221,17 @@ namespace GPDOTNET
         private void NapuniGridTestnimPodacima()
         {
             //Na osnovu experimenta definisemo kakav ce modle biti
-            gpTestModel = new double[testingData[0].Length, 2];
+            gpTestModel = new double[GPTestingData[0].Length, 2];
 
             dataGridViewTestData.Columns.Clear();
             dataGridViewTestData.Rows.Clear();
 
-            dataGridViewTestData.Columns.Add("colRB", "RB");
+            dataGridViewTestData.Columns.Add("colRB", Resources.SR_SampleNumber);
             string str;
 
-            for (int i = 0; i < testingData.Length; i++)
+            for (int i = 0; i < GPTestingData.Length; i++)
             {
-                if (testingData.Length == i + 1)
+                if (GPTestingData.Length == i + 1)
                     str = "Y";
                 else
                     str = "X" + i.ToString();
@@ -1202,26 +1240,26 @@ namespace GPDOTNET
             }
 
 
-            for (int i = 0; i < testingData[0].Length; i++)
+            for (int i = 0; i < GPTestingData[0].Length; i++)
             {
                 int r = dataGridViewTestData.Rows.Add();
                 dataGridViewTestData.Rows[r].Cells[0].Value = i + 1;
 
-                for (int j = 0; j < testingData.Length; j++)
-                    dataGridViewTestData.Rows[r].Cells[j + 1].Value = testingData[j][i];
+                for (int j = 0; j < GPTestingData.Length; j++)
+                    dataGridViewTestData.Rows[r].Cells[j + 1].Value = GPTestingData[j][i];
 
             }
 
 
-            double[] x = new double[testingData[0].Length];
+            double[] x = new double[GPTestingData[0].Length];
 
-            int m = testingData.Length;
-            for (int k = 0; k < testingData[0].Length; k++)
+            int m = GPTestingData.Length;
+            for (int k = 0; k < GPTestingData[0].Length; k++)
                 x[k] = k + 1;
 
-            zedGraphTestData.GraphPane.AddCurve("Testing data", x, testingData[testingData.Length - 1], Color.Red, ZedGraph.SymbolType.Triangle);
-            modelTestIten = zedGraphTestData.GraphPane.AddCurve("Model Set", null, null, Color.Blue, ZedGraph.SymbolType.Diamond);
-            zedGraphTestData.GraphPane.XAxis.Scale.Max = testingData[0].Length + 1;
+            zedGraphTestData.GraphPane.AddCurve(Resources.SR_TestingData, x, GPTestingData[GPTestingData.Length - 1], Color.Red, ZedGraph.SymbolType.Triangle);
+            modelTestIten = zedGraphTestData.GraphPane.AddCurve(Resources.SR_ModelSet, null, null, Color.Blue, ZedGraph.SymbolType.Diamond);
+            zedGraphTestData.GraphPane.XAxis.Scale.Max = GPTestingData[0].Length + 1;
             this.zedGraphTestData.GraphPane.AxisChange(this.CreateGraphics());
             this.zedGraphTestData.Invalidate();
         }
@@ -1253,7 +1291,7 @@ namespace GPDOTNET
             if (population == null)
                 return;
 
-            DialogResult retVal = MessageBox.Show("Changing function set, current population will be discarded.\n Do you want to continue?", "GPdotNET", MessageBoxButtons.YesNo);
+            DialogResult retVal = MessageBox.Show(Resources.SR_ChangeFunctionSet, Resources.SR_ApplicationName, MessageBoxButtons.YesNo);
 
             if (DialogResult.No == retVal)
             {
@@ -1264,7 +1302,6 @@ namespace GPDOTNET
             {
                 population = null;
                 currentErrorBox.Text = "0";
-                rsquareEditbix.Text = "0";
 
             }
 
@@ -1282,15 +1319,15 @@ namespace GPDOTNET
             {
                 zedChart.GraphPane.CurveList.Clear();
                 zedEksperiment.GraphPane.CurveList.Clear();
-                if (terminalSet.data != null)
-                    terminalSet.data = null;
+                if (terminalSet.TrainingData != null)
+                    terminalSet.TrainingData = null;
                 StreamReader reader = null;
 
                 try
                 {
                     // open selected file
                     reader = System.IO.File.OpenText(openFileDialog1.FileName);
-                    //read data in to buffer
+                    //read TrainingData in to buffer
                     string buffer = reader.ReadToEnd();
                     //Remove delimating chars
                     char[] sep = { '\r', '\n' };
@@ -1298,7 +1335,7 @@ namespace GPDOTNET
                     string[] vrste = buffer.Split(sep, StringSplitOptions.RemoveEmptyEntries);
                     //Define the columns
                     string[] kolone = vrste[0].Split(';');
-                    //Define inner data
+                    //Define inner TrainingData
                     timeSerie = new double[vrste.Length];
 
 
@@ -1312,11 +1349,11 @@ namespace GPDOTNET
                     }
 
                     //Na osnovu experimenta definisemo kakav ce modle biti
-                    //gpModel = new double[trainingData[0].Length, 2];
+                    //gpModel = new double[GPTrainingData[0].Length, 2];
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Error reding file!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, Properties.Resources.SR_ApplicationName);
                     return;
                 }
                 finally
@@ -1329,8 +1366,8 @@ namespace GPDOTNET
                 dataGridViewTimeSeries.Columns.Clear();
                 dataGridViewTimeSeries.Rows.Clear();
 
-                dataGridViewTimeSeries.Columns.Add("colRB", "RB");
-                dataGridViewTimeSeries.Columns.Add("colSerie", "Value");
+                dataGridViewTimeSeries.Columns.Add("colRB", Resources.SR_SampleNumber);
+                dataGridViewTimeSeries.Columns.Add("colSerie", Resources.SR_Value);
 
 
                 for (int i = 0; i < timeSerie.Length; i++)
@@ -1351,63 +1388,63 @@ namespace GPDOTNET
         {
             if (timeSerie == null)
             {
-                MessageBox.Show("Please load series first!");
+                MessageBox.Show(Resources.SR_LoadSeriesFirst, Properties.Resources.SR_ApplicationName);
                 return;
             }
             int numVariable, numberTestData;
             //Konfiguracije varijabli
             if (!int.TryParse(textBox4.Text, out numVariable))
             {
-                MessageBox.Show("Please correct number of variables!");
+                MessageBox.Show(Resources.SR_SeriesCorrectNumbVari, Properties.Resources.SR_ApplicationName);
                 return;
             }
             //Konfiguracije varijabli
             if (!int.TryParse(textBox5.Text, out numberTestData))
             {
-                MessageBox.Show("Please correct number testing samples!");
+                MessageBox.Show(Resources.Sr_SeriesCorrectNumTestSamples, Properties.Resources.SR_ApplicationName);
                 return;
             }
             //Provjera konzistentnosti serije
             if (timeSerie.Length - 2 * numVariable - numberTestData < 0)
             {
-                MessageBox.Show("Please correct number of variable and testing data!");
+                MessageBox.Show(Resources.SR_SeriesCorectNumVartest, Properties.Resources.SR_ApplicationName);
                 return;
             }
             int numberTreningData=timeSerie.Length-numVariable-numberTestData;
 
-            //Training data se sastoji od varijabli i izlazne funkcije
-            trainingData = new double[numVariable+1][];
+            //Training TrainingData se sastoji od varijabli i izlazne funkcije
+            GPTrainingData = new double[numVariable+1][];
             for (int i = 0; i < numVariable+1; i++)
             {
-                trainingData[i] = new double[numberTreningData];
+                GPTrainingData[i] = new double[numberTreningData];
                 for (int j = i; j < numberTreningData+i; j++)
-                    trainingData[i][j-i]=timeSerie[j];
+                    GPTrainingData[i][j-i]=timeSerie[j];
 
             }
 
            //Na osnovu experimenta definisemo kakav ce modle biti
-            gpModel = new double[trainingData[0].Length, 2];
+            gpModel = new double[GPTrainingData[0].Length, 2];
             // update list and chart
             UpdateDataGridView();
-            UpdateChart(trainingData);
+            UpdateChart(GPTrainingData);
 
 
             //POdaci za testiranje
 
-            testingData = new double[numVariable+1][];
+            GPTestingData = new double[numVariable+1][];
             for (int i = 0; i < numVariable + 1; i++)
             {
-                testingData[i] = new double[numberTestData];
+                GPTestingData[i] = new double[numberTestData];
                 int k = 0;
                 for (int j = numberTreningData + i; j < numberTreningData + numberTestData+i; j++)
                 {
-                    testingData[i][k] = timeSerie[j];
+                    GPTestingData[i][k] = timeSerie[j];
                     k++;
                 }
 
             }
             NapuniGridTestnimPodacima();
-            timeSeriesPrediction = true;
+            TimeSeriesPrediction = true;
 
         }
 

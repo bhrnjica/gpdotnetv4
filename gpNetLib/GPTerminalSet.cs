@@ -1,55 +1,53 @@
-﻿// Copyright 2006-2009 Bahrudin Hrnjica (bhrnjica@hotmail.com)
-// gpNETLib 
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace GPNETLib
 {
     /// <summary>
-    /// This class provide training data for envolve GP algoritam
+    /// This class provides training and testing data for GP.
     /// </summary>
     [Serializable]
     public class GPTerminalSet
-    {
-        //x1,x2, ... , xn, R1,R2, ... ,Rn, Y
-        //Datamembers
-        public double[][] data = null;
+    {   //Structure of Terminal set: first independent variables x, than random constant R and last index position is Output Y
+        //x1,x2, ... , xn, R1,R2, ... ,Rn, Y - one row in dataarray
+        public double[][] TrainingData { get; set; }
+        public double[][] TestingData { get; set; }
 
-        public double[][] testingData;
-        //
-        public int NumVariable { get; set;}
-        public int NumConstant { get; set;}
-
-        public double srVrijednost;
-        public double maxValue;
-        public double minValue;
-
+        public int NumVariables { get; set; }
+        public int NumConstants { get; set; }
+        public double AverageValue { get; set; }
+        public double MaxValue { get; set; }
+        public double MinValue { get; set; }
+        public bool IsTimeSeries { get; set; }
         public int RowCount { get; set; }
 
         public GPTerminalSet()
-        {}
-        public void Izracunaj()
         {
-            if (data == null)
-                return;
-            if (NumVariable == 0)
-                return;
+            TrainingData = null;
+            TestingData = null;
+            IsTimeSeries = false;
+        }
 
-            RowCount = data.Length;
-            srVrijednost = 0;
-            maxValue = double.MinValue;
-            minValue = double.MaxValue;
-            int numTernimal=data[0].Length-NumConstant;
-            for (int i = 0, n = numTernimal+NumConstant; i < RowCount; i++)
-            {
-                if (maxValue < data[i][n - 1])
-                    maxValue = data[i][n - 1];
-                if (minValue > data[i][n - 1])
-                    minValue = data[i][n - 1];
+        //Calculate statistic data for TerminalSet.
+        public void CalculateStat()
+        {
+            if (TrainingData == null)
+                throw new Exception("Terminal set is empty!");
+            if (NumVariables == 0)
+                throw new Exception("The number of variables is 0!");
 
-                srVrijednost += data[i][n - 1];
+            int yindex = TrainingData[0].Length - NumConstants + NumConstants - 1;
+            RowCount = (short)TrainingData.Length;
 
-            }
-            srVrijednost = srVrijednost / RowCount;
+            var stat = from p1 in Enumerable.Range(0, RowCount)
+                       from p2 in TrainingData
+                       select p2[yindex];
+
+            double maxValue = stat.Max();
+            double minValue = stat.Min();
+            double averageValue = stat.Average();
         }
     }
 }

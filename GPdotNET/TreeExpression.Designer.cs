@@ -1,4 +1,4 @@
-﻿namespace GPDOTNET
+﻿namespace GPdotNET
 {
     partial class TreeExpression
     {

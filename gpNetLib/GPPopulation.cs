@@ -25,7 +25,7 @@ namespace GPNETLib
         public GPParameters gpParameters;
         //Set of function and terminas
         public GPFunctionSet gpFunctionSet;
-        //Set of data for testing and training data for prediction
+        //Set of TrainingData for testing and training TrainingData for prediction
         public GPTerminalSet gpTerminalSet;
         //Measure for chromosomes
         public IFitnessFunction gpFitness;
@@ -49,10 +49,7 @@ namespace GPNETLib
         //vrijednosti funkcije max min, srednja
         public double fitnessMax = 0;
         public double fitnessSum = 0;
-        public double fitnessAvg = 0;
-        public bool fitnessCriteria=true;
-
-        
+        public double fitnessAvg = 0;        
 
         //najbolji hromosom u populaciji
         public GPChromosome bestChromosome = null;
@@ -726,10 +723,7 @@ namespace GPNETLib
             if (ParalelComputing)
             {
                 List<GPChromosome> lst;
-                if(fitnessCriteria)
-                 lst = population.AsParallel().OrderByDescending(x => x.Fitness).Take(size).ToList();
-                else
-                    lst = population.AsParallel().OrderByDescending(x => x.RSquare).Take(size).ToList();
+                lst = population.AsParallel().OrderByDescending(x => x.Fitness).Take(size).ToList();
                 population.Clear();
                 population= null;
                 population = lst;
@@ -737,10 +731,7 @@ namespace GPNETLib
             else
             {
                 // sort population
-                if (fitnessCriteria)
-                    population.Sort();
-                else
-                    population.Sort((x,y)=> (x.RSquare == y.RSquare) ? 0 : (x.RSquare < y.RSquare) ? 1 : -1);
+                population.Sort();
                 // remove bad population
                 population.RemoveRange(size, currentSize - size);
             }

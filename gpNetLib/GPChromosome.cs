@@ -20,11 +20,6 @@ namespace GPNETLib
             get { return fitness; }
             set { fitness = value; }
         }
-        public float RSquare
-        {
-            get;
-            set;
-        }
         /// <summary>
         /// Constructor
         /// </summary>
@@ -45,7 +40,6 @@ namespace GPNETLib
             //Helper for cloning
             Root = (FunctionTree)source.Root.Clone();
             fitness = source.Fitness;
-            RSquare = source.RSquare;
         }
         /// <summary>
         /// Get string representation of the chromosome. Return the chromosome

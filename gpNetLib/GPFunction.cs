@@ -25,12 +25,18 @@ namespace GPNETLib
         //Definicija funkcije po kojoj se izračunava
         public string Definition { get; set; }
 
+        //Definicija funkcije u Excel notaciji
+        public string ExcelDefinition { get; set; }
+
         //Da li je standardna ili definisana od strane korisnika
         public bool IsReadOnly { get; set; }
 
         //Da li je funkcija neka slozena funkcija koja zahtjeva 
         // dodatne parametre poput mean, deviation, rsquare ili slicno
         public bool IsDistribution { get; set; }
+
+        //Relative proportionas of selecting function
+        public int Weight { get; set; }
 
         public override string ToString()
         {

@@ -59,7 +59,7 @@ namespace GPNETLib
 
         /// <summary>
         /// Skewness is a measure of symmetry, or more precisely, 
-        /// the lack of symmetry. A distribution, or data set, 
+        /// the lack of symmetry. A distribution, or TrainingData set, 
         /// is symmetric if it looks the same to the left and right of the center point. 
         /// </summary>
         public static double Skewness(double[] values)
@@ -77,8 +77,8 @@ namespace GPNETLib
             return (b / values.Length - 1);
         }
         /// <summary>
-        /// Kurtosis is a measure of whether the data are peaked or flat relative
-        /// to a normal distribution. That is, data sets with high kurtosis tend to
+        /// Kurtosis is a measure of whether the TrainingData are peaked or flat relative
+        /// to a normal distribution. That is, TrainingData sets with high kurtosis tend to
         /// have a distinct peak near the mean, decline rather rapidly, and have 
         /// heavy tails. Data sets with low kurtosis tend to have a flat top 
         /// near the mean rather than a sharp peak. A uniform distribution 
