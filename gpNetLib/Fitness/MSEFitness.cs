@@ -1,5 +1,15 @@
-﻿// Copyright 2006-2009 Bahrudin Hrnjica (bhrnjica@hotmail.com)
-// gpNETLib 
+﻿//////////////////////////////////////////////////////////////////////////////////////////
+// GPdotNET Tree based genetic programming tool                                         //
+// Copyright 2006-2010 Bahrudin Hrnjica                                                 //
+//                                                                                      //
+// This code is free software under the GNU Library General Public License (LGPL)       //
+// See licence section of  http://gpdotnet.codeplex.com/license                         //
+//                                                                                      //
+// Bahrudin Hrnjica                                                                     //
+// bhrnjica@hotmail.com                                                                 //
+// Bihac,Bosnia and Herzegovina                                                         //
+// http://bhrnjica.wordpress.com                                                        //
+////////////////////////////////////////////////////////////////////////////////////////// 
 using System;
 using System.Collections.Generic;
 
@@ -17,9 +27,8 @@ namespace GPNETLib
         {
             c.Fitness = 0;
             double rowFitness = 0.0;
-            double y;
-            // copy constants
-
+            double y,temp;
+           
             //Translate chromosome to list expressions
             int indexOutput = gpTerminalSet.NumConstants + gpTerminalSet.NumVariables;
             for (int i = 0; i < gpTerminalSet.RowCount; i++)
@@ -30,12 +39,11 @@ namespace GPNETLib
                 // check for correct numeric value
                 if (double.IsNaN(y) || double.IsInfinity(y))
                     y = 0;
-                rowFitness += Math.Pow(y - gpTerminalSet.TrainingData[i][indexOutput], 2) / indexOutput;
+                temp=y - gpTerminalSet.TrainingData[i][indexOutput];
+                rowFitness += temp*temp;
             }
-
-          
             //Fitness
-            c.Fitness = (float)((1.0 / (1.0 + rowFitness)) * 1000.0);
+            c.Fitness = (float)((1.0 / (1.0 + rowFitness / indexOutput)) * 1000.0);
         }
 
         #endregion

@@ -1,12 +1,16 @@
-﻿// Copyright 2006-2009 Bahrudin Hrnjica (bhrnjica@hotmail.com)
-// GPdotNET 
+﻿//////////////////////////////////////////////////////////////////////////////////////////
+// GPdotNET Tree based genetic programming tool                                         //
+// Copyright 2006-2010 Bahrudin Hrnjica                                                 //
+//                                                                                      //
+// This code is free software under the GNU Library General Public License (LGPL)       //
+// See licence section of  http://gpdotnet.codeplex.com/license                         //
+//                                                                                      //
+// Bahrudin Hrnjica                                                                     //
+// bhrnjica@hotmail.com                                                                 //
+// Bihac,Bosnia and Herzegovina                                                         //
+// http://bhrnjica.wordpress.com                                                        //
+////////////////////////////////////////////////////////////////////////////////////////// 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace GPdotNET
