@@ -141,12 +141,6 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label24 = new System.Windows.Forms.Label();
             this.dataGridViewRezultat = new System.Windows.Forms.DataGridView();
-            this.label23 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.label42 = new System.Windows.Forms.Label();
-            this.eoptMatematickiModel = new System.Windows.Forms.TextBox();
-            this.enooptMatematickiModel = new System.Windows.Forms.TextBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.zedGraphTestData = new ZedGraph.ZedGraphControl();
@@ -155,6 +149,8 @@
             this.label34 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.enooptMatematickiModel = new System.Windows.Forms.TextBox();
+            this.label42 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.Series.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -179,8 +175,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRandomConstants)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRezultat)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestData)).BeginInit();
@@ -977,10 +971,10 @@
             // tableLayoutPanel3
             // 
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
+            this.tableLayoutPanel3.Controls.Add(this.label42, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.enooptMatematickiModel, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.label24, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.dataGridViewRezultat, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label23, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.panel1, 0, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             // 
             // label24
@@ -993,42 +987,6 @@
             resources.ApplyResources(this.dataGridViewRezultat, "dataGridViewRezultat");
             this.dataGridViewRezultat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewRezultat.Name = "dataGridViewRezultat";
-            // 
-            // label23
-            // 
-            resources.ApplyResources(this.label23, "label23");
-            this.label23.Name = "label23";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.tableLayoutPanel5);
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Name = "panel1";
-            // 
-            // tableLayoutPanel5
-            // 
-            resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
-            this.tableLayoutPanel5.Controls.Add(this.label42, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.eoptMatematickiModel, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.enooptMatematickiModel, 0, 2);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            // 
-            // label42
-            // 
-            resources.ApplyResources(this.label42, "label42");
-            this.label42.Name = "label42";
-            // 
-            // eoptMatematickiModel
-            // 
-            resources.ApplyResources(this.eoptMatematickiModel, "eoptMatematickiModel");
-            this.eoptMatematickiModel.Name = "eoptMatematickiModel";
-            this.eoptMatematickiModel.ReadOnly = true;
-            // 
-            // enooptMatematickiModel
-            // 
-            resources.ApplyResources(this.enooptMatematickiModel, "enooptMatematickiModel");
-            this.enooptMatematickiModel.Name = "enooptMatematickiModel";
-            this.enooptMatematickiModel.ReadOnly = true;
             // 
             // tabPage7
             // 
@@ -1086,6 +1044,17 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
+            // enooptMatematickiModel
+            // 
+            resources.ApplyResources(this.enooptMatematickiModel, "enooptMatematickiModel");
+            this.enooptMatematickiModel.Name = "enooptMatematickiModel";
+            this.enooptMatematickiModel.ReadOnly = true;
+            // 
+            // label42
+            // 
+            resources.ApplyResources(this.label42, "label42");
+            this.label42.Name = "label42";
+            // 
             // GP_TS_Panel
             // 
             resources.ApplyResources(this, "$this");
@@ -1126,9 +1095,6 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRezultat)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
             this.tabPage7.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
@@ -1202,8 +1168,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.DataGridView dataGridViewRezultat;
-        private System.Windows.Forms.TextBox eoptMatematickiModel;
-        private System.Windows.Forms.Label label23;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label25;
@@ -1236,10 +1200,6 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.DataGridView dataGridViewRandomConstants;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.TextBox enooptMatematickiModel;
         private ZedGraph.ZedGraphControl zedGraphTestData;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
@@ -1265,6 +1225,8 @@
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.TextBox enooptMatematickiModel;
 
     }
 }

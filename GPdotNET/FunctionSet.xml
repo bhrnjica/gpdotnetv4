@@ -53,7 +53,7 @@
     <Definition>x1+x2</Definition>
     <ExcelDefinition>x1+x2</ExcelDefinition>
     <Selected> true</Selected>
-    <Weight> 2</Weight>
+    <Weight> 1</Weight>
     <ReadOnly> true</ReadOnly>
     <IsDistribution>false</IsDistribution>
   </FunctionSet>
@@ -64,7 +64,7 @@
     <Definition>x1-x2</Definition>
     <ExcelDefinition>x1-x2</ExcelDefinition>
     <Selected> true</Selected>
-    <Weight>2</Weight>
+    <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
     <IsDistribution>false</IsDistribution>
   </FunctionSet>
@@ -75,7 +75,7 @@
     <Definition>x1*x2</Definition>
     <ExcelDefinition>x1*x2</ExcelDefinition>
     <Selected> true</Selected>
-    <Weight>2</Weight>
+    <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
     <IsDistribution>false</IsDistribution>
   </FunctionSet>
