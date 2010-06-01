@@ -279,6 +279,15 @@ namespace GPdotNET.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Elitism number is not valid!.
+        /// </summary>
+        internal static string SR_ElitismInvalid {
+            get {
+                return ResourceManager.GetString("SR_ElitismInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Excel Definition.
         /// </summary>
         internal static string SR_ExcelDefinition {

@@ -322,4 +322,7 @@
   <data name="SR_Cannot_Read" xml:space="preserve">
     <value>Nemoguće pročitati datoteku: Poruke greške: </value>
   </data>
+  <data name="SR_ElitismInvalid" xml:space="preserve">
+    <value>Broj elita nije validan!</value>
+  </data>
 </root>

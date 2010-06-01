@@ -82,6 +82,7 @@ namespace GPdotNET
            evjerojatnostPermutacije.Text = (5.0 / 100.0).ToString();
            evjerojatnostReprodukcije.Text = (20.0 / 100.0).ToString();
            evjerojatnostUkrstanja.Text = (90.0 / 100.0).ToString();
+           textBox6.Text = 1.ToString();
            IsGPRunning = false;
 
                       
@@ -165,7 +166,7 @@ namespace GPdotNET
             epocetnaDubinaDrveta.Text = parameters.maxInitLevel.ToString();
             edubinaUkrstanja.Text = parameters.maxCossoverLevel.ToString();
             edubinaMutacije.Text = parameters.maxMutationLevel.ToString();
-
+            textBox6.Text = parameters.elitism.ToString();
             evjerojatnostUkrstanja.Text = parameters.probCrossover.ToString();
             evjerojatnostMutacije.Text = parameters.probMutation.ToString();
             evjerojatnostReprodukcije.Text = parameters.probReproduction.ToString();
@@ -347,7 +348,23 @@ namespace GPdotNET
                 return false;
             }
             parameters.maxMutationLevel = mutacijaDubina;
-
+            int elitism = 0;
+            if (!int.TryParse(textBox6.Text, out elitism))
+            {
+                MessageBox.Show(Resources.SR_ElitismInvalid, Properties.Resources.SR_ApplicationName);
+                return false;
+            }
+            if (!int.TryParse(evelicinaPopulacije.Text, out velPopulacije))
+            {
+                MessageBox.Show(Resources.SR_PopulationSizeInvalid, Resources.SR_ApplicationName);
+                return false;
+            }
+            if (elitism >= velPopulacije)
+            {
+                MessageBox.Show(Resources.SR_ElitismInvalid, Resources.SR_ApplicationName);
+                return false;
+            }
+            parameters.elitism = elitism;
 
             float vjerUkrstanje = 0;
             if (!float.TryParse(evjerojatnostUkrstanja.Text, out vjerUkrstanje))
@@ -1492,6 +1509,66 @@ namespace GPdotNET
             NapuniGridTestnimPodacima();
             TimeSeriesPrediction = true;
 
+        }
+        //Selection changed
+        private void cmetodaSelekcije_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cmetodaSelekcije.SelectedIndex)
+            {
+                //Fitness proportionate selection
+                case 0:
+                    lbSelParam1.Visible = false;
+                    ebSelParam1.Visible = false;
+                    lbSelParam2.Visible = false;
+                    ebSelParam2.Visible = false;
+                    break;
+                //Rank Selection
+                case 1:
+                    lbSelParam1.Visible = false;
+                    ebSelParam1.Visible = false;
+                    lbSelParam2.Visible = false;
+                    ebSelParam2.Visible = false;
+                    break;
+                //Tournment Selection
+                case 2:
+                    lbSelParam1.Visible = true;
+                    lbSelParam1.Text = "Tour Size:";
+                    if(parameters==null)
+                        parameters= new GPParameters();
+                    ebSelParam1.Text = 2.ToString();
+                    ebSelParam1.Visible = true;
+                    lbSelParam2.Visible = false;
+                    ebSelParam2.Visible = false;
+                    break;
+                //Stochastic unversal selection
+                case 3:
+                    lbSelParam1.Visible = false;
+                    ebSelParam1.Visible = false;
+                    lbSelParam2.Visible = false;
+                    ebSelParam2.Visible = false;
+                    break;
+                //FUSS selection
+                case 4:
+                    lbSelParam1.Visible = false;
+                    ebSelParam1.Visible = false;
+                    lbSelParam2.Visible = false;
+                    ebSelParam2.Visible = false;
+                    break;
+                //Skrgic Selection
+                case 5:
+                    lbSelParam1.Visible = true;
+                    lbSelParam1.Text = "Nonlinear Keof:";
+                    if (parameters == null)
+                        parameters = new GPParameters();
+                    ebSelParam1.Text = (1.0/5.0).ToString();
+                    ebSelParam1.Visible = true;
+                    lbSelParam2.Visible = false;
+                    ebSelParam2.Visible = false;
+                    break;
+                //Default Selection
+                default:
+                    break;
+            }
         }
 
         

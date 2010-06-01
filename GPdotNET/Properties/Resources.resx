@@ -331,4 +331,7 @@
   <data name="SR_Cannot_Read" xml:space="preserve">
     <value>Could not read file. Error message:</value>
   </data>
+  <data name="SR_ElitismInvalid" xml:space="preserve">
+    <value>Elitism number is not valid!</value>
+  </data>
 </root>
