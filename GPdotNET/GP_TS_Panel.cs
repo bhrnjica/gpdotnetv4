@@ -131,6 +131,7 @@ namespace GPdotNET
         private void InitFile()
         {
             ignoreediting = true;
+            PodesiFunkcijeIzDatoteke();
             functionSet = population.gpFunctionSet;
             terminalSet = population.gpTerminalSet;
             parameters = population.gpParameters;
@@ -220,6 +221,22 @@ namespace GPdotNET
             PrikaziModel();
 
         }
+
+        private void PodesiFunkcijeIzDatoteke()
+        {
+            for (int i = 0; i < functionSetsList.Count; i++)
+            {
+                var row = functionSetsList[i];
+                int count=population.gpFunctionSet.functions.Count(x=>x.Name==row.Name);
+                if(count==0)
+                    row.Selected=false;
+                else 
+                {
+                    row.Weight = count;
+                }
+            }
+            dataGridViewBuiltInFunction.Refresh();
+        }
         private void NapuniGridViewSaDefinisanimFunkcijama()
         {
             string strPath = "FunctionSet.xml";
@@ -287,10 +304,14 @@ namespace GPdotNET
             dataGridViewBuiltInFunction.Columns[1].HeaderText = Resources.SR_Aritry;
             dataGridViewBuiltInFunction.Columns[2].HeaderText = Resources.SR_Name;
             dataGridViewBuiltInFunction.Columns[3].HeaderText = Resources.SR_Description;
+            dataGridViewBuiltInFunction.Columns[3].Visible = false;
             dataGridViewBuiltInFunction.Columns[4].HeaderText = Resources.SR_Definition;
             dataGridViewBuiltInFunction.Columns[5].HeaderText = Resources.SR_ExcelDefinition;
+            dataGridViewBuiltInFunction.Columns[5].Visible = false;
             dataGridViewBuiltInFunction.Columns[6].HeaderText = Resources.SR_ReadOnly;
+            dataGridViewBuiltInFunction.Columns[6].Visible = false;
             dataGridViewBuiltInFunction.Columns[7].HeaderText = Resources.SR_IsDistribution;
+            dataGridViewBuiltInFunction.Columns[7].Visible = false;
             dataGridViewBuiltInFunction.Columns[8].HeaderText = Resources.SR_Weight;
 
             dataGridViewBuiltInFunction.AutoResizeColumns();
@@ -409,11 +430,27 @@ namespace GPdotNET
             var q = from c in functionSetsList
                     where c.Selected == true
                     select c;
-            //Prvi ocisti stare
+            //Clear old functions
             functionSet.functions.Clear();
-            //Ubaci nove funkcije
-            functionSet.functions = q.ToList();
+            foreach (var op in q)
+            {
+                for (int i = 0; i < op.Weight; i++)
+                    functionSet.functions.Add(op);
+            }
+            
+            //load new 
+           // functionSet.functions = q.ToList();
 
+            //Shuffle the functions
+         /*   int count = functionSet.functions.Count;
+            for (int i = 0; i < count; i++)
+             {
+               int randIndex = GPPopulation.rand.Next(count);
+               int randIndex2 = GPPopulation.rand.Next(count);
+               GPFunction temp = functionSet.functions[randIndex];
+               functionSet.functions[randIndex] = functionSet.functions[randIndex2];
+               functionSet.functions[randIndex2] = temp;
+            }*/
         }
         void TestniSkupFunkcija()
         {
@@ -1160,7 +1197,6 @@ namespace GPdotNET
         {
             List<int> lst = new List<int>();
             FunctionTree.ToListExpression(lst, GPBestHromosome.Root);
-            eoptMatematickiModel.Text = functionSet.DecodeWithOptimisationExpression(lst, terminalSet);
             enooptMatematickiModel.Text = functionSet.DecodeExpression(lst, terminalSet);
         }
         //Visual presentation of the tree

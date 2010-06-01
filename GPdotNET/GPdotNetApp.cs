@@ -127,6 +127,7 @@ namespace GPdotNET
                 childForm = NovaForma();
             }
             childForm.OpenFromFile(FileName);
+            childForm.Text = System.IO.Path.GetFileName(FileName);
             childForm.MdiParent = this;
             childForm.Show();
         }
