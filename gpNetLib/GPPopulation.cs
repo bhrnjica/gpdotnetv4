@@ -125,8 +125,7 @@ namespace GPNETLib
                 EvaluationParallel();
             else
                 EvaluationSec();
-            EliteSelection(popSize);
-
+         
             //Calculate population statistic parameters
             CalculatePopulation();
             
@@ -647,30 +646,45 @@ namespace GPNETLib
             // na osnovu vjerojatnosti selekcije izračunamo broj hromosoma koji prezivljavaju 
             // u narednu generaciju npr ako je 5% vjerojatnost Selekcije tada ako je 100 velicina populacije 
             // tada 5 hromosoma prelazi u novu generaciju
-            int randomAmount = (int)(gpParameters.probReproduction * popSize);
+            int repNumber = (int)(gpParameters.probReproduction * popSize);
+
+            //Elitism number of very best chromosome to survive to new generation
+            List<GPChromosome> elist=null;
+            if(gpParameters.elitism>0)
+                elist = population.Distinct().OrderByDescending(x => x.Fitness).Take(gpParameters.elitism).ToList();
 
             // vrsenje selekcije odredjenom metodom
+            int numb = popSize - repNumber - gpParameters.elitism;
             switch (gpParameters.eselectionMethod)
             {
-                case ESelectionMethod.EliteSelection:
-                    EliteSelection(popSize - randomAmount);
+                case ESelectionMethod.EFitnessProportionateSelection:
+                    FitnessProportionateSelection(numb);
                     break;
                 case ESelectionMethod.Rankselection:
-                    RankSelection(popSize - randomAmount);
-                    break;
-                case ESelectionMethod.RouletteWheelSelection:
-                    RouletteWheelSelection(popSize - randomAmount);
+                    RankSelection(numb);
                     break;
                 case ESelectionMethod.TournamentSelection:
-                    TournamentSelection(popSize - randomAmount);
+                    TournamentSelection(numb);
+                    break;
+                case ESelectionMethod.StochasticUniversalSelection:
+                    UniversalStohasticSelection(numb);
+                    break;
+                case ESelectionMethod.FUSSelection:
+                    FUSSSelection(numb);
+                    break;
+                case ESelectionMethod.SkrgicSelection:
+                    SkrgicSelection(numb);
                     break;
                 default:
-                    EliteSelection(popSize - randomAmount);
+                    FitnessProportionateSelection(numb);
                     break;
             }
-            if (randomAmount > 0)
-                InitPopulation(randomAmount);
+            
 
+            if (gpParameters.elitism > 0)
+                population.AddRange(elist);
+            if (repNumber > 0)
+                InitPopulation(repNumber);
             //Calculate population statistic parameters
             CalculatePopulation();
 
@@ -724,42 +738,57 @@ namespace GPNETLib
                 fitnessAvg = fitnessSum / popSize;
             }
         }
-        private void EliteSelection(int size)
+        private void FitnessProportionateSelection(int size)
         {
+            // new population, initially empty
+            List<GPChromosome> newPopulation = new List<GPChromosome>();
+
+            // velicinaPopulacije of current population
+            // population.Sort();
             int currentSize = population.Count;
-
-            if (ParalelComputing)
+            double sumOfFitness = 0;
+            //calculate sum of fitness
+            for (int i = 0; i < currentSize; i++)
             {
-                List<GPChromosome> lst;
-                lst = population.AsParallel().OrderByDescending(x => x.Fitness).Take(size).ToList();
-                population.Clear();
-                population= null;
-                population = lst;
+                sumOfFitness += population[i].Fitness;
             }
-            else
-            {
-                // sort population
-                population.Sort();
-                // remove bad population
-                population.RemoveRange(size, currentSize - size);
-            }
-            // half of popuation size
-            int n = size / 2;
-            //Shuffle population
-            int index1, index2;
-            GPChromosome temp = null;
-            for (int i = 0; i < n; i++)
-            {
-                index1 = rand.Next(size);
-                index2 = rand.Next(size);
 
-                // swap two population
-                temp = population[index1];
-                population[index1] = population[index2];
-                population[index2] = temp;
+            // create wheel ranges
+            double[] rangeMax = new double[currentSize];
+            double s = 0;
 
-                temp = null;
+            for (int i = 0; i < currentSize; i++)
+            {
+                // cumulative normalized fitness
+                s += (population[i].Fitness / sumOfFitness);
+                rangeMax[i] = s;
             }
+
+            // select population from old population to the new population
+            for (int j = 0; j < size; j++)
+            {
+                // get wheel value
+                double wheelValue = rand.NextDouble();
+                // find the chromosome for the wheel value
+                for (int i = 0; i < currentSize; i++)
+                {
+                    //double wheelValue = rand.NextDouble();
+                    if (wheelValue <= rangeMax[i])
+                    {
+                        // add the chromosome to the new population
+                        newPopulation.Add(population[i]);
+                        break;
+                    }
+                }
+            }
+
+            // empty current population
+            // move elements from new to current population
+            population.Clear();
+            // newPopulation.Sort();
+            population.AddRange(newPopulation);
+            Debug.Assert(population.Count == size);
+
         }
         private void RankSelection(int size)
         {
@@ -807,71 +836,18 @@ namespace GPNETLib
             population.Clear();
             population.AddRange(newPopulation);
         }
-        private void RouletteWheelSelection(int size)
-        {
-            // new population, initially empty
-            List<GPChromosome> newPopulation = new List<GPChromosome>();
-
-            // velicinaPopulacije of current population
-           // population.Sort();
-            int currentSize = population.Count;
-            double sumOfFitness = 0;
-            //calculate sum of fitness
-            for (int i = 0; i < currentSize; i++)
-            {
-                sumOfFitness += population[i].Fitness;
-            }
-
-            // create wheel ranges
-            double[] rangeMax = new double[currentSize];
-            double s = 0;
-
-            for (int i = 0; i < currentSize; i++)
-            {
-                // cumulative normalized fitness
-                s += (population[i].Fitness / sumOfFitness);
-                rangeMax[i] = s;
-            }
-
-            // select population from old population to the new population
-            for (int j = 0; j < size; j++)
-            {
-                // get wheel value
-                double wheelValue = rand.NextDouble();
-                // find the chromosome for the wheel value
-                for (int i = 0; i < currentSize; i++)
-                {
-                    //double wheelValue = rand.NextDouble();
-                    if (wheelValue <= rangeMax[i])
-                    {
-                        // add the chromosome to the new population
-                        newPopulation.Add(population[i]);
-                        break;
-                    }
-                }
-            }
-
-            // empty current population
-            // move elements from new to current population
-            population.Clear();
-           // newPopulation.Sort();
-            population.AddRange(newPopulation);
-            Debug.Assert(population.Count==size);
-
-        }
-        int TournamentSize = 10;
         private void TournamentSelection(int size)
         {
             // velicinaPopulacije of current population
             int currentSize = population.Count;
-            List<GPChromosome> tourn = new List<GPChromosome>(TournamentSize);
+            List<GPChromosome> tourn = new List<GPChromosome>((int)gpParameters.SelParam1);
             // new population, initially empty
             List<GPChromosome> newPopulation = new List<GPChromosome>();
             
             for (int j = 0; j < size; j++)
             {
                 currentSize = population.Count;
-                for (int i = 0; i < TournamentSize && i< currentSize; i++)
+                for (int i = 0; i < gpParameters.SelParam1 && i < currentSize; i++)
                 {
                     int ind = rand.Next(currentSize);
                     tourn.Add(population[ind]);
@@ -891,8 +867,110 @@ namespace GPNETLib
             population.AddRange(newPopulation);
             Debug.Assert(population.Count == size);
         }
+        private void UniversalStohasticSelection(int size)
+        {
+            // new population, initially empty
+            List<GPChromosome> newPopulation = new List<GPChromosome>();
+            population.Sort();
 
-        
+            int currentSize = population.Count();
+            float fitnessSum = population.Sum(c => c.Fitness);
+
+            // get random distance value
+            float randDist = (float)GPPopulation.rand.NextDouble(0, 1.0 / (double)size);
+            float partFitnes = 0;
+            for (int j = 0; j < size; j++)
+            {
+                partFitnes = 0;
+                for (int i = 0; i < population.Count; i++)
+                {
+                    partFitnes += population[i].Fitness / fitnessSum;
+
+                    if (randDist <= partFitnes)
+                    {
+                        newPopulation.Add(population[i]);
+                        break;
+                    }
+                }
+                randDist += 1.0F / (float)size;
+            }
+
+            // empty current population
+            population.Clear();
+
+            //Create new population
+            population.AddRange(newPopulation);
+            newPopulation.Clear();
+        }
+        private void FUSSSelection(int size)
+        {
+            // new population, initially empty
+            List<GPChromosome> newPopulation = new List<GPChromosome>();
+            //Maximum fitness
+            double fitnessMax = population.Max(x => x.Fitness);
+            double rnd;
+            double dif;
+            int selIndex = 0;
+
+            for (int j = 0; j < size; j++)
+            {
+                rnd = GPPopulation.rand.NextDouble(0, fitnessMax);
+                dif = Math.Abs(population[0].Fitness - rnd);
+                selIndex = 0;
+                for (int i = 1; i < population.Count; i++)
+                {
+                    double curDif = Math.Abs(population[i].Fitness - rnd);
+                    if (dif > curDif)
+                    {
+                        dif = curDif;
+                        selIndex = i;
+                    }
+                }
+                newPopulation.Add(population[selIndex]);
+            }
+
+            // empty current population
+            population.Clear();
+
+            //Create new population
+            population.AddRange(newPopulation);
+        }
+        private void SkrgicSelection(int size)
+        {
+            // new population, initially empty
+            List<GPChromosome> newPopulation = new List<GPChromosome>();
+          //  double k = 0.2; //additionalParameter;
+            double fitnessMax = population.Max(x => x.Fitness) * (1.0 + gpParameters.SelParam1);
+            for (int i = 0; i < size; i++)
+            {
+                //Slucajni index iz populacije
+                int randomIndex = GPPopulation.rand.Next(0, population.Count);
+                //Slucajni broj izmedju 0-maxFitnes ukljucujuci i maxFitness koje je prethodno vec izracunat kod evaluacije hromosoma
+                double randomFitness = GPPopulation.rand.NextDouble(0, fitnessMax/*, true include MaxValue*/);
+
+                while (true)
+                {
+
+                    //Akoje slucajno generirani broj manji ili jednak fitnesu slucajnog hromosoma selektuj hromosom
+                    if (randomFitness <= population[randomIndex].Fitness * (1.0 + gpParameters.SelParam1 / fitnessMax))
+                    {
+                        newPopulation.Add(population[randomIndex]);
+                        break;
+                    }
+
+                    randomIndex = GPPopulation.rand.Next(0, population.Count);
+                    randomFitness = GPPopulation.rand.NextDouble(0, fitnessMax/*, true include MaxValue*/);
+                }
+            }
+
+            // empty current population
+            population.Clear();
+
+            //Create new population
+            population.AddRange(newPopulation);
+
+
+        }
         public void StartEvolution()
         {
             if (ParalelComputing)

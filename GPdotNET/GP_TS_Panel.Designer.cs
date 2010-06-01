@@ -48,6 +48,16 @@
             this.zedEksperiment = new ZedGraph.ZedGraphControl();
             this.btnUcitaj = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.lbSelParam2 = new System.Windows.Forms.Label();
+            this.ebSelParam2 = new System.Windows.Forms.TextBox();
+            this.lbSelParam1 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.ebSelParam1 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.cmetodaSelekcije = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
             this.brojKonstantiTextBox = new System.Windows.Forms.TextBox();
@@ -91,11 +101,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.evelicinaPopulacije = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmetodaSelekcije = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label26 = new System.Windows.Forms.Label();
@@ -139,6 +147,8 @@
             this.label41 = new System.Windows.Forms.Label();
             this.dataGridViewRandomConstants = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.label42 = new System.Windows.Forms.Label();
+            this.enooptMatematickiModel = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.dataGridViewRezultat = new System.Windows.Forms.DataGridView();
             this.tabPage7 = new System.Windows.Forms.TabPage();
@@ -149,8 +159,6 @@
             this.label34 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.enooptMatematickiModel = new System.Windows.Forms.TextBox();
-            this.label42 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.Series.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -159,6 +167,7 @@
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPodaci)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -328,6 +337,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.label35);
@@ -336,14 +346,85 @@
             this.tabPage2.Controls.Add(this.cmetodaGeneriranja);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.label12);
             this.tabPage2.Controls.Add(this.evelicinaPopulacije);
             this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.cmetodaSelekcije);
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.lbSelParam2);
+            this.groupBox6.Controls.Add(this.ebSelParam2);
+            this.groupBox6.Controls.Add(this.lbSelParam1);
+            this.groupBox6.Controls.Add(this.label23);
+            this.groupBox6.Controls.Add(this.label19);
+            this.groupBox6.Controls.Add(this.ebSelParam1);
+            this.groupBox6.Controls.Add(this.textBox6);
+            this.groupBox6.Controls.Add(this.cmetodaSelekcije);
+            this.groupBox6.Controls.Add(this.label13);
+            resources.ApplyResources(this.groupBox6, "groupBox6");
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.TabStop = false;
+            // 
+            // lbSelParam2
+            // 
+            resources.ApplyResources(this.lbSelParam2, "lbSelParam2");
+            this.lbSelParam2.Name = "lbSelParam2";
+            this.lbSelParam2.Tag = "";
+            // 
+            // ebSelParam2
+            // 
+            resources.ApplyResources(this.ebSelParam2, "ebSelParam2");
+            this.ebSelParam2.Name = "ebSelParam2";
+            // 
+            // lbSelParam1
+            // 
+            resources.ApplyResources(this.lbSelParam1, "lbSelParam1");
+            this.lbSelParam1.Name = "lbSelParam1";
+            this.lbSelParam1.Tag = "";
+            // 
+            // label23
+            // 
+            resources.ApplyResources(this.label23, "label23");
+            this.label23.Name = "label23";
+            // 
+            // label19
+            // 
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.Name = "label19";
+            this.label19.Tag = "";
+            // 
+            // ebSelParam1
+            // 
+            resources.ApplyResources(this.ebSelParam1, "ebSelParam1");
+            this.ebSelParam1.Name = "ebSelParam1";
+            // 
+            // textBox6
+            // 
+            resources.ApplyResources(this.textBox6, "textBox6");
+            this.textBox6.Name = "textBox6";
+            // 
+            // cmetodaSelekcije
+            // 
+            this.cmetodaSelekcije.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmetodaSelekcije.Items.AddRange(new object[] {
+            resources.GetString("cmetodaSelekcije.Items"),
+            resources.GetString("cmetodaSelekcije.Items1"),
+            resources.GetString("cmetodaSelekcije.Items2"),
+            resources.GetString("cmetodaSelekcije.Items3"),
+            resources.GetString("cmetodaSelekcije.Items4"),
+            resources.GetString("cmetodaSelekcije.Items5")});
+            resources.ApplyResources(this.cmetodaSelekcije, "cmetodaSelekcije");
+            this.cmetodaSelekcije.Name = "cmetodaSelekcije";
+            this.cmetodaSelekcije.SelectedIndexChanged += new System.EventHandler(this.cmetodaSelekcije_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            this.label13.Tag = "";
             // 
             // groupBox4
             // 
@@ -639,12 +720,6 @@
             this.label5.Name = "label5";
             this.label5.Tag = "";
             // 
-            // label13
-            // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
-            this.label13.Tag = "";
-            // 
             // label12
             // 
             resources.ApplyResources(this.label12, "label12");
@@ -660,17 +735,6 @@
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            // 
-            // cmetodaSelekcije
-            // 
-            this.cmetodaSelekcije.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmetodaSelekcije.Items.AddRange(new object[] {
-            resources.GetString("cmetodaSelekcije.Items"),
-            resources.GetString("cmetodaSelekcije.Items1"),
-            resources.GetString("cmetodaSelekcije.Items2"),
-            resources.GetString("cmetodaSelekcije.Items3")});
-            resources.ApplyResources(this.cmetodaSelekcije, "cmetodaSelekcije");
-            this.cmetodaSelekcije.Name = "cmetodaSelekcije";
             // 
             // tabPage3
             // 
@@ -977,6 +1041,17 @@
             this.tableLayoutPanel3.Controls.Add(this.dataGridViewRezultat, 0, 1);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             // 
+            // label42
+            // 
+            resources.ApplyResources(this.label42, "label42");
+            this.label42.Name = "label42";
+            // 
+            // enooptMatematickiModel
+            // 
+            resources.ApplyResources(this.enooptMatematickiModel, "enooptMatematickiModel");
+            this.enooptMatematickiModel.Name = "enooptMatematickiModel";
+            this.enooptMatematickiModel.ReadOnly = true;
+            // 
             // label24
             // 
             resources.ApplyResources(this.label24, "label24");
@@ -1044,17 +1119,6 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // enooptMatematickiModel
-            // 
-            resources.ApplyResources(this.enooptMatematickiModel, "enooptMatematickiModel");
-            this.enooptMatematickiModel.Name = "enooptMatematickiModel";
-            this.enooptMatematickiModel.ReadOnly = true;
-            // 
-            // label42
-            // 
-            resources.ApplyResources(this.label42, "label42");
-            this.label42.Name = "label42";
-            // 
             // GP_TS_Panel
             // 
             resources.ApplyResources(this, "$this");
@@ -1072,6 +1136,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPodaci)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1227,6 +1293,14 @@
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.TextBox enooptMatematickiModel;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label lbSelParam2;
+        private System.Windows.Forms.TextBox ebSelParam2;
+        private System.Windows.Forms.Label lbSelParam1;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox ebSelParam1;
+        private System.Windows.Forms.TextBox textBox6;
 
     }
 }

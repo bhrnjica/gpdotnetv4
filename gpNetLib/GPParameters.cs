@@ -24,13 +24,16 @@ namespace GPNETLib
     [Serializable]
     public enum ESelectionMethod
     {
-        EliteSelection=0,
+       // EliteSelection=0,
+        EFitnessProportionateSelection = 0,
         Rankselection=1,
-        RouletteWheelSelection=2,
-        TournamentSelection=3
+        TournamentSelection=2,
+        StochasticUniversalSelection=3,
+        FUSSelection=4,
+        SkrgicSelection=5
     }
     [Serializable]
-    public enum RawFitness
+    public enum EFitness
     {
         MR,//Višesturka regresija
         R2,//Koeficijent determinacije
@@ -47,9 +50,11 @@ namespace GPNETLib
         public EInitializationMethod einitializationMethod;
         public int maxInitLevel;
 
+        public int elitism;
         //Selection methods
         public ESelectionMethod eselectionMethod;
-
+        public float SelParam1;
+        public float SelParam2;
         //Primary oparation
         public float probCrossover;
         public int maxCossoverLevel;
@@ -66,7 +71,10 @@ namespace GPNETLib
         public GPParameters()
         {
             einitializationMethod = EInitializationMethod.FullInitialization;
-            eselectionMethod = ESelectionMethod.EliteSelection;
+            eselectionMethod = ESelectionMethod.Rankselection;
+            SelParam1 = 3;
+            SelParam2 = 0;
+            elitism = 1;
             maxInitLevel =7;
             maxCossoverLevel = 10;
             maxMutationLevel = 10;
