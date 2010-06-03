@@ -306,6 +306,15 @@ namespace GPdotNET.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fitness simulation.
+        /// </summary>
+        internal static string SR_FitnessGraphSimulation {
+            get {
+                return ResourceManager.GetString("SR_FitnessGraphSimulation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fitness value.
         /// </summary>
         internal static string SR_FittValue {
@@ -338,6 +347,15 @@ namespace GPdotNET.Properties {
         internal static string SR_Generation {
             get {
                 return ResourceManager.GetString("SR_Generation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GP Model simulation.
+        /// </summary>
+        internal static string SR_GPModelSimulation {
+            get {
+                return ResourceManager.GetString("SR_GPModelSimulation", resourceCulture);
             }
         }
         
@@ -396,7 +414,7 @@ namespace GPdotNET.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Model Set.
+        ///   Looks up a localized string similar to GP Model (solution).
         /// </summary>
         internal static string SR_ModelSet {
             get {
@@ -549,6 +567,15 @@ namespace GPdotNET.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selection parameter is invalid..
+        /// </summary>
+        internal static string SR_SelecParamInvalid {
+            get {
+                return ResourceManager.GetString("SR_SelecParamInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selected.
         /// </summary>
         internal static string SR_Selected {
@@ -657,7 +684,7 @@ namespace GPdotNET.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Training Set.
+        ///   Looks up a localized string similar to Training data.
         /// </summary>
         internal static string SR_TrainingSet {
             get {

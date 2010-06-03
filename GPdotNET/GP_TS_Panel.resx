@@ -2137,10 +2137,10 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="zedGraphPopulation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 28</value>
+    <value>3, 3</value>
   </data>
   <data name="zedGraphPopulation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>440, 159</value>
+    <value>440, 184</value>
   </data>
   <data name="zedGraphPopulation.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
@@ -2157,68 +2157,14 @@
   <data name="&gt;&gt;zedGraphPopulation.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label36.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="label36.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 190</value>
-  </data>
-  <data name="label36.Size" type="System.Drawing.Size, System.Drawing">
-    <value>440, 25</value>
-  </data>
-  <data name="label36.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="label36.Text" xml:space="preserve">
-    <value>MODEL SIMULATION:</value>
-  </data>
-  <data name="&gt;&gt;label36.Name" xml:space="preserve">
-    <value>label36</value>
-  </data>
-  <data name="&gt;&gt;label36.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label36.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;label36.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label30.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="label30.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
-  </data>
-  <data name="label30.Size" type="System.Drawing.Size, System.Drawing">
-    <value>440, 25</value>
-  </data>
-  <data name="label30.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="label30.Text" xml:space="preserve">
-    <value>FITNESS SIMULATION:</value>
-  </data>
-  <data name="&gt;&gt;label30.Name" xml:space="preserve">
-    <value>label30</value>
-  </data>
-  <data name="&gt;&gt;label30.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label30.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;label30.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="zedChart.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="zedChart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 218</value>
+    <value>3, 193</value>
   </data>
   <data name="zedChart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>440, 159</value>
+    <value>440, 184</value>
   </data>
   <data name="zedChart.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
@@ -2233,13 +2179,13 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;zedChart.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>256, 6</value>
   </data>
   <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>446, 380</value>
@@ -2260,7 +2206,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="zedGraphPopulation" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label36" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label30" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="zedChart" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,Absolute,20" /&gt;&lt;Rows Styles="Absolute,25,Percent,50,Absolute,25,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="zedGraphPopulation" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="zedChart" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,50,Percent,50,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="progressBar1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -2338,7 +2284,7 @@
     <value>1</value>
   </data>
   <data name="eTimeleft.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 275</value>
+    <value>122, 250</value>
   </data>
   <data name="eTimeleft.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 20</value>
@@ -2359,7 +2305,7 @@
     <value>2</value>
   </data>
   <data name="label43.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 275</value>
+    <value>15, 250</value>
   </data>
   <data name="label43.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 18</value>
@@ -2386,7 +2332,7 @@
     <value>3</value>
   </data>
   <data name="eTimeToCompleate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 249</value>
+    <value>122, 224</value>
   </data>
   <data name="eTimeToCompleate.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 20</value>
@@ -2407,7 +2353,7 @@
     <value>4</value>
   </data>
   <data name="eTimePerRun.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 223</value>
+    <value>122, 198</value>
   </data>
   <data name="eTimePerRun.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 20</value>
@@ -2428,7 +2374,7 @@
     <value>5</value>
   </data>
   <data name="eTimeStart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>122, 197</value>
+    <value>122, 172</value>
   </data>
   <data name="eTimeStart.Size" type="System.Drawing.Size, System.Drawing">
     <value>119, 20</value>
@@ -2449,7 +2395,7 @@
     <value>6</value>
   </data>
   <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 249</value>
+    <value>0, 224</value>
   </data>
   <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
     <value>115, 18</value>
@@ -2476,7 +2422,7 @@
     <value>7</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 226</value>
+    <value>7, 201</value>
   </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
     <value>108, 18</value>
@@ -2503,7 +2449,7 @@
     <value>8</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 200</value>
+    <value>27, 175</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 18</value>
@@ -2530,7 +2476,7 @@
     <value>9</value>
   </data>
   <data name="bestFitnessAtGenerationEditBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 167</value>
+    <value>150, 142</value>
   </data>
   <data name="bestFitnessAtGenerationEditBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 20</value>
@@ -2551,7 +2497,7 @@
     <value>10</value>
   </data>
   <data name="label33.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 170</value>
+    <value>14, 145</value>
   </data>
   <data name="label33.Size" type="System.Drawing.Size, System.Drawing">
     <value>130, 18</value>
@@ -2599,7 +2545,7 @@
     <value>12</value>
   </data>
   <data name="textBox3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 141</value>
+    <value>150, 116</value>
   </data>
   <data name="textBox3.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 20</value>
@@ -2623,7 +2569,7 @@
     <value>13</value>
   </data>
   <data name="label31.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 144</value>
+    <value>14, 119</value>
   </data>
   <data name="label31.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 18</value>
@@ -2651,9 +2597,6 @@
   </data>
   <data name="comboBox2.Items1" xml:space="preserve">
     <value>Fitness &gt;=</value>
-  </data>
-  <data name="comboBox2.Items2" xml:space="preserve">
-    <value>R square &gt;=</value>
   </data>
   <data name="comboBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 33</value>

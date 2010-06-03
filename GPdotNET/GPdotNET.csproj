@@ -145,8 +145,14 @@
     <EmbeddedResource Include="AboutGPdotNET.resx">
       <DependentUpon>AboutGPdotNET.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChooseModelDlg.bs.resx">
+      <DependentUpon>ChooseModelDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChooseModelDlg.resx">
       <DependentUpon>ChooseModelDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExcelFormulaDlg.bs.resx">
+      <DependentUpon>ExcelFormulaDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExcelFormulaDlg.resx">
       <DependentUpon>ExcelFormulaDlg.cs</DependentUpon>
@@ -163,9 +169,9 @@
     <EmbeddedResource Include="GPdotNetApp.resx">
       <DependentUpon>GPdotNetApp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.bs-Latn.resx">
+    <EmbeddedResource Include="Properties\Resources.bs.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.bs-Latn.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.bs.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -173,11 +179,14 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="TreeExpression.bs.resx">
+      <DependentUpon>TreeExpression.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TreeExpression.resx">
       <DependentUpon>TreeExpression.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.bs-Latn.Designer.cs">
-      <DependentUpon>Resources.bs-Latn.resx</DependentUpon>
+    <Compile Include="Properties\Resources.bs.Designer.cs">
+      <DependentUpon>Resources.bs.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -216,7 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionSet.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\gpLogo.ico" />
     <None Include="Resources\gpabout.png" />

@@ -500,9 +500,9 @@ namespace GPdotNET
 
         private void englishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.Lang == false)
+            if (Properties.Settings.Default.Lang == 0)
                 return;
-            Properties.Settings.Default.Lang = false;
+            Properties.Settings.Default.Lang = 0;
             Properties.Settings.Default.Save();
 
             MessageBox.Show(Resources.SR_ChangedLangWarning, Resources.SR_ApplicationName);
@@ -510,16 +510,16 @@ namespace GPdotNET
 
         private void bosnianToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.Lang == true)
+            if (Properties.Settings.Default.Lang == 1)
                 return;
-            Properties.Settings.Default.Lang = true;
+            Properties.Settings.Default.Lang = 1;
             Properties.Settings.Default.Save();
             MessageBox.Show(Resources.SR_ChangedLangWarning);
         }
 
         private void lanhuageToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.Lang == false)
+            if (Properties.Settings.Default.Lang == 0)
             {
                 bosnianToolStripMenuItem.Checked = false;
                 englishToolStripMenuItem.Checked = true;

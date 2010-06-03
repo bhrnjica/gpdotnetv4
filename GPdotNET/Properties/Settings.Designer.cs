@@ -25,10 +25,10 @@ namespace GPdotNET.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Lang {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Lang {
             get {
-                return ((bool)(this["Lang"]));
+                return ((int)(this["Lang"]));
             }
             set {
                 this["Lang"] = value;

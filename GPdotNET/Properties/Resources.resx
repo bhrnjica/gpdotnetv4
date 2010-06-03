@@ -230,7 +230,7 @@
     <value>Error occurs in model creation!</value>
   </data>
   <data name="SR_ModelSet" xml:space="preserve">
-    <value>Model Set</value>
+    <value>GP Model (solution)</value>
   </data>
   <data name="SR_MutationDepthInvalid" xml:space="preserve">
     <value>Mutation depth is not valid!</value>
@@ -311,7 +311,7 @@
     <value>Load training data first!</value>
   </data>
   <data name="SR_TrainingSet" xml:space="preserve">
-    <value>Training Set</value>
+    <value>Training data</value>
   </data>
   <data name="SR_Undefined" xml:space="preserve">
     <value>Undefined</value>
@@ -333,5 +333,14 @@
   </data>
   <data name="SR_ElitismInvalid" xml:space="preserve">
     <value>Elitism number is not valid!</value>
+  </data>
+  <data name="SR_FitnessGraphSimulation" xml:space="preserve">
+    <value>Fitness simulation</value>
+  </data>
+  <data name="SR_GPModelSimulation" xml:space="preserve">
+    <value>GP Model simulation</value>
+  </data>
+  <data name="SR_SelecParamInvalid" xml:space="preserve">
+    <value>Selection parameter is invalid.</value>
   </data>
 </root>

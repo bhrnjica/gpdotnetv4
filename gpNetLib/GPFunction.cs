@@ -14,11 +14,12 @@ using System;
 
 namespace GPNETLib
 {
-    
+
     //Skup funkcija koje se mogu naci u GP ova klasa je popunjena iz XML datoteke
     [Serializable]
     public class GPFunction
     {
+       
         //Osobine svake funkcije
         //Da li je odabrana uprogramu
         public bool Selected { get; set; }
@@ -48,6 +49,8 @@ namespace GPNETLib
         //Relative proportionas of selecting function
         public int Weight { get; set; }
 
+        //Function ID
+        public ushort ID { get; set; }
         public override string ToString()
         {
             return Name;

@@ -112,8 +112,6 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.zedGraphPopulation = new ZedGraph.ZedGraphControl();
-            this.label36 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
             this.zedChart = new ZedGraph.ZedGraphControl();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -783,10 +781,8 @@
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.zedGraphPopulation, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label36, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label30, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.zedChart, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.zedGraphPopulation, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.zedChart, 0, 1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // zedGraphPopulation
@@ -800,16 +796,6 @@
             this.zedGraphPopulation.ScrollMinX = 0D;
             this.zedGraphPopulation.ScrollMinY = 0D;
             this.zedGraphPopulation.ScrollMinY2 = 0D;
-            // 
-            // label36
-            // 
-            resources.ApplyResources(this.label36, "label36");
-            this.label36.Name = "label36";
-            // 
-            // label30
-            // 
-            resources.ApplyResources(this.label30, "label30");
-            this.label30.Name = "label30";
             // 
             // zedChart
             // 
@@ -944,8 +930,7 @@
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Items.AddRange(new object[] {
             resources.GetString("comboBox2.Items"),
-            resources.GetString("comboBox2.Items1"),
-            resources.GetString("comboBox2.Items2")});
+            resources.GetString("comboBox2.Items1")});
             resources.ApplyResources(this.comboBox2, "comboBox2");
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
@@ -1221,7 +1206,6 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataGridView dataGridViewBuiltInFunction;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Label label36;
         private System.Windows.Forms.TextBox brojIteracija;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.GroupBox groupBox7;
@@ -1247,7 +1231,6 @@
         private System.Windows.Forms.TextBox intervalDoTextBox;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label30;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox textBox3;
