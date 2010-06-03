@@ -32,41 +32,50 @@ namespace GPdotNET
         GPPopulation population;
         public GPFunctionSet functionSet { get; private set; }
         public GPTerminalSet terminalSet { get; private set; }
+        public double[] GPConstants { get; private set; }
+        public GPChromosome GPBestHromosome { get; private set; }
         public bool IsGPRunning { get; private set; }
+        
         GPParameters parameters;
+        
         //Varijabla za izracunavanje vremena jednog una
         DateTime vrijemeZaJedanRun;
         DateTime pocetakEvolucije;
+        
         //Lista funkcija koje se ucitavaju iz xml datoteke
         XDocument doc;
         public List<GPFunction> functionSetsList;
+
+        
+        //GP Training data
+        public double[][] GPTrainingData { get; private set; }
+        double[,] gpModel;
+
+        //GP Testing data
+        public double[][] GPTestingData { get; private set; }
+        double[,] gpTestModel;
+
+        //Time series prediction
+        public bool TimeSeriesPrediction { get; set; }
+        double[] timeSerie;
+
+        
 
         //Model sa podacima za Graf
         LineItem modelItem;
         LineItem modelTestIten;
         LineItem maxFitness, avgFitness;
         
-        //Podaci experimenta za treniranje GP modela
-        public double[][] GPTrainingData { get; private set; }
-        double[,] gpModel;
 
-        //Podaci experimenta za testiranje GP modela
-        public double[][] GPTestingData { get; private set; }
-        double[,] gpTestModel;
-
-        //POdaci o time series prediction
-        public bool TimeSeriesPrediction { get; set; }
-        double[] timeSerie;
-
-        public double[] GPConstants { get; private set; }
-        //karakteristke populacije
-        public GPChromosome GPBestHromosome { get; private set; }
+        //internal helper
         int velPopulacije;
         bool bParalel;
         int busloviEvolucije;
         float conditionValue;
-      
+        int tekucaEvolucija = 1;
         bool ignoreediting = true;
+
+
         public GP_TS_Panel()
         {
             InitializeComponent();
@@ -75,9 +84,7 @@ namespace GPdotNET
             functionSet = new GPFunctionSet();
             cmetodaGeneriranja.SelectedIndex = 2;
             cmetodaSelekcije.SelectedIndex = 0;
-
-           GPParameters parameters = new GPParameters();
-
+          
            evjerojatnostMutacije.Text = (5.0 / 100.0).ToString();
            evjerojatnostPermutacije.Text = (5.0 / 100.0).ToString();
            evjerojatnostReprodukcije.Text = (20.0 / 100.0).ToString();
@@ -95,17 +102,17 @@ namespace GPdotNET
             this.zedEksperiment.GraphPane.XAxis.Title.Text = Resources.SR_ControlPoint;
             this.zedEksperiment.GraphPane.YAxis.Title.Text = Resources.SR_FunctionValue;
 
-            this.zedChart.GraphPane.Title.Text = Resources.SR_SolutionGraph;
+            this.zedChart.GraphPane.Title.Text = Resources.SR_GPModelSimulation;
             this.zedChart.GraphPane.XAxis.Title.Text = Resources.SR_NumPoints;
             this.zedChart.GraphPane.YAxis.Title.Text = Resources.SR_Output;
 
-            this.zedGraphPopulation.GraphPane.Title.Text = Resources.SR_Populaction;
+            this.zedGraphPopulation.GraphPane.Title.Text = Resources.SR_FitnessGraphSimulation;
             this.zedGraphPopulation.GraphPane.XAxis.Title.Text = Resources.SR_Generation;
             this.zedGraphPopulation.GraphPane.YAxis.Title.Text = Resources.SR_FittValue;
 
             maxFitness = zedGraphPopulation.GraphPane.AddCurve(Resources.SR_MaxFit, null, null, Color.Red, ZedGraph.SymbolType.None);
             avgFitness = zedGraphPopulation.GraphPane.AddCurve(Resources.SR_AvgFitness, null, null, Color.Blue, ZedGraph.SymbolType.None);
-            // rSquare = zedGraphPopulation.GraphPane.AddCurve(Resources.SR_RSquare, null, null, Color.Gray, ZedGraph.SymbolType.None);
+         
             //Podešavanje grafa
             zedGraphPopulation.GraphPane.XAxis.Scale.Max = 500;
             zedGraphPopulation.GraphPane.XAxis.Scale.Min = 0;
@@ -162,7 +169,8 @@ namespace GPdotNET
 
             cmetodaGeneriranja.SelectedIndex = (int)parameters.einitializationMethod;
             cmetodaSelekcije.SelectedIndex = (int)parameters.eselectionMethod;
-
+            ebSelParam1.Text = parameters.SelParam1.ToString();
+            ebSelParam1.Text = parameters.SelParam1.ToString();
             epocetnaDubinaDrveta.Text = parameters.maxInitLevel.ToString();
             edubinaUkrstanja.Text = parameters.maxCossoverLevel.ToString();
             edubinaMutacije.Text = parameters.maxMutationLevel.ToString();
@@ -263,6 +271,7 @@ namespace GPdotNET
             var q = from c in doc.Descendants("FunctionSet")
                     select new GPFunction
                     {
+                       
                         Selected = bool.Parse(c.Element("Selected").Value),
                         Weight = int.Parse(c.Element("Weight").Value),
                         Name = c.Element("Name").Value,
@@ -271,8 +280,9 @@ namespace GPdotNET
                         Aritry = ushort.Parse(c.Element("Aritry").Value),
                         Description = c.Element("Description").Value,
                         IsReadOnly = bool.Parse(c.Element("ReadOnly").Value),
-                        IsDistribution = bool.Parse(c.Element("IsDistribution").Value)
-
+                        IsDistribution = bool.Parse(c.Element("IsDistribution").Value),
+                        ID = ushort.Parse(c.Element("ID").Value)
+                        
                     };
             if (functionSetsList != null)
             {
@@ -314,6 +324,8 @@ namespace GPdotNET
             dataGridViewBuiltInFunction.Columns[7].HeaderText = Resources.SR_IsDistribution;
             dataGridViewBuiltInFunction.Columns[7].Visible = false;
             dataGridViewBuiltInFunction.Columns[8].HeaderText = Resources.SR_Weight;
+            dataGridViewBuiltInFunction.Columns[9].HeaderText = "ID";
+            dataGridViewBuiltInFunction.Columns[9].Visible = false;
 
             dataGridViewBuiltInFunction.AutoResizeColumns();
         }
@@ -323,7 +335,16 @@ namespace GPdotNET
                 parameters = new GPParameters();
 
             parameters.einitializationMethod = (EInitializationMethod)cmetodaGeneriranja.SelectedIndex;
+            //Selection and selection parameters
             parameters.eselectionMethod = (ESelectionMethod)cmetodaSelekcije.SelectedIndex;
+
+            float sel = 0;
+            if (!float.TryParse(ebSelParam1.Text, out sel))
+            {
+                MessageBox.Show(Resources.SR_SelecParamInvalid, Properties.Resources.SR_ApplicationName);
+                return false;
+            }
+            parameters.SelParam1 = sel;
 
             int pocetnaDubina = 0;
             if (!int.TryParse(epocetnaDubinaDrveta.Text, out pocetnaDubina))
@@ -419,6 +440,7 @@ namespace GPdotNET
                     functionSets.Elements("FunctionSet").ElementAt(i).Element("Name").Value = functionSetsList[i].Name.ToString();
                     functionSets.Elements("FunctionSet").ElementAt(i).Element("Description").Value = functionSetsList[i].Description.ToString();
                     functionSets.Elements("FunctionSet").ElementAt(i).Element("Definition").Value = functionSetsList[i].Definition.ToString();
+                    functionSets.Elements("FunctionSet").ElementAt(i).Element("Weight").Value = functionSetsList[i].Weight.ToString();
                 }
             }
 
@@ -458,7 +480,7 @@ namespace GPdotNET
             //load new 
            // functionSet.functions = q.ToList();
 
-            //Shuffle the functions
+            //Shuffle the functions (apear problems during serilization, so it is commnted)
          /*   int count = functionSet.functions.Count;
             for (int i = 0; i < count; i++)
              {
@@ -773,6 +795,9 @@ namespace GPdotNET
         //Startanje Algoritma
         private void startButton_Click(object sender, EventArgs e)
         {
+            //Freez GUI during run of GP 
+            FreezGUI();
+
             ignoreediting = false;
             if (!PodesiParametreGP())
                 return;
@@ -781,9 +806,6 @@ namespace GPdotNET
 
             if (!Generateterminals())
                 return;
-
-            
-
             //Velicina populacije
             if (!int.TryParse(evelicinaPopulacije.Text, out velPopulacije))
             {
@@ -796,8 +818,7 @@ namespace GPdotNET
                 bParalel = false;
             else
                 bParalel = true;
-
-
+            
             //Uslov za evoluciju
             if (!float.TryParse(brojIteracija.Text, out conditionValue))
             {
@@ -827,6 +848,8 @@ namespace GPdotNET
             //POdesavanje dugmadi
             ZamrzniZavrijemeRada();
         }
+
+        
         //DOWOrk
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -839,6 +862,8 @@ namespace GPdotNET
             // se neki kljucni parametri nisu promjenili.
             if (population == null)
             {
+                //Nakon pocetne populacije ide startanje evolucije i 
+                tekucaEvolucija = 1;
                 population = new GPPopulation(velPopulacije, terminalSet, functionSet, parameters, null/*kada je NULL onda uzima default*/, bParalel);
             }
             else
@@ -861,9 +886,6 @@ namespace GPdotNET
             }
             if (GPTestingData != null)
                 population.gpTerminalSet.TestingData = GPTestingData;
-                
-            //Nakon pocetne populacije ide startanje evolucije i 
-            int tekucaEvolucija=1;
 
             GPBestHromosome= population.bestChromosome;
 
@@ -1006,6 +1028,47 @@ namespace GPdotNET
             {
                 MessageBox.Show(ex.Message);
             }
+            UnFreezGUI();
+        }
+        private void FreezGUI()
+        {
+            dataGridViewTimeSeries.Enabled = false;
+            button4.Enabled = false;
+            groupBox5.Enabled = false;
+            dataGridViewPodaci.Enabled = false;
+            btnUcitaj.Enabled = false;
+            button2.Enabled = false;
+
+            evelicinaPopulacije.Enabled = false;
+            cmetodaGeneriranja.Enabled = false;
+            groupBox1.Enabled = false;
+            groupBox2.Enabled = false;
+            groupBox3.Enabled = false;
+            groupBox4.Enabled = false;
+            groupBox5.Enabled = false;
+            groupBox6.Enabled = false;
+            dataGridViewBuiltInFunction.Enabled = false;
+            dataGridView2.Enabled = false;
+        }
+        private void UnFreezGUI()
+        {
+            dataGridViewTimeSeries.Enabled = true;
+            button4.Enabled = true;
+            groupBox5.Enabled = true;
+            dataGridViewPodaci.Enabled = true;
+            btnUcitaj.Enabled = true;
+            button2.Enabled = true;
+
+            evelicinaPopulacije.Enabled = true;
+            cmetodaGeneriranja.Enabled = true;
+            groupBox1.Enabled = true;
+            groupBox2.Enabled = true;
+            groupBox3.Enabled = true;
+            groupBox4.Enabled = true;
+            groupBox5.Enabled = true;
+            groupBox6.Enabled = true;
+            dataGridViewBuiltInFunction.Enabled = true;
+            dataGridView2.Enabled = true;
         }
         private void IzracunajModel()
         {
@@ -1533,8 +1596,6 @@ namespace GPdotNET
                 case 2:
                     lbSelParam1.Visible = true;
                     lbSelParam1.Text = "Tour Size:";
-                    if(parameters==null)
-                        parameters= new GPParameters();
                     ebSelParam1.Text = 2.ToString();
                     ebSelParam1.Visible = true;
                     lbSelParam2.Visible = false;
@@ -1558,9 +1619,7 @@ namespace GPdotNET
                 case 5:
                     lbSelParam1.Visible = true;
                     lbSelParam1.Text = "Nonlinear Keof:";
-                    if (parameters == null)
-                        parameters = new GPParameters();
-                    ebSelParam1.Text = (1.0/5.0).ToString();
+                    ebSelParam1.Text = (1.0 / 5.0).ToString();
                     ebSelParam1.Visible = true;
                     lbSelParam2.Visible = false;
                     ebSelParam2.Visible = false;

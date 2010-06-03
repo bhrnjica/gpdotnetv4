@@ -311,10 +311,10 @@
     <value>Vrijednost</value>
   </data>
   <data name="SR_New_SRModel" xml:space="preserve">
-    <value>Novi GP Model </value>
+    <value>Novi GP model</value>
   </data>
   <data name="SR_New_TSModel" xml:space="preserve">
-    <value>Novi Model Vremenskih Serija</value>
+    <value>Novi TS model</value>
   </data>
   <data name="SR_Weight" xml:space="preserve">
     <value>Težina</value>
@@ -324,5 +324,14 @@
   </data>
   <data name="SR_ElitismInvalid" xml:space="preserve">
     <value>Broj elita nije validan!</value>
+  </data>
+  <data name="SR_FitnessGraphSimulation" xml:space="preserve">
+    <value>Fitness simulacija</value>
+  </data>
+  <data name="SR_GPModelSimulation" xml:space="preserve">
+    <value>Simulacija GP modela</value>
+  </data>
+  <data name="SR_SelecParamInvalid" xml:space="preserve">
+    <value>Parametar selekcije nije validan.</value>
   </data>
 </root>

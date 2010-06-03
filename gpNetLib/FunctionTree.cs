@@ -18,7 +18,7 @@ using System.Diagnostics;
 namespace GPNETLib
 {
     [Serializable]
-    public class FunctionTree:ICloneable
+    public class FunctionTree : ICloneable
     {
         public short NodeValue;
         public List<FunctionTree> SubFunctionTree;
@@ -56,7 +56,7 @@ namespace GPNETLib
         }
 
         #endregion
- 
+
         /// <summary>
         /// String reprezentacija čvora
         /// </summary>
@@ -77,15 +77,15 @@ namespace GPNETLib
         public static void ToListExpression(List<int> lstExpr, FunctionTree node)
         {
             //If subFunctTree is not null
-            if (node.SubFunctionTree != null )
+            if (node.SubFunctionTree != null)
             {
-                Debug.Assert(node.SubFunctionTree.Count!=0);
+                Debug.Assert(node.SubFunctionTree.Count != 0);
                 // pretraži sve čvorove
                 for (int i = 0; i < node.SubFunctionTree.Count; i++)
                     ToListExpression(lstExpr, node.SubFunctionTree[i]);
             }
             lstExpr.Add(node.NodeValue);
-        }    
+        }
         public void ToListExpression(List<int> lstExpr, FunctionTree node, int currentLevel)
         {
             //If subFunctTree is not null
@@ -97,6 +97,6 @@ namespace GPNETLib
                     ToListExpression(lstExpr, node.SubFunctionTree[i], currentLevel);
             }
             lstExpr.Add(node.NodeValue);
-        }        
+        }
     }
 }

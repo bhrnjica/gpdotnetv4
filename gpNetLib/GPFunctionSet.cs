@@ -27,8 +27,8 @@ namespace GPNETLib
     {
         //Collections of functions and terminals. They are separated in two diferent collection
         // cause cleaner logic
-        public List<GPFunction> functions= new List<GPFunction>();
-        public List<GPTerminal> terminals= new List<GPTerminal>();
+        public List<GPFunction> functions = new List<GPFunction>();
+        public List<GPTerminal> terminals = new List<GPTerminal>();
 
         public GPFunctionSet()
         { }
@@ -39,10 +39,10 @@ namespace GPNETLib
 
             //Stack fr evaluation
             Stack<double> arguments = new Stack<double>();
-            
+
             for (int i = 0; i < countT; i++)
             {
-               //Debug.Assert(tokens[i] != 2004 || countT <= 2);
+                //Debug.Assert(tokens[i] != 2004 || countT <= 2);
                 // Ako je token argument onda na osnovu naziv tog argumenta 
                 //izvlacimo mu vrijednost iz skupa terminala i konstanti
                 if (tokens[i] >= 1000 && tokens[i] < 2000)
@@ -53,25 +53,25 @@ namespace GPNETLib
                 {
                     //Evaluacija funkcije. Svaka funkcija ima bar 1 argument
                     int count = functions[tokens[i] - 2000].Aritry;
-                    
-                    
+
+
                     //Ovdje moramo unazad zapisati varijable zbog Staka
                     double[] val = new double[count];
                     for (int j = count; j > 0; j--)
                     {
-                        Debug.Assert(arguments.Count>0);
-                        val[j-1] = arguments.Pop();
+                        Debug.Assert(arguments.Count > 0);
+                        val[j - 1] = arguments.Pop();
                     }
 
                     //Ako je neka funkcija statistička distribucija ili neka druga funkcija koja 
                     // zahtjeva ulazne varijable da bi koristila neku statisticku osobinu
                     //
-                    double [] values = null;
+                    double[] values = null;
                     if (functions[tokens[i] - 2000].IsDistribution)
                     {
-                        values= new double[gpTerminalSet.NumVariables];
-                        for(int k=0;k<gpTerminalSet.NumVariables;k++)
-                            values[k]=gpTerminalSet.TrainingData[numRow][k];
+                        values = new double[gpTerminalSet.NumVariables];
+                        for (int k = 0; k < gpTerminalSet.NumVariables; k++)
+                            values[k] = gpTerminalSet.TrainingData[numRow][k];
                     }
 
                     double result = Evaluate(functions[tokens[i] - 2000], values, val);
@@ -83,7 +83,7 @@ namespace GPNETLib
                 }
             }
             // return the only value from stack
-            Debug.Assert(arguments.Count==1);
+            Debug.Assert(arguments.Count == 1);
             return arguments.Pop();
 
 
@@ -96,178 +96,177 @@ namespace GPNETLib
                 if (double.IsNaN(tt[i]) || double.IsInfinity(tt[i]))
                     return double.NegativeInfinity;
             }
-            switch (fun.Name)
+            switch (fun.ID)
             {
-                case "+":
+                case 1:
                     {
                         return tt[0] + tt[1];
                     }
-                case "-":
+                case 2:
                     {
                         return tt[0] - tt[1];
                     }
-                case "*":
+                case 3:
                     {
                         return tt[0] * tt[1];
                     }
-                case "/":
+                case 4:
                     {
                         return tt[0] / tt[1];
                     }
 
-                case "Add3":
+                case 5:
                     {
                         return tt[0] + tt[1] + tt[2];
                     }
-                case "Sub3":
+                case 6:
                     {
                         return tt[0] - tt[1] - tt[2];
                     }
-                case "Mul3":
+                case 7:
                     {
                         return tt[0] * tt[1] * tt[2];
                     }
-                case "Div3":
+                case 8:
                     {
                         return tt[0] / tt[1] / tt[2];
                     }
 
-                case "Add4":
+                case 9:
                     {
                         return tt[0] + tt[1] + tt[2] + tt[3];
                     }
-                case "Sub4":
+                case 10:
                     {
                         return tt[0] - tt[1] - tt[2] - tt[3];
                     }
-                case "Mul4":
+                case 11:
                     {
                         return tt[0] * tt[1] * tt[2] * tt[3];
                     }
-                case "Div4":
+                case 12:
                     {
                         return tt[0] / tt[1] / tt[2] / tt[3];
                     }
 
-                case "x^2":
+                case 13:
                     {
                         return Math.Pow(tt[0], 2);
                     }
-                case "x^3":
+                case 14:
                     {
                         return Math.Pow(tt[0], 3);
                     }
-                case "x^4":
+                case 15:
                     {
                         return Math.Pow(tt[0], 4);
                     }
 
-                case "x^5":
+                case 16:
                     {
                         return Math.Pow(tt[0], 5);
                     }
 
-                case "x^1/3":
+                case 17:
                     {
                         return Math.Pow(tt[0], 1 / 3.0);
                     }
-                case "x^1/4":
+                case 18:
                     {
                         return Math.Pow(tt[0], 1 / 4.0);
                     }
 
-                case "x^1/5":
+                case 19:
                     {
                         return Math.Pow(tt[0], 1 / 5.0);
                     }
-                case "1/x":
+                case 20:
                     {
                         return 1.0 / tt[0];
                     }
-                case "abs":
+                case 21:
                     {
                         return Math.Abs(tt[0]);
                     }
-                case "floor":
+                case 22:
                     {
                         return Math.Floor(tt[0]);
                     }
-                case "ceiling":
+                case 23:
                     {
                         return Math.Ceiling(tt[0]);
                     }
-                case "truncate":
+                case 24:
                     {
                         return Math.Truncate(tt[0]);
                     }
-                case "sin":
-                    {
-                        return Math.Sin(tt[0]);
-                    }
-
-                case "round":
+                case 25:
                     {
                         return Math.Round(tt[0]);
                     }
-                case "cos":
+                case 26:
+                    {
+                        return Math.Sin(tt[0]);
+                    }
+                case 27:
                     {
                         return Math.Cos(tt[0]);
                     }
-                case "tan":
+                case 28:
                     {
                         return Math.Tan(tt[0]);
                     }
 
-                case "asin":
+                case 29:
                     {
                         return Math.Asin(tt[0]);
                     }
-                case "acos":
+                case 30:
                     {
                         return Math.Acos(tt[0]);
                     }
-                case "atan":
+                case 31:
                     {
                         return Math.Atan(tt[0]);
                     }
-                case "sinh":
+                case 32:
                     {
                         return Math.Sinh(tt[0]);
                     }
-                case "cosh":
+                case 33:
                     {
                         return Math.Cosh(tt[0]);
                     }
-                case "tanh":
+                case 34:
                     {
                         return Math.Tanh(tt[0]);
                     }
-                case "sqrt":
+                case 35:
                     {
                         return Math.Sqrt(tt[0]);
                     }
-                case "exp":
+                case 36:
                     {
                         return Math.Pow(Math.E, tt[0]);
                     }
-                case "log10":
+                case 37:
                     {
                         return Math.Log10(tt[0]);
                     }
-                case "log":
+                case 38:
                     {
                         return Math.Log(tt[0], Math.E);
                     }
-                case "p(x,2)":
+                case 39:
                     {
                         return tt[0] * tt[0] + tt[0] * tt[1] + tt[1] * tt[1];
                     }
-                case "p(x,3)":
+                case 40:
                     {
                         return tt[0] * tt[0] * tt[0] + tt[1] * tt[1] * tt[1] + tt[2] * tt[2] * tt[2] + tt[0] * tt[1] * tt[2] + tt[0] * tt[1] + tt[1] * tt[2] + tt[0] * tt[2];
                     }
                 //Gaussian(x)
-                case "G(x)":
+                case 100:
                     {
                         if (values == null)
                             return double.NaN;
@@ -278,7 +277,7 @@ namespace GPNETLib
                         return Math.Exp(tt[0] * tt[0] / (-2 * stdDev * stdDev)) / (Math.Sqrt(2 * Math.PI) * stdDev);
                     }
                 //Gaussian(x,y)
-                case "G(x,y)":
+                case 101:
                     {
                         if (values == null)
                             return double.NaN;
@@ -335,7 +334,7 @@ namespace GPNETLib
                     {
                         val[j - 1] = arguments.Pop();
                         string oldStr = "x" + (j).ToString();
-                        string newStr=expression.Pop();
+                        string newStr = expression.Pop();
                         function = function.Replace(oldStr, newStr);
                     }
                     /*
@@ -356,7 +355,7 @@ namespace GPNETLib
                         expression.Push(result.ToString());
                     }
                     else
-                        expression.Push("("+function+")");
+                        expression.Push("(" + function + ")");
                     //Izracunavanje izraza
                     arguments.Push(result);
 
@@ -364,7 +363,7 @@ namespace GPNETLib
             }
             // return the only value from stack
             Debug.Assert(expression.Count == 1);
-           // return arguments.Pop();
+            // return arguments.Pop();
             return expression.Pop();
         }
         public string DecodeExpression(List<int> tokens, GPTerminalSet gpTerminalSet)
@@ -462,7 +461,5 @@ namespace GPNETLib
             // return arguments.Pop();
             return expression.Pop();
         }
-
-        
     }
 }

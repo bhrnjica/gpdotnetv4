@@ -28,11 +28,13 @@ namespace GPdotNET
             Application.SetCompatibleTextRenderingDefault(false);
 
             //Bosnian language settings, otherwise use English
-            if (Properties.Settings.Default.Lang)
+            if (Properties.Settings.Default.Lang==1)
             {
-                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("bs-Latn");
-                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("bs-Latn");
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("bs");
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("bs");
             }
+            //Properties.Settings.Default.Lang is INT type for further localization
+            //For some other language you can set Lang=2,3,....
             Application.Run(new GPdotNetApp());
         }
     }
