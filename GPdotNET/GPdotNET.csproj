@@ -227,6 +227,7 @@
     <Content Include="FunctionSet.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\gp256.png" />
     <None Include="Resources\gpLogo.ico" />
     <None Include="Resources\gpabout.png" />
     <None Include="Resources\gp128.png" />
