@@ -142,9 +142,6 @@
   <data name="gpLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gpLogo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SR_ApplicationName" xml:space="preserve">
-    <value>GPdotNET</value>
-  </data>
   <data name="SR_Aritry" xml:space="preserve">
     <value>Argumenata</value>
   </data>
