@@ -26,7 +26,10 @@ namespace GPdotNET
             InitializeComponent();
             
         }
-
+        private void GPdotNetApp_Load(object sender, EventArgs e)
+        {
+            Text = Resources.SR_ApplicationName;
+        }
         void childForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (childForm.IsGPRunning == true)
@@ -530,6 +533,8 @@ namespace GPdotNET
                 englishToolStripMenuItem.Checked = false;
             }
         }
+
+       
 
        
     }
