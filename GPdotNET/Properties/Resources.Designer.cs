@@ -81,6 +81,13 @@ namespace GPdotNET.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap gp256 {
+            get {
+                object obj = ResourceManager.GetObject("gp256", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap gp32 {
             get {
                 object obj = ResourceManager.GetObject("gp32", resourceCulture);

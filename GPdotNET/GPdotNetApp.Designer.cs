@@ -479,12 +479,11 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.BackgroundImage = global::GPdotNET.Properties.Resources.gp128;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackgroundImage = global::GPdotNET.Properties.Resources.gp256;
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.menuStrip);
-            this.DoubleBuffered = true;
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "GPdotNetApp";

@@ -117,180 +117,87 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="gp128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gp128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="gp16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gp16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="gp24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gp24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="gp32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gp32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="gp48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gp48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="gp64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gp64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="gpabout" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gpabout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="gpLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gpLogo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SR_ApplicationName" xml:space="preserve">
-    <value>GPdotNET</value>
-  </data>
-  <data name="SR_Aritry" xml:space="preserve">
-    <value>Aritry</value>
-  </data>
-  <data name="SR_AskForSave" xml:space="preserve">
-    <value>Save changes?</value>
-  </data>
-  <data name="SR_AvgFitness" xml:space="preserve">
-    <value>Average Fitness</value>
-  </data>
-  <data name="SR_ChangedLangWarning" xml:space="preserve">
-    <value>In order to change Language, you have to restart application!</value>
+  <data name="SR_ModelCreationError" xml:space="preserve">
+    <value>Error occurs in model creation!</value>
   </data>
   <data name="SR_ChangeFunctionSet" xml:space="preserve">
     <value>Changing function set, the population must be reset. Do you want to continue?</value>
   </data>
-  <data name="SR_Check" xml:space="preserve">
-    <value>Chcek</value>
+  <data name="SR_IsDistribution" xml:space="preserve">
+    <value>Is Distribution</value>
   </data>
-  <data name="SR_Compleated" xml:space="preserve">
-    <value>Compleated</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="gp32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gp32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SR_ConditionInvalid" xml:space="preserve">
-    <value>Condition of evolution is not valid. Please enter the float number!</value>
-  </data>
-  <data name="SR_Constant" xml:space="preserve">
-    <value>Constant</value>
-  </data>
-  <data name="SR_ConstantIncorectNumber" xml:space="preserve">
-    <value>Incorect number of constants interval!It must be an integer!</value>
-  </data>
-  <data name="SR_ConstantModified" xml:space="preserve">
-    <value>Changing random constants, current Population will be discarded.\n Do you want to continue?</value>
-  </data>
-  <data name="SR_ControlPoint" xml:space="preserve">
-    <value>Control Points</value>
-  </data>
-  <data name="SR_CrossOverdepthInvalid" xml:space="preserve">
-    <value>Corssover depth is not valid!</value>
-  </data>
-  <data name="SR_DataEmpty" xml:space="preserve">
-    <value>Experimantal data is empty. Please load data!</value>
-  </data>
-  <data name="SR_Definition" xml:space="preserve">
-    <value>Definition</value>
-  </data>
-  <data name="SR_Description" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="SR_ExcelDefinition" xml:space="preserve">
-    <value>Excel Definition</value>
+  <data name="SR_ApplicationName" xml:space="preserve">
+    <value>GPdotNET</value>
   </data>
   <data name="SR_ExperimentModel" xml:space="preserve">
     <value>Experiment/Model</value>
   </data>
-  <data name="SR_FittValue" xml:space="preserve">
-    <value>Fitness value</value>
-  </data>
-  <data name="SR_FunctionSetNull" xml:space="preserve">
-    <value>Function set is null.</value>
-  </data>
-  <data name="SR_FunctionValue" xml:space="preserve">
-    <value>Function value</value>
-  </data>
-  <data name="SR_Generation" xml:space="preserve">
-    <value>Generation</value>
-  </data>
-  <data name="SR_InitialDepthInvalid" xml:space="preserve">
-    <value>Initial depth is not valid!</value>
-  </data>
-  <data name="SR_IsDistribution" xml:space="preserve">
-    <value>Is Distribution</value>
-  </data>
-  <data name="SR_LoadSeriesFirst" xml:space="preserve">
-    <value>Please load series first!</value>
-  </data>
-  <data name="SR_LoadTrainingDataFirst" xml:space="preserve">
-    <value>Please load training data set first!</value>
-  </data>
-  <data name="SR_MaxFit" xml:space="preserve">
-    <value>Maximum Fitness</value>
-  </data>
-  <data name="SR_ModelCreationError" xml:space="preserve">
-    <value>Error occurs in model creation!</value>
-  </data>
-  <data name="SR_ModelSet" xml:space="preserve">
-    <value>GP Model (solution)</value>
-  </data>
-  <data name="SR_MutationDepthInvalid" xml:space="preserve">
-    <value>Mutation depth is not valid!</value>
-  </data>
-  <data name="SR_Name" xml:space="preserve">
-    <value>Name</value>
+  <data name="SR_FitnessGraphSimulation" xml:space="preserve">
+    <value>Fitness simulation</value>
   </data>
   <data name="SR_NumPoints" xml:space="preserve">
     <value>Number of points</value>
   </data>
-  <data name="SR_Output" xml:space="preserve">
-    <value>Output</value>
-  </data>
-  <data name="SR_Populaction" xml:space="preserve">
-    <value>Population</value>
-  </data>
-  <data name="SR_PopulationSizeInvalid" xml:space="preserve">
-    <value>Population size is not valid.</value>
-  </data>
-  <data name="SR_probCrossOverInvalid" xml:space="preserve">
-    <value>Probability of crossover is not valid!</value>
-  </data>
   <data name="SR_ProbMutationInvalid" xml:space="preserve">
     <value>Probability of mutation is not valid!</value>
+  </data>
+  <data name="SR_DataEmpty" xml:space="preserve">
+    <value>Experimantal data is empty. Please load data!</value>
+  </data>
+  <data name="SR_Constant" xml:space="preserve">
+    <value>Constant</value>
+  </data>
+  <data name="SR_Generation" xml:space="preserve">
+    <value>Generation</value>
+  </data>
+  <data name="SR_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="SR_SelecParamInvalid" xml:space="preserve">
+    <value>Selection parameter is invalid.</value>
+  </data>
+  <data name="SR_Compleated" xml:space="preserve">
+    <value>Compleated</value>
   </data>
   <data name="SR_ProbPermutationInvalid" xml:space="preserve">
     <value>Probability of permutation is not valid!</value>
   </data>
-  <data name="SR_ProbSelectionInvalid" xml:space="preserve">
-    <value>Probability of selection is not valid!</value>
-  </data>
-  <data name="SR_ReadOnly" xml:space="preserve">
-    <value>Read Only</value>
-  </data>
-  <data name="SR_RSquare" xml:space="preserve">
-    <value>R Square</value>
-  </data>
-  <data name="SR_SampleNumber" xml:space="preserve">
-    <value>SN</value>
-  </data>
-  <data name="SR_SDI_Warning" xml:space="preserve">
-    <value>Please, close existing document first!</value>
-  </data>
-  <data name="SR_Selected" xml:space="preserve">
-    <value>Selected</value>
+  <data name="gp128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gp128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SR_SeriesCorectNumVartest" xml:space="preserve">
     <value>Please correct number of variable and testing data!</value>
   </data>
-  <data name="SR_SeriesCorrectNumbVari" xml:space="preserve">
-    <value>Please correct number of variables!</value>
+  <data name="SR_FunctionSetNull" xml:space="preserve">
+    <value>Function set is null.</value>
   </data>
-  <data name="Sr_SeriesCorrectNumTestSamples" xml:space="preserve">
-    <value>Please correct number testing samples!</value>
+  <data name="SR_Cannot_Read" xml:space="preserve">
+    <value>Could not read file. Error message:</value>
+  </data>
+  <data name="SR_TrainingSet" xml:space="preserve">
+    <value>Training data</value>
+  </data>
+  <data name="SR_probCrossOverInvalid" xml:space="preserve">
+    <value>Probability of crossover is not valid!</value>
+  </data>
+  <data name="SR_AvgFitness" xml:space="preserve">
+    <value>Average Fitness</value>
+  </data>
+  <data name="SR_CrossOverdepthInvalid" xml:space="preserve">
+    <value>Corssover depth is not valid!</value>
   </data>
   <data name="SR_SolutionGraph" xml:space="preserve">
     <value>Solution graph</value>
   </data>
-  <data name="SR_StopFirst" xml:space="preserve">
-    <value>GP is running!Please Stop the algorith first.</value>
+  <data name="gpLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gpLogo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SR_SeriesCorrectNumbVari" xml:space="preserve">
+    <value>Please correct number of variables!</value>
   </data>
   <data name="SR_TerminalSetNull" xml:space="preserve">
     <value>Terminal set is null.</value>
@@ -298,20 +205,128 @@
   <data name="SR_TestingData" xml:space="preserve">
     <value>TESTING DATA</value>
   </data>
-  <data name="SR_testingModelError" xml:space="preserve">
-    <value>Error occures in cration of testing model!</value>
-  </data>
   <data name="SR_TestingNumberParametersNotValid" xml:space="preserve">
     <value>Training and testidng data must have the same number of input parameters!</value>
   </data>
-  <data name="SR_TrainingData" xml:space="preserve">
-    <value>TRAINING DATA</value>
+  <data name="gp48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gp48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gp64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gp64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SR_StopFirst" xml:space="preserve">
+    <value>GP is running!Please Stop the algorith first.</value>
+  </data>
+  <data name="SR_testingModelError" xml:space="preserve">
+    <value>Error occures in cration of testing model!</value>
+  </data>
+  <data name="SR_PopulationSizeInvalid" xml:space="preserve">
+    <value>Population size is not valid.</value>
+  </data>
+  <data name="SR_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="SR_AskForSave" xml:space="preserve">
+    <value>Save changes?</value>
+  </data>
+  <data name="SR_SDI_Warning" xml:space="preserve">
+    <value>Please, close existing document first!</value>
+  </data>
+  <data name="SR_Definition" xml:space="preserve">
+    <value>Definition</value>
+  </data>
+  <data name="SR_SampleNumber" xml:space="preserve">
+    <value>SN</value>
+  </data>
+  <data name="SR_Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="SR_ChangedLangWarning" xml:space="preserve">
+    <value>In order to change Language, you have to restart application!</value>
+  </data>
+  <data name="SR_New_TSModel" xml:space="preserve">
+    <value>New Time Series Model</value>
+  </data>
+  <data name="SR_ProbSelectionInvalid" xml:space="preserve">
+    <value>Probability of selection is not valid!</value>
+  </data>
+  <data name="SR_MutationDepthInvalid" xml:space="preserve">
+    <value>Mutation depth is not valid!</value>
+  </data>
+  <data name="gpabout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gpabout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SR_LoadTrainingDataFirst" xml:space="preserve">
+    <value>Please load training data set first!</value>
+  </data>
+  <data name="SR_InitialDepthInvalid" xml:space="preserve">
+    <value>Initial depth is not valid!</value>
+  </data>
+  <data name="Sr_SeriesCorrectNumTestSamples" xml:space="preserve">
+    <value>Please correct number testing samples!</value>
+  </data>
+  <data name="SR_ExcelDefinition" xml:space="preserve">
+    <value>Excel Definition</value>
+  </data>
+  <data name="SR_Selected" xml:space="preserve">
+    <value>Selected</value>
+  </data>
+  <data name="gp16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gp16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SR_Check" xml:space="preserve">
+    <value>Chcek</value>
   </data>
   <data name="SR_TrainingDataFirst" xml:space="preserve">
     <value>Load training data first!</value>
   </data>
-  <data name="SR_TrainingSet" xml:space="preserve">
-    <value>Training data</value>
+  <data name="SR_FunctionValue" xml:space="preserve">
+    <value>Function value</value>
+  </data>
+  <data name="SR_FittValue" xml:space="preserve">
+    <value>Fitness value</value>
+  </data>
+  <data name="SR_TrainingData" xml:space="preserve">
+    <value>TRAINING DATA</value>
+  </data>
+  <data name="SR_RSquare" xml:space="preserve">
+    <value>R Square</value>
+  </data>
+  <data name="SR_ElitismInvalid" xml:space="preserve">
+    <value>Elitism number is not valid!</value>
+  </data>
+  <data name="SR_Aritry" xml:space="preserve">
+    <value>Aritry</value>
+  </data>
+  <data name="SR_ControlPoint" xml:space="preserve">
+    <value>Control Points</value>
+  </data>
+  <data name="SR_Weight" xml:space="preserve">
+    <value>Weight</value>
+  </data>
+  <data name="gp24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gp24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SR_GPModelSimulation" xml:space="preserve">
+    <value>GP Model simulation</value>
+  </data>
+  <data name="SR_ConstantIncorectNumber" xml:space="preserve">
+    <value>Incorect number of constants interval!It must be an integer!</value>
+  </data>
+  <data name="SR_ConstantModified" xml:space="preserve">
+    <value>Changing random constants, current Population will be discarded.\n Do you want to continue?</value>
+  </data>
+  <data name="SR_ConditionInvalid" xml:space="preserve">
+    <value>Condition of evolution is not valid. Please enter the float number!</value>
+  </data>
+  <data name="SR_New_SRModel" xml:space="preserve">
+    <value>New GP Data Model</value>
+  </data>
+  <data name="SR_LoadSeriesFirst" xml:space="preserve">
+    <value>Please load series first!</value>
+  </data>
+  <data name="SR_MaxFit" xml:space="preserve">
+    <value>Maximum Fitness</value>
   </data>
   <data name="SR_Undefined" xml:space="preserve">
     <value>Undefined</value>
@@ -319,28 +334,16 @@
   <data name="SR_Value" xml:space="preserve">
     <value>Value</value>
   </data>
-  <data name="SR_Weight" xml:space="preserve">
-    <value>Weight</value>
+  <data name="SR_ReadOnly" xml:space="preserve">
+    <value>Read Only</value>
   </data>
-  <data name="SR_New_SRModel" xml:space="preserve">
-    <value>New GP Data Model</value>
+  <data name="SR_Populaction" xml:space="preserve">
+    <value>Population</value>
   </data>
-  <data name="SR_New_TSModel" xml:space="preserve">
-    <value>New Time Series Model</value>
+  <data name="SR_ModelSet" xml:space="preserve">
+    <value>GP Model (solution)</value>
   </data>
-  <data name="SR_Cannot_Read" xml:space="preserve">
-    <value>Could not read file. Error message:</value>
-  </data>
-  <data name="SR_ElitismInvalid" xml:space="preserve">
-    <value>Elitism number is not valid!</value>
-  </data>
-  <data name="SR_FitnessGraphSimulation" xml:space="preserve">
-    <value>Fitness simulation</value>
-  </data>
-  <data name="SR_GPModelSimulation" xml:space="preserve">
-    <value>GP Model simulation</value>
-  </data>
-  <data name="SR_SelecParamInvalid" xml:space="preserve">
-    <value>Selection parameter is invalid.</value>
+  <data name="gp256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gp256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

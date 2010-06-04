@@ -191,22 +191,22 @@
             // 
             // tabControl1
             // 
-            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.Series);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
             // Series
             // 
-            resources.ApplyResources(this.Series, "Series");
             this.Series.Controls.Add(this.groupBox5);
             this.Series.Controls.Add(this.button4);
             this.Series.Controls.Add(this.dataGridViewTimeSeries);
+            resources.ApplyResources(this.Series, "Series");
             this.Series.Name = "Series";
             this.Series.UseVisualStyleBackColor = true;
             // 
@@ -273,21 +273,21 @@
             // 
             // dataGridViewTimeSeries
             // 
-            resources.ApplyResources(this.dataGridViewTimeSeries, "dataGridViewTimeSeries");
             this.dataGridViewTimeSeries.AllowUserToAddRows = false;
             this.dataGridViewTimeSeries.AllowUserToDeleteRows = false;
             this.dataGridViewTimeSeries.AllowUserToResizeColumns = false;
             this.dataGridViewTimeSeries.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridViewTimeSeries, "dataGridViewTimeSeries");
             this.dataGridViewTimeSeries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTimeSeries.Name = "dataGridViewTimeSeries";
             this.dataGridViewTimeSeries.ReadOnly = true;
             // 
             // tabPage1
             // 
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.tableLayoutPanel2);
             this.tabPage1.Controls.Add(this.btnUcitaj);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
@@ -307,11 +307,11 @@
             // 
             // dataGridViewPodaci
             // 
-            resources.ApplyResources(this.dataGridViewPodaci, "dataGridViewPodaci");
             this.dataGridViewPodaci.AllowUserToAddRows = false;
             this.dataGridViewPodaci.AllowUserToDeleteRows = false;
             this.dataGridViewPodaci.AllowUserToResizeColumns = false;
             this.dataGridViewPodaci.AllowUserToResizeRows = false;
+            resources.ApplyResources(this.dataGridViewPodaci, "dataGridViewPodaci");
             this.dataGridViewPodaci.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPodaci.Name = "dataGridViewPodaci";
             this.dataGridViewPodaci.ReadOnly = true;
@@ -337,19 +337,18 @@
             // 
             // tabPage2
             // 
-            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Controls.Add(this.groupBox8);
             this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox1);
+            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox8
             // 
-            resources.ApplyResources(this.groupBox8, "groupBox8");
             this.groupBox8.Controls.Add(this.label6);
             this.groupBox8.Controls.Add(this.label1);
             this.groupBox8.Controls.Add(this.evelicinaPopulacije);
@@ -357,6 +356,7 @@
             this.groupBox8.Controls.Add(this.cmetodaGeneriranja);
             this.groupBox8.Controls.Add(this.label35);
             this.groupBox8.Controls.Add(this.label12);
+            resources.ApplyResources(this.groupBox8, "groupBox8");
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.TabStop = false;
             // 
@@ -377,7 +377,6 @@
             // 
             // cfitnessFunctions
             // 
-            resources.ApplyResources(this.cfitnessFunctions, "cfitnessFunctions");
             this.cfitnessFunctions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cfitnessFunctions.Items.AddRange(new object[] {
             resources.GetString("cfitnessFunctions.Items"),
@@ -395,16 +394,17 @@
             resources.GetString("cfitnessFunctions.Items12"),
             resources.GetString("cfitnessFunctions.Items13"),
             resources.GetString("cfitnessFunctions.Items14")});
+            resources.ApplyResources(this.cfitnessFunctions, "cfitnessFunctions");
             this.cfitnessFunctions.Name = "cfitnessFunctions";
             // 
             // cmetodaGeneriranja
             // 
-            resources.ApplyResources(this.cmetodaGeneriranja, "cmetodaGeneriranja");
             this.cmetodaGeneriranja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmetodaGeneriranja.Items.AddRange(new object[] {
             resources.GetString("cmetodaGeneriranja.Items"),
             resources.GetString("cmetodaGeneriranja.Items1"),
             resources.GetString("cmetodaGeneriranja.Items2")});
+            resources.ApplyResources(this.cmetodaGeneriranja, "cmetodaGeneriranja");
             this.cmetodaGeneriranja.Name = "cmetodaGeneriranja";
             // 
             // label35
@@ -421,7 +421,6 @@
             // 
             // groupBox6
             // 
-            resources.ApplyResources(this.groupBox6, "groupBox6");
             this.groupBox6.Controls.Add(this.lbSelParam2);
             this.groupBox6.Controls.Add(this.ebSelParam2);
             this.groupBox6.Controls.Add(this.lbSelParam1);
@@ -431,6 +430,7 @@
             this.groupBox6.Controls.Add(this.textBox6);
             this.groupBox6.Controls.Add(this.cmetodaSelekcije);
             this.groupBox6.Controls.Add(this.label13);
+            resources.ApplyResources(this.groupBox6, "groupBox6");
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.TabStop = false;
             // 
@@ -474,7 +474,6 @@
             // 
             // cmetodaSelekcije
             // 
-            resources.ApplyResources(this.cmetodaSelekcije, "cmetodaSelekcije");
             this.cmetodaSelekcije.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmetodaSelekcije.Items.AddRange(new object[] {
             resources.GetString("cmetodaSelekcije.Items"),
@@ -483,6 +482,7 @@
             resources.GetString("cmetodaSelekcije.Items3"),
             resources.GetString("cmetodaSelekcije.Items4"),
             resources.GetString("cmetodaSelekcije.Items5")});
+            resources.ApplyResources(this.cmetodaSelekcije, "cmetodaSelekcije");
             this.cmetodaSelekcije.Name = "cmetodaSelekcije";
             this.cmetodaSelekcije.SelectedIndexChanged += new System.EventHandler(this.cmetodaSelekcije_SelectedIndexChanged);
             // 
@@ -494,7 +494,6 @@
             // 
             // groupBox4
             // 
-            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Controls.Add(this.button3);
             this.groupBox4.Controls.Add(this.brojKonstantiTextBox);
             this.groupBox4.Controls.Add(this.label27);
@@ -502,6 +501,7 @@
             this.groupBox4.Controls.Add(this.intervalOdTextBox);
             this.groupBox4.Controls.Add(this.label29);
             this.groupBox4.Controls.Add(this.intervalDoTextBox);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
@@ -547,9 +547,9 @@
             // 
             // groupBox3
             // 
-            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Controls.Add(this.radioButton2);
             this.groupBox3.Controls.Add(this.radioSingleCore);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
             // 
@@ -569,7 +569,6 @@
             // 
             // groupBox2
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.label39);
             this.groupBox2.Controls.Add(this.textBox2);
             this.groupBox2.Controls.Add(this.label40);
@@ -587,6 +586,7 @@
             this.groupBox2.Controls.Add(this.label16);
             this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Controls.Add(this.Reprodukcija);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
@@ -689,7 +689,6 @@
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label4);
@@ -699,6 +698,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label5);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -755,11 +755,11 @@
             // 
             // tabPage3
             // 
-            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Controls.Add(this.dataGridView2);
             this.tabPage3.Controls.Add(this.label26);
             this.tabPage3.Controls.Add(this.label25);
             this.tabPage3.Controls.Add(this.dataGridViewBuiltInFunction);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
@@ -788,12 +788,12 @@
             // 
             // tabPage4
             // 
-            resources.ApplyResources(this.tabPage4, "tabPage4");
             this.tabPage4.Controls.Add(this.tableLayoutPanel1);
             this.tabPage4.Controls.Add(this.progressBar1);
             this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Controls.Add(this.stopButton);
             this.tabPage4.Controls.Add(this.startButton);
+            resources.ApplyResources(this.tabPage4, "tabPage4");
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
@@ -944,13 +944,13 @@
             // 
             // comboBox2
             // 
-            resources.ApplyResources(this.comboBox2, "comboBox2");
             this.comboBox2.DisplayMember = "0";
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Items.AddRange(new object[] {
             resources.GetString("comboBox2.Items"),
             resources.GetString("comboBox2.Items1")});
+            resources.ApplyResources(this.comboBox2, "comboBox2");
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
@@ -995,26 +995,26 @@
             // 
             // tabPage5
             // 
-            resources.ApplyResources(this.tabPage5, "tabPage5");
             this.tabPage5.Controls.Add(this.tabControl2);
+            resources.ApplyResources(this.tabPage5, "tabPage5");
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // tabControl2
             // 
-            resources.ApplyResources(this.tabControl2, "tabControl2");
             this.tabControl2.Controls.Add(this.tabPage6);
             this.tabControl2.Controls.Add(this.tabPage7);
+            resources.ApplyResources(this.tabControl2, "tabControl2");
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             // 
             // tabPage6
             // 
-            resources.ApplyResources(this.tabPage6, "tabPage6");
             this.tabPage6.Controls.Add(this.button1);
             this.tabPage6.Controls.Add(this.label41);
             this.tabPage6.Controls.Add(this.dataGridViewRandomConstants);
             this.tabPage6.Controls.Add(this.tableLayoutPanel3);
+            resources.ApplyResources(this.tabPage6, "tabPage6");
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
@@ -1069,8 +1069,8 @@
             // 
             // tabPage7
             // 
-            resources.ApplyResources(this.tabPage7, "tabPage7");
             this.tabPage7.Controls.Add(this.tableLayoutPanel4);
+            resources.ApplyResources(this.tabPage7, "tabPage7");
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
@@ -1114,7 +1114,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
             // 
             // backgroundWorker1
             // 
