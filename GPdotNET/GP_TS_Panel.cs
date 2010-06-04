@@ -84,6 +84,7 @@ namespace GPdotNET
             functionSet = new GPFunctionSet();
             cmetodaGeneriranja.SelectedIndex = 2;
             cmetodaSelekcije.SelectedIndex = 0;
+            cfitnessFunctions.SelectedIndex = 0;
           
            evjerojatnostMutacije.Text = (5.0 / 100.0).ToString();
            evjerojatnostPermutacije.Text = (5.0 / 100.0).ToString();
@@ -169,6 +170,8 @@ namespace GPdotNET
 
             cmetodaGeneriranja.SelectedIndex = (int)parameters.einitializationMethod;
             cmetodaSelekcije.SelectedIndex = (int)parameters.eselectionMethod;
+            cfitnessFunctions.SelectedIndex = (int)parameters.efitnessFunction;
+
             ebSelParam1.Text = parameters.SelParam1.ToString();
             ebSelParam1.Text = parameters.SelParam1.ToString();
             epocetnaDubinaDrveta.Text = parameters.maxInitLevel.ToString();
@@ -337,7 +340,8 @@ namespace GPdotNET
             parameters.einitializationMethod = (EInitializationMethod)cmetodaGeneriranja.SelectedIndex;
             //Selection and selection parameters
             parameters.eselectionMethod = (ESelectionMethod)cmetodaSelekcije.SelectedIndex;
-
+            parameters.efitnessFunction = (EFitness)cfitnessFunctions.SelectedIndex;
+            parameters.InitiFitness();
             float sel = 0;
             if (!float.TryParse(ebSelParam1.Text, out sel))
             {
@@ -864,7 +868,7 @@ namespace GPdotNET
             {
                 //Nakon pocetne populacije ide startanje evolucije i 
                 tekucaEvolucija = 1;
-                population = new GPPopulation(velPopulacije, terminalSet, functionSet, parameters, null/*kada je NULL onda uzima default*/, bParalel);
+                population = new GPPopulation(velPopulacije, terminalSet, functionSet, parameters, bParalel);
             }
             else
             {
@@ -1039,8 +1043,7 @@ namespace GPdotNET
             btnUcitaj.Enabled = false;
             button2.Enabled = false;
 
-            evelicinaPopulacije.Enabled = false;
-            cmetodaGeneriranja.Enabled = false;
+            groupBox8.Enabled = false;
             groupBox1.Enabled = false;
             groupBox2.Enabled = false;
             groupBox3.Enabled = false;
@@ -1059,8 +1062,7 @@ namespace GPdotNET
             btnUcitaj.Enabled = true;
             button2.Enabled = true;
 
-            evelicinaPopulacije.Enabled = true;
-            cmetodaGeneriranja.Enabled = true;
+            groupBox8.Enabled = true;
             groupBox1.Enabled = true;
             groupBox2.Enabled = true;
             groupBox3.Enabled = true;

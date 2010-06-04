@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Series.Text" xml:space="preserve">
+    <value>Vrem. Serije</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>Podaci</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>Podešavanje</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>Funkcije</value>
+  </data>
+  <data name="tabPage4.Text" xml:space="preserve">
+    <value>Pokretanje</value>
+  </data>
+  <data name="groupBox5.Text" xml:space="preserve">
+    <value>Podešavanje</value>
+  </data>
   <data name="button5.Text" xml:space="preserve">
     <value>Podešavanje za GP</value>
   </data>
@@ -129,14 +147,8 @@
   <data name="label45.Text" xml:space="preserve">
     <value>Br. Serija:</value>
   </data>
-  <data name="groupBox5.Text" xml:space="preserve">
-    <value>Podešavanje</value>
-  </data>
   <data name="button4.Text" xml:space="preserve">
     <value>Učitavanje...</value>
-  </data>
-  <data name="Series.Text" xml:space="preserve">
-    <value>Vrem. Serije</value>
   </data>
   <data name="button2.Text" xml:space="preserve">
     <value>Učitavanje Testa ...</value>
@@ -144,17 +156,42 @@
   <data name="btnUcitaj.Text" xml:space="preserve">
     <value>Učitavanje podataka za učenje..</value>
   </data>
-  <data name="tabPage1.Text" xml:space="preserve">
-    <value>Podaci</value>
+  <data name="groupBox8.Text" xml:space="preserve">
+    <value>Populacija</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Veličina populacije:</value>
+  </data>
+  <data name="cmetodaGeneriranja.Items" xml:space="preserve">
+    <value>Puna</value>
+  </data>
+  <data name="cmetodaGeneriranja.Items1" xml:space="preserve">
+    <value>Rastuća</value>
+  </data>
+  <data name="cmetodaGeneriranja.Items2" xml:space="preserve">
+    <value>Miješana</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
+    <value>-2, 67</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 18</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>Inicijalizacija:</value>
   </data>
   <data name="label23.Text" xml:space="preserve">
-    <value>GPModel (sa Editing):</value>
+    <value>0- vel pop</value>
   </data>
   <data name="label19.Text" xml:space="preserve">
-    <value>V. Reg:</value>
+    <value>Elita:</value>
   </data>
   <data name="label13.Text" xml:space="preserve">
     <value>Metoda selekcija:</value>
+  </data>
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>Slučajne konstante</value>
   </data>
   <data name="button3.Text" xml:space="preserve">
     <value>Generiranje</value>
@@ -168,10 +205,9 @@
   <data name="label29.Text" xml:space="preserve">
     <value>do:</value>
   </data>
-  <data name="groupBox4.Text" xml:space="preserve">
-    <value>Slučajne konstante</value>
+  <data name="groupBox3.Text" xml:space="preserve">
+    <value>Tip procesora</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="radioButton2.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 17</value>
   </data>
@@ -184,20 +220,8 @@
   <data name="radioSingleCore.Text" xml:space="preserve">
     <value>Jednojezgreni</value>
   </data>
-  <data name="groupBox3.Text" xml:space="preserve">
-    <value>Tip procesora</value>
-  </data>
-  <data name="label35.Text" xml:space="preserve">
-    <value>Fitness funkcija:</value>
-  </data>
-  <data name="cmetodaGeneriranja.Items" xml:space="preserve">
-    <value>Puna</value>
-  </data>
-  <data name="cmetodaGeneriranja.Items1" xml:space="preserve">
-    <value>Rastuća</value>
-  </data>
-  <data name="cmetodaGeneriranja.Items2" xml:space="preserve">
-    <value>Miješana</value>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Vjerojatnost GP operatora</value>
   </data>
   <data name="label40.Text" xml:space="preserve">
     <value>Enkapsulacija:</value>
@@ -226,8 +250,8 @@
   <data name="Reprodukcija.Text" xml:space="preserve">
     <value>Reprodukcija:</value>
   </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Vjerojatnost GP operatora</value>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Maksimalna dubina drveta izraza</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>Dubina za mutaciju:</value>
@@ -238,26 +262,14 @@
   <data name="label5.Text" xml:space="preserve">
     <value>Početna dubina:</value>
   </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Maksimalna dubina drveta izraza</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>Metode inicijalizacije:</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Veličina populacije:</value>
-  </data>
-  <data name="tabPage2.Text" xml:space="preserve">
-    <value>Podešavanje</value>
-  </data>
   <data name="label26.Text" xml:space="preserve">
     <value>Posebne funkcije</value>
   </data>
   <data name="label25.Text" xml:space="preserve">
     <value>Ugrađenje funkcije</value>
   </data>
-  <data name="tabPage3.Text" xml:space="preserve">
-    <value>Funkcije</value>
+  <data name="groupBox7.Text" xml:space="preserve">
+    <value>Evolucija</value>
   </data>
   <data name="label44.Text" xml:space="preserve">
     <value>Trajanje(min):</value>
@@ -289,12 +301,6 @@
   <data name="label20.Text" xml:space="preserve">
     <value>Genetacija:</value>
   </data>
-  <data name="groupBox7.Text" xml:space="preserve">
-    <value>Evolucija</value>
-  </data>
-  <data name="tabPage4.Text" xml:space="preserve">
-    <value>Pokretanje</value>
-  </data>
   <data name="button1.Text" xml:space="preserve">
     <value>Prikaži S-izraze</value>
   </data>
@@ -310,14 +316,14 @@
   <data name="label24.Text" xml:space="preserve">
     <value>Podaci za učenje:</value>
   </data>
+  <data name="tabPage7.Text" xml:space="preserve">
+    <value>Predikcija</value>
+  </data>
   <data name="label22.Text" xml:space="preserve">
     <value>Podaci za testiranje:</value>
   </data>
   <data name="label34.Text" xml:space="preserve">
     <value>Podaci za testiranje (graf):</value>
-  </data>
-  <data name="tabPage7.Text" xml:space="preserve">
-    <value>Predikcija</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
