@@ -68,6 +68,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExcelHelper.cs" />
+    <Compile Include="Fitness\AEFitness.cs" />
+    <Compile Include="Fitness\CCFitness.cs" />
+    <Compile Include="Fitness\MAEFitness.cs" />
+    <Compile Include="Fitness\RAEFitness.cs" />
+    <Compile Include="Fitness\REFitness.cs" />
+    <Compile Include="Fitness\RMSEFitness.cs" />
+    <Compile Include="Fitness\RRSEFitness.cs" />
+    <Compile Include="Fitness\RSEFitness.cs" />
+    <Compile Include="Fitness\r_MAEFitness.cs" />
+    <Compile Include="Fitness\r_MSEFitness.cs" />
+    <Compile Include="Fitness\r_RAEFitness.cs" />
+    <Compile Include="Fitness\r_RMSEFitness.cs" />
+    <Compile Include="Fitness\r_RRSEFitness.cs" />
+    <Compile Include="Fitness\r_RSEFitness.cs" />
     <Compile Include="FunctionTree.cs" />
     <Compile Include="GPChromosome.cs" />
     <Compile Include="GPFunction.cs" />

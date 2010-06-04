@@ -35,8 +35,7 @@ namespace GPNETLib
         public GPFunctionSet gpFunctionSet;
         //Set of TrainingData for testing and training TrainingData for prediction
         public GPTerminalSet gpTerminalSet;
-        //Measure for chromosomes
-        public IFitnessFunction gpFitness;
+        
                
         //Koristenje multyCode procesora u paralelno računanje
         public bool ParalelComputing { get; set; }
@@ -73,7 +72,6 @@ namespace GPNETLib
         public GPPopulation(int size,   GPTerminalSet terminalSet,
                                         GPFunctionSet functionSet,
                                         GPParameters parameters, 
-                                        IFitnessFunction fitness,
                                         bool paralelComp)
         {
             ParalelComputing = paralelComp;
@@ -90,14 +88,7 @@ namespace GPNETLib
             if (functionSet == null)
                 return;
             if (terminalSet == null)
-                return;
-            
-            //Akonije definisan fitness uzmi standardnu MSE- Kvadratnu grešku
-            if (fitness == null)
-                gpFitness = new MSEFitness();
-            else
-                gpFitness = fitness;
-           
+                return;        
             //
             gpFunctionSet = functionSet;
             gpTerminalSet = terminalSet;
@@ -200,7 +191,7 @@ namespace GPNETLib
             List<int> lst = new List<int>();
 
             FunctionTree.ToListExpression(lst, c.Root);
-            gpFitness.Evaluate(lst, gpFunctionSet,gpTerminalSet,c);
+            gpParameters.GPFitness.Evaluate(lst, gpFunctionSet,gpTerminalSet,c);
         }
 
         private GPChromosome GenerateChromosome(int initLevel)
