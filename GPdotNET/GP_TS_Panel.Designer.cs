@@ -29,6 +29,21 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GP_TS_Panel));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Series = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -45,7 +60,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewPodaci = new System.Windows.Forms.DataGridView();
-            this.zedEksperiment = new ZedGraph.ZedGraphControl();
+            this.chartExperiment = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnUcitaj = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -112,8 +127,8 @@
             this.dataGridViewBuiltInFunction = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.zedGraphPopulation = new ZedGraph.ZedGraphControl();
-            this.zedChart = new ZedGraph.ZedGraphControl();
+            this.chartFitnessSimulation = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartModelSimulation = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.eDuration = new System.Windows.Forms.TextBox();
@@ -152,10 +167,8 @@
             this.dataGridViewRezultat = new System.Windows.Forms.DataGridView();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.zedGraphTestData = new ZedGraph.ZedGraphControl();
-            this.label22 = new System.Windows.Forms.Label();
+            this.chartTestSimulation = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dataGridViewTestData = new System.Windows.Forms.DataGridView();
-            this.label34 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
@@ -165,6 +178,7 @@
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPodaci)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartExperiment)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -177,6 +191,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBuiltInFunction)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFitnessSimulation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartModelSimulation)).BeginInit();
             this.groupBox7.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -186,6 +202,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRezultat)).BeginInit();
             this.tabPage7.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTestSimulation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -302,7 +319,7 @@
             // 
             resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
             this.tableLayoutPanel2.Controls.Add(this.dataGridViewPodaci, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.zedEksperiment, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.chartExperiment, 0, 1);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
             // dataGridViewPodaci
@@ -316,17 +333,53 @@
             this.dataGridViewPodaci.Name = "dataGridViewPodaci";
             this.dataGridViewPodaci.ReadOnly = true;
             // 
-            // zedEksperiment
+            // chartExperiment
             // 
-            resources.ApplyResources(this.zedEksperiment, "zedEksperiment");
-            this.zedEksperiment.Name = "zedEksperiment";
-            this.zedEksperiment.ScrollGrace = 0D;
-            this.zedEksperiment.ScrollMaxX = 0D;
-            this.zedEksperiment.ScrollMaxY = 0D;
-            this.zedEksperiment.ScrollMaxY2 = 0D;
-            this.zedEksperiment.ScrollMinX = 0D;
-            this.zedEksperiment.ScrollMinY = 0D;
-            this.zedEksperiment.ScrollMinY2 = 0D;
+            this.chartExperiment.BorderlineColor = System.Drawing.Color.Black;
+            this.chartExperiment.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea1.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
+            chartArea1.AxisX.Crossing = -1.7976931348623157E+308D;
+            chartArea1.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX.MinorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX2.Crossing = -1.7976931348623157E+308D;
+            chartArea1.AxisY.Crossing = -1.7976931348623157E+308D;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY.MinorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY2.Crossing = -1.7976931348623157E+308D;
+            chartArea1.BorderColor = System.Drawing.Color.DimGray;
+            chartArea1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea1.InnerPlotPosition.Auto = false;
+            chartArea1.InnerPlotPosition.Height = 78F;
+            chartArea1.InnerPlotPosition.Width = 92F;
+            chartArea1.InnerPlotPosition.X = 5F;
+            chartArea1.InnerPlotPosition.Y = 5F;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.chartExperiment.ChartAreas.Add(chartArea1);
+            resources.ApplyResources(this.chartExperiment, "chartExperiment");
+            legend1.BorderColor = System.Drawing.Color.Transparent;
+            legend1.DockedToChartArea = "ChartArea1";
+            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            this.chartExperiment.Legends.Add(legend1);
+            this.chartExperiment.Name = "chartExperiment";
+            this.chartExperiment.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            series1.BorderColor = System.Drawing.Color.Blue;
+            series1.BorderWidth = 2;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series1.Legend = "Legend1";
+            series1.Name = "Data model";
+            this.chartExperiment.Series.Add(series1);
             // 
             // btnUcitaj
             // 
@@ -800,33 +853,101 @@
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.zedGraphPopulation, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.zedChart, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.chartFitnessSimulation, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.chartModelSimulation, 0, 1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
-            // zedGraphPopulation
+            // chartFitnessSimulation
             // 
-            resources.ApplyResources(this.zedGraphPopulation, "zedGraphPopulation");
-            this.zedGraphPopulation.Name = "zedGraphPopulation";
-            this.zedGraphPopulation.ScrollGrace = 0D;
-            this.zedGraphPopulation.ScrollMaxX = 0D;
-            this.zedGraphPopulation.ScrollMaxY = 0D;
-            this.zedGraphPopulation.ScrollMaxY2 = 0D;
-            this.zedGraphPopulation.ScrollMinX = 0D;
-            this.zedGraphPopulation.ScrollMinY = 0D;
-            this.zedGraphPopulation.ScrollMinY2 = 0D;
+            this.chartFitnessSimulation.BorderlineColor = System.Drawing.Color.Black;
+            this.chartFitnessSimulation.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea2.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
+            chartArea2.AxisX.Crossing = -1.7976931348623157E+308D;
+            chartArea2.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea2.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisX.MinorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisX2.Crossing = -1.7976931348623157E+308D;
+            chartArea2.AxisY.Crossing = -1.7976931348623157E+308D;
+            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisY.MinorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisY.MinorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisY2.Crossing = -1.7976931348623157E+308D;
+            chartArea2.BorderColor = System.Drawing.Color.DimGray;
+            chartArea2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea2.Name = "ChartArea1";
+            this.chartFitnessSimulation.ChartAreas.Add(chartArea2);
+            resources.ApplyResources(this.chartFitnessSimulation, "chartFitnessSimulation");
+            legend2.BorderColor = System.Drawing.Color.Transparent;
+            legend2.DockedToChartArea = "ChartArea1";
+            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend2.Name = "Legend1";
+            this.chartFitnessSimulation.Legends.Add(legend2);
+            this.chartFitnessSimulation.Name = "chartFitnessSimulation";
+            this.chartFitnessSimulation.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            series2.BorderColor = System.Drawing.Color.Blue;
+            series2.BorderWidth = 2;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.Legend = "Legend1";
+            series2.Name = "Avg fitness";
+            series3.BorderColor = System.Drawing.Color.Red;
+            series3.BorderWidth = 2;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.Legend = "Legend1";
+            series3.Name = "Max fitness";
+            this.chartFitnessSimulation.Series.Add(series2);
+            this.chartFitnessSimulation.Series.Add(series3);
             // 
-            // zedChart
+            // chartModelSimulation
             // 
-            resources.ApplyResources(this.zedChart, "zedChart");
-            this.zedChart.Name = "zedChart";
-            this.zedChart.ScrollGrace = 0D;
-            this.zedChart.ScrollMaxX = 0D;
-            this.zedChart.ScrollMaxY = 0D;
-            this.zedChart.ScrollMaxY2 = 0D;
-            this.zedChart.ScrollMinX = 0D;
-            this.zedChart.ScrollMinY = 0D;
-            this.zedChart.ScrollMinY2 = 0D;
+            this.chartModelSimulation.BorderlineColor = System.Drawing.Color.Black;
+            this.chartModelSimulation.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea3.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
+            chartArea3.AxisX.Crossing = -1.7976931348623157E+308D;
+            chartArea3.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea3.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea3.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisX.MinorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisX.MinorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisX2.Crossing = -1.7976931348623157E+308D;
+            chartArea3.AxisY.Crossing = -1.7976931348623157E+308D;
+            chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisY.MinorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisY.MinorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisY2.Crossing = -1.7976931348623157E+308D;
+            chartArea3.BorderColor = System.Drawing.Color.DimGray;
+            chartArea3.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea3.Name = "ChartArea1";
+            this.chartModelSimulation.ChartAreas.Add(chartArea3);
+            resources.ApplyResources(this.chartModelSimulation, "chartModelSimulation");
+            legend3.BorderColor = System.Drawing.Color.Transparent;
+            legend3.DockedToChartArea = "ChartArea1";
+            legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend3.Name = "Legend1";
+            this.chartModelSimulation.Legends.Add(legend3);
+            this.chartModelSimulation.Name = "chartModelSimulation";
+            this.chartModelSimulation.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            series4.BorderColor = System.Drawing.Color.Blue;
+            series4.BorderWidth = 2;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series4.Legend = "Legend1";
+            series4.Name = "Data model";
+            series5.BorderColor = System.Drawing.Color.Red;
+            series5.BorderWidth = 2;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series5.Legend = "Legend1";
+            series5.Name = "GP model";
+            this.chartModelSimulation.Series.Add(series4);
+            this.chartModelSimulation.Series.Add(series5);
             // 
             // progressBar1
             // 
@@ -1077,39 +1198,61 @@
             // tableLayoutPanel4
             // 
             resources.ApplyResources(this.tableLayoutPanel4, "tableLayoutPanel4");
-            this.tableLayoutPanel4.Controls.Add(this.zedGraphTestData, 0, 3);
-            this.tableLayoutPanel4.Controls.Add(this.label22, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.dataGridViewTestData, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.label34, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.chartTestSimulation, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.dataGridViewTestData, 0, 0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             // 
-            // zedGraphTestData
+            // chartTestSimulation
             // 
-            resources.ApplyResources(this.zedGraphTestData, "zedGraphTestData");
-            this.zedGraphTestData.Name = "zedGraphTestData";
-            this.zedGraphTestData.ScrollGrace = 0D;
-            this.zedGraphTestData.ScrollMaxX = 0D;
-            this.zedGraphTestData.ScrollMaxY = 0D;
-            this.zedGraphTestData.ScrollMaxY2 = 0D;
-            this.zedGraphTestData.ScrollMinX = 0D;
-            this.zedGraphTestData.ScrollMinY = 0D;
-            this.zedGraphTestData.ScrollMinY2 = 0D;
-            // 
-            // label22
-            // 
-            resources.ApplyResources(this.label22, "label22");
-            this.label22.Name = "label22";
+            this.chartTestSimulation.BorderlineColor = System.Drawing.Color.Black;
+            this.chartTestSimulation.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea4.AlignmentOrientation = ((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations)((System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Vertical | System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.Horizontal)));
+            chartArea4.AxisX.Crossing = -1.7976931348623157E+308D;
+            chartArea4.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea4.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea4.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisX.MinorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisX.MinorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisX2.Crossing = -1.7976931348623157E+308D;
+            chartArea4.AxisY.Crossing = -1.7976931348623157E+308D;
+            chartArea4.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisY.MinorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisY.MinorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisY2.Crossing = -1.7976931348623157E+308D;
+            chartArea4.BorderColor = System.Drawing.Color.DimGray;
+            chartArea4.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea4.Name = "ChartArea1";
+            this.chartTestSimulation.ChartAreas.Add(chartArea4);
+            resources.ApplyResources(this.chartTestSimulation, "chartTestSimulation");
+            legend4.BorderColor = System.Drawing.Color.Transparent;
+            legend4.DockedToChartArea = "ChartArea1";
+            legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend4.Name = "Legend1";
+            this.chartTestSimulation.Legends.Add(legend4);
+            this.chartTestSimulation.Name = "chartTestSimulation";
+            this.chartTestSimulation.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            series6.BorderColor = System.Drawing.Color.Blue;
+            series6.BorderWidth = 2;
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series6.Legend = "Legend1";
+            series6.Name = "Test model";
+            series7.BorderColor = System.Drawing.Color.Red;
+            series7.BorderWidth = 2;
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series7.Legend = "Legend1";
+            series7.Name = "GP model";
+            this.chartTestSimulation.Series.Add(series6);
+            this.chartTestSimulation.Series.Add(series7);
             // 
             // dataGridViewTestData
             // 
             resources.ApplyResources(this.dataGridViewTestData, "dataGridViewTestData");
             this.dataGridViewTestData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTestData.Name = "dataGridViewTestData";
-            // 
-            // label34
-            // 
-            resources.ApplyResources(this.label34, "label34");
-            this.label34.Name = "label34";
             // 
             // openFileDialog1
             // 
@@ -1138,6 +1281,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPodaci)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartExperiment)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
@@ -1156,6 +1300,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBuiltInFunction)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartFitnessSimulation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartModelSimulation)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.tabPage5.ResumeLayout(false);
@@ -1168,7 +1314,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRezultat)).EndInit();
             this.tabPage7.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTestSimulation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestData)).EndInit();
             this.ResumeLayout(false);
 
@@ -1180,7 +1326,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.DataGridView dataGridViewPodaci;
-        private ZedGraph.ZedGraphControl zedEksperiment;
         private System.Windows.Forms.Button btnUcitaj;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -1258,18 +1403,13 @@
         private System.Windows.Forms.TextBox bestFitnessAtGenerationEditBox;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label32;
-        private ZedGraph.ZedGraphControl zedChart;
-        private ZedGraph.ZedGraphControl zedGraphPopulation;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.DataGridView dataGridViewTestData;
-        private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.DataGridView dataGridViewRandomConstants;
-        private ZedGraph.ZedGraphControl zedGraphTestData;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
@@ -1305,6 +1445,10 @@
         private System.Windows.Forms.TextBox ebSelParam1;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartExperiment;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartModelSimulation;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartFitnessSimulation;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartTestSimulation;
 
     }
 }

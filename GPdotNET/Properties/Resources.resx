@@ -133,15 +133,6 @@
   <data name="SR_ApplicationName" xml:space="preserve">
     <value>GPdotNET v0.9.5 Beta</value>
   </data>
-  <data name="SR_ExperimentModel" xml:space="preserve">
-    <value>Experiment/Model</value>
-  </data>
-  <data name="SR_FitnessGraphSimulation" xml:space="preserve">
-    <value>Fitness simulation</value>
-  </data>
-  <data name="SR_NumPoints" xml:space="preserve">
-    <value>Number of points</value>
-  </data>
   <data name="SR_ProbMutationInvalid" xml:space="preserve">
     <value>Probability of mutation is not valid!</value>
   </data>
@@ -150,9 +141,6 @@
   </data>
   <data name="SR_Constant" xml:space="preserve">
     <value>Constant</value>
-  </data>
-  <data name="SR_Generation" xml:space="preserve">
-    <value>Generation</value>
   </data>
   <data name="SR_Name" xml:space="preserve">
     <value>Name</value>
@@ -177,9 +165,6 @@
   </data>
   <data name="SR_Cannot_Read" xml:space="preserve">
     <value>Could not read file. Error message:</value>
-  </data>
-  <data name="SR_TrainingSet" xml:space="preserve">
-    <value>Training data</value>
   </data>
   <data name="SR_probCrossOverInvalid" xml:space="preserve">
     <value>Probability of crossover is not valid!</value>
@@ -238,9 +223,6 @@
   <data name="SR_SampleNumber" xml:space="preserve">
     <value>SN</value>
   </data>
-  <data name="SR_Output" xml:space="preserve">
-    <value>Output</value>
-  </data>
   <data name="SR_ChangedLangWarning" xml:space="preserve">
     <value>In order to change Language, you have to restart application!</value>
   </data>
@@ -280,12 +262,6 @@
   <data name="SR_TrainingDataFirst" xml:space="preserve">
     <value>Load training data first!</value>
   </data>
-  <data name="SR_FunctionValue" xml:space="preserve">
-    <value>Function value</value>
-  </data>
-  <data name="SR_FittValue" xml:space="preserve">
-    <value>Fitness value</value>
-  </data>
   <data name="SR_TrainingData" xml:space="preserve">
     <value>TRAINING DATA</value>
   </data>
@@ -298,17 +274,11 @@
   <data name="SR_Aritry" xml:space="preserve">
     <value>Aritry</value>
   </data>
-  <data name="SR_ControlPoint" xml:space="preserve">
-    <value>Control Points</value>
-  </data>
   <data name="SR_Weight" xml:space="preserve">
     <value>Weight</value>
   </data>
   <data name="gp24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gp24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SR_GPModelSimulation" xml:space="preserve">
-    <value>GP Model simulation</value>
   </data>
   <data name="SR_ConstantIncorectNumber" xml:space="preserve">
     <value>Incorect number of constants interval!It must be an integer!</value>
@@ -339,9 +309,6 @@
   </data>
   <data name="SR_Populaction" xml:space="preserve">
     <value>Population</value>
-  </data>
-  <data name="SR_ModelSet" xml:space="preserve">
-    <value>GP Model (solution)</value>
   </data>
   <data name="gp256" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gp256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

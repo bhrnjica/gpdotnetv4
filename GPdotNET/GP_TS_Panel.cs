@@ -15,14 +15,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Deployment.Application;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using GPdotNET.Properties;
 using GPNETLib;
-using ZedGraph;
 namespace GPdotNET
 {
     public partial class GP_TS_Panel : Form
@@ -38,7 +36,7 @@ namespace GPdotNET
         
         GPParameters parameters;
         
-        //Varijabla za izracunavanje vremena jednog una
+        //Varijabla za izracunavanje vremena jedne evolucije
         DateTime vrijemeZaJedanRun;
         DateTime pocetakEvolucije;
         
@@ -56,16 +54,8 @@ namespace GPdotNET
         double[,] gpTestModel;
 
         //Time series prediction
-        public bool TimeSeriesPrediction { get; set; }
-        double[] timeSerie;
-
-        
-
-        //Model sa podacima za Graf
-        LineItem modelItem;
-        LineItem modelTestIten;
-        LineItem maxFitness, avgFitness;
-        
+        public bool IsTimeSeries { get; set; }
+        double[] timeSerieData;    
 
         //internal helper
         int velPopulacije;
@@ -86,41 +76,17 @@ namespace GPdotNET
             cmetodaSelekcije.SelectedIndex = 0;
             cfitnessFunctions.SelectedIndex = 0;
           
-           evjerojatnostMutacije.Text = (5.0 / 100.0).ToString();
-           evjerojatnostPermutacije.Text = (5.0 / 100.0).ToString();
-           evjerojatnostReprodukcije.Text = (20.0 / 100.0).ToString();
-           evjerojatnostUkrstanja.Text = (90.0 / 100.0).ToString();
-           textBox6.Text = 1.ToString();
-           IsGPRunning = false;
-
-                      
+            evjerojatnostMutacije.Text = (5.0 / 100.0).ToString();
+            evjerojatnostPermutacije.Text = (5.0 / 100.0).ToString();
+            evjerojatnostReprodukcije.Text = (20.0 / 100.0).ToString();
+            evjerojatnostUkrstanja.Text = (90.0 / 100.0).ToString();
+            textBox6.Text = 1.ToString();
+            IsGPRunning = false;            
         }
         
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Podesavanje grafika            
-            this.zedEksperiment.GraphPane.Title.Text = Resources.SR_ExperimentModel;
-            this.zedEksperiment.GraphPane.XAxis.Title.Text = Resources.SR_ControlPoint;
-            this.zedEksperiment.GraphPane.YAxis.Title.Text = Resources.SR_FunctionValue;
-
-            this.zedChart.GraphPane.Title.Text = Resources.SR_GPModelSimulation;
-            this.zedChart.GraphPane.XAxis.Title.Text = Resources.SR_NumPoints;
-            this.zedChart.GraphPane.YAxis.Title.Text = Resources.SR_Output;
-
-            this.zedGraphPopulation.GraphPane.Title.Text = Resources.SR_FitnessGraphSimulation;
-            this.zedGraphPopulation.GraphPane.XAxis.Title.Text = Resources.SR_Generation;
-            this.zedGraphPopulation.GraphPane.YAxis.Title.Text = Resources.SR_FittValue;
-
-            maxFitness = zedGraphPopulation.GraphPane.AddCurve(Resources.SR_MaxFit, null, null, Color.Red, ZedGraph.SymbolType.None);
-            avgFitness = zedGraphPopulation.GraphPane.AddCurve(Resources.SR_AvgFitness, null, null, Color.Blue, ZedGraph.SymbolType.None);
-         
-            //Podešavanje grafa
-            zedGraphPopulation.GraphPane.XAxis.Scale.Max = 500;
-            zedGraphPopulation.GraphPane.XAxis.Scale.Min = 0;
-            zedGraphPopulation.GraphPane.YAxis.Scale.Min = 0;
-            zedGraphPopulation.GraphPane.YAxis.Scale.Max = 1;
-            this.zedGraphPopulation.GraphPane.AxisChange(this.CreateGraphics());
-            
+                    
             comboBox2.SelectedIndex = 0;
 
             NapuniGridViewSaDefinisanimFunkcijama();
@@ -132,7 +98,7 @@ namespace GPdotNET
                 InitFile();
             }
 
-           if (!TimeSeriesPrediction)
+           if (!IsTimeSeries)
                 tabControl1.TabPages.Remove(Series);
             
         }
@@ -144,7 +110,7 @@ namespace GPdotNET
             functionSet = population.gpFunctionSet;
             terminalSet = population.gpTerminalSet;
             parameters = population.gpParameters;
-            TimeSeriesPrediction=terminalSet.IsTimeSeries;
+            IsTimeSeries=terminalSet.IsTimeSeries;
 
             for (int i = 0; i < dataGridViewBuiltInFunction.Rows.Count; i++)
             {
@@ -226,9 +192,6 @@ namespace GPdotNET
             // set current iteration's info
             currentErrorBox.Text = GPBestHromosome.Fitness.ToString("F6");
             
-
-            IzracunajModel();
-            this.zedChart.Invalidate();
             IzracunajModel();
             PrikaziModel();
 
@@ -543,7 +506,7 @@ namespace GPdotNET
                 terminalSet= new GPTerminalSet();
 
             
-            terminalSet.IsTimeSeries = TimeSeriesPrediction;
+            terminalSet.IsTimeSeries = IsTimeSeries;
             
             int intOD = 0;
             if (!int.TryParse(intervalOdTextBox.Text, out intOD))
@@ -684,8 +647,9 @@ namespace GPdotNET
             // show file selection dialog
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                zedChart.GraphPane.CurveList.Clear();
-                zedEksperiment.GraphPane.CurveList.Clear();
+                chartModelSimulation.Series[0].Points.Clear();
+                chartExperiment.Series[0].Points.Clear();
+
                 if (terminalSet.TrainingData != null)
                     terminalSet.TrainingData = null;
                 StreamReader reader = null;
@@ -738,7 +702,7 @@ namespace GPdotNET
 
                 // enable "Start" button
                 startButton.Enabled = true;
-                TimeSeriesPrediction = false;
+                IsTimeSeries = false;
             }
         }
         private void UpdateChart(double[][] dd)
@@ -749,15 +713,22 @@ namespace GPdotNET
             for (int k = 0; k < dd[0].Length; k++)
                 x[k] = k + 1;
 
-            zedChart.GraphPane.AddCurve(Resources.SR_TrainingSet, x, dd[dd.Length - 1], Color.Red, ZedGraph.SymbolType.Triangle);
-            modelItem = zedChart.GraphPane.AddCurve(Resources.SR_ModelSet, null, null, Color.Blue, ZedGraph.SymbolType.Triangle);
-            zedChart.GraphPane.XAxis.Scale.Max = dd[0].Length+1;
-            this.zedChart.GraphPane.AxisChange(this.CreateGraphics());
+            //Clear previous data if exist
+            //Lod data to experiment chart
+            chartExperiment.Series[0].Points.Clear();
+            for (int k = 0; k < dd[0].Length; k++)
+            {
+                chartExperiment.Series[0].Points.AddXY(k+1,dd[dd.Length - 1][k]);
+            }
+           //Load data to GP simulation chart
+            chartModelSimulation.Series[0].Points.Clear();
+            for (int k = 0; k < dd[0].Length; k++)
+            {
+                chartModelSimulation.Series[0].Points.AddXY(k + 1, dd[dd.Length - 1][k]);
+            }
 
-            zedEksperiment.GraphPane.AddCurve(Resources.SR_TrainingSet, x, dd[dd.Length - 1], Color.Red, ZedGraph.SymbolType.Triangle);
-            zedEksperiment.GraphPane.XAxis.Scale.Max = dd[0].Length+1;
-            this.zedEksperiment.GraphPane.AxisChange(this.CreateGraphics());
-            this.zedEksperiment.Invalidate();
+
+            
         }
         //Osvjezavanje gridKontrole sa podacima u varijabli GPTrainingData
         private void UpdateDataGridView()
@@ -837,10 +808,7 @@ namespace GPdotNET
                 max = 500;
             progressBar1.Maximum = max;
             busloviEvolucije = comboBox2.SelectedIndex;
-            //Podešavanje grafa
-            maxFitness.Clear();
-            avgFitness.Clear();
-
+           
             //Podesavanje vreman startanja
             vrijemeZaJedanRun = DateTime.Now;
             pocetakEvolucije = vrijemeZaJedanRun;
@@ -901,10 +869,7 @@ namespace GPdotNET
                 
                     population.StartEvolution();
 
-                    //Dodavanje tacaka za dijagram
-                    maxFitness.AddPoint(tekucaEvolucija, population.fitnessMax);
-                    avgFitness.AddPoint(tekucaEvolucija, population.fitnessAvg);
-
+                    
                     //Raportiraj o progresu
                     backgroundWorker1.ReportProgress(tekucaEvolucija, population.bestChromosome);
              
@@ -990,19 +955,16 @@ namespace GPdotNET
                 currentIterationBox.Text = e.ProgressPercentage.ToString();
                 if (currentErrorBox.Text != chrom.Fitness.ToString("F6"))
                 {
-                    zedGraphPopulation.GraphPane.YAxis.Scale.Max = chrom.Fitness + 0.5 * chrom.Fitness;
-                    if (zedGraphPopulation.GraphPane.XAxis.Scale.Max < e.ProgressPercentage)
-                        zedGraphPopulation.GraphPane.XAxis.Scale.Max = e.ProgressPercentage + 5;
-                    this.zedGraphPopulation.GraphPane.AxisChange(this.CreateGraphics());
-                    
                     currentErrorBox.Text = chrom.Fitness.ToString("F6");
                     bestFitnessAtGenerationEditBox.Text = e.ProgressPercentage.ToString();
                     GPBestHromosome = chrom;
                     IzracunajModel();
-                    this.zedChart.Invalidate();
                 }
-                
-                zedGraphPopulation.Invalidate();
+
+                //Adding point to fitness simulation
+                chartFitnessSimulation.Series[0].Points.AddXY(e.ProgressPercentage, population.fitnessAvg);
+                chartFitnessSimulation.Series[1].Points.AddXY(e.ProgressPercentage, population.fitnessMax);
+               
 
                 //Kada uslov za evaluaciju nije brojiteracija onda se mora povecavati 
                 // maximalna vrijednost progres bara
@@ -1079,7 +1041,8 @@ namespace GPdotNET
             List<int> lst = new List<int>();
             FunctionTree.ToListExpression(lst, GPBestHromosome.Root);
             double y=0;
-            modelItem.Clear();
+            //Cleare previous chart
+            chartModelSimulation.Series[1].Points.Clear();
             for (int i = 0; i < terminalSet.RowCount; i++)
             {
                 // evalue the function
@@ -1092,12 +1055,14 @@ namespace GPdotNET
                 gpModel[i, 0] = i+1;
                 gpModel[i, 1] = y;
                 //Napravi graf od novog rjesenja
-                modelItem.AddPoint(gpModel[i, 0], gpModel[i, 1]);
+                chartModelSimulation.Series[1].Points.AddXY(i + 1, gpModel[i, 1]);
             }
-            if (!TimeSeriesPrediction)
+            if (!IsTimeSeries)
                 IzracunajPredikcijskiModel(lst);
             else
                 IzracunajPredikcijskiModelSerie(lst);
+
+            
 
         }
 
@@ -1130,7 +1095,8 @@ namespace GPdotNET
             testingSet.CalculateStat();
 
             y = 0;
-            modelTestIten.Clear();
+            //Clear previous data
+            chartTestSimulation.Series[1].Points.Clear();
             for (int i = 0; i < testingSet.RowCount; i++)
             {
                 // evalue the function
@@ -1142,10 +1108,9 @@ namespace GPdotNET
 
                 gpTestModel[i, 0] = i + 1;
                 gpTestModel[i, 1] = y;
-                //Napravi graf od novog rjesenja
-                modelTestIten.AddPoint(gpTestModel[i, 0], gpTestModel[i, 1]);
+                //Add point for new solution
+                chartTestSimulation.Series[1].Points.AddXY(i + 1, gpTestModel[i, 1]);
             }
-            zedGraphTestData.Invalidate();
         }
         private void IzracunajPredikcijskiModelSerie(List<int> lst)
         {
@@ -1177,7 +1142,8 @@ namespace GPdotNET
             testingSet.CalculateStat();
 
             y = 0;
-            modelTestIten.Clear();
+            //clear previous data
+            chartTestSimulation.Series[1].Points.Clear();
             for (int i = 0; i < testingSet.RowCount; i++)
             {
                 // evalue the function
@@ -1200,10 +1166,11 @@ namespace GPdotNET
                 }
                 gpTestModel[i, 0] = i + 1;
                 gpTestModel[i, 1] = y;
-                //Napravi graf od novog rjesenja
-                modelTestIten.AddPoint(gpTestModel[i, 0], gpTestModel[i, 1]);
+                //Add point for new solution
+                chartTestSimulation.Series[1].Points.AddXY(i + 1, gpTestModel[i, 1]);
+
+
             }
-            zedGraphTestData.Invalidate();
         }
         private void PrikaziModel()
         {
@@ -1348,7 +1315,7 @@ namespace GPdotNET
 
         private void NapuniGridTestnimPodacima()
         {
-            //Na osnovu experimenta definisemo kakav ce modle biti
+            //
             gpTestModel = new double[GPTestingData[0].Length, 2];
 
             dataGridViewTestData.Columns.Clear();
@@ -1378,18 +1345,11 @@ namespace GPdotNET
 
             }
 
-
-            double[] x = new double[GPTestingData[0].Length];
-
-            int m = GPTestingData.Length;
+            //Add testing data to chart
+            chartTestSimulation.Series[0].Points.Clear();
             for (int k = 0; k < GPTestingData[0].Length; k++)
-                x[k] = k + 1;
+                chartTestSimulation.Series[0].Points.AddXY(k + 1, GPTestingData[GPTestingData.Length - 1][k]);
 
-            zedGraphTestData.GraphPane.AddCurve(Resources.SR_TestingData, x, GPTestingData[GPTestingData.Length - 1], Color.Red, ZedGraph.SymbolType.Triangle);
-            modelTestIten = zedGraphTestData.GraphPane.AddCurve(Resources.SR_ModelSet, null, null, Color.Blue, ZedGraph.SymbolType.Diamond);
-            zedGraphTestData.GraphPane.XAxis.Scale.Max = GPTestingData[0].Length + 1;
-            this.zedGraphTestData.GraphPane.AxisChange(this.CreateGraphics());
-            this.zedGraphTestData.Invalidate();
         }
         public bool SaveToFile()
         {
@@ -1445,8 +1405,8 @@ namespace GPdotNET
             // show file selection dialog
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                zedChart.GraphPane.CurveList.Clear();
-                zedEksperiment.GraphPane.CurveList.Clear();
+                chartModelSimulation.Series[0].Points.Clear();
+                chartExperiment.Series[0].Points.Clear();
                 if (terminalSet.TrainingData != null)
                     terminalSet.TrainingData = null;
                 StreamReader reader = null;
@@ -1464,7 +1424,7 @@ namespace GPdotNET
                     //Define the columns
                     string[] kolone = vrste[0].Split(';');
                     //Define inner TrainingData
-                    timeSerie = new double[vrste.Length];
+                    timeSerieData = new double[vrste.Length];
 
 
                    // for (int j = 0; j < kolone.Length; j++)
@@ -1472,12 +1432,9 @@ namespace GPdotNET
                         for (int k = 0; k < vrste.Length; k++)
                         {
                             kolone = vrste[k].Split(';');
-                            timeSerie[k] = double.Parse(kolone[0]);
+                            timeSerieData[k] = double.Parse(kolone[0]);
                         }
                     }
-
-                    //Na osnovu experimenta definisemo kakav ce modle biti
-                    //gpModel = new double[GPTrainingData[0].Length, 2];
                 }
                 catch (Exception ex)
                 {
@@ -1498,14 +1455,14 @@ namespace GPdotNET
                 dataGridViewTimeSeries.Columns.Add("colSerie", Resources.SR_Value);
 
 
-                for (int i = 0; i < timeSerie.Length; i++)
+                for (int i = 0; i < timeSerieData.Length; i++)
                 {
                     int r = dataGridViewTimeSeries.Rows.Add();
                     dataGridViewTimeSeries.Rows[r].Cells[0].Value = i + 1;
-                    dataGridViewTimeSeries.Rows[r].Cells[1].Value = timeSerie[i];
+                    dataGridViewTimeSeries.Rows[r].Cells[1].Value = timeSerieData[i];
 
                 }
-                textBox1.Text = timeSerie.Length.ToString();
+                textBox1.Text = timeSerieData.Length.ToString();
                 textBox4.Text = "10";
                 textBox5.Text = "10";
 
@@ -1514,7 +1471,7 @@ namespace GPdotNET
         //Converti time serie to GP Algoritam
         private void button5_Click(object sender, EventArgs e)
         {
-            if (timeSerie == null)
+            if (timeSerieData == null)
             {
                 MessageBox.Show(Resources.SR_LoadSeriesFirst, Properties.Resources.SR_ApplicationName);
                 return;
@@ -1533,12 +1490,12 @@ namespace GPdotNET
                 return;
             }
             //Provjera konzistentnosti serije
-            if (timeSerie.Length - 2 * numVariable - numberTestData < 0)
+            if (timeSerieData.Length - 2 * numVariable - numberTestData < 0)
             {
                 MessageBox.Show(Resources.SR_SeriesCorectNumVartest, Properties.Resources.SR_ApplicationName);
                 return;
             }
-            int numberTreningData=timeSerie.Length-numVariable-numberTestData;
+            int numberTreningData=timeSerieData.Length-numVariable-numberTestData;
 
             //Training TrainingData se sastoji od varijabli i izlazne funkcije
             GPTrainingData = new double[numVariable+1][];
@@ -1546,7 +1503,7 @@ namespace GPdotNET
             {
                 GPTrainingData[i] = new double[numberTreningData];
                 for (int j = i; j < numberTreningData+i; j++)
-                    GPTrainingData[i][j-i]=timeSerie[j];
+                    GPTrainingData[i][j-i]=timeSerieData[j];
 
             }
 
@@ -1566,13 +1523,13 @@ namespace GPdotNET
                 int k = 0;
                 for (int j = numberTreningData + i; j < numberTreningData + numberTestData+i; j++)
                 {
-                    GPTestingData[i][k] = timeSerie[j];
+                    GPTestingData[i][k] = timeSerieData[j];
                     k++;
                 }
 
             }
             NapuniGridTestnimPodacima();
-            TimeSeriesPrediction = true;
+            IsTimeSeries = true;
 
         }
         //Selection changed

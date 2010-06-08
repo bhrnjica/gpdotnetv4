@@ -58,7 +58,7 @@ namespace GPdotNET
                 return;
             childForm = NovaForma();
             childForm.filePath = "";
-            childForm.TimeSeriesPrediction = dlg.TimeSeries;
+            childForm.IsTimeSeries = dlg.TimeSeries;
             if (dlg.TimeSeries)
                 childForm.Text = Resources.SR_New_TSModel;
             else
