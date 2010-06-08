@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="gpWpfTreeDrawerLib.wpfTreeDrawerCtrl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:tre="clr-namespace:TreeContainer;assembly=TreeContainer"
+    xmlns:tre="clr-namespace:TreeContainer"
     xmlns:local="clr-namespace:gpWpfTreeDrawerLib"
     Height="Auto" Width="Auto" Loaded="UserControl_Loaded"
             Background="White"

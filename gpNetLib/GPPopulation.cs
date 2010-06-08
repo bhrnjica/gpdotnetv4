@@ -65,9 +65,8 @@ namespace GPNETLib
         /// </summary>
         /// <param name="size">Size of population.Number must be greather than 0.</param>
         /// <param name="terminalSet">Terminal set.Must be nonnull.</param>
-        /// <param name="functionSet">Function set. If it pss null valu default value is generated. The comman 4 oparation +,-,*,/</param>
+        /// <param name="functionSet">Function set. Must be nonnull.</param>
         /// <param name="parameters">Parameter of GP. If it pass a null value default parameter is initialized.</param>
-        /// <param name="fitness">Fitness function for evaluating chromosomes. If it is a null value the fault fitness is assined.</param>
         /// <param name="paralelComp">True for parallel multy core evaluation. False for secvencial computing.</param>
         public GPPopulation(int size,   GPTerminalSet terminalSet,
                                         GPFunctionSet functionSet,
@@ -141,14 +140,18 @@ namespace GPNETLib
             if(population!=null)
                 popSize = population.Count;
         }
-
+        #region Initial Method
+        /// <summary>
+        /// Randomly generate tree program structures
+        /// </summary>
+        /// <param name="size"></param>
         private void GrowInitialization(int size)
         {
             //is the same as FillInit, in generate method 
             // chromosomes will be generated regarding initparametrs type
             FullInitialization(size);
         }
-
+        //Generate program strutures with specified level dept
         private void FullInitialization(int size)
         {
             for (int i = 0; i < size; i++)
@@ -160,7 +163,10 @@ namespace GPNETLib
             }
             
         }
-
+        /// <summary>
+        /// Mixed version of previous two init methods
+        /// </summary>
+        /// <param name="size"></param>
         private void HalfHalfInitialization(int size)
         {
             //The max init depth of tree
@@ -184,16 +190,13 @@ namespace GPNETLib
                 }
             }
         }
-
-        private void EvaluateChromosome(GPChromosome c)
-        {
-            c.Fitness = 0;
-            List<int> lst = new List<int>();
-
-            FunctionTree.ToListExpression(lst, c.Root);
-            gpParameters.GPFitness.Evaluate(lst, gpFunctionSet,gpTerminalSet,c);
-        }
-
+#endregion
+        #region Chromosome generation
+        /// <summary>
+        /// Proces of randomly generating chromosome
+        /// </summary>
+        /// <param name="initLevel"></param>
+        /// <returns></returns>
         private GPChromosome GenerateChromosome(int initLevel)
         {
             GPChromosome c = new GPChromosome();
@@ -251,7 +254,6 @@ namespace GPNETLib
             // potrebno je dati više vjerojatnost da se generiše funkcija u odnosu na terminale
            GenerateGene(gPGenNode, (rand.Next(4) != 3));
         }
-
         private void GenerateGene(FunctionTree gPGenNode, bool isFunction)
         {
            
@@ -274,7 +276,8 @@ namespace GPNETLib
                 gPGenNode.NodeValue = (short)(1000 + r);
             }
         }
-
+#endregion
+        #region Mating process
         private void Crossover()
         {
             if (gpParameters.probCrossover == 0)
@@ -629,6 +632,8 @@ namespace GPNETLib
                 node = node.SubFunctionTree[r];
             }
         }
+        #endregion
+        #region Selection Methods
         /// <summary>
         /// Vršenje selekcije u populaciji 
         /// </summary>
@@ -681,53 +686,6 @@ namespace GPNETLib
 
             Debug.Assert(population.Count==popSize);
 
-        }
-
-        private void CalculatePopulation()
-        {
-            // traženje najboljih hromosoma
-            fitnessMax = 0;
-            fitnessSum = 0;
-            if (ParalelComputing)
-            {
-                var q =
-                  (from p in population.AsParallel()
-                   orderby p.Fitness descending
-                   select p);
-                int index = 0;
-                foreach (GPChromosome c in q)
-                {
-                    //The first chromosome is the best
-                    if (index == 0)
-                    {
-                        fitnessMax = c.Fitness;
-                        bestChromosome = c;
-                        index++;
-                    }
-                    fitnessSum += c.Fitness;
-                }
-                fitnessAvg = fitnessSum / popSize;
-            }
-            else
-            {
-                if (bestChromosome == null)
-                    bestChromosome = population[0];
-
-                for (int i = 0; i < popSize; i++)
-                {
-                    float fitness = (population[i]).Fitness;
-                    // kakulacija suma funkcija
-                    fitnessSum += fitness;
-
-                    // izračuvavanje najboljeg hromosoma
-                    if (fitness > fitnessMax)
-                    {
-                        fitnessMax = fitness;
-                        bestChromosome = population[i];
-                    }
-                }
-                fitnessAvg = fitnessSum / popSize;
-            }
         }
         private void FitnessProportionateSelection(int size)
         {
@@ -962,6 +920,11 @@ namespace GPNETLib
 
 
         }
+        #endregion
+        #region Evolution process
+        /// <summary>
+        /// Evolution process
+        /// </summary>
         public void StartEvolution()
         {
             if (ParalelComputing)
@@ -969,6 +932,9 @@ namespace GPNETLib
             else
                 StartEvolutionSec();
         }
+        /// <summary>
+        /// Start evolution in sequntial mode
+        /// </summary>
         public void StartEvolutionSec()
         {
             if (temCross == null)
@@ -980,7 +946,9 @@ namespace GPNETLib
             Selection();
         }
 
-       
+       /// <summary>
+       /// Start evolution in parallel mode
+       /// </summary>
         public void StartEvolutionParallel()
         {
             Parallel.Invoke(
@@ -1001,12 +969,30 @@ namespace GPNETLib
             Selection();
             
         }
+        /// <summary>
+        /// Evaluation of chromosome
+        /// </summary>
+        /// <param name="c"></param>
+        private void EvaluateChromosome(GPChromosome c)
+        {
+            c.Fitness = 0;
+            List<int> lst = new List<int>();
+
+            FunctionTree.ToListExpression(lst, c.Root);
+            gpParameters.GPFitness.Evaluate(lst, gpFunctionSet, gpTerminalSet, c);
+        }
+        /// <summary>
+        /// Evaluation of chromosomes in population in sequntial mode
+        /// </summary>
         private void EvaluationSec()
         {
             int count = population.Count;
             for (int i = 0; i < count; i++)
                 EvaluateChromosome(population[i]);
         }
+        /// <summary>
+        /// Evaluation of chromosomes in population in parallel mode
+        /// </summary>
         private void EvaluationParallel()
         {
             int count = population.Count;
@@ -1015,6 +1001,54 @@ namespace GPNETLib
                 EvaluateChromosome(population[cc]);
             });
         }
+        private void CalculatePopulation()
+        {
+            // traženje najboljih hromosoma
+            fitnessMax = 0;
+            fitnessSum = 0;
+            if (ParalelComputing)
+            {
+                var q =
+                  (from p in population.AsParallel()
+                   orderby p.Fitness descending
+                   select p);
+                int index = 0;
+                foreach (GPChromosome c in q)
+                {
+                    //The first chromosome is the best
+                    if (index == 0)
+                    {
+                        fitnessMax = c.Fitness;
+                        bestChromosome = c;
+                        index++;
+                    }
+                    fitnessSum += c.Fitness;
+                }
+                fitnessAvg = fitnessSum / popSize;
+            }
+            else
+            {
+                if (bestChromosome == null)
+                    bestChromosome = population[0];
+
+                for (int i = 0; i < popSize; i++)
+                {
+                    float fitness = (population[i]).Fitness;
+                    // kakulacija suma funkcija
+                    fitnessSum += fitness;
+
+                    // izračuvavanje najboljeg hromosoma
+                    if (fitness > fitnessMax)
+                    {
+                        fitnessMax = fitness;
+                        bestChromosome = population[i];
+                    }
+                }
+                fitnessAvg = fitnessSum / popSize;
+            }
+        }
+        #endregion
+        #region Serilization
         /// <summary>
         /// Loads a population from a file.
         /// </summary>
@@ -1039,6 +1073,7 @@ namespace GPNETLib
             b.Serialize(s, this);
             s.Close();
         }
+        #endregion
     }
         
 }

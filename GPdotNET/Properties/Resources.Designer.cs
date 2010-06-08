@@ -583,6 +583,15 @@ namespace GPdotNET.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Test and training data are not the same dimension!.
+        /// </summary>
+        internal static string SR_TestTrainingDimension {
+            get {
+                return ResourceManager.GetString("SR_TestTrainingDimension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TRAINING DATA.
         /// </summary>
         internal static string SR_TrainingData {
