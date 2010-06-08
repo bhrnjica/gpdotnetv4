@@ -55,10 +55,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GraphLayout, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\GraphLayout.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -72,10 +68,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TreeContainer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\TreeContainer.dll</HintPath>
-    </Reference>
     <Reference Include="UIAutomationProvider">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -104,6 +96,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GraphLayout\DPoint.cs" />
+    <Compile Include="GraphLayout\ITreeNode.cs" />
+    <Compile Include="GraphLayout\LayeredTreeDraw.cs" />
+    <Compile Include="GraphLayout\TreeConnection.cs" />
+    <Compile Include="GraphLayout\TreeNodeGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -117,6 +114,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="TreeContainer\TreeContainer.cs" />
+    <Compile Include="TreeContainer\TreeNode.cs" />
     <Compile Include="wpfTreeDrawerCtrl.xaml.cs">
       <DependentUpon>wpfTreeDrawerCtrl.xaml</DependentUpon>
     </Compile>

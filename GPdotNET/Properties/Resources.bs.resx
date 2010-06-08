@@ -298,4 +298,7 @@
   <data name="SR_SelecParamInvalid" xml:space="preserve">
     <value>Parametar selekcije nije validan.</value>
   </data>
+  <data name="SR_TestTrainingDimension" xml:space="preserve">
+    <value>Test i podaci za trening nisu iste dimenzije.</value>
+  </data>
 </root>

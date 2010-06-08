@@ -313,4 +313,7 @@
   <data name="gp256" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gp256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="SR_TestTrainingDimension" xml:space="preserve">
+    <value>Test and training data are not the same dimension!</value>
+  </data>
 </root>

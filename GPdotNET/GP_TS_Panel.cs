@@ -696,6 +696,9 @@ namespace GPdotNET
                         reader.Close();
                 }
 
+                
+                if (population != null)
+                    population = null;
                 // update list and chart
                 UpdateDataGridView();
                 UpdateChart(GPTrainingData);
@@ -1280,7 +1283,8 @@ namespace GPdotNET
                     string[] kolone = vrste[0].Split(';');
                     //Define inner TrainingData
                     GPTestingData = new double[kolone.Length][];
-
+                    if (kolone.Length != GPTrainingData.Length)
+                        throw new Exception(Resources.SR_TestTrainingDimension);
 
                     for (int j = 0; j < kolone.Length; j++)
                     {
@@ -1308,7 +1312,6 @@ namespace GPdotNET
                 }
 
                 NapuniGridTestnimPodacima();
-                
 
             }
         }
