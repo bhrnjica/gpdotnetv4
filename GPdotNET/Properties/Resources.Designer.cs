@@ -241,15 +241,6 @@ namespace GPdotNET.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Control Points.
-        /// </summary>
-        internal static string SR_ControlPoint {
-            get {
-                return ResourceManager.GetString("SR_ControlPoint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Corssover depth is not valid!.
         /// </summary>
         internal static string SR_CrossOverdepthInvalid {
@@ -304,65 +295,11 @@ namespace GPdotNET.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Experiment/Model.
-        /// </summary>
-        internal static string SR_ExperimentModel {
-            get {
-                return ResourceManager.GetString("SR_ExperimentModel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fitness simulation.
-        /// </summary>
-        internal static string SR_FitnessGraphSimulation {
-            get {
-                return ResourceManager.GetString("SR_FitnessGraphSimulation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fitness value.
-        /// </summary>
-        internal static string SR_FittValue {
-            get {
-                return ResourceManager.GetString("SR_FittValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Function set is null..
         /// </summary>
         internal static string SR_FunctionSetNull {
             get {
                 return ResourceManager.GetString("SR_FunctionSetNull", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Function value.
-        /// </summary>
-        internal static string SR_FunctionValue {
-            get {
-                return ResourceManager.GetString("SR_FunctionValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Generation.
-        /// </summary>
-        internal static string SR_Generation {
-            get {
-                return ResourceManager.GetString("SR_Generation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to GP Model simulation.
-        /// </summary>
-        internal static string SR_GPModelSimulation {
-            get {
-                return ResourceManager.GetString("SR_GPModelSimulation", resourceCulture);
             }
         }
         
@@ -421,15 +358,6 @@ namespace GPdotNET.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GP Model (solution).
-        /// </summary>
-        internal static string SR_ModelSet {
-            get {
-                return ResourceManager.GetString("SR_ModelSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mutation depth is not valid!.
         /// </summary>
         internal static string SR_MutationDepthInvalid {
@@ -462,24 +390,6 @@ namespace GPdotNET.Properties {
         internal static string SR_New_TSModel {
             get {
                 return ResourceManager.GetString("SR_New_TSModel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Number of points.
-        /// </summary>
-        internal static string SR_NumPoints {
-            get {
-                return ResourceManager.GetString("SR_NumPoints", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Output.
-        /// </summary>
-        internal static string SR_Output {
-            get {
-                return ResourceManager.GetString("SR_Output", resourceCulture);
             }
         }
         
@@ -687,15 +597,6 @@ namespace GPdotNET.Properties {
         internal static string SR_TrainingDataFirst {
             get {
                 return ResourceManager.GetString("SR_TrainingDataFirst", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Training data.
-        /// </summary>
-        internal static string SR_TrainingSet {
-            get {
-                return ResourceManager.GetString("SR_TrainingSet", resourceCulture);
             }
         }
         

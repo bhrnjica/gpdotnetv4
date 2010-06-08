@@ -175,9 +175,6 @@
   <data name="SR_ConstantModified" xml:space="preserve">
     <value>Promjena slučajnih konstanti uzrokovaće da se ponište sva dosadašnja rješenja.\n Da liđelite nastaviti?</value>
   </data>
-  <data name="SR_ControlPoint" xml:space="preserve">
-    <value>Kontrolne tačke</value>
-  </data>
   <data name="SR_CrossOverdepthInvalid" xml:space="preserve">
     <value>Dubina ukrštanja nije pravilna.</value>
   </data>
@@ -193,20 +190,8 @@
   <data name="SR_ExcelDefinition" xml:space="preserve">
     <value>Excel Definicija</value>
   </data>
-  <data name="SR_ExperimentModel" xml:space="preserve">
-    <value>Eksperiment/Model</value>
-  </data>
-  <data name="SR_FittValue" xml:space="preserve">
-    <value>Fitness vrijednost</value>
-  </data>
   <data name="SR_FunctionSetNull" xml:space="preserve">
     <value>Funkcijski skup je prazan.</value>
-  </data>
-  <data name="SR_FunctionValue" xml:space="preserve">
-    <value>Vrijednost funkcije</value>
-  </data>
-  <data name="SR_Generation" xml:space="preserve">
-    <value>Generacija</value>
   </data>
   <data name="SR_InitialDepthInvalid" xml:space="preserve">
     <value>Početna dubina nije validna.</value>
@@ -231,12 +216,6 @@
   </data>
   <data name="SR_Name" xml:space="preserve">
     <value>Naziv</value>
-  </data>
-  <data name="SR_NumPoints" xml:space="preserve">
-    <value>Broj tačaka</value>
-  </data>
-  <data name="SR_Output" xml:space="preserve">
-    <value>Izlaz</value>
   </data>
   <data name="SR_Populaction" xml:space="preserve">
     <value>Populacija</value>
@@ -286,9 +265,6 @@
   <data name="SR_TerminalSetNull" xml:space="preserve">
     <value>Skupterminala je prazan.</value>
   </data>
-  <data name="SR_TestingData" xml:space="preserve">
-    <value>Graf experimenta testa</value>
-  </data>
   <data name="SR_testingModelError" xml:space="preserve">
     <value>Greška u formiranju testnog modela!</value>
   </data>
@@ -297,9 +273,6 @@
   </data>
   <data name="SR_TrainingDataFirst" xml:space="preserve">
     <value>Potrebno prvo učitati podatke za trening!</value>
-  </data>
-  <data name="SR_TrainingSet" xml:space="preserve">
-    <value>Graf Experimenta</value>
   </data>
   <data name="SR_Undefined" xml:space="preserve">
     <value>Nedefinisano</value>
@@ -321,12 +294,6 @@
   </data>
   <data name="SR_ElitismInvalid" xml:space="preserve">
     <value>Broj elita nije validan!</value>
-  </data>
-  <data name="SR_FitnessGraphSimulation" xml:space="preserve">
-    <value>Fitness simulacija</value>
-  </data>
-  <data name="SR_GPModelSimulation" xml:space="preserve">
-    <value>Simulacija GP modela</value>
   </data>
   <data name="SR_SelecParamInvalid" xml:space="preserve">
     <value>Parametar selekcije nije validan.</value>

@@ -427,7 +427,7 @@
     <value>3, 3</value>
   </data>
   <data name="dataGridViewPodaci.Size" type="System.Drawing.Size, System.Drawing">
-    <value>700, 147</value>
+    <value>694, 223</value>
   </data>
   <data name="dataGridViewPodaci.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -444,38 +444,41 @@
   <data name="&gt;&gt;dataGridViewPodaci.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="zedEksperiment.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="chartExperiment.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="zedEksperiment.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 156</value>
+  <data name="chartExperiment.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 232</value>
   </data>
-  <data name="zedEksperiment.Size" type="System.Drawing.Size, System.Drawing">
-    <value>700, 224</value>
+  <data name="chartExperiment.Size" type="System.Drawing.Size, System.Drawing">
+    <value>694, 148</value>
   </data>
-  <data name="zedEksperiment.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="chartExperiment.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;zedEksperiment.Name" xml:space="preserve">
-    <value>zedEksperiment</value>
+  <data name="chartExperiment.Text" xml:space="preserve">
+    <value>Data model</value>
   </data>
-  <data name="&gt;&gt;zedEksperiment.Type" xml:space="preserve">
-    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.24571, Culture=neutral, PublicKeyToken=02a83cbd123fcd60</value>
+  <data name="&gt;&gt;chartExperiment.Name" xml:space="preserve">
+    <value>chartExperiment</value>
   </data>
-  <data name="&gt;&gt;zedEksperiment.Parent" xml:space="preserve">
+  <data name="&gt;&gt;chartExperiment.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataVisualization.Charting.Chart, System.Windows.Forms.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</value>
+  </data>
+  <data name="&gt;&gt;chartExperiment.Parent" xml:space="preserve">
     <value>tableLayoutPanel2</value>
   </data>
-  <data name="&gt;&gt;zedEksperiment.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;chartExperiment.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="tableLayoutPanel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
+    <value>1, 6</value>
   </data>
   <data name="tableLayoutPanel2.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="tableLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>706, 383</value>
+    <value>700, 383</value>
   </data>
   <data name="tableLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -493,7 +496,7 @@
     <value>1</value>
   </data>
   <data name="tableLayoutPanel2.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="dataGridViewPodaci" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="zedEksperiment" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,40,Percent,60" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="dataGridViewPodaci" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="chartExperiment" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,60,Percent,40,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="btnUcitaj.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2187,52 +2190,58 @@
   <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="zedGraphPopulation.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="chartFitnessSimulation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="zedGraphPopulation.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="chartFitnessSimulation.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="zedGraphPopulation.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="chartFitnessSimulation.Size" type="System.Drawing.Size, System.Drawing">
     <value>440, 184</value>
   </data>
-  <data name="zedGraphPopulation.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
+  <data name="chartFitnessSimulation.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
   </data>
-  <data name="&gt;&gt;zedGraphPopulation.Name" xml:space="preserve">
-    <value>zedGraphPopulation</value>
+  <data name="chartFitnessSimulation.Text" xml:space="preserve">
+    <value>Data model</value>
   </data>
-  <data name="&gt;&gt;zedGraphPopulation.Type" xml:space="preserve">
-    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.24571, Culture=neutral, PublicKeyToken=02a83cbd123fcd60</value>
+  <data name="&gt;&gt;chartFitnessSimulation.Name" xml:space="preserve">
+    <value>chartFitnessSimulation</value>
   </data>
-  <data name="&gt;&gt;zedGraphPopulation.Parent" xml:space="preserve">
+  <data name="&gt;&gt;chartFitnessSimulation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataVisualization.Charting.Chart, System.Windows.Forms.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</value>
+  </data>
+  <data name="&gt;&gt;chartFitnessSimulation.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;zedGraphPopulation.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;chartFitnessSimulation.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="zedChart.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="chartModelSimulation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="zedChart.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="chartModelSimulation.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 193</value>
   </data>
-  <data name="zedChart.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="chartModelSimulation.Size" type="System.Drawing.Size, System.Drawing">
     <value>440, 184</value>
   </data>
-  <data name="zedChart.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
+  <data name="chartModelSimulation.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
   </data>
-  <data name="&gt;&gt;zedChart.Name" xml:space="preserve">
-    <value>zedChart</value>
+  <data name="chartModelSimulation.Text" xml:space="preserve">
+    <value>Data model</value>
   </data>
-  <data name="&gt;&gt;zedChart.Type" xml:space="preserve">
-    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.24571, Culture=neutral, PublicKeyToken=02a83cbd123fcd60</value>
+  <data name="&gt;&gt;chartModelSimulation.Name" xml:space="preserve">
+    <value>chartModelSimulation</value>
   </data>
-  <data name="&gt;&gt;zedChart.Parent" xml:space="preserve">
+  <data name="&gt;&gt;chartModelSimulation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataVisualization.Charting.Chart, System.Windows.Forms.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</value>
+  </data>
+  <data name="&gt;&gt;chartModelSimulation.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;zedChart.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;chartModelSimulation.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
@@ -2260,7 +2269,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="zedGraphPopulation" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="zedChart" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,50,Percent,50,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="chartFitnessSimulation" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="chartModelSimulation" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="progressBar1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -3150,68 +3159,41 @@
   <data name="tableLayoutPanel4.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="zedGraphTestData.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="zedGraphTestData.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 219</value>
-  </data>
-  <data name="zedGraphTestData.Size" type="System.Drawing.Size, System.Drawing">
-    <value>676, 161</value>
-  </data>
-  <data name="zedGraphTestData.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;zedGraphTestData.Name" xml:space="preserve">
-    <value>zedGraphTestData</value>
-  </data>
-  <data name="&gt;&gt;zedGraphTestData.Type" xml:space="preserve">
-    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.24571, Culture=neutral, PublicKeyToken=02a83cbd123fcd60</value>
-  </data>
-  <data name="&gt;&gt;zedGraphTestData.Parent" xml:space="preserve">
-    <value>tableLayoutPanel4</value>
-  </data>
-  <data name="&gt;&gt;zedGraphTestData.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label22.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label22.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="chartTestSimulation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="label22.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
+  <data name="chartTestSimulation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 213</value>
   </data>
-  <data name="label22.Size" type="System.Drawing.Size, System.Drawing">
-    <value>676, 20</value>
+  <data name="chartTestSimulation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>676, 167</value>
   </data>
-  <data name="label22.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="chartTestSimulation.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
   </data>
-  <data name="label22.Text" xml:space="preserve">
-    <value>Testing TrainingData:</value>
+  <data name="chartTestSimulation.Text" xml:space="preserve">
+    <value>Data model</value>
   </data>
-  <data name="&gt;&gt;label22.Name" xml:space="preserve">
-    <value>label22</value>
+  <data name="&gt;&gt;chartTestSimulation.Name" xml:space="preserve">
+    <value>chartTestSimulation</value>
   </data>
-  <data name="&gt;&gt;label22.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;chartTestSimulation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataVisualization.Charting.Chart, System.Windows.Forms.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</value>
   </data>
-  <data name="&gt;&gt;label22.Parent" xml:space="preserve">
+  <data name="&gt;&gt;chartTestSimulation.Parent" xml:space="preserve">
     <value>tableLayoutPanel4</value>
   </data>
-  <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;chartTestSimulation.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="dataGridViewTestData.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="dataGridViewTestData.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 23</value>
+    <value>3, 3</value>
   </data>
   <data name="dataGridViewTestData.Size" type="System.Drawing.Size, System.Drawing">
-    <value>676, 170</value>
+    <value>676, 204</value>
   </data>
   <data name="dataGridViewTestData.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -3226,37 +3208,7 @@
     <value>tableLayoutPanel4</value>
   </data>
   <data name="&gt;&gt;dataGridViewTestData.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label34.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label34.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="label34.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 196</value>
-  </data>
-  <data name="label34.Size" type="System.Drawing.Size, System.Drawing">
-    <value>676, 20</value>
-  </data>
-  <data name="label34.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="label34.Text" xml:space="preserve">
-    <value>Testing TrainingData (graph):</value>
-  </data>
-  <data name="&gt;&gt;label34.Name" xml:space="preserve">
-    <value>label34</value>
-  </data>
-  <data name="&gt;&gt;label34.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label34.Parent" xml:space="preserve">
-    <value>tableLayoutPanel4</value>
-  </data>
-  <data name="&gt;&gt;label34.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="tableLayoutPanel4.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -3265,7 +3217,7 @@
     <value>3, 3</value>
   </data>
   <data name="tableLayoutPanel4.RowCount" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="tableLayoutPanel4.Size" type="System.Drawing.Size, System.Drawing">
     <value>682, 383</value>
@@ -3286,7 +3238,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel4.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="zedGraphTestData" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label22" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewTestData" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label34" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,20,Percent,51,45631,Absolute,20,Percent,48,54369" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="chartTestSimulation" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewTestData" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,55,Percent,45" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tabPage7.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
