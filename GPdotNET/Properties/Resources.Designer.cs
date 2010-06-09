@@ -124,7 +124,7 @@ namespace GPdotNET.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GPdotNET v0.9.5 Beta.
+        ///   Looks up a localized string similar to GPdotNET v1.0.5.
         /// </summary>
         internal static string SR_ApplicationName {
             get {

@@ -86,17 +86,5 @@ namespace GPNETLib
             }
             lstExpr.Add(node.NodeValue);
         }
-        public void ToListExpression(List<int> lstExpr, FunctionTree node, int currentLevel)
-        {
-            //If subFunctTree is not null
-            if (node.SubFunctionTree != null)
-            {
-                currentLevel--;
-                // pretraži sve čvorove
-                for (int i = 0; i < node.SubFunctionTree.Count; i++)
-                    ToListExpression(lstExpr, node.SubFunctionTree[i], currentLevel);
-            }
-            lstExpr.Add(node.NodeValue);
-        }
     }
 }
