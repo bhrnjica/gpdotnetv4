@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 
 namespace GPNETLib
 {
+    //Main class of GP.
     [Serializable]
     public class GPPopulation
     {

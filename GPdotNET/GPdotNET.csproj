@@ -34,10 +34,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <UpdateUrl>http://localhost/GPdotNET/</UpdateUrl>
     <AutorunEnabled>true</AutorunEnabled>
     <DisallowUrlActivation>true</DisallowUrlActivation>
-    <ApplicationRevision>6</ApplicationRevision>
-    <ApplicationVersion>0.9.52.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.5.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <ExcludeDeploymentUrl>true</ExcludeDeploymentUrl>
@@ -113,22 +114,22 @@
     <Compile Include="AboutGPdotNET.designer.cs">
       <DependentUpon>AboutGPdotNET.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChooseModelDlg.cs">
+    <Compile Include="HelperForm\ChooseModelDlg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChooseModelDlg.designer.cs">
+    <Compile Include="HelperForm\ChooseModelDlg.designer.cs">
       <DependentUpon>ChooseModelDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExcelFormulaDlg.cs">
+    <Compile Include="HelperForm\ExcelFormulaDlg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExcelFormulaDlg.designer.cs">
+    <Compile Include="HelperForm\ExcelFormulaDlg.designer.cs">
       <DependentUpon>ExcelFormulaDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="GP_TS_Panel.cs">
+    <Compile Include="Models\GP_TS_Panel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GP_TS_Panel.Designer.cs">
+    <Compile Include="Models\GP_TS_Panel.Designer.cs">
       <DependentUpon>GP_TS_Panel.cs</DependentUpon>
     </Compile>
     <Compile Include="GPdotNetApp.cs">
@@ -142,25 +143,25 @@
     <EmbeddedResource Include="AboutGPdotNET.resx">
       <DependentUpon>AboutGPdotNET.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChooseModelDlg.bs.resx">
+    <EmbeddedResource Include="HelperForm\ChooseModelDlg.bs.resx">
       <DependentUpon>ChooseModelDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChooseModelDlg.resx">
+    <EmbeddedResource Include="HelperForm\ChooseModelDlg.resx">
       <DependentUpon>ChooseModelDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExcelFormulaDlg.bs.resx">
+    <EmbeddedResource Include="HelperForm\ExcelFormulaDlg.bs.resx">
       <DependentUpon>ExcelFormulaDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExcelFormulaDlg.resx">
+    <EmbeddedResource Include="HelperForm\ExcelFormulaDlg.resx">
       <DependentUpon>ExcelFormulaDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GPdotNetApp.bs.resx">
       <DependentUpon>GPdotNetApp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GP_TS_Panel.bs.resx">
+    <EmbeddedResource Include="Models\GP_TS_Panel.bs.resx">
       <DependentUpon>GP_TS_Panel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GP_TS_Panel.resx">
+    <EmbeddedResource Include="Models\GP_TS_Panel.resx">
       <DependentUpon>GP_TS_Panel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GPdotNetApp.resx">
@@ -176,10 +177,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="TreeExpression.bs.resx">
+    <EmbeddedResource Include="HelperForm\TreeExpression.bs.resx">
       <DependentUpon>TreeExpression.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TreeExpression.resx">
+    <EmbeddedResource Include="HelperForm\TreeExpression.resx">
       <DependentUpon>TreeExpression.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.bs.Designer.cs">
@@ -203,10 +204,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="TreeExpression.cs">
+    <Compile Include="HelperForm\TreeExpression.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TreeExpression.Designer.cs">
+    <Compile Include="HelperForm\TreeExpression.Designer.cs">
       <DependentUpon>TreeExpression.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -266,7 +267,14 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <FileAssociation Include=".gpx">
+      <Visible>False</Visible>
+      <Description>Genetic programming tool</Description>
+      <Progid>GPdotNET</Progid>
+      <DefaultIcon>Resources\gpLogo.ico</DefaultIcon>
+    </FileAssociation>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

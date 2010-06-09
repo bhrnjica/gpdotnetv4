@@ -51,9 +51,18 @@ namespace GPNETLib
 
         //Function ID
         public ushort ID { get; set; }
+        
+        //TO DO: Future release will contains parameters
+        //Parameters
+        
+        /// <summary>
+        /// Override ToString member
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return Name;
         }
+
     }
 }
