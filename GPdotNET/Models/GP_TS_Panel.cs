@@ -214,7 +214,7 @@ namespace GPdotNET
         }
         private void NapuniGridViewSaDefinisanimFunkcijama()
         {
-            string strPath = "FunctionSet.xml";
+            string strPath = Application.StartupPath+ "\\FunctionSet.xml";
             // When app is deployed with ClickOnce we have diferent path of file FunctionSet.xml
             if (ApplicationDeployment.IsNetworkDeployed)
             {
@@ -412,7 +412,7 @@ namespace GPdotNET
             }
 
             //Nastale promjene zapisuju se u XML file
-            string strPath = "FunctionSet.xml";
+            string strPath = Application.StartupPath + "\\FunctionSet.xml";
             // When app is deployed with ClickOnce we have diferent path of file FunctionSet.xml
             if (ApplicationDeployment.IsNetworkDeployed)
             {
