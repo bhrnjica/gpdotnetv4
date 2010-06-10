@@ -477,6 +477,7 @@
             // 
             // GPdotNetApp
             // 
+            this.AllowDrop = true;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
@@ -488,6 +489,8 @@
             this.MainMenuStrip = this.menuStrip;
             this.Name = "GPdotNetApp";
             this.Load += new System.EventHandler(this.GPdotNetApp_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.GPdotNetApp_DragDrop);
+            this.DragOver += new System.Windows.Forms.DragEventHandler(this.GPdotNetApp_DragOver);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.toolStrip.ResumeLayout(false);
