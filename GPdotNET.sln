@@ -8,6 +8,21 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET", "GPdotNET\GPdotNET.csproj", "{D032B96C-3076-4B5D-9D7A-1B176898E617}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs03
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = gpNetLib\\gpNetLib.csproj
+		SccProjectName1 = gpNetLib
+		SccLocalPath1 = gpNetLib
+		SccProjectUniqueName2 = gpWpfTreeDrawerLib\\gpWpfTreeDrawerLib.csproj
+		SccProjectName2 = gpWpfTreeDrawerLib
+		SccLocalPath2 = gpWpfTreeDrawerLib
+		SccProjectUniqueName3 = GPdotNET\\GPdotNET.csproj
+		SccProjectName3 = GPdotNET
+		SccLocalPath3 = GPdotNET
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
