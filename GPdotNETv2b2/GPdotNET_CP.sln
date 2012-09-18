@@ -1,0 +1,142 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GPdotNET_v2", "GPdotNET_v2", "{362E80C8-CBB0-4BF0-A42E-6C6AC4264C6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.Core", "GPdotNET_v2\GPdotNET.Core\GPdotNET.Core.csproj", "{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.Engine", "GPdotNET_v2\GPdotNET.Engine\GPdotNET.Engine.csproj", "{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.Tool.Common", "GPdotNET_v2\GPdotNET.Tool.Common\GPdotNET.Tool.Common.csproj", "{A1288789-76AD-4796-94EE-8049317FA8F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.Util", "GPdotNET_v2\GPdotNET.Util\GPdotNET.Util.csproj", "{1CCAF038-91A0-4111-BC7F-60F916F739B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.App", "GPdotNET_v2\GPdotNET.App\GPdotNET.App.csproj", "{B98E747B-484A-4B69-843D-A392E68E218A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZedGraph", "ThirdParty\ZedGraph\zedgraph_source_v515\ZedGraph 5.1 (.net 2)\source\ZedGraph.csproj", "{2541686B-1673-43BF-AF89-3163945DB009}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assembly", "Assembly", "{5E7C6880-26BF-4001-8814-99A3090AA2E9}"
+	ProjectSection(SolutionItems) = preProject
+		ThirdParty\Assemblies\ClosedXML.dll = ThirdParty\Assemblies\ClosedXML.dll
+		ThirdParty\Assemblies\DocumentFormat.OpenXml.dll = ThirdParty\Assemblies\DocumentFormat.OpenXml.dll
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs03
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = GPdotNET_v2\\GPdotNET.App\\GPdotNET.App.csproj
+		SccProjectTopLevelParentUniqueName1 = GPdotNET_CP.sln
+		SccProjectName1 = GPdotNET_v2/GPdotNET.App
+		SccLocalPath1 = GPdotNET_v2\\GPdotNET.App
+		SccProjectUniqueName2 = GPdotNET_v2\\GPdotNET.Core\\GPdotNET.Core.csproj
+		SccProjectTopLevelParentUniqueName2 = GPdotNET_CP.sln
+		SccProjectName2 = GPdotNET_v2/GPdotNET.Core
+		SccLocalPath2 = GPdotNET_v2\\GPdotNET.Core
+		SccProjectUniqueName3 = GPdotNET_v2\\GPdotNET.Engine\\GPdotNET.Engine.csproj
+		SccProjectTopLevelParentUniqueName3 = GPdotNET_CP.sln
+		SccProjectName3 = GPdotNET_v2/GPdotNET.Engine
+		SccLocalPath3 = GPdotNET_v2\\GPdotNET.Engine
+		SccProjectUniqueName4 = GPdotNET_v2\\GPdotNET.Tool.Common\\GPdotNET.Tool.Common.csproj
+		SccProjectTopLevelParentUniqueName4 = GPdotNET_CP.sln
+		SccProjectName4 = GPdotNET_v2/GPdotNET.Tool.Common
+		SccLocalPath4 = GPdotNET_v2\\GPdotNET.Tool.Common
+		SccProjectUniqueName5 = GPdotNET_v2\\GPdotNET.Util\\GPdotNET.Util.csproj
+		SccProjectTopLevelParentUniqueName5 = GPdotNET_CP.sln
+		SccProjectName5 = GPdotNET_v2/GPdotNET.Util
+		SccLocalPath5 = GPdotNET_v2\\GPdotNET.Util
+		SccProjectUniqueName6 = ThirdParty\\ZedGraph\\zedgraph_source_v515\\ZedGraph\u00205.1\u0020(.net\u00202)\\source\\ZedGraph.csproj
+		SccProjectName6 = ThirdParty/ZedGraph/zedgraph_source_v515/ZedGraph\u00205.1\u0020(.net\u00202)/source
+		SccLocalPath6 = ThirdParty\\ZedGraph\\zedgraph_source_v515\\ZedGraph\u00205.1\u0020(.net\u00202)\\source
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = GPdotNET.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Release|x86.ActiveCfg = Release|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Release|x86.ActiveCfg = Release|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Release|x86.ActiveCfg = Release|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Release|x86.ActiveCfg = Release|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Debug|x86.ActiveCfg = Debug|x86
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Debug|x86.Build.0 = Debug|x86
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Release|x86.ActiveCfg = Release|x86
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Release|x86.Build.0 = Release|x86
+		{2541686B-1673-43BF-AF89-3163945DB009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2541686B-1673-43BF-AF89-3163945DB009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2541686B-1673-43BF-AF89-3163945DB009}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2541686B-1673-43BF-AF89-3163945DB009}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2541686B-1673-43BF-AF89-3163945DB009}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2541686B-1673-43BF-AF89-3163945DB009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2541686B-1673-43BF-AF89-3163945DB009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2541686B-1673-43BF-AF89-3163945DB009}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2541686B-1673-43BF-AF89-3163945DB009}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2541686B-1673-43BF-AF89-3163945DB009}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5} = {362E80C8-CBB0-4BF0-A42E-6C6AC4264C6F}
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F} = {362E80C8-CBB0-4BF0-A42E-6C6AC4264C6F}
+		{A1288789-76AD-4796-94EE-8049317FA8F3} = {362E80C8-CBB0-4BF0-A42E-6C6AC4264C6F}
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4} = {362E80C8-CBB0-4BF0-A42E-6C6AC4264C6F}
+		{B98E747B-484A-4B69-843D-A392E68E218A} = {362E80C8-CBB0-4BF0-A42E-6C6AC4264C6F}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = GPdotNET_v2\GPdotNET.App\GPdotNET.App.csproj
+	EndGlobalSection
+EndGlobal
