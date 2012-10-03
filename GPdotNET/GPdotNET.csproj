@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D032B96C-3076-4B5D-9D7A-1B176898E617}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GPdotNET</RootNamespace>
+    <AssemblyName>GPdotNET</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>4D412C82DD9496C33479F0AE91647241581AEAFD</ManifestCertificateThumbprint>
+    <ManifestKeyFile>GPdotNET_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>false</SignManifests>
+    <TargetZone>LocalIntranet</TargetZone>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <UpdateUrl>http://localhost/GPdotNET/</UpdateUrl>
+    <AutorunEnabled>true</AutorunEnabled>
+    <DisallowUrlActivation>true</DisallowUrlActivation>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.5.%2a</ApplicationVersion>
+    <UseApplicationTrust>true</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <ExcludeDeploymentUrl>true</ExcludeDeploymentUrl>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\gpLogo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutGPdotNET.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutGPdotNET.designer.cs">
+      <DependentUpon>AboutGPdotNET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelperForm\ChooseModelDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelperForm\ChooseModelDlg.designer.cs">
+      <DependentUpon>ChooseModelDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelperForm\ExcelFormulaDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelperForm\ExcelFormulaDlg.designer.cs">
+      <DependentUpon>ExcelFormulaDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GP_TS_Panel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Models\GP_TS_Panel.Designer.cs">
+      <DependentUpon>GP_TS_Panel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPdotNetApp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GPdotNetApp.Designer.cs">
+      <DependentUpon>GPdotNetApp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutGPdotNET.resx">
+      <DependentUpon>AboutGPdotNET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelperForm\ChooseModelDlg.bs.resx">
+      <DependentUpon>ChooseModelDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelperForm\ChooseModelDlg.resx">
+      <DependentUpon>ChooseModelDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelperForm\ExcelFormulaDlg.bs.resx">
+      <DependentUpon>ExcelFormulaDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelperForm\ExcelFormulaDlg.resx">
+      <DependentUpon>ExcelFormulaDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPdotNetApp.bs.resx">
+      <DependentUpon>GPdotNetApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\GP_TS_Panel.bs.resx">
+      <DependentUpon>GP_TS_Panel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\GP_TS_Panel.resx">
+      <DependentUpon>GP_TS_Panel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPdotNetApp.resx">
+      <DependentUpon>GPdotNetApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.bs.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.bs.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelperForm\TreeExpression.bs.resx">
+      <DependentUpon>TreeExpression.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelperForm\TreeExpression.resx">
+      <DependentUpon>TreeExpression.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.bs.Designer.cs">
+      <DependentUpon>Resources.bs.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="HelperForm\TreeExpression.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelperForm\TreeExpression.Designer.cs">
+      <DependentUpon>TreeExpression.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="gpNetLib\gpNetLib.csproj">
+      <Project>{A14E781F-FAA2-49D6-A578-458A4EFB3A87}</Project>
+      <Name>gpNetLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="gpWpfTreeDrawerLib\gpWpfTreeDrawerLib.csproj">
+      <Project>{B21E638D-257A-4120-B519-104AE8EB8F5A}</Project>
+      <Name>gpWpfTreeDrawerLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FunctionSet.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\gp256.png" />
+    <None Include="Resources\gpLogo.ico" />
+    <None Include="Resources\gpabout.png" />
+    <None Include="Resources\gp128.png" />
+    <None Include="Resources\gp64.png" />
+    <None Include="Resources\gp48.png" />
+    <None Include="Resources\gp32.png" />
+    <None Include="Resources\gp24.png" />
+    <None Include="Resources\gp16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <FileAssociation Include=".gpx">
+      <Visible>False</Visible>
+      <Description>Genetic programming tool</Description>
+      <Progid>GPdotNET</Progid>
+      <DefaultIcon>Resources\gpLogo.ico</DefaultIcon>
+    </FileAssociation>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
