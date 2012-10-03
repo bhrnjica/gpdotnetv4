@@ -216,16 +216,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\gpNetLib\gpNetLib.csproj">
-      <Project>{A14E781F-FAA2-49D6-A578-458A4EFB3A87}</Project>
-      <Name>gpNetLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\gpWpfTreeDrawerLib\gpWpfTreeDrawerLib.csproj">
-      <Project>{B21E638D-257A-4120-B519-104AE8EB8F5A}</Project>
-      <Name>gpWpfTreeDrawerLib</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="FunctionSet.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
