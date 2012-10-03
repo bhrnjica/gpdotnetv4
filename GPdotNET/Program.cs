@@ -22,23 +22,20 @@ namespace GPdotNET
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] Args)
+        static void Main()
         {
-          
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-                        
+
             //Bosnian language settings, otherwise use English
-            if (Properties.Settings.Default.Lang == 1)
+            if (Properties.Settings.Default.Lang==1)
             {
                 Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("bs");
                 Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("bs");
             }
             //Properties.Settings.Default.Lang is INT type for further localization
             //For some other language you can set Lang=2,3,....
-            GPdotNetApp mainWnd = new GPdotNetApp();
-            mainWnd.CmdLineParam = Args;
-            Application.Run(mainWnd);
+            Application.Run(new GPdotNetApp());
         }
     }
 }

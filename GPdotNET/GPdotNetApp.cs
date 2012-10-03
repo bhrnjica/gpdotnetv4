@@ -16,49 +16,19 @@ using System.Windows.Forms;
 using GPdotNET.Properties;
 using GPNETLib;
 using Excel = Microsoft.Office.Interop.Excel;
-using System.IO;
-using System.Text;
 namespace GPdotNET
 {
     public partial class GPdotNetApp : Form
     {
         GP_TS_Panel childForm = null;
-        //Open document through cmd line
-        public string[] CmdLineParam
-        {
-            get;
-            set;
-        }
         public GPdotNetApp()
         {
             InitializeComponent();
             
         }
-        //Drag and drop functionality
-        private void GPdotNetApp_DragOver(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.All;
-        }
-        //Drag and drop functionality
-        private void GPdotNetApp_DragDrop(object sender, DragEventArgs e)
-        {
-            string[] fileNames = e.Data.GetData(DataFormats.FileDrop) as string[];
-            if (fileNames != null && fileNames.Length != 0)
-            {
-                OtvoriDokument(fileNames[0]);
-            }
-        }
         private void GPdotNetApp_Load(object sender, EventArgs e)
         {
             Text = Resources.SR_ApplicationName;
-            if (CmdLineParam != null)
-            {
-                if (CmdLineParam.Length > 0)
-                    OtvoriDokument(CmdLineParam[0]);
-            }
-            else
-                MessageBox.Show("Null vrijednost");
-
         }
         void childForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -155,21 +125,14 @@ namespace GPdotNET
         }
         private void OtvoriDokument(string FileName)
         {
-            var cc = this.Cursor;
-            this.Cursor = Cursors.WaitCursor;
             if (childForm == null)
             {
                 childForm = NovaForma();
             }
-
-            if (File.Exists(FileName))
-            {
-                childForm.Text = System.IO.Path.GetFileName(FileName);
-                childForm.OpenFromFile(FileName);
-                childForm.MdiParent = this;
-                childForm.Show();
-            }
-            this.Cursor = cc;
+            childForm.OpenFromFile(FileName);
+            childForm.Text = System.IO.Path.GetFileName(FileName);
+            childForm.MdiParent = this;
+            childForm.Show();
         }
 
         private GP_TS_Panel NovaForma()
@@ -570,9 +533,6 @@ namespace GPdotNET
                 englishToolStripMenuItem.Checked = false;
             }
         }
-
-
-        
 
        
 
