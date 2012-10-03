@@ -1,45 +1,87 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gpNetLib", "gpNetLib\gpNetLib.csproj", "{A14E781F-FAA2-49D6-A578-458A4EFB3A87}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.App", "GPdotNET_v2\GPdotNET.App\GPdotNET.App.csproj", "{B98E747B-484A-4B69-843D-A392E68E218A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gpWpfTreeDrawerLib", "gpWpfTreeDrawerLib\gpWpfTreeDrawerLib.csproj", "{B21E638D-257A-4120-B519-104AE8EB8F5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.Core", "GPdotNET_v2\GPdotNET.Core\GPdotNET.Core.csproj", "{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET", "GPdotNET\GPdotNET.csproj", "{D032B96C-3076-4B5D-9D7A-1B176898E617}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.Engine", "GPdotNET_v2\GPdotNET.Engine\GPdotNET.Engine.csproj", "{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.Tool.Common", "GPdotNET_v2\GPdotNET.Tool.Common\GPdotNET.Tool.Common.csproj", "{A1288789-76AD-4796-94EE-8049317FA8F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.Util", "GPdotNET_v2\GPdotNET.Util\GPdotNET.Util.csproj", "{1CCAF038-91A0-4111-BC7F-60F916F739B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assemblies", "Assemblies", "{786757A6-CD30-4883-A096-8387120FA0EA}"
+	ProjectSection(SolutionItems) = preProject
+		Assemblies\ClosedXML.dll = Assemblies\ClosedXML.dll
+		Assemblies\ClosedXML.pdb = Assemblies\ClosedXML.pdb
+		Assemblies\DocumentFormat.OpenXml.dll = Assemblies\DocumentFormat.OpenXml.dll
+		Assemblies\ZedGraph.dll = Assemblies\ZedGraph.dll
+		Assemblies\ZedGraph.dll.mdb = Assemblies\ZedGraph.dll.mdb
+		Assemblies\ZedGraph.pdb = Assemblies\ZedGraph.pdb
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 6
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs03
 		SccLocalPath0 = .
-		SccProjectUniqueName1 = gpNetLib\\gpNetLib.csproj
-		SccProjectName1 = gpNetLib
-		SccLocalPath1 = gpNetLib
-		SccProjectUniqueName2 = gpWpfTreeDrawerLib\\gpWpfTreeDrawerLib.csproj
-		SccProjectName2 = gpWpfTreeDrawerLib
-		SccLocalPath2 = gpWpfTreeDrawerLib
-		SccProjectUniqueName3 = GPdotNET\\GPdotNET.csproj
-		SccProjectName3 = GPdotNET
-		SccLocalPath3 = GPdotNET
+		SccProjectUniqueName1 = GPdotNET_v2\\GPdotNET.App\\GPdotNET.App.csproj
+		SccProjectName1 = GPdotNET_v2/GPdotNET.App
+		SccLocalPath1 = GPdotNET_v2\\GPdotNET.App
+		SccProjectUniqueName2 = GPdotNET_v2\\GPdotNET.Core\\GPdotNET.Core.csproj
+		SccProjectName2 = GPdotNET_v2/GPdotNET.Core
+		SccLocalPath2 = GPdotNET_v2\\GPdotNET.Core
+		SccProjectUniqueName3 = GPdotNET_v2\\GPdotNET.Engine\\GPdotNET.Engine.csproj
+		SccProjectName3 = GPdotNET_v2/GPdotNET.Engine
+		SccLocalPath3 = GPdotNET_v2\\GPdotNET.Engine
+		SccProjectUniqueName4 = GPdotNET_v2\\GPdotNET.Tool.Common\\GPdotNET.Tool.Common.csproj
+		SccProjectName4 = GPdotNET_v2/GPdotNET.Tool.Common
+		SccLocalPath4 = GPdotNET_v2\\GPdotNET.Tool.Common
+		SccProjectUniqueName5 = GPdotNET_v2\\GPdotNET.Util\\GPdotNET.Util.csproj
+		SccProjectName5 = GPdotNET_v2/GPdotNET.Util
+		SccLocalPath5 = GPdotNET_v2\\GPdotNET.Util
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A14E781F-FAA2-49D6-A578-458A4EFB3A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A14E781F-FAA2-49D6-A578-458A4EFB3A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A14E781F-FAA2-49D6-A578-458A4EFB3A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A14E781F-FAA2-49D6-A578-458A4EFB3A87}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B21E638D-257A-4120-B519-104AE8EB8F5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B21E638D-257A-4120-B519-104AE8EB8F5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B21E638D-257A-4120-B519-104AE8EB8F5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B21E638D-257A-4120-B519-104AE8EB8F5A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D032B96C-3076-4B5D-9D7A-1B176898E617}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D032B96C-3076-4B5D-9D7A-1B176898E617}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D032B96C-3076-4B5D-9D7A-1B176898E617}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D032B96C-3076-4B5D-9D7A-1B176898E617}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Debug|x86.ActiveCfg = Debug|x86
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Debug|x86.Build.0 = Debug|x86
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Release|x86.ActiveCfg = Release|x86
+		{B98E747B-484A-4B69-843D-A392E68E218A}.Release|x86.Build.0 = Release|x86
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}.Release|x86.ActiveCfg = Release|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}.Release|x86.ActiveCfg = Release|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1288789-76AD-4796-94EE-8049317FA8F3}.Release|x86.ActiveCfg = Release|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CCAF038-91A0-4111-BC7F-60F916F739B4}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
