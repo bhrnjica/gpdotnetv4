@@ -65,10 +65,10 @@
             this.pageOneLabelrad4.AutoSize = true;
             this.pageOneLabelrad4.Location = new System.Drawing.Point(69, 92);
             this.pageOneLabelrad4.Name = "pageOneLabelrad4";
-            this.pageOneLabelrad4.Size = new System.Drawing.Size(171, 17);
+            this.pageOneLabelrad4.Size = new System.Drawing.Size(178, 17);
             this.pageOneLabelrad4.TabIndex = 3;
             this.pageOneLabelrad4.TabStop = true;
-            this.pageOneLabelrad4.Text = "Optimization of analitic function";
+            this.pageOneLabelrad4.Text = "Optimization of Analytic Function";
             this.pageOneLabelrad4.UseVisualStyleBackColor = true;
             // 
             // pageOneLabelrad3
@@ -76,10 +76,10 @@
             this.pageOneLabelrad3.AutoSize = true;
             this.pageOneLabelrad3.Location = new System.Drawing.Point(69, 68);
             this.pageOneLabelrad3.Name = "pageOneLabelrad3";
-            this.pageOneLabelrad3.Size = new System.Drawing.Size(111, 17);
+            this.pageOneLabelrad3.Size = new System.Drawing.Size(127, 17);
             this.pageOneLabelrad3.TabIndex = 2;
             this.pageOneLabelrad3.TabStop = true;
-            this.pageOneLabelrad3.Text = "Time Series model";
+            this.pageOneLabelrad3.Text = "Model for Time Series";
             this.pageOneLabelrad3.UseVisualStyleBackColor = true;
             // 
             // pageOneLabelrad2
@@ -87,10 +87,10 @@
             this.pageOneLabelrad2.AutoSize = true;
             this.pageOneLabelrad2.Location = new System.Drawing.Point(69, 44);
             this.pageOneLabelrad2.Name = "pageOneLabelrad2";
-            this.pageOneLabelrad2.Size = new System.Drawing.Size(198, 17);
+            this.pageOneLabelrad2.Size = new System.Drawing.Size(169, 17);
             this.pageOneLabelrad2.TabIndex = 1;
             this.pageOneLabelrad2.TabStop = true;
-            this.pageOneLabelrad2.Text = "Symbolic regression with optimization";
+            this.pageOneLabelrad2.Text = "Model && Opt. for Discrete Data";
             this.pageOneLabelrad2.UseVisualStyleBackColor = true;
             // 
             // pageOneLabelrad1
@@ -99,10 +99,10 @@
             this.pageOneLabelrad1.Checked = true;
             this.pageOneLabelrad1.Location = new System.Drawing.Point(69, 20);
             this.pageOneLabelrad1.Name = "pageOneLabelrad1";
-            this.pageOneLabelrad1.Size = new System.Drawing.Size(118, 17);
+            this.pageOneLabelrad1.Size = new System.Drawing.Size(137, 17);
             this.pageOneLabelrad1.TabIndex = 0;
             this.pageOneLabelrad1.TabStop = true;
-            this.pageOneLabelrad1.Text = "Symbolic regression";
+            this.pageOneLabelrad1.Text = "Model for Discrete Data";
             this.pageOneLabelrad1.UseVisualStyleBackColor = true;
             // 
             // lblTitle

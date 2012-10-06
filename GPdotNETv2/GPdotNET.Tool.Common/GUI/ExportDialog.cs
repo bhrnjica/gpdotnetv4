@@ -15,6 +15,7 @@ namespace GPdotNET.Tool.Common.GUI
         {
             InitializeComponent();
             listBox1.SelectedIndex = 1;
+            this.pictureBox1.Image = Utility.LoadImageFromName("GPdotNET.App.Resources.gpdotnet_ico48.png");
         }
         public int SelectedOption
         {

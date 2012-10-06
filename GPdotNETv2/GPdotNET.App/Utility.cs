@@ -75,14 +75,12 @@ namespace GPdotNET.App
                 //GP Model formula
                 string formula = Globals.functions.DecodeExpression(ch, true);
                 AlphaCharEnum alphaEnum = new AlphaCharEnum();
-                // char alphaStart = Char.Parse("B"); 
+
                 for (int i = 0; i < inputVarCount; i++)
                 {
-                    string var = "X" + (i + 1).ToString();
+                    string var = "X" + (i + 1).ToString()+" ";
                     string cell = alphaEnum.AlphabetFromIndex(2 + i) + "3";
-                    // string cell=alphaStart.ToString()+"3";
                     formula = formula.Replace(var, cell);
-                    //  alphaStart++;
                 }
 
                 for (int i = 0; i < constCount; i++)
@@ -90,16 +88,8 @@ namespace GPdotNET.App
                     string var = "R" + (i + 1).ToString();
                     string cell = alphaEnum.AlphabetFromIndex(inputVarCount + 2 + i) + "3";
                     formula = formula.Replace(var, cell);
-                    // alphaStart++;
                 }
                 ws.Cell(3, inputVarCount + constCount + 3).Value = formula;
-                //Copy formula from cell
-               // ws.Cell(3, inputVarCount + constCount + 2].Copy();
-                //And paste to all sample TrainingData
-               // for (int j = 1; j < data.Length; j++)
-               // {
-                //    oSheet.Paste(oSheet.Cells[j + 3, inputVarCount + constCount + 2]);
-               // }
                 wb.SaveAs(strFilePath);
             }
             catch (Exception ex)

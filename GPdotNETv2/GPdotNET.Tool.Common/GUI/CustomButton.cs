@@ -320,6 +320,7 @@ namespace GPdotNET.Tool.Common.GUI
         {
             if (!IsToolTipEnabled)
                 return;
+            return;//version 2 will not support tooltip
             info = new CustomToolTip();
             info.Title = _infotitle;
             info.Comment = _infocomment;

@@ -155,15 +155,15 @@ namespace GPdotNET.Tool.Common
         /// <summary>
         /// Returns array of output values
         /// </summary>
-        /// <param name="_testing"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        public double[] GetOutputValues(double[][] _testing)
+        public double[] GetOutputValues(double[][] data)
         {
-            double[] output = new double[_testing.Length];
-            int outputIndex = _testing[0].Length - 1;
-            for (int i = 0; i < _testing.Length; i++)
+            double[] output = new double[data.Length];
+            int outputIndex = data[0].Length - 1;
+            for (int i = 0; i < data.Length; i++)
             {
-                output[i] = _testing[i][outputIndex];
+                output[i] = data[i][outputIndex];
             }
             return output;
         }

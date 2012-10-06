@@ -35,13 +35,13 @@ namespace GPdotNET.Core
         /// </summary>
         /// <param name="isFunction"> If true Function will be choosed, otherwise terminal index</param>
         /// <returns></returns>
-        static public short GenerateNodeValue(bool isFunction)
+        static public int GenerateNodeValue(bool isFunction)
         {
 
             if (isFunction)
-                return (short)(StartFunctionIndex + Globals.radn.Next(functions.GetFunctions().Count));
+                return StartFunctionIndex + functions.GetRandomFunction();
             else
-                return (short)(StartTerminalIndex + Globals.radn.Next(functions.GetTerminals().Count));
+                return StartTerminalIndex + Globals.radn.Next(functions.GetTerminals().Count);
         }
 
         
@@ -65,15 +65,14 @@ namespace GPdotNET.Core
         /// </summary>
         /// <param name="functionIndex"></param>
         /// <returns></returns>
-        public static int GetFunctionAritry(int functionIndex)
+        public static int GetFunctionAritry(int funID)
         {
-            if (functionIndex >= Globals.StartFunctionIndex)
-                functionIndex -= Globals.StartFunctionIndex;
+            funID -= 2000;
+            int retVal = functions.GetAritry(funID);
+            if(retVal==-1)
+                throw new Exception("Invalid Function ID!");
 
-            if (functionIndex >= functions.GetFunctions().Count)
-                throw new Exception("functionIndex is out of function index range!");
-
-            return functions.GetFunctions()[functionIndex].Aritry;
+            return retVal;
         }
 
 
@@ -83,12 +82,19 @@ namespace GPdotNET.Core
            
         }
 
-        public static double[] GetTerminalRow(int rowIndex)
+        public static double[] GetTerminalRow(int rowIndex, bool bTraining= true)
         {
-            if(rowIndex==-1)//
-                return gpterminals.SingleTrainingData;
+            if (bTraining)
+            {
+                if (rowIndex == -1)//
+                    return gpterminals.SingleTrainingData;
+                else
+                    return gpterminals.TrainingData[rowIndex];
+            }
             else
-                return gpterminals.TrainingData[rowIndex];
+            {
+                return gpterminals.TestingData[rowIndex];
+            }
         }
 
         public static double[] GenerateRandomConstants(int from, int to, int number)
@@ -105,18 +111,19 @@ namespace GPdotNET.Core
         }
 
         //String representation of GPNode
-        public static string GetGPNodeStringRep(int index)
+        public static string GetGPNodeStringRep(int nodeId)
         {
             //function
-            if (IsFunction(index))
+            if (IsFunction(nodeId))
             {
-                index -= Globals.StartFunctionIndex;
-                return functions.GetFunctions()[index].Name;
+                nodeId -= Globals.StartFunctionIndex;
+                return functions.GetFunctions()[nodeId].Name;
             }
             else
             {
-                index -= Globals.StartTerminalIndex;
-                return functions.GetTerminals()[index].Name;
+                nodeId -= Globals.StartTerminalIndex;
+                return functions.GetTerminals()[nodeId].Name;
+                
             }
         }
 
@@ -128,7 +135,7 @@ namespace GPdotNET.Core
 
             var model = new double[data.Length];
             for (int i = 0; i < data.Length; i++)
-                model[i] = functions.Evaluate(node, i);
+                model[i] = functions.Evaluate(node, i, btrainingData);
 
             return model;
         }

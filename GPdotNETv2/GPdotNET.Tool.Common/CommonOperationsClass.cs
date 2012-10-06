@@ -219,23 +219,12 @@ namespace GPdotNET.Tool.Common
         /// </summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        public static List<GPFunction> LoadFunctionsfromXMLFile(XDocument doc=null)
+        public static Dictionary<int,GPFunction> LoadFunctionsfromXMLFile(XDocument doc=null)
         {
-            List<GPFunction> funs = new List<GPFunction>();
+            Dictionary<int, GPFunction> funs = new Dictionary<int,GPFunction>();
 
             string strPath = Application.StartupPath + "/Resources_Files/FunctionSet.xml";
-            // When app is deployed with ClickOnce we have diferent path of file FunctionSet.xml
-            //if (ApplicationDeployment.IsNetworkDeployed)
-            //{
-            //    try
-            //    {
-            //        strPath = ApplicationDeployment.CurrentDeployment.DataDirectory + @"\FunctionSet.xml";
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("Could not read file. Error message: " + ex.Message);
-            //    }
-            //}
+            
             try
             {
 
@@ -266,7 +255,7 @@ namespace GPdotNET.Tool.Common
                 }
                 
                 //
-                funs = q.ToList();
+                funs = q.ToDictionary(v => (int)v.ID, v => v);
                 return funs;
             }
             catch (Exception ex)

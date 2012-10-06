@@ -49,7 +49,7 @@ namespace GPdotNET.Core
         public int Weight { get; set; }
 
         //Function ID
-        public ushort ID { get; set; }
+        public int ID { get; set; }
 
         //Parameters separate with semilonon
         public string Parameters { get; set; }

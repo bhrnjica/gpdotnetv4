@@ -182,7 +182,29 @@ namespace GPdotNET.Tool.Common
                     return;
                 }
 
-                //Provjera konzistentnosti serije
+                //check for consistence of variables
+                if (_timeSeries.Length <= nrVariables + 1)
+                {
+                    MessageBox.Show("Number of vars must be lower than number of series.");
+                    return;
+                }
+                
+                if (_timeSeries.Length <= nrSeriesForTesting)
+                {
+                    MessageBox.Show("Number of testing samples must be lower that number of series.");
+                    return;
+                }
+                if (nrVariables > nrSeriesForTesting)
+                {
+                    MessageBox.Show("Number of testing samples must be greather than number of input varibles.");
+                    return;
+                }
+
+                if (_timeSeries.Length < nrVariables + nrSeriesForTesting+1)
+                {
+                    MessageBox.Show("Invalid number of varables and sample of testing series. Try to set up diferent values.");
+                    return;
+                }
                 if (_timeSeries.Length - 2 * nrVariables - nrSeriesForTesting < 0)
                 {
                     MessageBox.Show("Cannot converti series in to GP model. Try to set up diferent values.");
@@ -205,11 +227,12 @@ namespace GPdotNET.Tool.Common
                 //Create testing data
                 _testing = new double[nrSeriesForTesting][];
                 int k = 0;
-                for (int i = _timeSeries.Length - nrSeriesForTesting - nrVariables; i < _timeSeries.Length - nrVariables; i++)
+                for (int i = _timeSeries.Length - nrSeriesForTesting; i < _timeSeries.Length; i++)
                 {
                     _testing[k] = new double[nrVariables + 1];
-                    for (int j = i; j < nrVariables + 1 + i; j++)
-                        _testing[k][j - i] = _timeSeries[j];
+                    int l = 0;
+                    for (int j = i - nrVariables; l<nrVariables+1; j++, l++)
+                        _testing[k][l] = _timeSeries[j];
                     k++;
 
                 }

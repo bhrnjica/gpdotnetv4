@@ -35,7 +35,7 @@ namespace GPdotNET.Core
         public bool IsTimeSeries { get; set; }
         public int RowCount { get; set; }
 
-        private List<GPTerminal> _terminals;
+        private Dictionary<int,GPTerminal> _terminals;
         
 
         public GPTerminalSet()
@@ -69,9 +69,9 @@ namespace GPdotNET.Core
         /// Generate Terminals from Training Data
         /// </summary>
         /// <returns></returns>
-        public List<GPTerminal> GetTerminals()
+        public Dictionary<int, GPTerminal> GetTerminals()
         {
-            _terminals = new List<GPTerminal>();
+            _terminals = new Dictionary<int,GPTerminal>();
             //terminals as input variable
             for (int i = 0; i < NumVariables; i++)
             {
@@ -80,7 +80,7 @@ namespace GPdotNET.Core
                 ter.IsConstant = false;
                 ter.Name = "X"+(i+1).ToString();
                 ter.Index = i;
-                _terminals.Add(ter);
+                _terminals.Add(ter.Index,ter);
 
             }
             // terminal as random constants
@@ -91,10 +91,36 @@ namespace GPdotNET.Core
                 ter.IsConstant = true;
                 ter.Name = "R" + (j+1).ToString();
                 ter.Index = j + NumVariables;
-                _terminals.Add(ter);
+                _terminals.Add(ter.Index ,ter);
             }
 
             return _terminals;
+        }
+
+        public string ToStringMaxMinValues()
+        {
+            string str = "";
+            
+
+            for (int i = 0; i < NumVariables; i++)
+            {
+                double min = double.MaxValue;
+                double max = double.MinValue;
+
+                for (int j = 0; j < TrainingData.Length; j++)
+                {
+                    if (TrainingData[j][i] > max)
+                        max = TrainingData[j][i];
+                    if (TrainingData[j][i] < min)
+                        min = TrainingData[j][i];
+                }
+
+                //Terminali
+                str += min.ToString()+";"+max.ToString() + "\t";
+
+            }
+
+            return str;
         }
     }
 }

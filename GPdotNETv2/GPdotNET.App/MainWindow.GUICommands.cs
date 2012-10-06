@@ -648,46 +648,55 @@ namespace GPdotNET.App
         /// </summary>
         private bool PrepareGP(bool brunFactory = true)
         {
-            //set file as dirty 
-            _isFileDirty = true;
-
-            //Define GP parameters
-            var gpp= _setPanel.GetParameters();
-            gpp.algorithmType = Algorithm.GP;
-            _resultPanel.SetConstants(_setPanel.Constants);
-
-            //Define GP Terminals
-            GPTerminalSet gpTSet =  GPModelGlobals.GenerateTerminalSet(_dataPanel.Training, //training data
-                                                                        _setPanel.Constants, // random constant
-                                                                        _dataPanel.Testing); // data for testing and prediction
-            //Deine GP function set
-            GPFunctionSet gpFSet = new GPFunctionSet();
-            var fn = _funPanel.GPFunctions.Where(f => f.Selected == true).ToList();
-            gpFSet.SetFunction(fn);
-            
-            //Set GP Terminals
-            var ter = gpTSet.GetTerminals();
-            gpFSet.SetTerimals(ter);
-
-            if (_optimizePanel != null)
-                _optimizePanel.FillTerminalBounds(ter.Where(x=>x.Name.Contains("X")).Select(x=>x.Name).ToList());
-
-
-            if (brunFactory)
+            try
             {
-                //set indicator to 1 means GP is running
-                _runningEngine = 1;
+                //set file as dirty 
+                _isFileDirty = true;
 
-                //Call prepare algorithm
-                _gpFactory.PrepareAlgorithm(gpTSet, gpFSet, gpp);
+                //Define GP parameters
+                var gpp = _setPanel.GetParameters();
+                gpp.algorithmType = Algorithm.GP;
+                _resultPanel.SetConstants(_setPanel.Constants);
+
+                //Define GP Terminals
+                GPTerminalSet gpTSet = GPModelGlobals.GenerateTerminalSet(_dataPanel.Training, //training data
+                                                                            _setPanel.Constants, // random constant
+                                                                            _dataPanel.Testing); // data for testing and prediction
+                //Deine GP function set
+                GPFunctionSet gpFSet = new GPFunctionSet();
+                gpFSet.SetFunction(_funPanel.GPFunctions);
+
+                //Set GP Terminals
+                var ter = gpTSet.GetTerminals();
+                gpFSet.SetTerimals(ter);
+
+                if (_optimizePanel != null)
+                    _optimizePanel.FillTerminalBounds(ter.Where(x => x.Value.Name.Contains("X")).Select(x => x.Value.Name).ToList());
+
+
+                if (brunFactory)
+                {
+                    //set indicator to 1 means GP is running
+                    _runningEngine = 1;
+
+                    //Call prepare algorithm
+                    _gpFactory.PrepareAlgorithm(gpTSet, gpFSet, gpp);
+                }
+                else
+                {
+                    _gpFactory.SetTerminalSet(gpTSet);
+                    _gpFactory.SetFunctionSet(gpFSet);
+                    _gpFactory.SetGPParameter(gpp);
+                }
+
+
+                return true;
             }
-            else
+            catch (Exception ex)
             {
-                _gpFactory.SetTerminalSet(gpTSet);
-                _gpFactory.SetFunctionSet(gpFSet);
-                _gpFactory.SetGPParameter(gpp);
+                MessageBox.Show(ex.Message);
+                return false;
             }
-            return true;
 
            
         }
@@ -749,7 +758,7 @@ namespace GPdotNET.App
             //Declare terminals
             GPTerminalSet gpTSet=null;
             GPFunctionSet gpFSet=null;
-            List<GPTerminal> tt = null;
+            Dictionary<int,GPTerminal> tt = null;
 
             if (_GPModel == GPModelType.AnaliticFunctionOptimization)
             {
@@ -758,12 +767,12 @@ namespace GPdotNET.App
                 //Define TerminalSet
                 gpTSet = new GPTerminalSet();
                 gpTSet.RowCount = 1;
-                gpTSet.NumVariables = tt.Count(x => x.IsConstant == false);
-                gpTSet.NumConstants = tt.Count(x => x.IsConstant == true);
+                gpTSet.NumVariables = tt.Count(x => x.Value.IsConstant == false);
+                gpTSet.NumConstants = tt.Count(x => x.Value.IsConstant == true);
 
                 //define FunctionSet by loading functions and set max and min values for terminals
                 gpFSet = new GPFunctionSet();
-                gpFSet.SetFunction(CommonMethods.LoadFunctionsfromXMLFile());
+                gpFSet.SetFunction(CommonMethods.LoadFunctionsfromXMLFile(), false);
                 gpFSet.SetTerimals(tt);
 
                 //Define terminals 
@@ -908,18 +917,27 @@ namespace GPdotNET.App
         {
            
 
-            //set indicator to stped
-            if (e.ReportType == ReportGPType.Finished)
-                _runningEngine = 0;
+           
 
             if (this.InvokeRequired)
             {
                 // Execute the same method, but this time on the GUI thread
-                this.Invoke(new Action(() => ReportEvolution(e)));
+                this.Invoke(
+                    new Action(() =>
+                    {
+                        ReportEvolution(e);
+                        //set indicator to stped
+                        if (e.ReportType == ReportGPType.Finished)
+                            _runningEngine = 0;
+                    }
+                    ));
             }
             else
             {
                ReportEvolution(e);
+               //set indicator to stped
+               if (e.ReportType == ReportGPType.Finished)
+                   _runningEngine = 0;
             }
             
         }
@@ -928,8 +946,16 @@ namespace GPdotNET.App
         {
             UpdateGUI((int)e.ReportType);
 
-            if (_runPanel != null && _runningEngine==1)
-                _runPanel.ReportProgress(e.CurrentEvolution, e.AverageFitness, e.BestChromosome , (int)e.ReportType);
+            if (_runPanel != null && _runningEngine == 1)
+            {
+                _runPanel.ReportProgress(e.CurrentEvolution, e.AverageFitness, e.BestChromosome, (int)e.ReportType);
+            }
+
+            if (e.ReportType == ReportGPType.Finished && _optimizePanel != null && _runningEngine == 1)
+            {
+                string str = Globals.gpterminals.ToStringMaxMinValues();
+                _optimizePanel.SetMaximumAndMinimumValues(str);
+            }
 
             if (_optimizePanel != null && _runningEngine==2)
                 _optimizePanel.ReportProgress(e.CurrentEvolution, e.AverageFitness, e.BestChromosome , (int)e.ReportType);

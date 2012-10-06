@@ -72,14 +72,6 @@
     <StartupObject>GPdotNET.App.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClosedXML, Version=0.67.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Assemblies\ClosedXML.dll</HintPath>
-    </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -88,9 +80,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph, Version=5.1.5.23814, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Assemblies\ZedGraph.dll</HintPath>
+    <Reference Include="ClosedXML">
+      <HintPath>..\..\ThirdParty\Assemblies\ClosedXML.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +149,10 @@
     <ProjectReference Include="..\GPdotNET.Util\GPdotNET.Util.csproj">
       <Project>{1CCAF038-91A0-4111-BC7F-60F916F739B4}</Project>
       <Name>GPdotNET.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ThirdParty\ZedGraph\zedgraph_source_v515\ZedGraph 5.1 %28.net 2%29\source\ZedGraph.csproj">
+      <Project>{2541686B-1673-43BF-AF89-3163945DB009}</Project>
+      <Name>ZedGraph</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

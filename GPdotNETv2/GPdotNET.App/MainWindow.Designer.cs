@@ -591,7 +591,7 @@
             this.rbtnNewModel.InfoComment = "";
             this.rbtnNewModel.InfoImage = "";
             this.rbtnNewModel.InfoTitle = "";
-            this.rbtnNewModel.IsToolTipEnabled = false;
+            this.rbtnNewModel.IsToolTipEnabled = true;
             this.rbtnNewModel.Location = new System.Drawing.Point(5, 9);
             this.rbtnNewModel.Name = "rbtnNewModel";
             this.rbtnNewModel.Size = new System.Drawing.Size(63, 63);
