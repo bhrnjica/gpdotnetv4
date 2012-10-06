@@ -20,15 +20,15 @@ using GPdotNET.Core;
 namespace GPdotNET.Engine
 {
     /// <summary>
-    /// Klasa koja posjeduje sve funkcije  i terminale (nazive nezavisno promjenjivih i konstanti) koje se mogu naci u posmatranom programu
-    /// Ovaj skup se definise pokretanjem svakog programa, i ucitava se iz XML datoteke u kojoj su smjestene funkcije
+    /// 
     /// </summary>
     public class GPFunctionSet : IFunctionSet
     {
          //Collections of functions and terminals. They are separated in two diferent collection
         // cause cleaner logic
-        private  List<GPFunction> functions = new List<GPFunction>();
-        private List<GPTerminal> terminals = new List<GPTerminal>();
+        private Dictionary<int, GPFunction> functions = new Dictionary<int, GPFunction>();
+        private List<int> funChooser = null;
+        private Dictionary<int, GPTerminal> terminals = new Dictionary<int, GPTerminal>();
 
         public GPFunctionSet()
         { }
@@ -38,38 +38,38 @@ namespace GPdotNET.Engine
         {
             switch (fun.ID)
             {
-                case 1:
+                case 0:
                     {
                         return tt[0] + tt[1];
                     }
-                case 2:
+                case 1:
                     {
                         return tt[0] - tt[1];
                     }
-                case 3:
+                case 2:
                     {
                         return tt[0] * tt[1];
                     }
-                case 4://protected divison
+                case 3://protected divison
                     {
                         if (tt[1] == 0)
                             return 1;
                         return tt[0] / tt[1];
                     }
 
-                case 5:
+                case 4:
                     {
                         return tt[0] + tt[1] + tt[2];
                     }
-                case 6:
+                case 5:
                     {
                         return tt[0] - tt[1] - tt[2];
                     }
-                case 7:
+                case 6:
                     {
                         return tt[0] * tt[1] * tt[2];
                     }
-                case 8:
+                case 7:
                     {
                         if (tt[2] == 0)
                             return 1;
@@ -78,19 +78,19 @@ namespace GPdotNET.Engine
                         return tt[0] / tt[1] / tt[2];
                     }
 
-                case 9:
+                case 8:
                     {
                         return tt[0] + tt[1] + tt[2] + tt[3];
                     }
-                case 10:
+                case 9:
                     {
                         return tt[0] - tt[1] - tt[2] - tt[3];
                     }
-                case 11:
+                case 10:
                     {
                         return tt[0] * tt[1] * tt[2] * tt[3];
                     }
-                case 12:
+                case 11:
                     {
                         if (tt[3] == 0)
                             return 1;
@@ -101,131 +101,131 @@ namespace GPdotNET.Engine
                         return tt[0] / tt[1] / tt[2] / tt[3];
                     }
 
-                case 13:
+                case 12:
                     {
                         return Math.Pow(tt[0], 2);
                     }
-                case 14:
+                case 13:
                     {
                         return Math.Pow(tt[0], 3);
                     }
-                case 15:
+                case 14:
                     {
                         return Math.Pow(tt[0], 4);
                     }
 
-                case 16:
+                case 15:
                     {
                         return Math.Pow(tt[0], 5);
                     }
 
-                case 17:
+                case 16:
                     {
                         return Math.Pow(tt[0], 1 / 3.0);
                     }
-                case 18:
+                case 17:
                     {
                         return Math.Pow(tt[0], 1 / 4.0);
                     }
 
-                case 19:
+                case 18:
                     {
                         return Math.Pow(tt[0], 1 / 5.0);
                     }
-                case 20:
+                case 19:
                     {
                         if (tt[0] == 0)
                             return 1;
                         return 1.0 / tt[0];
                     }
-                case 21:
+                case 20:
                     {
                         return Math.Abs(tt[0]);
                     }
-                case 22:
+                case 21:
                     {
                         return Math.Floor(tt[0]);
                     }
-                case 23:
+                case 22:
                     {
                         return Math.Ceiling(tt[0]);
                     }
-                case 24:
+                case 23:
                     {
                         return Math.Truncate(tt[0]);
                     }
-                case 25:
+                case 24:
                     {
                         return Math.Round(tt[0]);
                     }
-                case 26:
+                case 25:
                     {
                         return Math.Sin(tt[0]);
                     }
-                case 27:
+                case 26:
                     {
                         return Math.Cos(tt[0]);
                     }
-                case 28:
+                case 27:
                     {
                         return Math.Tan(tt[0]);
                     }
 
-                case 29:
+                case 28:
                     {
                         if (tt[0] > 1 && tt[0] < -1)
                             return 1;
                         return Math.Asin(tt[0]);
                     }
-                case 30:
+                case 29:
                     {
                         if (tt[0] > 1 && tt[0] < -1)
                             return 1;
                         return Math.Acos(tt[0]);
                     }
-                case 31:
+                case 30:
                     {
                         return Math.Atan(tt[0]);
                     }
-                case 32:
+                case 31:
                     {
                         return Math.Sinh(tt[0]);
                     }
-                case 33:
+                case 32:
                     {
                         return Math.Cosh(tt[0]);
                     }
-                case 34:
+                case 33:
                     {
                         if (tt[0] == 0)
                             return 1;
                         return Math.Tanh(tt[0]);
                     }
-                case 35:
+                case 34:
                     {
                         if (tt[0] > 0)
                             return 1;
                         return Math.Sqrt(tt[0]);
                     }
-                case 36:
+                case 35:
                     {
                         return Math.Pow(Math.E, tt[0]);
                     }
-                case 37:
+                case 36:
                     {
                         if (tt[0] > 0)
                             return 1;
                         return Math.Log10(tt[0]);
                     }
-                case 38:
+                case 37:
                     {
                         return Math.Log(tt[0], Math.E);
                     }
-                case 39:
+                case 38:
                     {
                         return tt[0] * tt[0] + tt[0] * tt[1] + tt[1] * tt[1];
                     }
-                case 40:
+                case 39:
                     {
                         return tt[0] * tt[0] * tt[0] + tt[1] * tt[1] * tt[1] + tt[2] * tt[2] * tt[2] + tt[0] * tt[1] * tt[2] + tt[0] * tt[1] + tt[1] * tt[2] + tt[0] * tt[2];
                     }
@@ -236,13 +236,13 @@ namespace GPdotNET.Engine
             }
         }
 
-        public double Evaluate(GPNode treeExpression, int rowIndex)
+        public double Evaluate(GPNode treeExpression, int rowIndex, bool btrainingData=true)
         {
             //Helpers
             var tokens = treeExpression.ToList();
             int countT = tokens.Count;
 
-            double[] terminalRow = Globals.GetTerminalRow(rowIndex);
+            double[] terminalRow = Globals.GetTerminalRow(rowIndex, btrainingData);
             int numVars = Globals.GetTerminalVarCount();
 
             //Stack for evaluation
@@ -320,6 +320,8 @@ namespace GPdotNET.Engine
                     {
                         string oldStr = "x" + (j).ToString();
                         string newStr = expression.Pop();
+                        if (bExcel)
+                            newStr += " ";
                         function = function.Replace(oldStr, newStr);
                     }
 
@@ -334,12 +336,12 @@ namespace GPdotNET.Engine
             return expression.Pop();
         }
 
-        public List<GPFunction> GetFunctions()
+        public Dictionary<int,GPFunction> GetFunctions()
         {
             return functions;
         }
 
-        public List<GPTerminal> GetTerminals()
+        public Dictionary<int,GPTerminal> GetTerminals()
         {
             return terminals;
         }
@@ -347,7 +349,7 @@ namespace GPdotNET.Engine
         {
             if (terminals == null)
                 return 0;
-            return terminals.Count(x=>x.IsConstant==false);
+            return terminals.Values.Count(x=>x.IsConstant==false);
         }
 
         public double GetTerminalMaxValue(int index)
@@ -364,24 +366,46 @@ namespace GPdotNET.Engine
             return terminals[index].minValue;
         }
 
-        public void SetTerimals(List<GPTerminal> list)
+        public void SetTerimals(Dictionary<int, GPTerminal> list)
         {
+          
+
             terminals = list;
         }
 
-        public void SetFunction(List<GPFunction> list)
+        public void SetFunction(Dictionary<int, GPFunction> list, bool bSelected = true)
         {
+            functions = list;
             //Clear old functions
             if (functions == null)
-                functions = new List<GPFunction>();
+                functions = new Dictionary<int,GPFunction>();
 
-            functions.Clear();
-            foreach (var op in list)
+            
+            funChooser = new List<int>();
+            var lst = bSelected ? list.Where(f => f.Value.Selected == true) : list;
+
+            foreach (var op in lst)
             {
-                for (int i = 0; i < op.Weight; i++)
-                    functions.Add(op);
+                for (int i = 0; i < op.Value.Weight; i++)
+                {
+                   funChooser.Add(op.Value.ID);
+                }
             }
         }
-		
+
+
+
+        public int GetAritry(int funID)
+        {
+            if (functions != null && functions.Count > 0)
+                return functions[funID].Aritry;
+            throw new Exception("Function id is not defined.");
+        }
+
+        public int GetRandomFunction()
+        {
+            int val = Globals.radn.Next(funChooser.Count);
+            return funChooser[val];
+        }
     }
 }

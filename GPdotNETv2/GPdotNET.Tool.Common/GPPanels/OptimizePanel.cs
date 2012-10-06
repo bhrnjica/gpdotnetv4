@@ -41,6 +41,9 @@ namespace GPdotNET.Tool.Common
         protected override void PrepareGraphs()
         {
             base.PrepareGraphs();
+            label32.Text = "Optimal Value: ";
+            comboBox2.Enabled = false;
+
 
         }
 
@@ -59,11 +62,10 @@ namespace GPdotNET.Tool.Common
             {
 
                 ListViewItem LVI = listView1.Items[i];
-                LVI.SubItems[3].Text=Math.Round(ch.val[i],5).ToString();
-                
+                LVI.SubItems[3].Text = Math.Round(ch.val[i], 5).ToString();
             }
 
-            
+
         }
 
         /// <summary>
@@ -132,6 +134,12 @@ namespace GPdotNET.Tool.Common
             }
 
         }
+
+        public override void EnableCtrls(bool p)
+        {
+            base.EnableCtrls(p);
+            comboBox2.Enabled = false;
+        }
         #endregion
 
         #region Public Methods
@@ -151,8 +159,12 @@ namespace GPdotNET.Tool.Common
             // When fitness is changed, model needs to be refreshed
             if (prevFitness < ch.Fitness)
             {
+                var fitStr = ch.Fitness;
+                if (chkTypeOfOptimization.Checked)
+                    fitStr = -1 * ch.Fitness;
 
-                currentErrorBox.Text = ch.Fitness.ToString();
+                currentErrorBox.Text = Math.Round(fitStr,5).ToString();
+
                 prevFitness = ch.Fitness;
                 bestFitnessAtGenerationEditBox.Text = currentEvoution.ToString();
                 UpdateOptimizationResult(ch);
@@ -279,7 +291,8 @@ namespace GPdotNET.Tool.Common
         /// <returns></returns>
         public bool HasPrevSoluton()
         {
-          return  prevFitness >= 0;
+            
+            return prevFitness > float.MinValue;
         }
 
         /// <summary>

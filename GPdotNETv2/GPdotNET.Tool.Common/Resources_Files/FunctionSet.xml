@@ -4,7 +4,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>1</ID>
+    <ID>0</ID>
     <Aritry>2</Aritry>
     <Name>+</Name>
     <Description>Addition</Description>
@@ -19,7 +19,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>2</ID>
+    <ID>1</ID>
     <Aritry>2</Aritry>
     <Name>-</Name>
     <Description>Substraction</Description>
@@ -34,7 +34,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>3</ID>
+    <ID>2</ID>
     <Aritry>2</Aritry>
     <Name>*</Name>
     <Description>Multiplication</Description>
@@ -49,7 +49,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>4</ID>
+    <ID>3</ID>
     <Aritry>2</Aritry>
     <Name>/</Name>
     <Description>Division</Description>
@@ -64,7 +64,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>5</ID>
+    <ID>4</ID>
     <Aritry>3</Aritry>
     <Name>Add3</Name>
     <Description>Addition with with 3 arguments</Description>
@@ -79,7 +79,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>6</ID>
+    <ID>5</ID>
     <Aritry>3</Aritry>
     <Name>Sub3</Name>
     <Description>Substraction with 3 arguments</Description>
@@ -94,7 +94,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>7</ID>
+    <ID>6</ID>
     <Aritry>3</Aritry>
     <Name>Mul3</Name>
     <Description>Multiplication  with 3 arguments</Description>
@@ -109,7 +109,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>8</ID>
+    <ID>7</ID>
     <Aritry>3</Aritry>
     <Name>Div3</Name>
     <Description>Division  with 3 arguments</Description>
@@ -124,7 +124,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>9</ID>
+    <ID>8</ID>
     <Aritry>4</Aritry>
     <Name>Add4</Name>
     <Description>Addition with with 4 arguments</Description>
@@ -139,7 +139,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>10</ID>
+    <ID>9</ID>
     <Aritry>4</Aritry>
     <Name>Sub4</Name>
     <Description>Substraction with 4 arguments</Description>
@@ -154,7 +154,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>11</ID>
+    <ID>10</ID>
     <Aritry>4</Aritry>
     <Name>Mul4</Name>
     <Description>Multiplication  with 4 arguments</Description>
@@ -169,7 +169,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>12</ID>
+    <ID>11</ID>
     <Aritry>4</Aritry>
     <Name>Div4</Name>
     <Description>Division  with 4 arguments</Description>
@@ -184,7 +184,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>13</ID>
+    <ID>12</ID>
     <Aritry>1</Aritry>
     <Name>x^2</Name>
     <Description>x to the power of 2</Description>
@@ -199,7 +199,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>14</ID>
+    <ID>13</ID>
     <Aritry>1</Aritry>
     <Name>x^3</Name>
     <Description>x to the power of 3</Description>
@@ -214,7 +214,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>15</ID>
+    <ID>14</ID>
     <Aritry>1</Aritry>
     <Name>x^4</Name>
     <Description>x to the power of 4</Description>
@@ -229,7 +229,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>16</ID>
+    <ID>15</ID>
     <Aritry>1</Aritry>
     <Name>x^5</Name>
     <Description>x to the power of 5</Description>
@@ -244,7 +244,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>17</ID>
+    <ID>16</ID>
     <Aritry>1</Aritry>
     <Name>x^1/3</Name>
     <Description>Cube root</Description>
@@ -259,7 +259,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>18</ID>
+    <ID>17</ID>
     <Aritry>1</Aritry>
     <Name>x^1/4</Name>
     <Description>Quartic root</Description>
@@ -274,7 +274,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>19</ID>
+    <ID>18</ID>
     <Aritry>1</Aritry>
     <Name>x^1/5</Name>
     <Description>Quintic root</Description>
@@ -289,7 +289,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>20</ID>
+    <ID>19</ID>
     <Aritry>1</Aritry>
     <Name>1/x</Name>
     <Description>Inverse</Description>
@@ -304,7 +304,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>21</ID>
+    <ID>20</ID>
     <Aritry>1</Aritry>
     <Name>abs</Name>
     <Description>Absolute value of x</Description>
@@ -319,7 +319,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>22</ID>
+    <ID>21</ID>
     <Aritry>1</Aritry>
     <Name>floor</Name>
     <Description>Largest integer less than or equal of x</Description>
@@ -334,7 +334,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>23</ID>
+    <ID>22</ID>
     <Aritry>1</Aritry>
     <Name>ceiling</Name>
     <Description>Smallest integral value that is greater than or equal to x</Description>
@@ -349,7 +349,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>24</ID>
+    <ID>23</ID>
     <Aritry>1</Aritry>
     <Name>truncate</Name>
     <Description>Integral part of a x</Description>
@@ -364,7 +364,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>25</ID>
+    <ID>24</ID>
     <Aritry>1</Aritry>
     <Name>round</Name>
     <Description>roundof a x</Description>
@@ -379,7 +379,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>26</ID>
+    <ID>25</ID>
     <Aritry>1</Aritry>
     <Name>sin</Name>
     <Description>sinus function</Description>
@@ -394,7 +394,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>27</ID>
+    <ID>26</ID>
     <Aritry>1</Aritry>
     <Name>cos</Name>
     <Description>cosine function</Description>
@@ -409,7 +409,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>28</ID>
+    <ID>27</ID>
     <Aritry>1</Aritry>
     <Name>tan</Name>
     <Description>Tangent function</Description>
@@ -424,7 +424,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>29</ID>
+    <ID>28</ID>
     <Aritry>1</Aritry>
     <Name>asin</Name>
     <Description>arc sinus function</Description>
@@ -439,7 +439,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>30</ID>
+    <ID>29</ID>
     <Aritry>1</Aritry>
     <Name>acos</Name>
     <Description>arc cosine function</Description>
@@ -454,7 +454,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>31</ID>
+    <ID>30</ID>
     <Aritry>1</Aritry>
     <Name>atan</Name>
     <Description>arc tangent function</Description>
@@ -469,7 +469,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>32</ID>
+    <ID>31</ID>
     <Aritry>1</Aritry>
     <Name>sinh</Name>
     <Description>hyperbolic sinus function</Description>
@@ -484,7 +484,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>33</ID>
+    <ID>32</ID>
     <Aritry>1</Aritry>
     <Name>cosh</Name>
     <Description>hyperbolic cosine function</Description>
@@ -499,7 +499,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>34</ID>
+    <ID>33</ID>
     <Aritry>1</Aritry>
     <Name>tanh</Name>
     <Description>hyperbolic tangent function</Description>
@@ -514,7 +514,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>35</ID>
+    <ID>34</ID>
     <Aritry>1</Aritry>
     <Name>sqrt</Name>
     <Description>square root</Description>
@@ -529,7 +529,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>36</ID>
+    <ID>35</ID>
     <Aritry>1</Aritry>
     <Name>exp</Name>
     <Description>e raised to the specified power</Description>
@@ -544,7 +544,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>37</ID>
+    <ID>36</ID>
     <Aritry>1</Aritry>
     <Name>log10</Name>
     <Description>Log with base 10</Description>
@@ -559,7 +559,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>38</ID>
+    <ID>37</ID>
     <Aritry>1</Aritry>
     <Name>log</Name>
     <Description>Natural log</Description>
@@ -574,7 +574,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>39</ID>
+    <ID>38</ID>
     <Aritry>2</Aritry>
     <Name>p(x,2)</Name>
     <Description>Polynom</Description>
@@ -589,7 +589,7 @@
 
   <!-- description goes here-->
   <FunctionSet>
-    <ID>40</ID>
+    <ID>39</ID>
     <Aritry>3</Aritry>
     <Name>p(x,3)</Name>
     <Description>Polynom</Description>
@@ -601,65 +601,4 @@
     <IsDistribution>false</IsDistribution>
     <Parameters></Parameters>
   </FunctionSet>
-
-  <!-- description goes here-->
-  <FunctionSet>
-    <ID>100</ID>
-    <Aritry>1</Aritry>
-    <Name>G(x)</Name>
-    <Description>Gaussian</Description>
-    <Definition>Gaussian(x1)</Definition>
-    <ExcelDefinition>NORM.DIST(x1;AVERAGE(x0:xn);STDEV(x0:xn);TRUE)</ExcelDefinition>
-    <Selected> false</Selected>
-    <Weight>1</Weight>
-    <ReadOnly> true</ReadOnly>
-    <IsDistribution>true</IsDistribution>
-    <Parameters></Parameters>
-  </FunctionSet>
-
-  <!-- description goes here-->
-  <FunctionSet>
-    <ID>101</ID>
-    <Aritry>2</Aritry>
-    <Name>G(x,y)</Name>
-    <Description>Gaussian</Description>
-    <Definition>Gaussian(x,y)</Definition>
-    <ExcelDefinition>Gaussian(x)</ExcelDefinition>
-    <Selected> false</Selected>
-    <Weight>1</Weight>
-    <ReadOnly> true</ReadOnly>
-    <IsDistribution>true</IsDistribution>
-    <Parameters></Parameters>
-  </FunctionSet>
-
-  <!-- description goes here-->
-  <FunctionSet>
-    <ID>102</ID>
-    <Aritry>1</Aritry>
-    <Name>Sk(x)</Name>
-    <Description>Skewness</Description>
-    <Definition>Skewness(x)</Definition>
-    <ExcelDefinition>Skewness(x)</ExcelDefinition>
-    <Selected> false</Selected>
-    <Weight>1</Weight>
-    <ReadOnly> true</ReadOnly>
-    <IsDistribution>true</IsDistribution>
-    <Parameters></Parameters>
-  </FunctionSet>
-
-  <!-- description goes here-->
-  <FunctionSet>
-    <ID>103</ID>
-    <Aritry>1</Aritry>
-    <Name>Ku(x)</Name>
-    <Description>Kurtosis</Description>
-    <Definition>Kurtosis(x)</Definition>
-    <ExcelDefinition>Kurtosis(x)</ExcelDefinition>
-    <Selected> false</Selected>
-    <Weight>1</Weight>
-    <ReadOnly> true</ReadOnly>
-    <IsDistribution>true</IsDistribution>
-    <Parameters></Parameters>
-  </FunctionSet>
-
 </FunctionSets>

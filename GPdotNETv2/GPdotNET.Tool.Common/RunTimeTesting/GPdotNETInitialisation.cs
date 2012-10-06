@@ -10,7 +10,7 @@ namespace GPdotNET.Tool
 {
     public static class GPdotNETRunTimeTest
     {
-        public static List<GPFunction> GenerateGPFunctionsFromXML()
+        public static Dictionary<int,GPFunction> GenerateGPFunctionsFromXML()
         {
            
             //get the full location of the unittest assembly
@@ -39,10 +39,10 @@ namespace GPdotNET.Tool
                             Description = c.Element("Description").Value,
                             IsReadOnly = bool.Parse(c.Element("ReadOnly").Value),
                             IsDistribution = bool.Parse(c.Element("IsDistribution").Value),
-                            ID = ushort.Parse(c.Element("ID").Value)
+                            ID = int.Parse(c.Element("ID").Value)
 
                         };
-                var retval = q.Where(p => p.Selected == true).ToList();
+                var retval = q.ToDictionary(v => v.ID, v => v);
                 return retval;
             }
             catch (Exception)

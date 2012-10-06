@@ -102,6 +102,49 @@ namespace GPdotNET.Tool.Common
 
         }
 
+        /// <summary>
+        /// Enables or disables controls during of running program
+        /// </summary>
+        /// <param name="p"></param>
+        public virtual void EnableCtrls(bool p)
+        {
+            comboBox2.Enabled = p;
+            brojIteracija.Enabled = p;
+        }
+
+        /// <summary>
+        /// One of three report methods during the run of programm.
+        /// Caled when the Program ids finished
+        /// </summary>
+        public virtual void FinishProgress()
+        {
+            if (comboBox2.SelectedIndex == 1)
+            {
+                progressBar1.Style = ProgressBarStyle.Blocks;
+                progressBar1.Maximum = 100;
+                progressBar1.Minimum = 0;
+                progressBar1.Value = 100;
+            }
+            else
+            {
+
+                progressBar1.Style = ProgressBarStyle.Blocks;
+                progressBar1.Maximum = 100;
+                progressBar1.Minimum = 0;
+                progressBar1.Value = 100;
+
+                //int max = 500;
+                //if (!int.TryParse(brojIteracija.Text, out max))
+                //    max = 500;
+                //progressBar1.Style = ProgressBarStyle.Blocks;
+                //progressBar1.Maximum = max;
+                //progressBar1.Minimum = 0;
+                //progressBar1.Value = 0;
+            }
+
+            progressBar1.MarqueeAnimationSpeed = 0;
+
+        }
         #endregion
 
         #region Public Methods
@@ -113,7 +156,6 @@ namespace GPdotNET.Tool.Common
         /// <param name="avg">average fitness value of the current evolution</param>
         public void UpdateChartFitness(int currEvolution, double max, double avg, bool isFinished = false)
         {
-            Debug.Assert(max!=-1);
 
             if (currEvolution + 1 < gpMaxFitnLine.Points.Count)
                 gpMaxFitnLine.Clear();
@@ -130,16 +172,7 @@ namespace GPdotNET.Tool.Common
         }
 
 
-        /// <summary>
-        /// Enables or disables controls during of running program
-        /// </summary>
-        /// <param name="p"></param>
-        public void EnableCtrls(bool p)
-        {
-            comboBox2.Enabled = p;
-            brojIteracija.Enabled = p;
-        }
-
+        
 
         /// <summary>
         /// One of three report methods during the run of programm.
@@ -235,38 +268,7 @@ namespace GPdotNET.Tool.Common
 
         }
         
-        /// <summary>
-        /// One of three report methods during the run of programm.
-        /// Caled when the Program ids finished
-        /// </summary>
-        public void FinishProgress()
-        {
-            if (comboBox2.SelectedIndex == 1)
-            {
-                progressBar1.Style = ProgressBarStyle.Blocks;
-                progressBar1.Maximum = 100;
-                progressBar1.Minimum = 0;
-                progressBar1.Value = 100;
-            }
-            else
-            {
-                //progressBar1.Style = ProgressBarStyle.Blocks;
-                //progressBar1.Maximum = 100;
-                //progressBar1.Minimum = 0;
-                //progressBar1.Value = 100;
-
-                //int max = 500;
-                //if (!int.TryParse(brojIteracija.Text, out max))
-                //    max = 500;
-                //progressBar1.Style = ProgressBarStyle.Blocks;
-                //progressBar1.Maximum = max;
-                //progressBar1.Minimum = 0;
-                //progressBar1.Value = 0;
-            }
-
-            progressBar1.MarqueeAnimationSpeed = 0;
-
-        }
+        
 
         #endregion      
 

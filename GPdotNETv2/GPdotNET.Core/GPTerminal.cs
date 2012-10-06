@@ -26,9 +26,9 @@ namespace GPdotNET.Core
         public int Index { get; set; }
 
         //Values
-        public float fValue { get; set; }
-        public float minValue { get; set; }
-        public float maxValue { get; set; }
+        public double fValue { get; set; }
+        public double minValue { get; set; }
+        public double maxValue { get; set; }
 
         //Indicator is this terminal variable or constant
         public bool IsConstant { get; set; }

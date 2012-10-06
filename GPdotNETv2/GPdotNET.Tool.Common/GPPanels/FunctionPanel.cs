@@ -13,6 +13,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 using System.Xml.Linq;
 using GPdotNET.Core;
 
@@ -25,8 +26,8 @@ namespace GPdotNET.Tool.Common
     {
         #region Ctor and Fields
         private XDocument _xmlDoc=null;
-        private List<GPFunction> _gpFunctions;
-        public List<GPFunction> GPFunctions
+        private Dictionary<int, GPFunction> _gpFunctions;
+        public Dictionary<int,GPFunction> GPFunctions
         {
             get
             {
@@ -44,7 +45,7 @@ namespace GPdotNET.Tool.Common
             if (this.DesignMode)
                 return;
             _gpFunctions = CommonMethods.LoadFunctionsfromXMLFile(_xmlDoc);
-            fillListView(_gpFunctions);
+            fillListView(_gpFunctions.Select(x=>x.Value).ToList());
         }
         #endregion
 
@@ -178,7 +179,7 @@ namespace GPdotNET.Tool.Common
                     //If the user change selection state of function
                     SaveModification();
 
-                    fillListView(_gpFunctions);
+                    fillListView(_gpFunctions.Values.ToList());
 
                     listView1.SelectedIndices.Add(ind);
 

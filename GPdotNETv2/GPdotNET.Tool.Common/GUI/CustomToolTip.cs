@@ -112,7 +112,8 @@ namespace GPdotNET.Tool.Common.GUI
                     _picture = value;
                     try
                     {
-                        img = Image.FromFile(_picture);
+                       // img = Image.FromFile(_picture);
+                        img = Utility.LoadImageFromName(_picture);
                     }
                     catch { }
                 }

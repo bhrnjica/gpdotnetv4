@@ -101,6 +101,7 @@ namespace GPdotNET.Engine
         {
             return expressionTree;
         }
+
         /// <summary>
         /// Generate Tree structure for chromosome representation
         /// </summary>
@@ -130,7 +131,7 @@ namespace GPdotNET.Engine
                 if (node.value < levels)
                     node.value = Globals.GenerateNodeValue(true);
                 else
-                    node.value = Globals.GenerateNodeValue(false); ;
+                    node.value = Globals.GenerateNodeValue(false);
 
                 //Node children generatio  
                 if (node.value > 1999)
@@ -155,9 +156,9 @@ namespace GPdotNET.Engine
             return root;
         }
 
-        public void ApplyMutate(GPNode root, int index1, int maxLevels)
+        internal void ApplyMutate(GPNode root, int index1, int maxLevels)
         {
-            //We dont want to crossover root
+            //We dont want to mutate root
             if (index1 == 1)
                 throw new Exception("Wrong index number for Mutate operation!");
 
@@ -203,7 +204,7 @@ namespace GPdotNET.Engine
                 }
 
                 if (tuplenode.Item2.children != null)
-                    for (int i = tuplenode.Item2.children.Length - 1; i >= 0; i--)
+                    for (int i =0; i< tuplenode.Item2.children.Length; i++)
                         dataTree.Enqueue(new Tuple<int, GPNode>(tuplenode.Item1 + 1, tuplenode.Item2.children[i]));
 
             }
@@ -236,14 +237,14 @@ namespace GPdotNET.Engine
         /// <returns></returns>
         public static int GetRandomNode(int nodeCout)
         {
-            if (nodeCout < 3)
+            if (nodeCout < 2)
                 throw new Exception("Invalid number of chromosoem nodes.");
-            //TODO:
-            return Globals.radn.Next(3, nodeCout + 1);
+            //TODO:get more inteligent random chooser
+            return Globals.radn.Next(2, nodeCout + 1);
         }
 
 
-        public static void Crossover(GPNode ch1, GPNode ch2, int index1, int index2)
+        internal static void Crossover(GPNode ch1, GPNode ch2, int index1, int index2)
         {
             //We dont want to crossover root
             if (index1 == 1 || index2 == 1)
@@ -251,6 +252,9 @@ namespace GPdotNET.Engine
 
             //start counter from 0
             int count = 0;
+            //create parss for echange
+            var part1=ch1.NodeAt(index1).Clone();
+            var part2= ch2.NodeAt(index2).Clone();
 
             //Collection holds tree nodes
             Queue<GPNode> dataTree = new Queue<GPNode>();
@@ -269,18 +273,20 @@ namespace GPdotNET.Engine
 
                 //when the counter is equel to index return curretn node
                 if (count == index1)
+                {
+                    node.value = part2.value;
+                    GPNode.DestroyNodes(node.children);
+                    node.children = part2.children;
                     break;
+                }
 
                 if (node.children != null)
-                    for (int i = node.children.Length - 1; i >= 0; i--)
+                    for (int i =0; i< node.children.Length; i++)
                         dataTree.Enqueue(node.children[i]);
 
             }
 
-            var node1 = node;
-
-
-            //Add tail recursion
+            //repeat tail recursion
             count = 0;
             dataTree.Clear();
             dataTree.Enqueue(ch2);
@@ -295,49 +301,25 @@ namespace GPdotNET.Engine
 
                 //when the counter is equel to index return curretn node
                 if (count == index2)
+                {
+                    node.value = part1.value;
+                    GPNode.DestroyNodes(node.children);
+                    node.children = part1.children;
                     break;
+                }
 
                 if (node.children != null)
-                    for (int i = node.children.Length - 1; i >= 0; i--)
+                    for (int i = 0; i < node.children.Length; i++)
                         dataTree.Enqueue(node.children[i]);
             }
-
-
-            //Exchange  nodes
-            GPNode tempNode = GPNode.NewNode();
-            tempNode.value = node1.value;
-            if (node1.children != null)
-            {
-                tempNode.children = new GPNode[node1.children.Length];
-                for (int i = 0; i < tempNode.children.Length; i++)
-                    tempNode.children[i] = node1.children[i];
-            }
-
-            //
-            node1.value = node.value;
-            node1.children = null;
-            if (node.children != null)
-            {
-                node1.children = null;
-                node1.children = new GPNode[node.children.Length];
-                for (int i = 0; i < node.children.Length; i++)
-                {
-                    node1.children[i] = node.children[i];
-
-                }
-            }
-            //
-            node.value = tempNode.value;
-            node.children = tempNode.children;
-
         }
 
         /// <summary>
-        /// We need to have trees with proper levels, so evry level with greater than maxOperationLevel wil be trimmed.
+        /// We need to have trees with proper levels, so every level with greater than maxOperationLevel wil be trimmed.
         /// First  change functionNode to Terminal at maxumum level, then remove all node which are grater tha maxOparationLevel
         /// </summary>
         /// <param name="maxLevel"></param>
-        public void Trim(int maxLevel)
+        internal void Trim(int maxLevel)
         {
             //Collection holds tree nodes
             Queue<Tuple<int, GPNode>> dataTree = new Queue<Tuple<int, GPNode>>();
@@ -367,7 +349,7 @@ namespace GPdotNET.Engine
                 else
                 {
                     if (tuplenode.Item2.children != null)
-                        for (int i = tuplenode.Item2.children.Length - 1; i >= 0; i--)
+                        for (int i =0; i< tuplenode.Item2.children.Length; i++)
                             dataTree.Enqueue(new Tuple<int, GPNode>(tuplenode.Item1 + 1, tuplenode.Item2.children[i]));
                 }
             }
@@ -395,6 +377,11 @@ namespace GPdotNET.Engine
             return string.Format(CultureInfo.InvariantCulture,"{0};{1}",fitness,expressionTree.ToString());
         }
 
+        /// <summary>
+        /// Creates chromosome from string. we need to have terminal prior to create chromosome
+        /// </summary>
+        /// <param name="strCromosome"></param>
+        /// <returns></returns>
         public IChromosome FromString(string strCromosome)
         {
             return GPChromosome.CreateFromString(strCromosome);
@@ -467,7 +454,7 @@ namespace GPdotNET.Engine
 
             return ch;
         }
-        #endregion
+        
 
         public int CompareTo(IChromosome other)
         {
@@ -476,6 +463,7 @@ namespace GPdotNET.Engine
             return other.Fitness.CompareTo(this.Fitness);
         }
 
+        #endregion
 
 #region Memory Pool
         /// <summary>
@@ -492,7 +480,9 @@ namespace GPdotNET.Engine
             return new GPChromosome();
 #endif
         }
-
+        /// <summary>
+        /// Helper for backup unneccesery chromosomes
+        /// </summary>
         public void Destroy()
         {
 #if MEMORY_POOLING

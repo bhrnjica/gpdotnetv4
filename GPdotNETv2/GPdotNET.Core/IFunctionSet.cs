@@ -23,10 +23,10 @@ namespace GPdotNET.Core
     /// </summary>
     public interface IFunctionSet 
     {
-        List<GPFunction> GetFunctions();
-        List<GPTerminal> GetTerminals();
-        
-        double Evaluate(GPNode treeExpression, int rowIndex);
+        Dictionary<int,GPFunction> GetFunctions();
+        Dictionary<int,GPTerminal> GetTerminals();
+
+        double Evaluate(GPNode treeExpression, int rowIndex, bool btrainingData = true);
         double Evaluate(GPFunction fun, params double[] tt);
 
         string DecodeExpression(GPNode treeExpression, bool bExcel = false);
@@ -35,5 +35,9 @@ namespace GPdotNET.Core
         double GetTerminalMaxValue(int index);
         double GetTerminalMinValue(int index);
 
+
+        int GetAritry(int funID);
+
+        int GetRandomFunction();
     }
 }

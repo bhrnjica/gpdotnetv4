@@ -320,7 +320,7 @@ namespace GPdotNET.Engine
         internal void CalculatePopulation()
         {
             // calculate basic stat of the population
-            fitnessMax = 0;
+            fitnessMax = float.MinValue;
             fitnessSum = 0;
 
             if (chromosomes != null && chromosomes.Count>0)

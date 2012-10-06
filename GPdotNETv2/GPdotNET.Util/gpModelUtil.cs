@@ -113,7 +113,7 @@ namespace GPdotNET.Engine
                         else if (i >= terminalSet.NumVariables && i < numOfVariables - 1)//constants
                             terminalSet.TestingData[j][i] = consts[i - terminalSet.NumVariables];
                         else
-                            terminalSet.TestingData[j][i] = gpTrainigData[j][i - terminalSet.NumConstants];
+                            terminalSet.TestingData[j][i] = gpTestingData[j][i - terminalSet.NumConstants];
                     }
                 }
             }

@@ -44,8 +44,8 @@ namespace GPdotNET.Tool.Common
             listView1.Columns.Add(colHeader);
         }
 
-        List<Core.GPFunction> funs;
-        List<GPTerminal> terminals;
+        Dictionary<int,GPFunction> funs;
+        Dictionary<int, GPTerminal> terminals;
         Dictionary<string, object> inputVars;
         #endregion
 
@@ -87,7 +87,7 @@ namespace GPdotNET.Tool.Common
         {
             if (string.IsNullOrEmpty(p))
                 return false;
-            else if (funs.Where(f => f.Name == p).Count() == 1)
+            else if (funs.Values.Where(f => f.Name == p).Count() == 1)
                 return true;
             else
                 return false;
@@ -104,7 +104,7 @@ namespace GPdotNET.Tool.Common
             if (funs == null)
                 throw new Exception("Function set cannot be null.");
 
-          int? ret=  funs.Where(f => f.Name == p).Select(f => f.Aritry).FirstOrDefault();
+          int? ret=  funs.Values.Where(f => f.Name == p).Select(f => f.Aritry).FirstOrDefault();
           if (ret == null)
               return 0;
           else
@@ -151,6 +151,12 @@ namespace GPdotNET.Tool.Common
             if(!int.TryParse(val,out numb))
             {
                 MessageBox.Show("Param name must be in form of X1, X2, ... or Xn, where n in natural number.");
+                return;
+            }
+
+            if (treeCtrlDrawer1.GetSelectedNode() == null)
+            {
+                MessageBox.Show("Tree node is not selected.");
                 return;
             }
 
@@ -205,7 +211,7 @@ namespace GPdotNET.Tool.Common
         /// </summary>
         private void FromDirToFuns()
         {
-            terminals = new List<GPTerminal>();
+            terminals = new Dictionary<int, GPTerminal>();
 
             var list = inputVars.Where(x => x.Key.Contains("X")).OrderBy(x => x.Key); ;
             int numVar = list.Count();
@@ -215,7 +221,7 @@ namespace GPdotNET.Tool.Common
                 t.IsConstant = false;
                 t.Name = list.ElementAt(i).Key;
                 t.Index = i;
-                terminals.Add(t);
+                terminals.Add(t.Index, t);
             }
 
             list = inputVars.Where(x => x.Key.Contains("C")).OrderBy(x=>x.Key);
@@ -226,7 +232,7 @@ namespace GPdotNET.Tool.Common
                 t.Name = list.ElementAt(i).Key;
                 t.fValue = float.Parse(list.ElementAt(i).Value.ToString());
                 t.Index = numVar+i;
-                terminals.Add(t);
+                terminals.Add(t.Index,t);
             }
 
 
@@ -238,29 +244,28 @@ namespace GPdotNET.Tool.Common
         /// Load function in to combobox
         /// </summary>
         /// <param name="functions"></param>
-        public void LoadFuns(List<Core.GPFunction> functions)
+        public void LoadFuns(Dictionary<int,GPFunction> functions)
         {
             funs = functions;
 
             foreach (var fun in funs)
-                comboBox1.Items.Add(fun.Name);
+                comboBox1.Items.Add(fun.Value.Name);
         }
 
         /// <summary>
-        /// Parses ternimals and freturns index of it from collection of terminals
+        /// Returns id of TErminal/Fun for given name
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
         public int GetNodeValue(object val)
         {
             
-
             if(val==null)
                 throw new Exception("Argument is invalud!");
 
             if (inputVars.ContainsKey(val.ToString()))
             {
-                var list = terminals.Where(x => x.Name == val.ToString()).Select(x => x.Index).FirstOrDefault();
+                var list = terminals.Values.Where(x => x.Name == val.ToString()).Select(x => x.Index).FirstOrDefault();
 
                 return 1000 + list;
             }
@@ -269,7 +274,7 @@ namespace GPdotNET.Tool.Common
             {
                 if(funs[i].Name==val.ToString())
                 {
-                    return i+2000;
+                    return i + 2000;
                 }
             }
 
@@ -280,7 +285,7 @@ namespace GPdotNET.Tool.Common
         /// Getter for terninal list list
         /// </summary>
         /// <returns></returns>
-        public List<GPTerminal> GetTerminals()
+        public Dictionary<int,GPTerminal> GetTerminals()
         {
             return terminals;
         }

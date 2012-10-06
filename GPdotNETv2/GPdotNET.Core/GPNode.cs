@@ -25,11 +25,14 @@ namespace GPdotNET.Core
               :Pool<GPNode>
          #endif   
     {
-       // public bool marked;
+
         public int value;
         public GPNode[] children;
 
-
+        /// <summary>
+        /// Helper method for converting to string
+        /// </summary>
+        /// <returns></returns>
         public StringBuilder ToStringBuilder()
         {
             StringBuilder sb = new StringBuilder();
@@ -49,6 +52,9 @@ namespace GPdotNET.Core
                 //get next node
                 node = dataTree.Pop();
 
+                if (node.value == -1)
+                    continue;
+
                 //Add value to string 
                 sb.Append(node.value.ToString());
 
@@ -60,6 +66,10 @@ namespace GPdotNET.Core
 
         }
 
+        /// <summary>
+        /// Create list of nove values
+        /// </summary>
+        /// <returns></returns>
         public List<int> ToList()
         {
             List<int> lst = new List<int>();
@@ -79,6 +89,8 @@ namespace GPdotNET.Core
                 //get next node
                 node = dataTree.Pop();
 
+                if (node.value == -1)
+                    continue;
                 //Add value to string 
                 lst.Add(node.value);
 
@@ -90,6 +102,10 @@ namespace GPdotNET.Core
 
         }
 
+        /// <summary>
+        /// To string override  method
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return this.ToStringBuilder().ToString();
@@ -118,6 +134,10 @@ namespace GPdotNET.Core
             {
                 //get next node
                 node = dataTree.Dequeue();
+
+                //some empty node can apear because of memory pooling
+                if (node.value == -1)
+                    continue;
 
                 //count node
                 count++;
@@ -155,6 +175,9 @@ namespace GPdotNET.Core
                 //get next node
                 node = dataTree.Dequeue();
 
+                if (node.value == -1)
+                    continue;
+
                 //count node
                 count++;
 
@@ -163,18 +186,23 @@ namespace GPdotNET.Core
                     return node;
 
                 if (node.children != null)
-                    for (int i = node.children.Length - 1; i >= 0; i--)
+                    for (int i = 0; i < node.children.Length; i++)
                         dataTree.Enqueue(node.children[i]);
             }
 
             return node;
         }
 
-
+        /// <summary>
+        /// Returns level of certain node
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public int LevelOfNode(int index)
         {
             return 0;
         }
+
         /// <summary>
         /// Make deep copy of the Node
         /// </summary>
@@ -226,12 +254,18 @@ namespace GPdotNET.Core
         public static GPNode NewNode()
         {
 #if MEMORY_POOLING
-                return Get();
+                var n= Get();
+                n.value = -1;
+                return n;
 #else
                 return new GPNode();
 #endif
         }
 
+        /// <summary>
+        /// Memory poolong helper method for destroying to pool
+        /// </summary>
+        /// <param name="node"></param>
         public static void DestroyNode(ref GPNode node)
         {
 #if MEMORY_POOLING
@@ -241,6 +275,10 @@ namespace GPdotNET.Core
 #endif
         }
 
+        /// <summary>
+        /// Memory poolong helper method for destroying to pool
+        /// </summary>
+        /// <param name="nodes"></param>
         public static void DestroyNodes(GPNode[] nodes)
         {
             if (nodes == null)

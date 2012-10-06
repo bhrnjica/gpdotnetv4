@@ -190,12 +190,6 @@ namespace GPdotNET.App
             return true;
         }
 
-       
-        private void SetMaximumAndMinimumValues(string ss)
-        {
-            throw new NotImplementedException();
-        }
-
 
         bool SaveToFile(string strFile)
         {
@@ -492,6 +486,7 @@ namespace GPdotNET.App
             return popSize==0?2:popSize + curLine;
 
         }
+        
         private string[] PreparePopulationForSave(GPFactory factory)
         {
             string[] str;
@@ -528,7 +523,7 @@ namespace GPdotNET.App
             if (_gaFactory != null)
             {
                var fs = _gaFactory.GetFunctionSet();
-               var ts= fs.GetTerminals().Where(x=>x.IsConstant==false).ToList();
+               var ts= fs.GetTerminals().Values.Where(x=>x.IsConstant==false).ToList();
 
                if (ts != null && ts.Count>0)
                {
