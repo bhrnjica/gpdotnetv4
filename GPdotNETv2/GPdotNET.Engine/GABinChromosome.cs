@@ -20,7 +20,7 @@ using GPdotNET.Core;
 namespace GPdotNET.Engine
 {
     /// <summary>
-    /// Implement Binary type of chromosome, which will be use in future GA implementation 
+    /// Implement Binary type of GA chromosome, which will be use in future GA implementation 
     /// </summary>
     public class GABinChromosome
 #if MEMORY_POOLING
@@ -31,8 +31,8 @@ namespace GPdotNET.Engine
     {
 
         #region Fields
-        private int length = 0;			// chromosome's length
-        private ulong val = 0;		    // chromosome's value 
+        private int length = 0;			            // chromosome's length
+        private ulong val = 0;		                // chromosome's value 
         private float fitness = float.MinValue;	    // chromosome's fitness
 
         public static IFunctionSet functionSet;
@@ -111,6 +111,9 @@ namespace GPdotNET.Engine
             return clone;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Generate()
         {
             byte[] bytes = new byte[length * 10];
@@ -119,11 +122,19 @@ namespace GPdotNET.Engine
             Globals.radn.NextBytes(bytes);
             val = BitConverter.ToUInt64(bytes, 0);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void Mutate()
         {
             val ^= ((ulong)1 << Globals.radn.Next(length));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ch2"></param>
         public void Crossover(IChromosome ch2)
         {
             GABinChromosome p = (GABinChromosome)ch2;
@@ -144,6 +155,10 @@ namespace GPdotNET.Engine
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="function"></param>
         public void Evaluate(IFitnessFunction function)
         {
             Fitness = function.Evaluate(this, functionSet);
@@ -197,6 +212,11 @@ namespace GPdotNET.Engine
         
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public int CompareTo(IChromosome other)
         {
             if (other == null)
@@ -217,7 +237,7 @@ namespace GPdotNET.Engine
                 ch.fitness = float.MinValue;
                 return ch;
 #else
-            return new GPChromosome();
+            return new GABinChromosome();
 #endif
         }
 

@@ -42,10 +42,10 @@ namespace GPdotNET.Tool.Common
         {
             InitializeComponent();
           
-            this.Load+=(x,y)=>
-            {
+            //this.Load+=(x,y)=>
+            //{
 
-            };
+            //};
 
             zedModel.GraphPane.Title.Text = "GP Model Prediction";
             zedModel.GraphPane.XAxis.Title.Text = "Samples";
@@ -58,28 +58,6 @@ namespace GPdotNET.Tool.Common
             gpModelLine = zedModel.GraphPane.AddCurve("GP Model", null, null, Color.Blue, ZedGraph.SymbolType.Plus);
             gpModelLine.Symbol.Border = new Border(Color.Cyan, 0.1f);
             this.zedModel.GraphPane.AxisChange(this.CreateGraphics());
-
-            //Sample how to load data in to grid
-
-            //ColumnHeader ch1 = new ColumnHeader();
-            //ch1.Text = "KOlona1";
-            //listView1.Columns.Add(ch1);
-            //ch1 = new ColumnHeader();
-            //ch1.Text = "KOlona2";
-            //listView1.Columns.Add(ch1);
-            //ch1 = new ColumnHeader();
-            //ch1.Text = "KOlona3";
-            //listView1.Columns.Add(ch1);
-            //ch1 = new ColumnHeader();
-            //ch1.Text = "KOlona4";
-            //listView1.Columns.Add(ch1);
-
-            //ListViewItem LVI = listView1.Items.Add("ime cols");
-            //LVI.SubItems.Add(R.Next(100).ToString()); // 0..99
-            //LVI.SubItems.Add(R.Next(100).ToString());
-            //LVI.SubItems.Add(((10 + R.Next(10)) * 50).ToString());
-            //LVI.SubItems.Add(((10 + R.Next(10)) * 50).ToString());
-
         }
         #endregion
 
@@ -233,14 +211,16 @@ namespace GPdotNET.Tool.Common
                 UpdateChartDataPoint(retVal, true);
             }
         }
-        #endregion
 
         /// <summary>
         /// Resets previous solution
         /// </summary>
         public void ResetSolution()
         {
-            prevFitnesss= -1;
+            prevFitnesss = -1;
         }
+        #endregion
+
+       
     }
 }

@@ -18,6 +18,11 @@ namespace GPdotNET.Util
                           'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
                           'U', 'V', 'W', 'X', 'Y', 'Z' };
 
+        /// <summary>
+        /// Enumeration of Ecels columns
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public string AlphabetFromIndex(int index)
         {
             if (index == 0)

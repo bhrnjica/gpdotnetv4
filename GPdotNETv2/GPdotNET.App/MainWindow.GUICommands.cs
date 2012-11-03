@@ -24,6 +24,7 @@ using System.Threading;
 using GPdotNET.Tool.Common;
 using GPdotNET.Tool.Common.GUI;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace GPdotNET.App
 {
@@ -58,7 +59,12 @@ namespace GPdotNET.App
             }
             else if (retVal == System.Windows.Forms.DialogResult.Cancel)
                 return false;
-
+            //unscribe to events
+            if(_gpFactory!=null)
+                this._gpFactory.ReportEvolution -= new Engine.EvolutionHandler(gpFactory_ReportEvolution);
+            if(_gaFactory!=null)
+                this._gaFactory.ReportEvolution -= new Engine.EvolutionHandler(gpFactory_ReportEvolution);
+            
             if (tabControl1 != null && tabControl1.TabPages != null)
             {
                 tabControl1.TabPages.Clear();
@@ -66,8 +72,11 @@ namespace GPdotNET.App
                 panel2.Visible = true;
             }
 
+
             if (_dataPanel != null)
             {
+                _dataPanel.DataLoaded -= _dataPanel_DataLoaded;
+                _dataPanel.DataPredictionLoaded -= _dataPanel_DataPredictionLoaded;
                 _dataPanel.Dispose();
                 _dataPanel = null;
             }
@@ -106,7 +115,12 @@ namespace GPdotNET.App
                 _predictionPanel.Dispose();
                 _predictionPanel = null;
             }
-
+            if (_funDefinit != null)
+            {
+                _funDefinit.btnFinishAnalFun.Click -= btnFinishAnalFun_Click;
+                _funDefinit.Dispose();
+                _funDefinit = null;
+            }
             return true;
         }
         
@@ -130,8 +144,14 @@ namespace GPdotNET.App
             {
                 try
                 {
-                    if(_setPanel!=null)
-                        rbtnSaveModel_Click(null, null);
+                    if (_setPanel != null)
+                    {
+                        var mi = new ToolStripButton();
+                        mi.Text = "Save";
+                        ToolStripItemClickedEventArgs ee = new ToolStripItemClickedEventArgs(mi);
+                       
+                        rbtnSaveModel_ItemClicked(null, ee);
+                    }
 
                     e.Cancel = false;
                     base.OnClosing(e);
@@ -160,6 +180,17 @@ namespace GPdotNET.App
         {
             Text = _appName;
             LoadToolbars();
+            //loading file through cmd line (double click from WinExplorer)
+            if (CmdLineParam != null)
+            {
+                
+                if (CmdLineParam.Length > 0)
+                {
+                    if(Open(CmdLineParam[0]))
+                     return;
+                }
+            }
+           
             InitStartPanel();
 
         }
@@ -281,7 +312,7 @@ namespace GPdotNET.App
             if (!CloseCurrentModel())
                 return;
 
-            TreeView treeView1 = new TreeView();
+           // TreeView treeView1 = new TreeView();
             NewGPModel newGPModelDlg = new NewGPModel();
             if (newGPModelDlg.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 return;
@@ -328,9 +359,6 @@ namespace GPdotNET.App
             {
                 _contextMenuStrip1.Show(rbtnSaveModel, new Point(0, rbtnCloseModel.Height));
             }    
-
-
-
           
         }
 
@@ -878,27 +906,21 @@ namespace GPdotNET.App
         {
             try
             {
+                Task tsk;
                 float tv = pn.TerminationValue;
                 int tt = pn.TerminationType;
-
-                // Create the thread object, passing in the StartEvolution method
-                // via a ThreadStart delegate.
-                Thread oThread ;
-
-                if(isGPFactory)
-                    oThread = new Thread(() => _gpFactory.StartEvolution(tv, tt));
-                else
-                    oThread = new Thread(() => _gaFactory.StartEvolution(tv, tt));
-
-                //before we start update GUI
                 UpdateGUI(1);
+                if (isGPFactory)
+                    tsk = new Task(() => _gpFactory.StartEvolution(tv, tt));
+                else
+                    tsk = new Task(() => _gaFactory.StartEvolution(tv, tt));
+                tsk.Start();
 
-                // Start the thread
-                oThread.Start();
-
-                // Spin for a while waiting for the started thread to become
-                // alive:
-                while (!oThread.IsAlive) ;
+                //when task is end
+                tsk.ContinueWith((t) =>
+                    {
+                        t.Dispose();
+                    });
 
             }
             catch (Exception ex)
@@ -915,10 +937,6 @@ namespace GPdotNET.App
         /// <param name="e"> event argument</param>
         void gpFactory_ReportEvolution(object sender, Engine.ReportCurrentEvolutionEventArgs e)
         {
-           
-
-           
-
             if (this.InvokeRequired)
             {
                 // Execute the same method, but this time on the GUI thread
@@ -1001,6 +1019,8 @@ namespace GPdotNET.App
                 if (_optimizePanel != null)
                     _optimizePanel.EnableCtrls(false);
 
+                txtStatusMessage.Text = "Program is running!";
+
 
             }
             else if (runType==3 && _bgpRuning != runType)
@@ -1028,6 +1048,7 @@ namespace GPdotNET.App
                     _resultPanel.EnableCtrls(true);
                 if (_optimizePanel != null)
                     _optimizePanel.EnableCtrls(true);
+                txtStatusMessage.Text = "Ready!";
             }
 
         }
@@ -1039,6 +1060,7 @@ namespace GPdotNET.App
        {
            _bgpRuning = 0;
            GPFactory.StopEvolution = true;
+
        }     
 
 	}

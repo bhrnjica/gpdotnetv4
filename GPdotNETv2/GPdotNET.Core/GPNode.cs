@@ -12,6 +12,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 using System.Text;
 using System.Collections.Generic;
+using System;
 
 
 namespace GPdotNET.Core
@@ -25,7 +26,7 @@ namespace GPdotNET.Core
               :Pool<GPNode>
          #endif   
     {
-
+        //public bool marked;
         public int value;
         public GPNode[] children;
 
@@ -73,7 +74,6 @@ namespace GPdotNET.Core
         public List<int> ToList()
         {
             List<int> lst = new List<int>();
-
             //Collection holds tree nodes
             Stack<GPNode> dataTree = new Stack<GPNode>();
 
@@ -93,10 +93,12 @@ namespace GPdotNET.Core
                     continue;
                 //Add value to string 
                 lst.Add(node.value);
-
                 if (node.children != null)
-                    for (int i = node.children.Length - 1; i >= 0; i--)
+                {
+                    int count= node.children.Length - 1;
+                    for (int i = count; i >= 0; i--)
                         dataTree.Push(node.children[i]);
+                }
             }
             return lst;
 
@@ -194,7 +196,7 @@ namespace GPdotNET.Core
         }
 
         /// <summary>
-        /// Returns level of certain node
+        /// Returns level of certain node. Not implemented
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>

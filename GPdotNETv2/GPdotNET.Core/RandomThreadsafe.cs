@@ -15,8 +15,16 @@ namespace GPdotNET.Core
     /// <summary>
     /// Represents a thread-safe, pseudo-random number generator.
     /// </summary>
-    public class ThreadSafeRandom : Random
+    public sealed class ThreadSafeRandom : Random, IDisposable
     {
+        public void Dispose()
+        {
+           
+            _global.Dispose();
+            _local.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>Seed provider.</summary>
         private static readonly RNGCryptoServiceProvider _global = new RNGCryptoServiceProvider();
         /// <summary>The underlyin provider of randomness, one instance per thread, initialized with _global.</summary>
@@ -26,6 +34,7 @@ namespace GPdotNET.Core
             _global.GetBytes(buffer); // RNGCryptoServiceProvider is thread-safe for use in this manner
             return new Random(BitConverter.ToInt32(buffer, 0));
         });
+
 
         /// <summary>Returns a nonnegative random number.</summary>
         /// <returns>A 32-bit signed integer greater than or equal to zero and less than MaxValue.</returns>
@@ -76,8 +85,6 @@ namespace GPdotNET.Core
         {
             return minValue + _local.Value.NextDouble() * (maxValue - minValue);
         }
-
-
     }
 }
 /*

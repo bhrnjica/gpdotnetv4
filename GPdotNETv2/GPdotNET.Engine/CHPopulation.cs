@@ -86,7 +86,9 @@ namespace GPdotNET.Engine
             else
                 Globals.gpterminals = termSet;
 
-            GeneratePopulation(gpParameters.popSize);
+            var siz = gpParameters.popSize - chromosomes.Count;
+            if(siz>0)
+                GeneratePopulation(siz);
         }
 
         private void GeneratePopulation(int popSize)
@@ -300,12 +302,12 @@ namespace GPdotNET.Engine
             //Use parallel only with GP 
             if (gpParameters.bParalelGP && gpParameters.algorithmType==Algorithm.GP)
             {
-                int count= chromosomes.Count;
+                int count = chromosomes.Count;
                 System.Threading.Tasks.Parallel.For(0, count, (i) =>
-                    {
-                        if (chromosomes[i].Fitness == float.MinValue)
-                            chromosomes[i].Evaluate(fitnessFunction);
-                    }
+                {
+                    if (chromosomes[i].Fitness == float.MinValue)
+                        chromosomes[i].Evaluate(fitnessFunction);
+                }
                     );
             }
             else
@@ -517,15 +519,17 @@ namespace GPdotNET.Engine
             // survived chromosomes
             chromosomes.AddRange(newPopulation);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size"></param>
         private void RankSelection(int size)
         {
             // new chromosomes, initially empty
             List<IChromosome> newPopulation = new List<IChromosome>();
             // velicinaPopulacije of current chromosomes
             int currentSize = chromosomes.Count;
-
-            // sort current chromosomes
-            //chromosomes.Sort();
 
             // calculate amount of ranges in the wheel
             double ranges = currentSize * (currentSize + 1) / 2;
@@ -567,6 +571,11 @@ namespace GPdotNET.Engine
             // survived chromosomes
             chromosomes.AddRange(newPopulation);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size"></param>
         private void TournamentSelection(int size)
         {
             // velicinaPopulacije of current chromosomes
@@ -599,13 +608,18 @@ namespace GPdotNET.Engine
             // survived chromosomes
             chromosomes.AddRange(newPopulation);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size"></param>
         private void UniversalStohasticSelection(int size)
         {
             // new chromosomes, initially empty
             List<IChromosome> newPopulation = new List<IChromosome>();
             //chromosomes.Sort();
 
-            int currentSize = chromosomes.Count();
+            //int currentSize = chromosomes.Count();
             float fitnessSum = chromosomes.Sum(c => c.Fitness);
 
             // get random distance value
@@ -635,6 +649,11 @@ namespace GPdotNET.Engine
             // survived chromosomes
             chromosomes.AddRange(newPopulation);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size"></param>
         private void FUSSSelection(int size)
         {
             // new chromosomes, initially empty
@@ -670,6 +689,11 @@ namespace GPdotNET.Engine
             // survived chromosomes
             chromosomes.AddRange(newPopulation);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="size"></param>
         private void SkrgicSelection(int size)
         {
             // new chromosomes, initially empty
@@ -708,11 +732,19 @@ namespace GPdotNET.Engine
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         internal List<IChromosome> GetChromosomes()
         {
             return chromosomes;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         internal int GetpopSize()
         {
             if (chromosomes != null)
@@ -721,17 +753,29 @@ namespace GPdotNET.Engine
                 return 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         internal IFunctionSet GetFunctionSet()
         {
             return Globals.functions;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         internal GPTerminalSet GetTerminalSet()
         {
           
             return Globals.gpterminals;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         internal GPParameters GetParameters()
         {
             return gpParameters;
@@ -747,12 +791,20 @@ namespace GPdotNET.Engine
             Globals.functions = fSet;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tSet"></param>
         internal void SetTerminalSet(GPTerminalSet tSet)
         {
 
             Globals.gpterminals=tSet;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gpp"></param>
         internal void SetParameters(GPParameters gpp)
         {
             gpParameters = gpp;

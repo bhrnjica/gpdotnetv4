@@ -33,8 +33,8 @@ namespace GPdotNET.Tool.Common.GUI
         int R0 = 215;
         int G0 = 227;
         int B0 = 242;
-        Color _BaseColor = Color.FromArgb(215, 227, 242);
-        Color _BaseColorOn = Color.FromArgb(215, 227, 242);
+        //Color _BaseColor = Color.FromArgb(215, 227, 242);
+        //Color _BaseColorOn = Color.FromArgb(215, 227, 242);
         int i_Op = 255;
         string S_TXT = "";
 
@@ -63,7 +63,7 @@ namespace GPdotNET.Tool.Common.GUI
             
             Pen b2 = new Pen(Color.FromArgb(i_Op, R0 - 39, G0 - 24, B0 - 3));
             Pen b3 = new Pen(Color.FromArgb(i_Op, R0 + 11, G0 + 9, B0 + 3));
-            Pen b4 = new Pen(Color.FromArgb(i_Op, R0 - 8, G0 - 4, B0 - 2));
+            //Pen b4 = new Pen(Color.FromArgb(i_Op, R0 - 8, G0 - 4, B0 - 2));
             Pen b5 = new Pen(Color.FromArgb(i_Op, R0, G0, B0));
             Pen b6 = new Pen(Color.FromArgb(i_Op, R0 - 16, G0 - 11, B0 - 5));
             Pen b8 = new Pen(Color.FromArgb(i_Op, R0 + 1, G0 + +5, B0 + 3));
@@ -74,7 +74,7 @@ namespace GPdotNET.Tool.Common.GUI
             DrawArc3(0, height+5);
 
             e.Graphics.PageUnit = GraphicsUnit.Pixel;
-            Brush B4 = b4.Brush;
+            //Brush B4 = b4.Brush;
             e.Graphics.SmoothingMode = SmoothingMode.None;
             X = X0; Y = Y0; i_Zero = 180; D = 0;
 

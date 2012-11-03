@@ -157,7 +157,6 @@ namespace GPdotNET.Tool.Common
 		{
 			ITreeNode tnLast = null;
 			TreeNodeGroup tng = GetChildren(tnRoot);
-			ITreeNode itn = tng[0];
 			LayeredTreeInfo ltiThis;
 
 			LayoutAllOurChildren(iLayer, tnLast, tng);
@@ -356,7 +355,7 @@ namespace GPdotNET.Tool.Common
 			}
 
 			ITreeNode tnLeft = tngSiblings[itn - 1];
-			LayeredTreeInfo ltiLeft = Info(tnLeft);
+			//LayeredTreeInfo ltiLeft = Info(tnLeft);
 			int iLayer;
 			double pxHorizontalBuffer = _pxBufferHorizontal;
 
@@ -390,7 +389,7 @@ namespace GPdotNET.Tool.Common
 			out int itnResponsible,
 			out int iLayerRet)
 		{
-			double pxOffsetToBB = lstLeftToBB[0];
+			//double pxOffsetToBB = lstLeftToBB[0];
 			int cLayers = Math.Min(lti.lstPosLeftBoundaryRelativeToRoot.Count, lstLeftToBB.Count);
 			double pxRootPosRightmost = 0.0;
 			iLayerRet = 0;

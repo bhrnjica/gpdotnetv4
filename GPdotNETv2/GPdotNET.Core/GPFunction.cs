@@ -16,8 +16,7 @@ namespace GPdotNET.Core
 {
 
     //Function representation in GP, also know as primitive computer program.
-   
-    public class GPFunction
+     public class GPFunction
     {
        
         //If selected = true,it is included of the current gprun
@@ -38,10 +37,10 @@ namespace GPdotNET.Core
         //Excel definition of the function. GP model has to be provided in excel expression
         public string ExcelDefinition { get; set; }
 
-        //Read only means it is default funkction in current GPdotNet version
+        //Read only means it is default function in current GPdotNet version
         public bool IsReadOnly { get; set; }
 
-        //The function behaves as a distribution, due it need addition params like 
+        //The function behaves as a distribution 
         // mean, deviation, rsquare etc
         public bool IsDistribution { get; set; }
 
@@ -51,7 +50,7 @@ namespace GPdotNET.Core
         //Function ID
         public int ID { get; set; }
 
-        //Parameters separate with semilonon
+        //Parameters separate with semicolon
         public string Parameters { get; set; }
         
 

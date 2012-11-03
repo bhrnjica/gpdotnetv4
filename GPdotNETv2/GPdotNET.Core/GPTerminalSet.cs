@@ -23,7 +23,6 @@ namespace GPdotNET.Core
     {   //Structure of Terminal set: first independent variables x, than random constant R and last index position is Output Y
         //x1,x2, ... , xn, R1,R2, ... ,Rn, Y - one row in dataarray
         public double[][] TrainingData { get; set; }
-        //training data for optimization and other single row data
         public double[] SingleTrainingData { get; set; }
         public double[][] TestingData { get; set; }
 
@@ -60,9 +59,9 @@ namespace GPdotNET.Core
                        from p2 in TrainingData
                        select p2[yindex];
 
-            double maxValue = stat.Max();
-            double minValue = stat.Min();
-            double averageValue = stat.Average();
+            MaxValue = stat.Max();
+            MinValue = stat.Min();
+            AverageValue = stat.Average();
         }
 
         /// <summary>
@@ -93,10 +92,15 @@ namespace GPdotNET.Core
                 ter.Index = j + NumVariables;
                 _terminals.Add(ter.Index ,ter);
             }
-
+            
+            CalculateStat();
             return _terminals;
         }
 
+        /// <summary>
+        /// Helper for serialization 
+        /// </summary>
+        /// <returns></returns>
         public string ToStringMaxMinValues()
         {
             string str = "";
@@ -115,7 +119,7 @@ namespace GPdotNET.Core
                         min = TrainingData[j][i];
                 }
 
-                //Terminali
+                // 
                 str += min.ToString()+";"+max.ToString() + "\t";
 
             }

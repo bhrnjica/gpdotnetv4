@@ -44,6 +44,7 @@ namespace GPdotNET.Engine
                 fitness = value;
             }
         }
+
         //expression representation of the chromsome
         public GPNode expressionTree;
         #endregion
@@ -70,24 +71,39 @@ namespace GPdotNET.Engine
             return ch;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Generate()
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void Mutate()
         {
             int index1 = GetRandomNode(expressionTree.NodeCount());
             ApplyMutate(expressionTree, index1, MaxOperationLevel);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ch2"></param>
         public void Crossover(IChromosome ch2)
         {
             ApplyCrossover(this, (GPChromosome)ch2);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="function"></param>
         public void Evaluate(IFitnessFunction function)
         {
-            Fitness = function.Evaluate(this,Globals.functions);
+            fitness = function.Evaluate(this,Globals.functions);
         }
 
         #endregion

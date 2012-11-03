@@ -152,10 +152,21 @@ namespace GPdotNET.Engine
             return str;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="strCromosome"></param>
+        /// <returns></returns>
         public IChromosome FromString(string strCromosome)
         {
             return GANumChromosome.CreateFromString(strCromosome);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="strCromosome"></param>
+        /// <returns></returns>
         public static GANumChromosome CreateFromString(string strCromosome)
         {
             var str = strCromosome.Replace(";\r","").Split(';');
@@ -172,9 +183,6 @@ namespace GPdotNET.Engine
         }
         #endregion
 
-       
-
-
 #region Memory Pool
         /// <summary>
         /// Main method for creating the node. We need thin in order to make memory pool for GPNode
@@ -187,7 +195,7 @@ namespace GPdotNET.Engine
                 ch.fitness = float.MinValue;
                 return ch;
 #else
-            return new GPChromosome();
+            return new GANumChromosome();
 #endif
         }
 

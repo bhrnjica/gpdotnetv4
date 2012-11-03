@@ -29,7 +29,10 @@ namespace GPdotNET.App
 {
     public partial class MainWindow
     {
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         bool OpenFromFile()
         {
            var  strFile = CommonMethods.GetFileFromOpenDialog("GPdotNET file format", "*.gpa");
@@ -45,6 +48,11 @@ namespace GPdotNET.App
            return retVal; 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="strFile"></param>
+        /// <returns></returns>
         private bool Open(string strFile)
         {
             
@@ -65,7 +73,7 @@ namespace GPdotNET.App
                 //read TrainingData in to buffer
                 buffer = reader.ReadToEnd();
                 reader.DiscardBufferedData();
-                reader.Close();
+                //reader.Close();
             }
 
             //define the lines from file
@@ -190,7 +198,11 @@ namespace GPdotNET.App
             return true;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="strFile"></param>
+        /// <returns></returns>
         bool SaveToFile(string strFile)
         {
             if (strFile == null)
@@ -386,13 +398,20 @@ namespace GPdotNET.App
                 //RTF Model Info
                 tw.WriteLine("!Line  RTF text represent Model Info");
                 tw.WriteLine(_infoPanel.InfoText);
-                tw.Close();
+               // tw.Close();
                 _isFileDirty = false;
                 return true;
             }
         }
 
-       
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="lines"></param>
+       /// <param name="factory"></param>
+       /// <param name="curLine"></param>
+       /// <param name="typeChromosome"></param>
+       /// <returns></returns>
         private int CreatePopulationFromString(string[] lines, GPFactory factory, int curLine, int typeChromosome=1)
         {
             curLine++;
@@ -430,6 +449,14 @@ namespace GPdotNET.App
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <param name="factory"></param>
+        /// <param name="curLine"></param>
+        /// <param name="typeChromosome"></param>
+        /// <returns></returns>
         private int CreateGAPopulationFromString(string[] lines, GPFactory factory, int curLine, int typeChromosome = 1)
         {
             curLine++;
@@ -487,12 +514,17 @@ namespace GPdotNET.App
 
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="factory"></param>
+        /// <returns></returns>
         private string[] PreparePopulationForSave(GPFactory factory)
         {
             string[] str;
             if (factory != null)
             {
-                var pop = factory.GetPopulation();
+                //var pop = factory.GetPopulation();
                 var popSize = factory.GetpopSize();
                 var chroms = factory.GetChromosomes();
                 var best = factory.BestChromosome();
@@ -518,6 +550,10 @@ namespace GPdotNET.App
                 return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private string PrepareMinMaxValues()
         {
             if (_gaFactory != null)
