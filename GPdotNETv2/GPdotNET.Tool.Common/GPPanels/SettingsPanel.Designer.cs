@@ -13,6 +13,8 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            cmbSelectionMethods.SelectedIndexChanged -= this.cmbSelectionMethods_SelectedIndexChanged;
+            button3.Click -= button3_Click;
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -398,9 +400,9 @@
             this.groupBox3.Controls.Add(this.radioIsParallel);
             this.groupBox3.Controls.Add(this.radioSingleCore);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(511, 9);
+            this.groupBox3.Location = new System.Drawing.Point(520, 9);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(136, 101);
+            this.groupBox3.Size = new System.Drawing.Size(127, 101);
             this.groupBox3.TabIndex = 40;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Type of procesors";
@@ -451,9 +453,9 @@
             this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Controls.Add(this.Reprodukcija);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox2.Location = new System.Drawing.Point(9, 219);
+            this.groupBox2.Location = new System.Drawing.Point(258, 10);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(638, 98);
+            this.groupBox2.Size = new System.Drawing.Size(256, 98);
             this.groupBox2.TabIndex = 39;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Probability of gp operations";
@@ -644,10 +646,10 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Location = new System.Drawing.Point(259, 9);
+            this.groupBox1.Location = new System.Drawing.Point(14, 222);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(246, 101);
-            this.groupBox1.TabIndex = 38;
+            this.groupBox1.Size = new System.Drawing.Size(246, 98);
+            this.groupBox1.TabIndex = 44;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Max Tree depth";
             // 
@@ -716,12 +718,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(217)))), ((int)(((byte)(239)))));
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
             this.Name = "SettingsPanel";
             this.Size = new System.Drawing.Size(656, 323);
             this.groupBox8.ResumeLayout(false);
@@ -789,6 +791,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label Reprodukcija;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label4;
@@ -796,6 +799,5 @@
         private System.Windows.Forms.TextBox txtInitTreeDepth;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label3;
     }
 }

@@ -80,8 +80,7 @@ namespace GPdotNET.Tool.Common
             var selIndex = listView1.SelectedIndices[0];
 
             ListViewItem LVI = listView1.Items[selIndex];
-            var su = LVI.SubItems[0];
-
+            
             textBox1.Text = LVI.SubItems[1].Text;
             textBox2.Text = LVI.SubItems[2].Text;
 
@@ -99,7 +98,7 @@ namespace GPdotNET.Tool.Common
             var selIndex = listView1.SelectedIndices[0];
 
             ListViewItem LVI = listView1.Items[selIndex];
-            var su = LVI.SubItems[0];
+            
             double num = 0;
             if (!double.TryParse(textBox1.Text, out num))
             {
@@ -188,7 +187,6 @@ namespace GPdotNET.Tool.Common
 
             for (int i = 0; i < vars.Count; i++)
             {
-                var fun = vars[i];
                 ListViewItem LVI = listView1.Items.Add(vars[i]);
                 LVI.SubItems.Add("0");
                 LVI.SubItems.Add("0");
@@ -259,7 +257,6 @@ namespace GPdotNET.Tool.Common
 
                 for (int i = 0; i < vars.Length; i++)
                 {
-                    var fun = vars[i];
                     ListViewItem LVI = listView1.Items.Add("X"+(i+1).ToString());
                     LVI.SubItems.Add("0");
                     LVI.SubItems.Add("0");
@@ -283,6 +280,11 @@ namespace GPdotNET.Tool.Common
         public void ResetSolution()
         {
             prevFitness = float.MinValue;
+            if(gpMaxFitnLine!=null)
+                gpMaxFitnLine.Clear();
+            if (gpAvgFitnLine != null)
+                gpAvgFitnLine.Clear();
+                
         }
 
         /// <summary>

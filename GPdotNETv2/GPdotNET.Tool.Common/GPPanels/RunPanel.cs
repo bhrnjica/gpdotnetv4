@@ -171,6 +171,10 @@ namespace GPdotNET.Tool.Common
         public void ResetSolution()
         {
             prevFitness = float.MinValue;
+            if (gpMaxFitnLine != null)
+                gpMaxFitnLine.Clear();
+            if (gpAvgFitnLine != null)
+                gpAvgFitnLine.Clear();
         }
 
         /// <summary>

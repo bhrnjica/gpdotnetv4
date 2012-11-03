@@ -6,6 +6,7 @@ using GPdotNET.Core;
 using System.Xml.Linq;
 using System.IO;
 using GPdotNET.Util;
+using System.Windows.Forms;
 
 namespace GPdotNET.Engine
 {
@@ -94,7 +95,7 @@ namespace GPdotNET.Engine
             }
 
             //
-            terminalSet.CalculateStat();
+          //  terminalSet.CalculateStat();
             
             //Generate training data if exist
             if (gpTestingData != null)
@@ -133,7 +134,10 @@ namespace GPdotNET.Engine
                 return null;
 
             if (from >= to)
-                throw new Exception("Constant parameter generation fails.");
+            {
+                MessageBox.Show("'From' has to be less than 'To' variable.");
+                return null;
+            }
 
             var con = new double[number];
 

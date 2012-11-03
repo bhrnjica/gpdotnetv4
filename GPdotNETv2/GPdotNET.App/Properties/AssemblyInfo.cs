@@ -8,8 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("GPdotNET.App")]
 [assembly: AssemblyDescription(
     @"GPdotNET is artificial intelligence tool for applying Genetic Programming and Genetic Algorithm in modeling and optimization of various engineering problems. It is .NET (Mono) application written in C# which can run both on Windows and Lunux OS."
-    
-    
+
     )]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

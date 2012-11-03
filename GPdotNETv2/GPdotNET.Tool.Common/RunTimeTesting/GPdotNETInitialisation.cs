@@ -14,13 +14,12 @@ namespace GPdotNET.Tool
         {
            
             //get the full location of the unittest assembly
-            string fullPath = System.Reflection.Assembly.GetAssembly(typeof(GPdotNETRunTimeTest)).Location;
+            string fullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
 
             //get the folder that's in
             string theDirectory = Path.GetDirectoryName(fullPath);
 
-            //return GPdotNET.Engine.GPModelGlobals.GetFunctionsFromXML(theDirectory + "\\Resources_Files\\FunctionSet.xml");
-            string filePath = theDirectory + "\\Resources_Files\\FunctionSet.xml";
+            string filePath = theDirectory + "\\RunTimeTesting\\FunctionSet.xml";
             try
             {
                 // Loading from a file, you can also load from a stream
@@ -55,7 +54,7 @@ namespace GPdotNET.Tool
         public static double[][] LoadTrainingData(string fileName = "sample1_traindata.csv")
         {
             //get the full location of the unittest assembly
-            string fullPath = System.Reflection.Assembly.GetAssembly(typeof(GPdotNETRunTimeTest)).Location;
+            string fullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
 
             //get the folder that's in
             string theDirectory = Path.GetDirectoryName(fullPath);
@@ -66,7 +65,7 @@ namespace GPdotNET.Tool
         public static double[][] LoadTestData(string fileName = "sample1_testdata.csv")
         {
             //get the full location of the unittest assembly
-            string fullPath = System.Reflection.Assembly.GetAssembly(typeof(GPdotNETRunTimeTest)).Location;
+            string fullPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
 
             //get the folder that's in
             string theDirectory = Path.GetDirectoryName(fullPath);

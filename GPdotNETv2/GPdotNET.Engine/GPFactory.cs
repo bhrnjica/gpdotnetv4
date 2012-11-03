@@ -33,8 +33,8 @@ namespace GPdotNET.Engine
 
         private CHPopulation Population;
         
-        private GPTerminalSet tSet;
-        private GPFunctionSet fSet;
+       // private GPTerminalSet tSet;
+       // private GPFunctionSet fSet;
         public GPFactory()
         {
             Population = new CHPopulation(); 
@@ -51,12 +51,10 @@ namespace GPdotNET.Engine
         public void PrepareAlgorithm(GPTerminalSet termSet,GPFunctionSet funSet,GPParameters gpParams=null)
         {
             evolutionCounter = 0;
-            if(Population!=null)
+            if(Population ==null)
                 Population = new CHPopulation();
-            tSet = termSet;
-            fSet = funSet;
-            Population.InitPopulation(termSet, funSet, gpParams);
 
+            Population.InitPopulation(termSet, funSet, gpParams);
             Population.CalculatePopulation();
             
             IsAlgorthmPrepared = true;
@@ -74,6 +72,7 @@ namespace GPdotNET.Engine
                             CurrentEvolution = 0,
                         });
         }
+
         /// <summary>
         /// Main function for running GP
         /// </summary>
@@ -110,27 +109,13 @@ namespace GPdotNET.Engine
                 if (ReportEvolution != null)
                     ReportEvolution(this, 
                             new ReportCurrentEvolutionEventArgs() 
-                                { 
-                                    ReportType = ReportGPType.Running,
+                                {
+                                    ReportType = CanContinue(terValue, termType) ? ReportGPType.Running : ReportGPType.Finished,
                                     AverageFitness=Population.fitnessAvg,
                                     BestChromosome= Population.bestChromosome,
                                     CurrentEvolution=evolutionCounter,
                                 });
-            }
-
-            
-            
-            //When for some reason gp is stoped we need to send one more report indicating the stop of the GP
-            if (ReportEvolution != null)
-                ReportEvolution(this,
-                        new ReportCurrentEvolutionEventArgs()
-                        {
-                            ReportType = ReportGPType.Finished,
-                            AverageFitness = Population.fitnessAvg,
-                            BestChromosome = Population.bestChromosome,
-                            CurrentEvolution = evolutionCounter,
-                        });
-            
+            }            
         }
 
         /// <summary>
@@ -247,6 +232,12 @@ namespace GPdotNET.Engine
             if (Population == null)
                 return;
             Population.CalculatePopulation();
+        }
+
+        public void ResetSolution()
+        {
+            Population.bestChromosome= null;
+            Population.chromosomes.Clear();
         }
     }
 }

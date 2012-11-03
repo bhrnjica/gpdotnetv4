@@ -147,7 +147,7 @@ namespace GPdotNET.App
 
                     //GP Model formula
                     
-                    tw.Close();
+                    //tw.Close();
                 }
             }
             catch (Exception ex)

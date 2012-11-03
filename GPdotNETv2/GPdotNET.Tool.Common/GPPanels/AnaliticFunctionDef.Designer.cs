@@ -13,6 +13,10 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            this.button1.Click -= button1_Click;
+            this.button2.Click -= button2_Click;
+            this.button3.Click -= button3_Click;
+
             if (disposing && (components != null))
             {
                 components.Dispose();

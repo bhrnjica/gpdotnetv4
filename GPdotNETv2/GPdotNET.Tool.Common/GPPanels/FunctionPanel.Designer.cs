@@ -13,6 +13,8 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            button1.Click -= button1_Click;
+            listView1.SelectedIndexChanged -= listView1_SelectedIndexChanged;
             if (disposing && (components != null))
             {
                 components.Dispose();

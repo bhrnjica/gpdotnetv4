@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Diagnostics;
 
 namespace GPdotNET.Tool.Common.GUI
 {
@@ -32,7 +33,7 @@ namespace GPdotNET.Tool.Common.GUI
         private String _infocomment = "";
         private String _infoimage = "";
         private Color _infocolor = Color.FromArgb(201, 217, 239);
-        private Color _TextColor = Color.Black;
+        //private Color _TextColor = Color.Black;
 
         private Image _toshow;
 
@@ -391,8 +392,15 @@ namespace GPdotNET.Tool.Common.GUI
                 pevent.Graphics.EndContainer(cstate);
 
                 Graphics g = pevent.Graphics;
-                try { g.DrawImage(_toshow, pevent.ClipRectangle); }
-                catch { }
+                try {
+                    if(_toshow!=null)
+                     g.DrawImage(_toshow, pevent.ClipRectangle); 
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+
+                }
 
                 SizeF textsize = g.MeasureString(this.Text, this.Font);
                 Rectangle rect = pevent.ClipRectangle;
@@ -404,13 +412,17 @@ namespace GPdotNET.Tool.Common.GUI
                     int newWidth = newHeight  * _img.Width / _img.Height;
 
                     int xPos = (pevent.ClipRectangle.Width - newWidth) / 2;
-                    int yPos = (pevent.ClipRectangle.Height - newHeight) / 2;
+                    //int yPos = (pevent.ClipRectangle.Height - newHeight) / 2;
                     Point _imgpos = new Point(xPos, 4);
 
                     Rectangle r = new Rectangle(_imgpos, new Size(newWidth, newHeight));
                     g.DrawImage(_img, r);
                 }
-                catch { }
+                catch (Exception ex) 
+                {
+                    Debug.WriteLine(ex.Message);
+
+                }
                 
                 
                 X = rect.X + rect.Width; X = (X - (int)textsize.Width) / 2;

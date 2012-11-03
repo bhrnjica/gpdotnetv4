@@ -65,7 +65,7 @@ namespace GPdotNET.Tool.Common
                         //read TrainingData in to buffer
                         buffer = reader.ReadToEnd();
                         reader.DiscardBufferedData();
-						reader.Close();
+						//reader.Close();
                     }
 
                     //define the row
@@ -129,7 +129,7 @@ namespace GPdotNET.Tool.Common
                         //read TrainingData in to buffer
                         buffer = reader.ReadToEnd();
                         reader.DiscardBufferedData();
-                        reader.Close();
+                        //reader.Close();
                     }
 
                     //define the row

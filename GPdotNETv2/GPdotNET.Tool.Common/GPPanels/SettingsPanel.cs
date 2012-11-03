@@ -25,6 +25,9 @@ namespace GPdotNET.Tool.Common
     public partial class SettingsPanel : UserControl
     {
         #region CTor and Fields
+
+        public event EventHandler ResetSolution;
+
         public SettingsPanel()
         {
             InitializeComponent();
@@ -68,6 +71,7 @@ namespace GPdotNET.Tool.Common
             }
         }
         #endregion
+
         #region private Methods
         /// <summary>
         ///  //we need here to provide loading all class which are derived from IFitness interface
@@ -94,6 +98,26 @@ namespace GPdotNET.Tool.Common
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (_constants != null)
+            {
+                if (MessageBox.Show("Previous solution will be reset. Do you want to continue?", "Settings", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    _constants = GPModelGlobals.GenerateConstants(GetParameters().rConstFrom, GetParameters().rConstTo, GetParameters().rConstNum);
+                    //send event about dataLoading
+                    if (ResetSolution != null)
+                        ResetSolution(this, new EventArgs());
+                }
+            }
+            else
+                _constants = GPModelGlobals.GenerateConstants(GetParameters().rConstFrom, GetParameters().rConstTo, GetParameters().rConstNum);
+        }
         /// <summary>
         /// Enumerate ENUM of selection methods and insert as ComboBox items
         /// so the user can easyly select.
@@ -404,7 +428,7 @@ namespace GPdotNET.Tool.Common
         public void SetParameters(string p)
         {
             var pstr = p.Split(';');
-            GPParameters parameters = new GPParameters();
+            
             try
             {
 
@@ -694,9 +718,6 @@ namespace GPdotNET.Tool.Common
         }
         #endregion
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            _constants = GPModelGlobals.GenerateConstants(GetParameters().rConstFrom, GetParameters().rConstTo, GetParameters().rConstNum);
-        }
+       
     }
 }

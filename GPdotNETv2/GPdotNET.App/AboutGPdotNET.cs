@@ -27,7 +27,7 @@ namespace GPdotNET.App
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
+            this.labelCompanyName.Text = "Bahrudin Hrnjica; bhrnjica@hotmail.com";
             this.Icon = Utility.LoadIconFromName("GPdotNET.App.Resources.gpdotnet_ico48.ico");
             this.Load += new EventHandler(AboutGPdotNET_Load);
             //Sample code for running agains MONO or .NET

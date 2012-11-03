@@ -17,9 +17,9 @@
     <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>True</DebugSymbols>
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;MEMORY_POOLING</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -27,9 +27,9 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>True</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;MEMORY_POOLING</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>

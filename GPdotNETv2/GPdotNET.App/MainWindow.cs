@@ -48,6 +48,13 @@ namespace GPdotNET.App
         ContextMenuStrip        _contextMenuStrip1;
 
         string                  _appName = "GPdotNET v2.0";
+        //Open document through cmd line
+        public string[] CmdLineParam
+        {
+            get;
+            set;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -56,15 +63,43 @@ namespace GPdotNET.App
             this.Icon = Utility.LoadIconFromName("GPdotNET.App.Resources.gpdotnet_ico48.ico");
             this.logoPictureBox.Image = Utility.LoadImageFromName("GPdotNET.App.Resources.gp256V.png");
             
+            
         }
 
+        //Drag and drop functionality
+        private void GPdotNetApp_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+        //Drag and drop functionality
+        private void GPdotNetApp_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] fileNames = e.Data.GetData(DataFormats.FileDrop) as string[];
+            if (fileNames != null && fileNames.Length != 0)
+            {
+                Open(fileNames[0]);
+            }
+        }
+
+        /// <summary>
+        /// Resets programs
+        /// </summary>
         private void ResetProgram()
         {
+            //unscribe to events
+            if (_gpFactory != null)
+                this._gpFactory.ReportEvolution -= new Engine.EvolutionHandler(gpFactory_ReportEvolution);
+            if (_gaFactory != null)
+                this._gaFactory.ReportEvolution -= new Engine.EvolutionHandler(gpFactory_ReportEvolution);
+
             _gpFactory = null;
             _gaFactory = null;
         }
 
-       
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="model"></param>
 		void LoadModelWizard(GPModelType model )
         {
 
@@ -129,6 +164,7 @@ namespace GPdotNET.App
 
                         this._gpFactory = new GPFactory();
                         this._gpFactory.ReportEvolution += new Engine.EvolutionHandler(gpFactory_ReportEvolution);
+
                         this._gaFactory = new GPFactory();
                         this._gaFactory.ReportEvolution += new Engine.EvolutionHandler(gpFactory_ReportEvolution);
 
@@ -193,56 +229,93 @@ namespace GPdotNET.App
                     break;
             }
 
-            //Evaents from datapanel about loading dat
+            //Events from datapanel about loading dat
             if (_dataPanel != null)
-            {
-                _dataPanel.DataLoaded += (x, y) =>
-                        {
-                            if (_runPanel != null)
-                            {
-                                _runPanel.UpdateChartDataPoint(_dataPanel.GetOutputValues(),false);
-                                _isFileDirty = true;
-                            }
+               _dataPanel.DataLoaded += _dataPanel_DataLoaded; 
 
-                        };
-            }
 
             if (_funDefinit != null)
-            {
-                _funDefinit.btnFinishAnalFun.Click += (xx, yy) =>
-                    {
-
-                        if (_optimizePanel != null)
-                        {
-                            _optimizePanel.FillTerminalBounds(_funDefinit.GetTerminalNames());
-                           
-                        }
-                    };
-            }
-
+               _funDefinit.btnFinishAnalFun.Click += btnFinishAnalFun_Click;
+                    
             if (_dataPanel != null)
-            {
-                _dataPanel.DataPredictionLoaded += (x, y) =>
-                {
-                    if (_predictionPanel == null)
-                    {
-                        _predictionPanel = new PreditionPanel();
-                        loadGPPanelInMainWindow(this, _predictionPanel, "Prediction");
-                       
-                    }
-                    if (_runPanel != null)
-                    {
-                        _predictionPanel.FillPredictionData(_dataPanel.Testing);
-                       
-                    }
+               _dataPanel.DataPredictionLoaded += _dataPanel_DataPredictionLoaded;
 
-                    _isFileDirty = true;
-                };
-            }
-		
+            if(_setPanel !=null)
+                _setPanel.ResetSolution += _setPanel_ResetSolution;
+               
 		}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void _setPanel_ResetSolution(object sender, EventArgs e)
+        {
+            if (_gpFactory != null)
+                _gpFactory.ResetSolution();
+            if (_gaFactory != null)
+                _gaFactory.ResetSolution();
 
+            if (_runPanel != null)
+                _runPanel.ResetSolution();
+            if (_resultPanel != null)
+                _resultPanel.ResetSolution();
+            if (_predictionPanel != null)
+                _predictionPanel.ResetSolution();
+            if (_gpFactory != null)
+                _gpFactory.ResetSolution();
+            if (_gpFactory != null)
+                _gpFactory.ResetSolution();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void _dataPanel_DataPredictionLoaded(object sender, EventArgs e)
+        {
+            if (_predictionPanel == null)
+            {
+                _predictionPanel = new PreditionPanel();
+                loadGPPanelInMainWindow(this, _predictionPanel, "Prediction");
+
+            }
+            if (_runPanel != null)
+            {
+                _predictionPanel.FillPredictionData(_dataPanel.Testing);
+
+            }
+
+            _isFileDirty = true;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void btnFinishAnalFun_Click(object sender, EventArgs e)
+        {
+            if (_optimizePanel != null)
+            {
+                _optimizePanel.FillTerminalBounds(_funDefinit.GetTerminalNames());
+
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void _dataPanel_DataLoaded(object sender, EventArgs e)
+        {
+            if (_runPanel != null)
+            {
+                _runPanel.UpdateChartDataPoint(_dataPanel.GetOutputValues(), false);
+                _isFileDirty = true;
+            }
+        }
         
 		/// <summary>
 		/// Load page in to GP Main Window. GP Model consis of several specific panels
@@ -359,6 +432,11 @@ namespace GPdotNET.App
                             _resultPanel.ResetSolution();
                         if (_predictionPanel != null)
                             _predictionPanel.ResetSolution();
+                        if (_gpFactory != null)
+                            _gpFactory.ResetSolution();
+                        if (_gpFactory != null)
+                            _gpFactory.ResetSolution();
+                        
                     }
                 }
             }
@@ -395,10 +473,30 @@ namespace GPdotNET.App
                     {
                         if (_optimizePanel != null)
                             _optimizePanel.ResetSolution();
+                        if (_gaFactory != null)
+                            _gaFactory.ResetSolution();
                     }
                 }
             }
             optimizeProgram();
+        }
+
+        private void MainWindow_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void GPdotNETApp_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.Text) ||
+                   e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
         }
          
     }

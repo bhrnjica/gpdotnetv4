@@ -18,11 +18,18 @@ using GPdotNET.Core;
 
 namespace GPdotNET.Engine
 {
-
+    /// <summary>
+    /// Fitness function for optimization. In fact this class represent GPModel or analytic function 
+    /// when the optimization is performed.
+    /// </summary>
     public class AnalyticFunctionFitness : IFitnessFunction
     {
         private GPNode _funToOptimize;
         public bool IsMinimize { get; set; }
+
+        /// <summary>
+        /// Property holds optimization Function
+        /// </summary>
         public GPNode FunToOptimize 
         {
             get {
@@ -32,6 +39,13 @@ namespace GPdotNET.Engine
                 _funToOptimize = value;
             }
         }
+
+        /// <summary>
+        /// Evaluates function agains terminals
+        /// </summary>
+        /// <param name="chromosome"></param>
+        /// <param name="functionSet"></param>
+        /// <returns></returns>
         public float Evaluate(IChromosome chromosome, IFunctionSet functionSet)
         {
             GANumChromosome ch = chromosome as GANumChromosome;

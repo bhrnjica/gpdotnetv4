@@ -75,13 +75,22 @@ namespace GPdotNET.Core
             return retVal;
         }
 
-
+        /// <summary>
+        /// Return the number of terminals
+        /// </summary>
+        /// <returns></returns>
         public static int GetTerminalVarCount()
         {
             return gpterminals.NumVariables;
            
         }
 
+        /// <summary>
+        /// Returns specific row from terminaldata
+        /// </summary>
+        /// <param name="rowIndex"></param>
+        /// <param name="bTraining"></param>
+        /// <returns></returns>
         public static double[] GetTerminalRow(int rowIndex, bool bTraining= true)
         {
             if (bTraining)
@@ -97,6 +106,13 @@ namespace GPdotNET.Core
             }
         }
 
+        /// <summary>
+        /// Generate random n numbers between definde interval.
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         public static double[] GenerateRandomConstants(int from, int to, int number)
         {
             var consts = new double[number];
@@ -128,7 +144,6 @@ namespace GPdotNET.Core
         }
 
         //Calculate model agains specific data 
-
         public static double[] CalculateGPModel(GPNode node, bool btrainingData=true)
         {
             double[][] data = btrainingData ? gpterminals.TrainingData : gpterminals.TestingData;

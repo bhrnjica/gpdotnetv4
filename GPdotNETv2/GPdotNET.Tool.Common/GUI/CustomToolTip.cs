@@ -237,8 +237,8 @@ namespace GPdotNET.Tool.Common.GUI
 
 
 
-        private Pen p = new Pen(Color.Black, 8.0f);
-        private Brush b = new SolidBrush(Color.FromArgb(160, 0, 255, 0));
+       //private Pen p = new Pen(Color.Black, 8.0f);
+       // private Brush b = new SolidBrush(Color.FromArgb(160, 0, 255, 0));
 
 
     }
@@ -281,7 +281,8 @@ namespace GPdotNET.Tool.Common.GUI
         {
             Graphics g = e.Graphics;
             T = 12; D = -1; X0 = -2; Y0 = -2; XF = e.ClipRectangle.Width - 14; YF = e.ClipRectangle.Height - 14;
-            Rectangle rpath = new Rectangle(X0, Y0, XF, YF); DrawArc();
+            //Rectangle rpath = new Rectangle(X0, Y0, XF, YF); 
+			DrawArc();
             Color HBlack = Color.FromArgb(120, 100, 100, 100);
             PathGradientBrush pgb = new PathGradientBrush(path);
             Color SBlack = Color.FromArgb(255, 100, 100, 100);

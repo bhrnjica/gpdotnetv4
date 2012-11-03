@@ -34,6 +34,12 @@ namespace GPdotNET.Engine
         { }
 
 
+        /// <summary>
+        /// Evaluates expression 
+        /// </summary>
+        /// <param name="fun"></param>
+        /// <param name="tt"></param>
+        /// <returns></returns>
         public double Evaluate(GPFunction fun, params double[] tt)
         {
             switch (fun.ID)
@@ -236,17 +242,26 @@ namespace GPdotNET.Engine
             }
         }
 
-        public double Evaluate(GPNode treeExpression, int rowIndex, bool btrainingData=true)
+        /// <summary>
+        /// Converts GPNode in to expression 
+        /// </summary>
+        /// <param name="treeExpression"></param>
+        /// <param name="rowIndex"></param>
+        /// <param name="btrainingData"></param>
+        /// <returns></returns>
+        public double Evaluate(GPNode treeExpression, int rowIndex, bool btrainingData = true)
         {
             //Helpers
             var tokens = treeExpression.ToList();
             int countT = tokens.Count;
 
             double[] terminalRow = Globals.GetTerminalRow(rowIndex, btrainingData);
-            int numVars = Globals.GetTerminalVarCount();
 
             //Stack for evaluation
             Stack<double> arguments = new Stack<double>();
+
+            //the maximum aritry is 4
+            double[] val = new double[5];
 
             for (int i = countT - 1; i >= 0; i--)
             {
@@ -261,7 +276,6 @@ namespace GPdotNET.Engine
                     int count = functions[tokens[i] - 2000].Aritry;
 
                     //Extract variables
-                    double[] val = new double[count];
                     for (int j = 0; j < count; j++)
                     {
                         var num = arguments.Pop();
@@ -287,6 +301,7 @@ namespace GPdotNET.Engine
 
 
         }
+
         /// <summary>
         /// Decoding treeExpression to polishnotation 
         /// </summary>
@@ -345,6 +360,7 @@ namespace GPdotNET.Engine
         {
             return terminals;
         }
+
         public int GetNumVariables()
         {
             if (terminals == null)
@@ -392,8 +408,6 @@ namespace GPdotNET.Engine
                 }
             }
         }
-
-
 
         public int GetAritry(int funID)
         {

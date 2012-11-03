@@ -60,31 +60,10 @@ namespace GPdotNET.Tool.Common
             txtNrVariables.Text = "10";
             txtNrTestSeries.Text = "10";
             txtNrSeries.Text = "0";
-            this.Load+=(x,y)=>
-            {
+            //this.Load+=(x,y)=>
+            //{
 
-            };
-            //Sample how to load data in to grid
-
-            //ColumnHeader ch1 = new ColumnHeader();
-            //ch1.Text = "KOlona1";
-            //listView1.Columns.Add(ch1);
-            //ch1 = new ColumnHeader();
-            //ch1.Text = "KOlona2";
-            //listView1.Columns.Add(ch1);
-            //ch1 = new ColumnHeader();
-            //ch1.Text = "KOlona3";
-            //listView1.Columns.Add(ch1);
-            //ch1 = new ColumnHeader();
-            //ch1.Text = "KOlona4";
-            //listView1.Columns.Add(ch1);
-
-            //ListViewItem LVI = listView1.Items.Add("ime cols");
-            //LVI.SubItems.Add(R.Next(100).ToString()); // 0..99
-            //LVI.SubItems.Add(R.Next(100).ToString());
-            //LVI.SubItems.Add(((10 + R.Next(10)) * 50).ToString());
-            //LVI.SubItems.Add(((10 + R.Next(10)) * 50).ToString());
-
+            //};
         }
         #endregion
 
@@ -169,9 +148,9 @@ namespace GPdotNET.Tool.Common
 
             try
             {
-                int nrSeries, nrVariables, nrSeriesForTesting;
+                int nrVariables, nrSeriesForTesting;
 
-                nrSeries = int.Parse(txtNrSeries.Text);
+                
                 nrVariables = int.Parse(txtNrVariables.Text);
                 nrSeriesForTesting = int.Parse(txtNrTestSeries.Text);
 

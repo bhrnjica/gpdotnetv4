@@ -19,6 +19,7 @@ using GPdotNET.Core;
 namespace GPdotNET.Engine
 {
     /// <summary>
+    /// Default Fitness Function in GPdotNET
     /// GPdotNET 4.0 implements the Root Mean Squared Error (RMSE). The RMSE fitness function of GPdotNET is, as expected, 
     /// based on the standard root AverageValue squared error. By taking the square root of the AverageValue squared error one 
     /// reduces the error to the same dimensions as the quantity being predicted.
@@ -27,7 +28,6 @@ namespace GPdotNET.Engine
     public class RMSEFitness : IFitnessFunction
     {
         
-
         public float Evaluate(IChromosome ch, IFunctionSet functionSet)
         {
             var expTree = ((GPChromosome)ch).expressionTree;

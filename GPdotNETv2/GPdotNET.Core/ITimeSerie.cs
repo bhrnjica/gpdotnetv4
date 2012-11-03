@@ -17,7 +17,6 @@ namespace GPdotNET.Core
 
     public interface ITimeSeries
     {
-       
         //
         DateTime Date { get; set; }
         //

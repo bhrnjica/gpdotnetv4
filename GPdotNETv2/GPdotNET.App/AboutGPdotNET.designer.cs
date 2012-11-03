@@ -27,6 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutGPdotNET));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
             this.labelProductName = new System.Windows.Forms.Label();
@@ -135,7 +136,7 @@
             this.textBoxDescription.Size = new System.Drawing.Size(271, 126);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = "Description";
+            this.textBoxDescription.Text = resources.GetString("textBoxDescription.Text");
             // 
             // okButton
             // 

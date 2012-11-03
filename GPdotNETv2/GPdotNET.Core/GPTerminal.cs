@@ -21,8 +21,8 @@ namespace GPdotNET.Core
     {
         //The name of the terminal, used for printing results of gp model
         public string Name { get; set; }
-        //This class doesn hold value of terminal it contains position of terminal arrays
-        
+
+        //This is position of terminal arrays
         public int Index { get; set; }
 
         //Values
