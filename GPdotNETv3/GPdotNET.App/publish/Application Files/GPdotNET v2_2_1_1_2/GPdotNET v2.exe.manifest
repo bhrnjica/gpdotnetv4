@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="GPdotNET v2.exe" version="2.1.1.2" publicKeyToken="48b8049ba2d8c82b" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="gpdotnet_ico48.ico" xmlns="urn:schemas-microsoft-com:asm.v1">GPdotNET is artificial intelligence tool for applying 
+Genetic Programming and Genetic Algorithm in modeling 
+and optimization of various engineering problems. 
+It is .NET (Mono) application written in C# which can 
+run both on Windows and Lunux OS.</description>
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="GPdotNET v2" version="2.1.1.1" language="neutral" processorArchitecture="msil" />
+    <commandLine file="GPdotNET v2.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ClosedXML.dll" size="817664">
+      <assemblyIdentity name="ClosedXML" version="0.67.2.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>klnHXHpiK+WpXoMbamtMhCo28ik=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DocumentFormat.OpenXml.dll" size="5233512">
+      <assemblyIdentity name="DocumentFormat.OpenXml" version="2.0.5022.0" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>JhKtlLGb+QTJ5bXzjnHjSBqDS9E=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GPdotNET v2.exe" size="254464">
+      <assemblyIdentity name="GPdotNET v2" version="2.1.1.1" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>Qx9h+e+9m3y/VLXXwCR2ffPGqn0=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GPdotNET.Core.dll" size="16384">
+      <assemblyIdentity name="GPdotNET.Core" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>BP/FxM79NFmaGzi64Ajxi9wKD+g=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GPdotNET.Engine.dll" size="31232">
+      <assemblyIdentity name="GPdotNET.Engine" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>flvAtcyuxQfspbbcQR9XoR7iv5U=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GPdotNET.Tool.Common.dll" size="129024">
+      <assemblyIdentity name="GPdotNET.Tool.Common" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>pe9mXtKETY2WGZ7xWDJPo6CAO14=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GPdotNET.Util.dll" size="11776">
+      <assemblyIdentity name="GPdotNET.Util" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>KxFqX9RYk1zjcqLWvrIm47zEHSA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ZedGraph.dll" size="311808">
+      <assemblyIdentity name="ZedGraph" version="5.1.5.26142" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>hwYSmosOqqoBUyZnXDKuSJdRa+g=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="GPdotNET v2.exe.config" size="878">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>kYxR0jrcfOONEL3TeYRjhkh+RAc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="gpdotnet_ico48.ico" size="15086">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>YfOzPIVjPS6DYu+BWHitYzQR1ZY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources_Files\FunctionSet.xml" size="18120">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>f6AHvK9aa/46i1ZkL1Ecr9wFzeI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources_Files\GPdotNET_v2_User_Guide.pdf" size="3254027">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>rHfnJ+dYpESr9AVkEmKfjPjq6jo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources_Files\hardness_modeling.gpa" size="72474">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>Qr6TVUjN9c0N99Y+dNo9aUMGY/M=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources_Files\life_tool_opt.gpa" size="383000">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>5wYgqlUjp7SImNBatEhN+kOWlsM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources_Files\montly_msft_2003_2012.gpa" size="76870">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>qlMldkHL8Bc4sNIxd6PBNJmz1WA=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources_Files\simple_case.gpa" size="275495">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>/ADDe6CFtFg3dEhOSI7KY2t1c4w=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources_Files\simple_optimization.gpa" size="353358">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>yNOq9alozmL6IdZiU+hqw0ylY34=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources_Files\surface_roughness_prediction.gpa" size="1358684">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>ud4bU+yfcKz96GmcjmZdapyKgGU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <fileAssociation extension=".gpa" description="GPdotNET file format." progid="GPdotNET" defaultIcon="gpdotnet_ico48.ico" xmlns="urn:schemas-microsoft-com:clickonce.v1" />
+<publisherIdentity name="CN=DSHOME\Bahrudin" issuerKeyHash="c3541675abdc73862a3b68a58d052dad5361f2d1" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>TIskJ+3jy3pUelVYQjk3ClVBRaU=</DigestValue></Reference></SignedInfo><SignatureValue>fA/BdYC7Ai9KBVwYUH3XKPNsLDf3UUjMZ45NmkvsQpK4hIOgXtlaYWNw847zVPFgtubcm9PV5sU98d3+DKE4Hpp5yNMfcrUrBty3uKcmukoZzVeBCriDqcGVHhInnRGbY8UlwDuyVuAvZ6SslyQsnWtmPxykI2CC9S9TtjNpWRw=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>v52MkiSikLnwC+6E1VV4NjTsAEOu+1mjUSSfBFVlNQ2bHDPB36UTfldxTL6rGBF1/as5MyO+XqtE0in4nsbBO9+hPLan25C1zzQHOEgvzGoXDMJre4fkvRty8mv4arxils8ndk8/4OzjbmLS5QOjKLt20hQAnc0o7tVWtKCwbpU=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="a54541550a37394258557a547acbe3ed27248b4c" Description="" Url=""><as:assemblyIdentity name="GPdotNET v2.exe" version="2.1.1.2" publicKeyToken="48b8049ba2d8c82b" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=DSHOME\Bahrudin</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>PsEjL6eHRSsYdHU5kOEXq2S2krY=</DigestValue></Reference></SignedInfo><SignatureValue>MMqEL0v3ZdeY8sOa2WT3eq+pUAPdzikBt5hPm97UKyxKknfu7Zd6jVjVMVLjZgAWHFswHiNwXPte53wtMRL57fFsn0rH77EQIGwzNecyZJFxnkkskxz0IpkchmN89G5MOWc3ldw92B6UaMHNz6/fYUcxy5uPpnyqUwY7IsPfr5k=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>v52MkiSikLnwC+6E1VV4NjTsAEOu+1mjUSSfBFVlNQ2bHDPB36UTfldxTL6rGBF1/as5MyO+XqtE0in4nsbBO9+hPLan25C1zzQHOEgvzGoXDMJre4fkvRty8mv4arxils8ndk8/4OzjbmLS5QOjKLt20hQAnc0o7tVWtKCwbpU=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB1TCCAT6gAwIBAgIQRkTLXG/5YKhHzfItodFnmjANBgkqhkiG9w0BAQUFADApMScwJQYDVQQDHh4ARABTAEgATwBNAEUAXABCAGEAaAByAHUAZABpAG4wHhcNMTIxMDIwMDgzMzA0WhcNMTMxMDIwMTQzMzA0WjApMScwJQYDVQQDHh4ARABTAEgATwBNAEUAXABCAGEAaAByAHUAZABpAG4wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAL+djJIkopC58AvuhNVVeDY07ABDrvtZo1EknwRVZTUNmxwzwd+lE35XcUy+qxgRdf2rOTMjvl6rRNIp+J7GwTvfoTy2p9uQtc80BzhIL8xqFwzCa3uH5L0bcvJr+Gq8YpbPJ3ZPP+Ds425i0uUDoyi7dtIUAJ3NKO7VVrSgsG6VAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAoXHLrJT8exN2z7b/rTOo+xzlI6UVCakaOaCoMjiTiZ4ddeXjaUzNondJ0rDk3mX749GMgr0+drqmOlteBzbv6OIUUDM7FfUW4PsBUnKpRymcZAzguyiqWP5M3pxD8kVKwGOBfOTzHtBvqrSxi1qrribTbyRMaL1r5K+5EQM2oJ0=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
