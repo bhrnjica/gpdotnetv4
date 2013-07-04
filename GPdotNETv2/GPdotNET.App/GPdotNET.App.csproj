@@ -127,10 +127,10 @@ run both on Windows and Lunux OS.</Description>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="ClosedXML">
-      <HintPath>..\..\ThirdParty\Assemblies\ClosedXML.dll</HintPath>
+      <HintPath>..\..\Assemblies\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="ZedGraph">
-      <HintPath>..\..\ThirdParty\Assemblies\ZedGraph.dll</HintPath>
+      <HintPath>..\..\Assemblies\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -332,12 +332,12 @@ run both on Windows and Lunux OS.</Description>
   <ItemGroup>
     <PublishFile Include="Resources_Files\FunctionSet.xml">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
