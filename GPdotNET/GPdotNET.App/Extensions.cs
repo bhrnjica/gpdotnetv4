@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace GPdotNET.App
+namespace GPdotNET.App 
 {
     public static class Extensions
     {
