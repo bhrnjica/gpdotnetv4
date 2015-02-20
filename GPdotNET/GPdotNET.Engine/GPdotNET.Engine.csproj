@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0331C174-17F5-4D8D-9430-5ECA08C8DA3F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GPdotNET.Engine</RootNamespace>
+    <AssemblyName>GPdotNET.Engine</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <ReleaseVersion>2.1</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;MEMORY_POOLING</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;MEMORY_POOLING</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ANN\Activation funcs\Linear.cs" />
+    <Compile Include="ANN\Activation funcs\Binary.cs" />
+    <Compile Include="ANN\BCNeuralNetwork.cs" />
+    <Compile Include="PSO\ParticleSwarm.cs" />
+    <Compile Include="PSO\PSOParameters.cs" />
+    <Compile Include="ANN\NeuralNetwork.cs" />
+    <Compile Include="ANN\IANNLayer.cs" />
+    <Compile Include="ANN\SoftmaxLayer.cs" />
+    <Compile Include="ANN\ANNParameters.cs" />
+    <Compile Include="ANN\ANNLayer.cs" />
+    <Compile Include="ANN\ANNNeuron.cs" />
+    <Compile Include="ANN\Activation funcs\Sigmoid.cs" />
+    <Compile Include="ANN\Activation funcs\TanH.cs" />
+    <Compile Include="ANN\MCNeuralNetwork.cs" />
+    <Compile Include="Chromosomes\GAMChromosome.cs" />
+    <Compile Include="Fitness\AnalyticFunctionFitness.cs" />
+    <Compile Include="Fitness\ALOCFitness.cs" />
+    <Compile Include="Chromosomes\GAVChromosome.cs" />
+    <Compile Include="ANN\Activation funcs\BipolarSig.cs" />
+    <Compile Include="Fitness\TRANSFitness.cs" />
+    <Compile Include="Fitness\TSPFitness.cs" />
+    <Compile Include="Chromosomes\GANumChromosome.cs" />
+    <Compile Include="Chromosomes\GABinChromosome.cs" />
+    <Compile Include="Chromosomes\GPChromosome.cs" />
+    <Compile Include="ANN\BPNeuralNetwork.cs" />
+    <Compile Include="PSO\Particles.cs" />
+    <Compile Include="Solvers\AIFactory.cs" />
+    <Compile Include="Solvers\PSOFactory.cs" />
+    <Compile Include="Solvers\BPFactory.cs" />
+    <Compile Include="Solvers\GPFactory.cs" />
+    <Compile Include="GPFunctionSet.cs" />
+    <Compile Include="GPParameters.cs" />
+    <Compile Include="CHPopulation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="ReportCurrentEvolution.cs" />
+    <Compile Include="Fitness\RMSEFitness.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GPdotNET.Core\GPdotNET.Core.csproj">
+      <Project>{6ac643d4-cd0c-4d1d-b5db-7fe2c967d6a5}</Project>
+      <Name>GPdotNET.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
