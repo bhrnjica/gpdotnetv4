@@ -7,9 +7,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GPdotNET", "GPdotNET", "{36
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assemblies", "Assemblies", "{99E251AA-8828-46DE-A1EF-F620192B2662}"
 	ProjectSection(SolutionItems) = preProject
-		ThirdParty\Assemblies\ClosedXML.dll = ThirdParty\Assemblies\ClosedXML.dll
-		ThirdParty\Assemblies\DocumentFormat.OpenXml.dll = ThirdParty\Assemblies\DocumentFormat.OpenXml.dll
-		ThirdParty\Assemblies\ZedGraph.dll = ThirdParty\Assemblies\ZedGraph.dll
+		Assemblies\ClosedXML.dll = Assemblies\ClosedXML.dll
+		..\Assemblies\ClosedXML.dll = ..\Assemblies\ClosedXML.dll
+		Assemblies\ClosedXML.pdb = Assemblies\ClosedXML.pdb
+		..\Assemblies\ClosedXML.pdb = ..\Assemblies\ClosedXML.pdb
+		Assemblies\DocumentFormat.OpenXml.dll = Assemblies\DocumentFormat.OpenXml.dll
+		..\Assemblies\DocumentFormat.OpenXml.dll = ..\Assemblies\DocumentFormat.OpenXml.dll
+		Assemblies\ZedGraph.dll = Assemblies\ZedGraph.dll
+		..\Assemblies\ZedGraph.dll = ..\Assemblies\ZedGraph.dll
+		Assemblies\ZedGraph.pdb = Assemblies\ZedGraph.pdb
+		..\Assemblies\ZedGraph.pdb = ..\Assemblies\ZedGraph.pdb
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.Core", "GPdotNET.Core\GPdotNET.Core.csproj", "{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}"
@@ -24,10 +31,30 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.App", "GPdotNET.Ap
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 1
+		SccNumberOfProjects = 6
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs03
 		SccLocalPath0 = .
+		SccProjectUniqueName1 = GPdotNET.Core\\GPdotNET.Core.csproj
+		SccProjectTopLevelParentUniqueName1 = GPdotNET_CP.sln
+		SccProjectName1 = GPdotNET.Core
+		SccLocalPath1 = GPdotNET.Core
+		SccProjectUniqueName2 = GPdotNET.Engine\\GPdotNET.Engine.csproj
+		SccProjectTopLevelParentUniqueName2 = GPdotNET_CP.sln
+		SccProjectName2 = GPdotNET.Engine
+		SccLocalPath2 = GPdotNET.Engine
+		SccProjectUniqueName3 = GPdotNET.Tool.Common\\GPdotNET.Tool.Common.csproj
+		SccProjectTopLevelParentUniqueName3 = GPdotNET_CP.sln
+		SccProjectName3 = GPdotNET.Tool.Common
+		SccLocalPath3 = GPdotNET.Tool.Common
+		SccProjectUniqueName4 = GPdotNET.Util\\GPdotNET.Util.csproj
+		SccProjectTopLevelParentUniqueName4 = GPdotNET_CP.sln
+		SccProjectName4 = GPdotNET.Util
+		SccLocalPath4 = GPdotNET.Util
+		SccProjectUniqueName5 = GPdotNET.App\\GPdotNET.App.csproj
+		SccProjectTopLevelParentUniqueName5 = GPdotNET_CP.sln
+		SccProjectName5 = GPdotNET.App
+		SccLocalPath5 = GPdotNET.App
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
