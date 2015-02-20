@@ -225,9 +225,6 @@ run both on Windows and Lunux OS.</Description>
     <Content Include="Resources_Files\TransportSample1.gpa">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources_Files\GPdotNET_User_Guide.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GPdotNET.Core\GPdotNET.Core.csproj">
