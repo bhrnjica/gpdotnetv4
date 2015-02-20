@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A1288789-76AD-4796-94EE-8049317FA8F3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GPdotNET.Tool.Common</RootNamespace>
+    <AssemblyName>GPdotNET.Tool.Common</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <ReleaseVersion>2.1</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.67.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ZedGraph, Version=5.1.5.36681, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GPPanels\AnaliticFunctionDef.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\AnaliticFunctionDef.Designer.cs">
+      <DependentUpon>AnaliticFunctionDef.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\ExperimentPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\ExperimentPanel.Designer.cs">
+      <DependentUpon>ExperimentPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\Run\ANNRunPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\Run\ANNRunPanel.Designer.cs">
+      <DependentUpon>ANNRunPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\Run\BaseRunPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\Run\BaseRunPanel.Designer.cs">
+      <DependentUpon>BaseRunPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\Run\ALOCRunPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\Run\ALOCRunPanel.Designer.cs">
+      <DependentUpon>ALOCRunPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\Run\TSPRunPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\Run\TSPRunPanel.Designer.cs">
+      <DependentUpon>TSPRunPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\InfoPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\InfoPanel.Designer.cs">
+      <DependentUpon>InfoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\Run\OptimizePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\Run\OptimizePanel.Designer.cs">
+      <DependentUpon>OptimizePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\PredictionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\PredictionPanel.Designer.cs">
+      <DependentUpon>PredictionPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\ResultPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\ResultPanel.Designer.cs">
+      <DependentUpon>ResultPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\ANNSettingsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\ANNSettingsPanel.Designer.cs">
+      <DependentUpon>ANNSettingsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GraphLayout\DPoint.cs" />
+    <Compile Include="GraphLayout\ITreeNode.cs" />
+    <Compile Include="GraphLayout\LayeredTreeDraw.cs" />
+    <Compile Include="GraphLayout\TreeConnection.cs" />
+    <Compile Include="GraphLayout\TreeNodeGroup.cs" />
+    <Compile Include="GUI\CityMapDrawer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\CityMapDrawer.Designer.cs">
+      <DependentUpon>CityMapDrawer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\CustomButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\CustomButton.Designer.cs">
+      <DependentUpon>CustomButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\CustomPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\CustomPanel.Designer.cs">
+      <DependentUpon>CustomPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\CustomProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\CustomProgressBar.Designer.cs">
+      <DependentUpon>CustomProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\CustomToolTip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\CustomToolTip.Designer.cs">
+      <DependentUpon>CustomToolTip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\FunctionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\FunctionPanel.Designer.cs">
+      <DependentUpon>FunctionPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\DataPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\DataPanel.Designer.cs">
+      <DependentUpon>DataPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GPPanels\Run\RunPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\Run\RunPanel.Designer.cs">
+      <DependentUpon>RunPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ExportDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ExportDialog.Designer.cs">
+      <DependentUpon>ExportDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\NewGPModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\NewGPModel.Designer.cs">
+      <DependentUpon>NewGPModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ImportExperimentalData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\ImportExperimentalData.Designer.cs">
+      <DependentUpon>ImportExperimentalData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RunTimeTesting\GPdotNETInitialisation.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GPPanels\SettingsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GPPanels\SettingsPanel.Designer.cs">
+      <DependentUpon>SettingsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TreDrawer\TreeCtrlDrawer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TreDrawer\TreeNodeDrawer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GPdotNET.Core\GPdotNET.Core.csproj">
+      <Project>{6ac643d4-cd0c-4d1d-b5db-7fe2c967d6a5}</Project>
+      <Name>GPdotNET.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GPdotNET.Engine\GPdotNET.Engine.csproj">
+      <Project>{0331c174-17f5-4d8d-9430-5eca08c8da3f}</Project>
+      <Name>GPdotNET.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GPdotNET.Util\GPdotNET.Util.csproj">
+      <Project>{1ccaf038-91a0-4111-bc7f-60f916f739b4}</Project>
+      <Name>GPdotNET.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\GPdotNET.App\Resources_Files\FunctionSet.xml">
+      <Link>RunTimeTesting\FunctionSet.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RunTimeTesting\sample1_testdata.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RunTimeTesting\transport_problem_data.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RunTimeTesting\sample1_traindata.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RunTimeTesting\sample2.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GPPanels\AnaliticFunctionDef.resx">
+      <DependentUpon>AnaliticFunctionDef.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\ExperimentPanel.resx">
+      <DependentUpon>ExperimentPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\Run\ANNRunPanel.resx">
+      <DependentUpon>ANNRunPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\Run\BaseRunPanel.resx">
+      <DependentUpon>BaseRunPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\Run\ALOCRunPanel.resx">
+      <DependentUpon>ALOCRunPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\Run\TSPRunPanel.resx">
+      <DependentUpon>TSPRunPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\InfoPanel.resx">
+      <DependentUpon>InfoPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\Run\OptimizePanel.resx">
+      <DependentUpon>OptimizePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\PredictionPanel.resx">
+      <DependentUpon>PredictionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\ResultPanel.resx">
+      <DependentUpon>ResultPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\FunctionPanel.resx">
+      <DependentUpon>FunctionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\DataPanel.resx">
+      <DependentUpon>DataPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\Run\RunPanel.resx">
+      <DependentUpon>RunPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\ANNSettingsPanel.resx">
+      <DependentUpon>ANNSettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GPPanels\SettingsPanel.resx">
+      <DependentUpon>SettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ExportDialog.resx">
+      <DependentUpon>ExportDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\NewGPModel.resx">
+      <DependentUpon>NewGPModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ImportExperimentalData.resx">
+      <DependentUpon>ImportExperimentalData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TreDrawer\TreeCtrlDrawer.resx">
+      <DependentUpon>TreeCtrlDrawer.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <Content Include="RunTimeTesting\sample_series.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RunTimeTesting\transport_problem_data8x5.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RunTimeTesting\100x100_sample_data.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RunTimeTesting\sample1_testdata_gauss_normalizedbytrain.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RunTimeTesting\sample1_testdata_minmax_normalizedbytrain.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RunTimeTesting\sample1_traindata_gauss_normalization.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RunTimeTesting\sample1_traindata_minmax_normalization.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RunTimeTesting\sample2_categoryData.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
