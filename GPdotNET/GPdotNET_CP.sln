@@ -8,15 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assemblies", "Assemblies", "{99E251AA-8828-46DE-A1EF-F620192B2662}"
 	ProjectSection(SolutionItems) = preProject
 		Assemblies\ClosedXML.dll = Assemblies\ClosedXML.dll
-		..\Assemblies\ClosedXML.dll = ..\Assemblies\ClosedXML.dll
-		Assemblies\ClosedXML.pdb = Assemblies\ClosedXML.pdb
-		..\Assemblies\ClosedXML.pdb = ..\Assemblies\ClosedXML.pdb
-		Assemblies\DocumentFormat.OpenXml.dll = Assemblies\DocumentFormat.OpenXml.dll
-		..\Assemblies\DocumentFormat.OpenXml.dll = ..\Assemblies\DocumentFormat.OpenXml.dll
 		Assemblies\ZedGraph.dll = Assemblies\ZedGraph.dll
-		..\Assemblies\ZedGraph.dll = ..\Assemblies\ZedGraph.dll
-		Assemblies\ZedGraph.pdb = Assemblies\ZedGraph.pdb
-		..\Assemblies\ZedGraph.pdb = ..\Assemblies\ZedGraph.pdb
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPdotNET.Core", "GPdotNET.Core\GPdotNET.Core.csproj", "{6AC643D4-CD0C-4D1D-B5DB-7FE2C967D6A5}"
