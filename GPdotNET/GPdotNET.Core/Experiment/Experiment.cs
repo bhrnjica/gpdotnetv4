@@ -639,9 +639,6 @@ namespace GPdotNET.Core.Experiment
             var outputCols = GetColumnsFromOutput();
             var retVal = new double[outputCols.Count];
 
-
-            var catCount = outputCols[0].Statistics.Categories.Count;
-
             //
             int rowIndex = 0;
             for (int i = 0; i < outputCols.Count; i++)
@@ -654,14 +651,15 @@ namespace GPdotNET.Core.Experiment
                 }
                 else if (col.ColumnDataType == ColumnDataType.Categorical)
                 {
-                    //translate real value to segment of 0 to category count
-                    var val1= catCount * normalizedOutputRow[rowIndex];
-                    //assign value to
-                    for(int jj=1; jj<=catCount; jj++)
+                    //calculate sigmoid for the fitenss
+                    var val1 = Math.Exp(-1.0 * normalizedOutputRow[i]);
+                    val1 = outputCols[0].Statistics.Categories.Count * (1 / (1 + val1));
+
+                    for (int j = 1; j <= Globals.classCount; j++)
                     {
-                        if(val1<jj)
+                        if (val1 <= j)
                         {
-                            retVal[i] = jj-1;
+                            retVal[i] = j - 1;
                             break;
                         }
                     }

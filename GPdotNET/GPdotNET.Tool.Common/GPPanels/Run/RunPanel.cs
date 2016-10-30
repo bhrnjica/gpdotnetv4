@@ -79,7 +79,7 @@ namespace GPdotNET.Tool.Common
         }
         #endregion
 
-        #region Public Methdos
+        #region Public Methods
         /// <summary>
         /// Report progress of current evolution
         /// </summary>
@@ -97,7 +97,7 @@ namespace GPdotNET.Tool.Common
             
 
             //When fitness is changed, model needs to be refreshed
-            if (prevFitness < ch.Fitness && ch is GPChromosome)
+            if (prevFitness <= ch.Fitness && ch is GPChromosome)
             {
                 var chr = ch as GPChromosome;
                 currentErrorBox.Text = ch.Fitness.ToString("#.#####");

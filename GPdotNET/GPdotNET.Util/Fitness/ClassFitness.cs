@@ -75,8 +75,9 @@ namespace GPdotNET.Util
                             break;
                         }
                     }
-                    //check if the value correct 
-                    rowFitness += Globals.gpterminals.TrainingData[i][indexOutput] == valClass ? 1 : 0;
+                    //check if the value is correct 
+                    var val = Globals.gpterminals.TrainingData[i][indexOutput] == valClass ? 1 : 0;
+                    rowFitness += val;
                 }
                 else
                     throw new Exception("Problem type is unknown!");
