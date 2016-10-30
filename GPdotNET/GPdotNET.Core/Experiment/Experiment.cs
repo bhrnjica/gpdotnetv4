@@ -651,7 +651,10 @@ namespace GPdotNET.Core.Experiment
                 }
                 else if (col.ColumnDataType == ColumnDataType.Categorical)
                 {
-                    //calculate sigmoid for the fitenss
+                    //process of thranslation real value to multi-class is the folowing.
+                    //calculate sigmoid of the real value sig_y= sigmoid(y)
+                    //normalized the value nor_y=(1/(1+sig_y))
+                    //normalized value is multiply by totalnumber of the class val= classcout*nor_y
                     var val1 = Math.Exp(-1.0 * normalizedOutputRow[i]);
                     val1 = outputCols[0].Statistics.Categories.Count * (1 / (1 + val1));
 
