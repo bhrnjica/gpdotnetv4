@@ -36,13 +36,13 @@ run both on Windows and Lunux OS.</Description>
     <UpdateUrl>http://gpdotnet.codeplex.com/releases/clickonce/</UpdateUrl>
     <SupportUrl>http://gpdotnet.codeplex.com</SupportUrl>
     <ErrorReportUrl>http://gpdotnet.codeplex.com</ErrorReportUrl>
-    <ProductName>GPdotNET v3</ProductName>
+    <ProductName>GPdotNET v4 beta</ProductName>
     <PublisherName>Bahrudin Hrnjica</PublisherName>
     <SuiteName>GPdotNET</SuiteName>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>4.0.750.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -108,13 +108,13 @@ run both on Windows and Lunux OS.</Description>
     <ApplicationIcon>gpdotnet_ico48.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>C4318E85AFF33D98D6EADF746EF647BE8C06A311</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>FE2AB52C64F6B1AFB16706295D9ADCA1A9402777</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>GPdotNET.App_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -123,13 +123,11 @@ run both on Windows and Lunux OS.</Description>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <AssemblyOriginatorKeyFile>GPdotNET.App_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClosedXML">
+    <Reference Include="ClosedXML, Version=0.67.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -140,7 +138,8 @@ run both on Windows and Lunux OS.</Description>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph">
+    <Reference Include="ZedGraph, Version=5.1.5.38312, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -184,7 +183,6 @@ run both on Windows and Lunux OS.</Description>
       <SubType>Form</SubType>
     </Compile>
     <None Include="GPdotNET.App_TemporaryKey.pfx" />
-    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -224,6 +222,9 @@ run both on Windows and Lunux OS.</Description>
     </Content>
     <Content Include="Resources_Files\TransportSample1.gpa">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources_Files\GPdotNET_User_Guide.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

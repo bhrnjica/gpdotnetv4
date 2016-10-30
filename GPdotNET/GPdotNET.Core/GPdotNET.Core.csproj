@@ -46,7 +46,9 @@
   <ItemGroup>
     <Compile Include="Experiment\ColumnData.cs" />
     <Compile Include="Experiment\Experiment.cs" />
+    <Compile Include="GP Core\GPFunctionSet.cs" />
     <Compile Include="GP Core\GPModelType.cs" />
+    <Compile Include="GP Core\GPParameters.cs" />
     <Compile Include="Interfaces\IANNActivationFunction.cs" />
     <Compile Include="Interfaces\IChromosome.cs" />
     <Compile Include="Interfaces\ITimeSerie.cs" />

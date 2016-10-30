@@ -23,7 +23,7 @@ namespace GPdotNET.Tool.Common
         //Import file
         private void button1_Click(object sender, EventArgs e)
         {
-            var strFile = GPModelGlobals.GetFileFromOpenDialog();
+            var strFile = GPModelGlobals.GetFileFromOpenDialog("","");
             if (strFile == null)
                 return;
             var data = string.Join(Environment.NewLine, File.ReadAllLines(strFile).Where(l => !l.StartsWith("#") && !l.StartsWith("!")));

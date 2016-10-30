@@ -62,8 +62,8 @@ namespace GPdotNET.App
             else if (retVal == System.Windows.Forms.DialogResult.Cancel)
                 return false;
             //unscribe to events
-            if(_mainFactory!=null)
-                this._mainFactory.ReportEvolution -= new EvolutionHandler(gpFactory_ReportEvolution);
+            if(_mainGPFactory!=null)
+                this._mainGPFactory.ReportEvolution -= new EvolutionHandler(gpFactory_ReportEvolution);
             if(_secondFactory!=null)
                 this._secondFactory.ReportEvolution -= new EvolutionHandler(gpFactory_ReportEvolution);
             if (_mainANNFactory != null)
@@ -355,7 +355,7 @@ namespace GPdotNET.App
             else if (_GPModel == GPModelType.ANNMODEL)
                 newModelName = "[New Neural Network Prediction]";
             else
-                newModelName = "[newModel]";
+                newModelName = "[New GP Prediction]";
             this.Text = string.Format("{0} - {1}", _appName, newModelName);
             txtStatusMessage.Text = "Ready!";
         }
@@ -406,7 +406,7 @@ namespace GPdotNET.App
                 if (_filePath == "")
                     _filePath = GPModelGlobals.GetFileFromSaveDialog();
 
-                if (SaveToFile(_filePath))
+                if (SaveToFilev4(_filePath))
                 {
                     var fName = Path.GetFileName(_filePath);
                     this.Text = string.Format("{0} - {1}", _appName, fName);
@@ -416,7 +416,7 @@ namespace GPdotNET.App
             else if (e.ClickedItem.Text == "Save as")
             {
                 _filePath = GPModelGlobals.GetFileFromSaveDialog();
-                if (SaveToFile(_filePath))
+                if (SaveToFilev4(_filePath))
                 {
                     var fName = Path.GetFileName(_filePath);
                     this.Text = string.Format("{0} - {1}", _appName, fName);
@@ -474,7 +474,7 @@ namespace GPdotNET.App
             //export to Mathematica
             if (selectedOption == 2)
             {
-                var ch = _mainFactory.BestChromosome() as GPChromosome;
+                var ch = _mainGPFactory.BestChromosome() as GPChromosome;
                 if (ch == null)
                     return;
                 string strPath = GPModelGlobals.GetFileFromSaveDialog("Text File Format", "*.txt");
@@ -488,7 +488,7 @@ namespace GPdotNET.App
 
             else if (t != null || forceToCSV)//You are running with the Mono VM
             {
-                var ch = _mainFactory.BestChromosome() as GPChromosome;
+                var ch = _mainGPFactory.BestChromosome() as GPChromosome;
                 if (ch == null)
                     return;
                 string strPath = GPModelGlobals.GetFileFromSaveDialog("CSV File Format", "*.csv");
@@ -501,7 +501,7 @@ namespace GPdotNET.App
             }
             else//"You are running on .net"
             {
-                var ch = _mainFactory.BestChromosome() as GPChromosome;
+                var ch = _mainGPFactory.BestChromosome() as GPChromosome;
                 if (ch == null)
                     return;
                 string strPath = GPModelGlobals.GetFileFromSaveDialog("Excel File Format", "*.xlsx");
@@ -549,7 +549,7 @@ namespace GPdotNET.App
             //export to Mathematica
             if (selectedOption == 2)
             {
-                var ch = _mainFactory.BestChromosome() as GPChromosome;
+                var ch = _mainGPFactory.BestChromosome() as GPChromosome;
                 if (ch == null)
                     return;
                 string strPath = GPModelGlobals.GetFileFromSaveDialog("Text File Format", "*.txt");
@@ -563,7 +563,7 @@ namespace GPdotNET.App
 
             else if (t != null || forceToCSV)//You are running with the Mono VM
             {
-                var ch = _mainFactory.BestChromosome() as GPChromosome;
+                var ch = _mainGPFactory.BestChromosome() as GPChromosome;
                 if (ch == null)
                     return;
                 string strPath = GPModelGlobals.GetFileFromSaveDialog("CSV File Format", "*.csv");
@@ -578,7 +578,7 @@ namespace GPdotNET.App
             {
 
 
-                var ch = _mainFactory.BestChromosome() as GPChromosome;
+                var ch = _mainGPFactory.BestChromosome() as GPChromosome;
                 if (ch == null)
                     return;
                 string strPath = GPModelGlobals.GetFileFromSaveDialog("Excel File Format", "*.xlsx");
@@ -812,9 +812,17 @@ namespace GPdotNET.App
                 _resultPanel.SetConstants(_setPanel.Constants);
 
                 //Define GP Terminals
-                GPTerminalSet gpTSet = GPModelGlobals.GenerateTerminalSet(_dataPanel.Training, //training data
-                                                                            _setPanel.Constants, // random constant
-                                                                            _dataPanel.Testing); // data for testing and prediction
+                var trainigData = _dataPanel != null ? _dataPanel.Training : _experimentPanel.GetTrainingData();
+                var testingData = _dataPanel != null ? _dataPanel.Testing : _experimentPanel.GetTestingData();
+                
+                //
+                GPTerminalSet gpTSet = GPModelGlobals.GenerateTerminalSet(trainigData, //training data
+                                                                          _setPanel.Constants, // random constant
+                                                                          testingData); // data for testing and prediction
+                //calculate class count
+                
+                Globals.classCount= _experimentPanel==null? 0: _experimentPanel.GetClassCount();
+
                 //Deine GP function set
                 GPFunctionSet gpFSet = new GPFunctionSet();
                 gpFSet.SetFunction(_funPanel.GPFunctions);
@@ -826,6 +834,9 @@ namespace GPdotNET.App
                 if (_optimizePanel != null)
                     _optimizePanel.FillTerminalBounds(ter.Where(x => x.Value.Name.Contains("X")).Select(x => x.Value.Name).ToList());
 
+                //Set experimental var if it is GPMOdel type
+                if(_GPModel== GPModelType.GPMODEL)
+                    _mainGPFactory.m_Experiment = _experimentPanel.Experiment;
 
                 if (brunFactory)
                 {
@@ -833,13 +844,13 @@ namespace GPdotNET.App
                     _runningEngine = 1;
 
                     //Call prepare algorithm
-                    _mainFactory.PrepareAlgorithm(gpTSet, gpFSet, gpp);
+                    _mainGPFactory.PrepareAlgorithm(gpTSet, gpFSet, gpp);
                 }
                 else
                 {
-                    _mainFactory.SetTerminalSet(gpTSet);
-                    _mainFactory.SetFunctionSet(gpFSet);
-                    _mainFactory.SetGPParameter(gpp);
+                    _mainGPFactory.SetTerminalSet(gpTSet);
+                    _mainGPFactory.SetFunctionSet(gpFSet);
+                    _mainGPFactory.SetGPParameter(gpp);
                 }
 
 
@@ -865,9 +876,9 @@ namespace GPdotNET.App
             //GA parameters
             GPParameters gpp;
 
-            if (_mainFactory != null)
+            if (_mainGPFactory != null)
             {
-                gpp = _mainFactory.GetParameters();
+                gpp = _mainGPFactory.GetParameters();
                 if (gpp == null)
                 {
                     MessageBox.Show("Before optimization, GPModel must be created!");
@@ -939,8 +950,8 @@ namespace GPdotNET.App
             else
             {
                 //Declare terminals
-                gpTSet = _mainFactory.GetTerminalSet();
-                gpFSet = _mainFactory.GetFunctionSet(); 
+                gpTSet = _mainGPFactory.GetTerminalSet();
+                gpFSet = _mainGPFactory.GetFunctionSet(); 
                 tt =gpFSet.GetTerminals();
 
                 //Define terminals 
@@ -1032,13 +1043,13 @@ namespace GPdotNET.App
                     _runningEngine = 1;
 
                     //Call prepare algorithm
-                    _mainFactory.PrepareAlgorithm(gpTSet, gpFSet, gpp);
+                    _mainGPFactory.PrepareAlgorithm(gpTSet, gpFSet, gpp);
                 }
                 else
                 {
-                    _mainFactory.SetTerminalSet(gpTSet);
-                    _mainFactory.SetFunctionSet(gpFSet);
-                    _mainFactory.SetGPParameter(gpp);
+                    _mainGPFactory.SetTerminalSet(gpTSet);
+                    _mainGPFactory.SetFunctionSet(gpFSet);
+                    _mainGPFactory.SetGPParameter(gpp);
                 }
 
 
@@ -1091,13 +1102,13 @@ namespace GPdotNET.App
                     _runningEngine = 1;
 
                     //Call prepare algorithm
-                    _mainFactory.PrepareAlgorithm(gpTSet, gpFSet, gpp);
+                    _mainGPFactory.PrepareAlgorithm(gpTSet, gpFSet, gpp);
                 }
                 else
                 {
-                    _mainFactory.SetTerminalSet(gpTSet);
-                    _mainFactory.SetFunctionSet(gpFSet);
-                    _mainFactory.SetGPParameter(gpp);
+                    _mainGPFactory.SetTerminalSet(gpTSet);
+                    _mainGPFactory.SetFunctionSet(gpFSet);
+                    _mainGPFactory.SetGPParameter(gpp);
                 }
 
 
@@ -1151,13 +1162,13 @@ namespace GPdotNET.App
                     _runningEngine = 1;
 
                     //Call prepare algorithm
-                    _mainFactory.PrepareAlgorithm(gpTSet, gpFSet, gpp);
+                    _mainGPFactory.PrepareAlgorithm(gpTSet, gpFSet, gpp);
                 }
                 else
                 {
-                    _mainFactory.SetTerminalSet(gpTSet);
-                    _mainFactory.SetFunctionSet(gpFSet);
-                    _mainFactory.SetGPParameter(gpp);
+                    _mainGPFactory.SetTerminalSet(gpTSet);
+                    _mainGPFactory.SetFunctionSet(gpFSet);
+                    _mainGPFactory.SetGPParameter(gpp);
                 }
 
 
@@ -1248,6 +1259,14 @@ namespace GPdotNET.App
                     if (PrepareANN())
                         _runANN(_runANNPanel, GPRunType.ANNMODSolver);
                     break;
+                case GPModelType.GPMODEL:
+                    if (PrepareGP())
+                    {
+                       
+                        _runGP(_runPanel, GPRunType.GPMODSolver);
+                    }
+                        
+                    break;
                 default:
                     break;
             }
@@ -1280,15 +1299,15 @@ namespace GPdotNET.App
                 int tt = pn.TerminationType;
                 UpdateGUI(1);
                 if (gpTYpe == GPRunType.GPMODSolver)
-                    tsk = new Task(() => _mainFactory.StartEvolution(tv, tt));
+                    tsk = new Task(() => _mainGPFactory.StartEvolution(tv, tt));
                 else if (gpTYpe == GPRunType.GAOPTSolver)
                     tsk = new Task(() => _secondFactory.StartEvolution(tv, tt));
                 else if (gpTYpe == GPRunType.GATSPSolver)
-                    tsk = new Task(() => _mainFactory.StartEvolution(tv, tt));
+                    tsk = new Task(() => _mainGPFactory.StartEvolution(tv, tt));
                 else if (gpTYpe == GPRunType.GAAPSolver)
-                    tsk = new Task(() => _mainFactory.StartEvolution(tv, tt));
+                    tsk = new Task(() => _mainGPFactory.StartEvolution(tv, tt));
                 else
-                    tsk = new Task(() => _mainFactory.StartEvolution(tv, tt));
+                    tsk = new Task(() => _mainGPFactory.StartEvolution(tv, tt));
                 //
                 tsk.Start();
 
@@ -1301,6 +1320,7 @@ namespace GPdotNET.App
             }
             catch (Exception ex)
             {
+                _runningEngine = 0;
                 MessageBox.Show(ex.Message);
             } 
 
@@ -1408,7 +1428,7 @@ namespace GPdotNET.App
 
             if (_runPanel != null && _runningEngine == 1)
             {
-                _runPanel.ReportProgress(e.CurrentIteration, e.AverageFitness, e.BestChromosome, (int)e.ReportType);
+                _runPanel.ReportProgress(e.CurrentIteration, e.AverageFitness, e.BestChromosome, (int)e.ReportType, e.LearnOutput);
             }
 
             if (_runANNPanel != null && _runningEngine == 1)
@@ -1437,7 +1457,7 @@ namespace GPdotNET.App
                 _resultPanel.ReportProgress(e.CurrentIteration, e.AverageFitness, e.BestChromosome , (int)e.ReportType);
 
             if (_predictionPanel != null && _runningEngine == 1 && _runANNPanel==null)
-                _predictionPanel.ReportProgress(e.CurrentIteration, e.AverageFitness, e.BestChromosome as GPChromosome, (int)e.ReportType);
+                _predictionPanel.ReportProgress(e.CurrentIteration, e.AverageFitness, e.BestChromosome as GPChromosome, (int)e.ReportType, e.PredicOutput);
 
             if (_predictionPanel != null && _runningEngine == 1 && _runANNPanel != null)
                 _predictionPanel.ReportANNProgress(e.CurrentIteration, e.LearningError, e.PredicOutput, (int)e.ReportType);
@@ -1546,8 +1566,8 @@ namespace GPdotNET.App
         {
             _bgpRuning = 0;
 
-            if (!GPFactory.StopEvolution)
-                GPFactory.StopEvolution = true;
+            if (!GPFactory.StopIteration)
+                GPFactory.StopIteration = true;
             else 
            {
                _runningEngine = 0;

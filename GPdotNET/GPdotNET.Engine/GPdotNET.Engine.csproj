@@ -71,11 +71,11 @@
     <Compile Include="ANN\BPNeuralNetwork.cs" />
     <Compile Include="PSO\Particles.cs" />
     <Compile Include="Solvers\AIFactory.cs" />
+    <Compile Include="Solvers\GPFactoryClass.cs" />
     <Compile Include="Solvers\PSOFactory.cs" />
     <Compile Include="Solvers\BPFactory.cs" />
     <Compile Include="Solvers\GPFactory.cs" />
-    <Compile Include="GPFunctionSet.cs" />
-    <Compile Include="GPParameters.cs" />
+    <None Include="GPFunctionSet.cs" />
     <Compile Include="CHPopulation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="ReportCurrentEvolution.cs" />

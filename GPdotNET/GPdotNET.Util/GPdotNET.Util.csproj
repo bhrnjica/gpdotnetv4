@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML">
-      <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Assemblies\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,13 +46,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph">
-      <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExcelHelper.cs" />
     <Compile Include="Fitness\FintessFunctions.cs" />
+    <Compile Include="Fitness\ClassFitness.cs" />
     <Compile Include="Fitness\MAEFitness.cs" />
     <Compile Include="Fitness\MSEFitness.cs" />
     <Compile Include="Fitness\RAEFitness.cs" />

@@ -280,7 +280,11 @@ namespace GPdotNET.Util
             return tsk.GetAwaiter().GetResult().Name;
 #else
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = string.Format("{1} ({0})|{0}|All files (*.*)|*.*", extension, fileDescription);
+            if(string.IsNullOrEmpty(extension))
+                dlg.Filter = "Plain text files (*.csv;*.txt;*.dat)|*.csv;*.txt;*.dat |All files (*.*)|*.*";
+            else
+                dlg.Filter = string.Format("{1} ({0})|{0}|All files (*.*)|*.*", extension, fileDescription);
+            //
             if (dlg.ShowDialog() == DialogResult.OK)
                 return dlg.FileName;
             else

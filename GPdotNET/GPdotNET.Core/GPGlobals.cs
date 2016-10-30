@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace GPdotNET.Core
 {
@@ -25,9 +26,11 @@ namespace GPdotNET.Core
         public static int StartFunctionIndex = 2000;
 
         public static ThreadSafeRandom radn = new ThreadSafeRandom();
-
+        //in case of GP MUltyClass problem class ount
+        public static int classCount = 0;
         public static GPTerminalSet gpterminals;
         public static IFunctionSet functions;
+        public static GPParameters gpparameters;
 
 
         /// <summary>
@@ -68,6 +71,7 @@ namespace GPdotNET.Core
         /// <returns></returns>
         public static int GetFunctionAritry(int funID)
         {
+            validateFunctionSet();
             funID -= 2000;
             int retVal = functions.GetAritry(funID);
             if(retVal==-1)
@@ -75,6 +79,9 @@ namespace GPdotNET.Core
 
             return retVal;
         }
+
+        
+
 
         /// <summary>
         /// Return the number of terminals
@@ -140,6 +147,7 @@ namespace GPdotNET.Core
         //String representation of GPNode
         public static string GetGPNodeStringRep(int nodeId)
         {
+            validateFunctionSet();
             //function
             if (IsFunction(nodeId))
             {
@@ -157,6 +165,8 @@ namespace GPdotNET.Core
         //String representation of GPNode
         public static int GetNodeValueFromStringRep(string content)
         {
+            validateFunctionSet();
+
             var n=content[0].ToString().ToLower();
             //terminal can be defined with x or r.
             if (n=="x" || n=="r")
@@ -175,7 +185,11 @@ namespace GPdotNET.Core
         //Calculate model agains specific data 
         public static double[] CalculateGPModel(GPNode node, bool btrainingData=true)
         {
+            validateFunctionSet();
             double[][] data = btrainingData ? gpterminals.TrainingData : gpterminals.TestingData;
+
+            if (data == null)
+                return null;
 
             var model = new double[data.Length];
             for (int i = 0; i < data.Length; i++)
@@ -194,6 +208,68 @@ namespace GPdotNET.Core
                return  gpterminals.TrainingData.Length;
             else
               return  gpterminals.TestingData.Length;
+        }
+        private static void validateFunctionSet()
+        {
+            if (functions != null && functions.GetFunctions() != null)
+                return;
+            var fs = new GPFunctionSet();
+            var fnsc = GenerateGPFunctionsFromXML();
+            fs.SetFunction(fnsc);
+            functions = fs;
+        }
+        public static Dictionary<int, GPFunction> GenerateGPFunctionsFromXML()
+        {
+            try
+            {
+                var q= GetFunctionsFromXML();
+                var retval = q.ToDictionary(v => v.ID, v => v);
+                return retval;
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Fiel not exist!");
+            }
+
+        }
+        public static List<GPFunction> GetFunctionsFromXML()
+        {
+            try
+            {
+                // Loading from a file, you can also load from a stream
+                var doc = XDocument.Load("Assets\\FunctionSet.xml");
+                // 
+                var q = from c in doc.Descendants("FunctionSet")
+                        select new GPFunction
+                        {
+
+                            Selected = bool.Parse(c.Element("Selected").Value),
+                            Weight = int.Parse(c.Element("Weight").Value),
+                            Name = c.Element("Name").Value,
+                            Definition = c.Element("Definition").Value,
+                            ExcelDefinition = c.Element("ExcelDefinition").Value,
+                            Aritry = ushort.Parse(c.Element("Aritry").Value),
+                            Description = c.Element("Description").Value,
+                            IsReadOnly = bool.Parse(c.Element("ReadOnly").Value),
+                            IsDistribution = bool.Parse(c.Element("IsDistribution").Value),
+                            ID = ushort.Parse(c.Element("ID").Value)
+
+                        };
+                var retval = q.Where(p => p.Selected == true).ToList();
+                return retval;
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("File not exist!");
+            }
+        }
+
+        public static GPFunctionSet GetFunctionSet()
+        {
+            validateFunctionSet();
+            return functions as GPFunctionSet;
         }
     }
 }

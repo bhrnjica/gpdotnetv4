@@ -15,6 +15,20 @@ namespace GPdotNET.Core.Experiment
         public string ColType { get; set; }
         public string ParamType { get; set; }
         public string NormType { get; set; }
+        public string MissingValue { get; set; }
+        public override string ToString()
+        {
+            string retVal = "";
+            retVal += ColIndex.ToString(CultureInfo.InvariantCulture)+";";
+            retVal += ColName + ";";
+            retVal += ColType + ";";
+            retVal += ParamType + ";";
+            retVal += NormType + ";";
+            retVal += MissingValue;
+
+            return retVal;
+        }
+        
     }
 
     //Statistic for ColumnData
@@ -56,6 +70,14 @@ namespace GPdotNET.Core.Experiment
         Ignored, // ignore columns in modelling
     }
 
+    public enum MissingRowValue
+    {
+        Ignore,//remove the row from the experiment
+        Average,//recalculate the column and put average value in all missing rows
+        Max,//recalculate the column and put Max value in all missing rows
+        Min //recalculate the column and put Min value in all missing rows
+    }
+
     /// <summary>
     /// Represent the variable of the experiment.
     /// </summary>
@@ -66,7 +88,7 @@ namespace GPdotNET.Core.Experiment
         ColumnDataType      m_ColType;//type of the column
         ParameterType       m_ParamType;
         Statistics          m_Statistics;//statistic of the column
-
+        MissingRowValue        m_MissingValue; //MissingValue in row 
         string[]            m_RealValues;//real  column value exstracted from the file in string format
         double[]            m_NumericValues;//if the colum  is numeric it holds numeric representation of the real value
         double[][]          m_NormalizedValues;// before apply to the solver column has to be normalized
@@ -87,7 +109,9 @@ namespace GPdotNET.Core.Experiment
         public string           Name { get; set; }//Name of the column in experiment
         internal int            RowCount { get { return m_RealValues==null ? 0 : m_RealValues.Length; } }
         public ColumnDataType   ColumnDataType { get { return m_ColType; } set { m_ColType = value; } }
-        internal Statistics     Statistics { get { return m_Statistics; } }
+        public Statistics     Statistics { get { return m_Statistics; } }
+
+        internal MissingRowValue MissingValue { get { return m_MissingValue; } set { m_MissingValue = value; } }
         #endregion
 
         #region Internal Methods
@@ -287,9 +311,29 @@ namespace GPdotNET.Core.Experiment
             if (m_Statistics == null)
                 m_Statistics = new Statistics();
 
-            m_Statistics.Mean = m_NumericValues.Average();
-            m_Statistics.Max = m_NumericValues.Max();
-            m_Statistics.Min = m_NumericValues.Min();
+            m_Statistics.Mean = m_NumericValues.Where(x => !double.IsNaN(x)).Average();
+            m_Statistics.Max = m_NumericValues.Where(x => !double.IsNaN(x)).Max();
+            m_Statistics.Min = m_NumericValues.Where(x => !double.IsNaN(x)).Min();
+
+            //replace missingValues
+            for(int i=0; i<m_NumericValues.Length; i++)
+            {
+                if(double.IsNaN(m_NumericValues[i]))
+                {
+                    if (m_MissingValue == MissingRowValue.Average)
+                        m_NumericValues[i] = Statistics.Mean;
+                    else if (m_MissingValue == MissingRowValue.Max)
+                        m_NumericValues[i] = Statistics.Max;
+                    else if (m_MissingValue == MissingRowValue.Min)
+                        m_NumericValues[i] = Statistics.Min;
+                    else
+                        throw new Exception("Missing value for column="+ Name+" is not defined.");
+
+                    setRealValueFromNumeric(i, m_NumericValues[i]);
+                }
+            }
+            
+                
 
             //calculate median= middle value from the array
             int middleIndex = (int)Math.Ceiling((double)m_NumericValues.Length / 2.0);
@@ -302,11 +346,39 @@ namespace GPdotNET.Core.Experiment
             double sum = 0;
             for (int i = 0; i < m_NumericValues.Length; i++)
             {
+                if (double.IsNaN(m_NumericValues[i]))
+                    continue;
                 var d = (m_NumericValues[i] - m_Statistics.Mean);
                 sum += d * d;
             }
 
             m_Statistics.StdDev = Math.Sqrt(sum / m_NumericValues.Length);
+        }
+
+        private void setRealValueFromNumeric(int index, double value)
+        {
+            switch (m_ColType)
+            {
+                case ColumnDataType.Unknown:
+                    throw new Exception("Column type is not known.");
+                case ColumnDataType.Numeric:
+                    m_RealValues[index] = value.ToString();
+                    break;
+                case ColumnDataType.Binary:
+                    if(value<0.5)
+                        m_RealValues[index]= Statistics.Categories[0];
+                    else
+                        m_RealValues[index] = Statistics.Categories[1];
+                    break;
+                case ColumnDataType.Categorical:
+                    int cat=(int)value;
+                    if(cat>Statistics.Categories.Count-1)
+                        cat=Statistics.Categories.Count-1;
+                    m_RealValues[index] = Statistics.Categories[cat];
+                    break;
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -413,6 +485,8 @@ namespace GPdotNET.Core.Experiment
                 double v;
                 if (double.TryParse(str, NumberStyles.Number, CultureInfo.InvariantCulture, out v))
                     m_NumericValues[i] = v;
+                else if(str=="n/a")
+                    m_NumericValues[i] = double.NaN;
                 else
                     throw new Exception("The Values of " + Name + " column cannot be converted to numeric value. Try to change the type of the column.");
             }
@@ -458,7 +532,7 @@ namespace GPdotNET.Core.Experiment
             List<string> classes = null;
             if (stat == null)
             {
-                classes = m_RealValues.Distinct().OrderBy(x => x).ToList();
+                classes = m_RealValues.Where(x => x != "n/a").Distinct().OrderBy(x => x).ToList();
                 if (m_Statistics == null)
                     m_Statistics = new Statistics();
                 m_Statistics.Categories = classes;
@@ -482,6 +556,8 @@ namespace GPdotNET.Core.Experiment
                     m_NumericValues[i] = classes.IndexOf(c);
                     m_NormalizedValues[i][0]= m_NumericValues[i];
                 }
+                else if(val=="n/a" && m_MissingValue!= MissingRowValue.Ignore)
+                    m_NumericValues[i] = double.NaN;//missing value
                 else
                     throw new Exception("Data in " + Name + " column cannot be null.");
             }
@@ -512,7 +588,7 @@ namespace GPdotNET.Core.Experiment
             List<string> classes = null;
             if (stat == null)
             {
-                classes = m_RealValues.Distinct().OrderBy(x => x).ToList();
+                classes = m_RealValues.Where(x=>x!="n/a").Distinct().OrderBy(x => x).ToList();
                 if (m_Statistics == null)
                     m_Statistics = new Statistics();
                 m_Statistics.Categories = classes;
@@ -530,6 +606,8 @@ namespace GPdotNET.Core.Experiment
                 {
                     m_NumericValues[i] = classes.IndexOf(c);
                 }
+                else if(val=="n/a" && m_MissingValue!= MissingRowValue.Ignore)
+                    m_NumericValues[i] = double.NaN;//missing value
                 else
                     throw new Exception("Data in " + Name + " column cannot be null.");
             }

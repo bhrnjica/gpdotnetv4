@@ -33,7 +33,7 @@ namespace GPdotNET.Tool.Common
             PrepareGraphs();
         }
         #endregion
-
+ 
         #region Protected and Private methods
 
         /// <summary>
@@ -87,11 +87,12 @@ namespace GPdotNET.Tool.Common
         /// <param name="avgFitness"></param>
         /// <param name="ch"></param>
         /// <param name="runType"></param>
-        public override void ReportProgress(int currentEvoution, float avgFitness, IChromosome ch, int runType)
+        public void ReportProgress(int currentEvoution, float avgFitness, IChromosome ch, int runType, double [][] model)
         {
             if (ch == null)
                 return;
-            base.ReportProgress(currentEvoution, avgFitness, ch, runType);
+
+            ReportProgress(currentEvoution, avgFitness, ch, runType);
 
             
 
@@ -102,9 +103,14 @@ namespace GPdotNET.Tool.Common
                 currentErrorBox.Text = ch.Fitness.ToString("#.#####");
                 prevFitness = ch.Fitness;
                 bestFitnessAtGenerationEditBox.Text = currentEvoution.ToString();
+                if(model==null)
+                {
+                    var pts = GPdotNET.Core.Globals.CalculateGPModel(chr.expressionTree);
+                    UpdateChartDataPoint(pts);
 
-                var pts = GPdotNET.Core.Globals.CalculateGPModel(chr.expressionTree);
-                UpdateChartDataPoint(pts);
+                }
+                else
+                  UpdateChartDataPoint(model[0]);
 
             }
 
@@ -136,9 +142,43 @@ namespace GPdotNET.Tool.Common
             this.zedModel.Refresh();
         }
 
-        
+        /// <summary>
+        /// Uodate GP Model chart when data or GP model is changed
+        /// </summary>
+        /// <param name="y">output value</param>
+        /// <param name="gpModel"> indicator is it about GPMOdel or Data Point</param>
+        public void UpdateChartDataPoint(double[][] y, bool gpModel = true)
+        {
+            if (this.zedModel.GraphPane == null || y == null)
+                return;
 
-#endregion
+            LineItem li = null;
+            if (gpModel)//ann calculated data
+            {
+                li = gpModelLine;
+                li.Clear();
+                for (int i = 0; i < y[0].Length; i++)
+                    li.AddPoint(i + 1, y[0][i]);
+            }
+
+            else//experimental data
+            {
+                li = gpDataLine;
+                li.Clear();
+                for (int i = 0; i < y.Length; i++)
+                    li.AddPoint(i + 1, y[i][1]);
+            }
+
+
+            this.zedModel.GraphPane.AxisChange(this.CreateGraphics());
+            this.zedModel.Refresh();
+
+
+
+        }
+
+
+        #endregion
 
         /// <summary>
         /// Resets previous solution

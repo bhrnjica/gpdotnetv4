@@ -19,6 +19,12 @@ using GPdotNET.Core.Experiment;
 using GPdotNET.Engine.PSO;
 namespace GPdotNET.Engine.ANN
 {
+    public enum LearningAlgoritm
+    {
+        BP,
+        PSO,
+        GA
+    }
     public class ANNParameters
     {
         //Number of iterations
@@ -45,6 +51,9 @@ namespace GPdotNET.Engine.ANN
         public NormalizationType m_inputNormalization;
         public NormalizationType m_outputNormalization;
 
+        public LearningAlgoritm m_LearningAlgo;
+
+
         //Problem type
         public bool m_IsClasificationProblem;
 
@@ -52,6 +61,7 @@ namespace GPdotNET.Engine.ANN
         public ANNParameters()
         {
             //
+            m_LearningAlgo = LearningAlgoritm.BP;
             m_PSOParameters = new PSOParameters();
             m_IsClasificationProblem = false;
             m_Momentum = 0.4;

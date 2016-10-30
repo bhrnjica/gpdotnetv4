@@ -28,7 +28,7 @@ namespace GPdotNET.Engine
         internal IChromosome bestChromosome;
 
         private IFitnessFunction fitnessFunction;
-        private GPParameters gpParameters;
+       // private GPParameters gpParameters;
         private IFunctionSet functionSet;
   
         public float fitnessAvg{get;set;}
@@ -59,19 +59,19 @@ namespace GPdotNET.Engine
         {
             
             if (gpParams == null)
-                gpParameters = new GPParameters();
+                Globals.gpparameters = new GPParameters();
             else
-                gpParameters = gpParams;
+                Globals.gpparameters = gpParams;
 
-            if (gpParameters.algorithmType == Algorithm.GA)
+            if (Globals.gpparameters.algorithmType == Algorithm.GA)
             {
-                if (gpParameters.chromosomeKind == GAChromosome.Continue)
+                if (Globals.gpparameters.chromosomeKind == GAChromosome.Continue)
                     GANumChromosome.functionSet = funSet;
-                else if (gpParameters.chromosomeKind == GAChromosome.TSP)
+                else if (Globals.gpparameters.chromosomeKind == GAChromosome.TSP)
                     GAVChromosome.functionSet = funSet;
-                else if (gpParameters.chromosomeKind == GAChromosome.ALOC)
+                else if (Globals.gpparameters.chromosomeKind == GAChromosome.ALOC)
                     GAVChromosome.functionSet = funSet;
-                else if (gpParameters.chromosomeKind == GAChromosome.TP)
+                else if (Globals.gpparameters.chromosomeKind == GAChromosome.TP)
                 {
                     GAMChromosome.terminalSet = termSet;
                     GAMChromosome.functionSet = funSet;
@@ -80,10 +80,13 @@ namespace GPdotNET.Engine
                     GABinChromosome.functionSet = funSet;
             }
             else
-            GPChromosome.MaxOperationLevel = gpParameters.maxOperationLevel;
-            
+            GPChromosome.MaxOperationLevel = Globals.gpparameters.maxOperationLevel;
 
-            fitnessFunction = gpParameters.GPFitness;
+            //init default fitness type
+            if (Globals.gpparameters.GPFitness == null)
+                Globals.gpparameters.GPFitness = new RMSEFitness();
+
+            fitnessFunction = Globals.gpparameters.GPFitness;
 
 
             if (funSet == null)
@@ -99,17 +102,17 @@ namespace GPdotNET.Engine
             else
                 Globals.gpterminals = termSet;
 
-            var siz = gpParameters.popSize - chromosomes.Count;
+            var siz = Globals.gpparameters.popSize - chromosomes.Count;
             if(siz>0)
                 GeneratePopulation(siz);
         }
 
         private void GeneratePopulation(int popSize)
         {
-            if (gpParameters.algorithmType == Algorithm.GA)
+            if (Globals.gpparameters.algorithmType == Algorithm.GA)
                GAInitialization(popSize);
             else
-                switch (gpParameters.einitializationMethod)
+                switch (Globals.gpparameters.einitializationMethod)
                 {
                     case GPInitializationMethod.FullInitialization:
                         FullInitialization(popSize);
@@ -140,15 +143,15 @@ namespace GPdotNET.Engine
             {
                 IChromosome c;
                 // generate new chromosome
-                if(gpParameters.chromosomeKind== GAChromosome.Continue)
+                if(Globals.gpparameters.chromosomeKind== GAChromosome.Continue)
                     c = GenerateGANumChromosome();
-                else if (gpParameters.chromosomeKind == GAChromosome.Binary)
+                else if (Globals.gpparameters.chromosomeKind == GAChromosome.Binary)
                     c = GenerateGABinChromosome();
-                else if (gpParameters.chromosomeKind == GAChromosome.TSP)
+                else if (Globals.gpparameters.chromosomeKind == GAChromosome.TSP)
                     c = GenerateGATSPChromosome();
-                else if (gpParameters.chromosomeKind == GAChromosome.ALOC)
+                else if (Globals.gpparameters.chromosomeKind == GAChromosome.ALOC)
                     c = GenerateGAAlocChromosome();
-                else if (gpParameters.chromosomeKind == GAChromosome.TP)
+                else if (Globals.gpparameters.chromosomeKind == GAChromosome.TP)
                     c = GenerateGAMatrixChromosome();
                 else
                     c = GenerateGATSPChromosome();
@@ -281,19 +284,19 @@ namespace GPdotNET.Engine
         {
 
             //if mutation is definded
-            if (gpParameters.probCrossover == 0)
+            if (Globals.gpparameters.probCrossover == 0)
                 return;
-            for (int i = 1; i < gpParameters.popSize; i += 2)
+            for (int i = 1; i < Globals.gpparameters.popSize; i += 2)
             {
                
-                if (Globals.radn.NextDouble() <= gpParameters.probCrossover)
+                if (Globals.radn.NextDouble() <= Globals.gpparameters.probCrossover)
                 {
-                    int k = Globals.radn.Next(0, gpParameters.popSize);
-                    int l = Globals.radn.Next(0, gpParameters.popSize);
+                    int k = Globals.radn.Next(0, Globals.gpparameters.popSize);
+                    int l = Globals.radn.Next(0, Globals.gpparameters.popSize);
 
                     int counter = 1;
                     //brood size rrecombination
-                    while(counter<=gpParameters.broodSize)
+                    while(counter<= Globals.gpparameters.broodSize)
                     {
                         // cloning the chromosome and prepare for crossover
                         var ch1 = chromosomes[k].Clone();
@@ -324,14 +327,14 @@ namespace GPdotNET.Engine
         public void Mutate()
         {
             //if mutation is definded
-            if (gpParameters.probMutation == 0)
+            if (Globals.gpparameters.probMutation == 0)
                 return;
-            for (int i = 0; i < gpParameters.popSize; i++)
+            for (int i = 0; i < Globals.gpparameters.popSize; i++)
             {
                 // 
-                if (Globals.radn.NextDouble() <= gpParameters.probMutation)
+                if (Globals.radn.NextDouble() <= Globals.gpparameters.probMutation)
                 {
-                    int k = Globals.radn.Next(0, gpParameters.popSize);
+                    int k = Globals.radn.Next(0, Globals.gpparameters.popSize);
                     var ch1 = chromosomes[k].Clone();
                    
                     ch1.Mutate();
@@ -348,7 +351,7 @@ namespace GPdotNET.Engine
         public void EvaluatePopulation()
         {
             //Use parallel only with GP 
-            if (gpParameters.bParalelGP && gpParameters.algorithmType==Algorithm.GP)
+            if (Globals.gpparameters.bParalelGP && Globals.gpparameters.algorithmType==Algorithm.GP)
             {
                 int count = chromosomes.Count;
                 System.Threading.Tasks.Parallel.For(0, count, (i) =>
@@ -411,7 +414,7 @@ namespace GPdotNET.Engine
         public int GetMaxOperationLevel()
         {
             
-            return gpParameters.maxOperationLevel;
+            return Globals.gpparameters.maxOperationLevel;
         }
 
         /// <summary>
@@ -421,7 +424,7 @@ namespace GPdotNET.Engine
         /// <returns>Maximum lelev</returns>
         public int GetMaxInitializeLevel()
         {
-            return gpParameters.maxInitLevel;
+            return Globals.gpparameters.maxInitLevel;
         }
         
         /// <summary>
@@ -444,7 +447,7 @@ namespace GPdotNET.Engine
             // na osnovu vjerojatnosti selekcije izračunamo broj hromosoma koji prezivljavaju 
             // u narednu generaciju npr ako je 5% vjerojatnost Selekcije tada ako je 100 velicina populacije 
             // tada 5 hromosoma prelazi u novu generaciju
-            int repNumber = (int)(gpParameters.probReproduction * gpParameters.popSize);
+            int repNumber = (int)(Globals.gpparameters.probReproduction * Globals.gpparameters.popSize);
 
             //remove all bad chromosomes
             chromosomes.RemoveAll(ch =>
@@ -465,16 +468,16 @@ namespace GPdotNET.Engine
 
             //Elitism number of very best chromosome to survive to new generation
             List<IChromosome> elist = null;
-            if (gpParameters.elitism > 0)
+            if (Globals.gpparameters.elitism > 0)
             {
                 elist = new List<IChromosome>();
-                for (int i = 0; i < gpParameters.elitism; i++)
+                for (int i = 0; i < Globals.gpparameters.elitism; i++)
                     elist.Add(chromosomes[i].Clone());
             }
 
             // vrsenje selekcije odredjenom metodom
-            int numb = gpParameters.popSize - repNumber - gpParameters.elitism;
-            switch (gpParameters.eselectionMethod)
+            int numb = Globals.gpparameters.popSize - repNumber - Globals.gpparameters.elitism;
+            switch (Globals.gpparameters.eselectionMethod)
             {
                 case GPSelectionMethod.FitnessProportionateSelection:
                     FitnessProportionateSelection(numb);
@@ -500,12 +503,12 @@ namespace GPdotNET.Engine
             }
 
 
-            if (gpParameters.elitism > 0)
+            if (Globals.gpparameters.elitism > 0)
                 chromosomes.AddRange(elist);
             
             //SOmtimes there is no good chromosomes so we need to generate a new
-            if (chromosomes.Count< gpParameters.popSize)
-                GeneratePopulation(gpParameters.popSize - chromosomes.Count);
+            if (chromosomes.Count< Globals.gpparameters.popSize)
+                GeneratePopulation(Globals.gpparameters.popSize - chromosomes.Count);
 
         }
         /// <summary>
@@ -628,14 +631,14 @@ namespace GPdotNET.Engine
         {
             // velicinaPopulacije of current chromosomes
             int currentSize = chromosomes.Count;
-            List<IChromosome> tourn = new List<IChromosome>((int)gpParameters.SelParam1);
+            List<IChromosome> tourn = new List<IChromosome>((int)Globals.gpparameters.SelParam1);
             // new chromosomes, initially empty
             List<IChromosome> newPopulation = new List<IChromosome>();
 
             for (int j = 0; j < size; j++)
             {
                 currentSize = chromosomes.Count;
-                for (int i = 0; i < gpParameters.SelParam1 && i < currentSize; i++)
+                for (int i = 0; i < Globals.gpparameters.SelParam1 && i < currentSize; i++)
                 {
                     int ind = Globals.radn.Next(currentSize);
                     tourn.Add(chromosomes[ind]);
@@ -750,7 +753,7 @@ namespace GPdotNET.Engine
             // new chromosomes, initially empty
             List<IChromosome> newPopulation = new List<IChromosome>();
             //  double k = 0.2; //additionalParameter;
-            double fitnessMax = chromosomes.Max(x => x.Fitness) * (1.0 + gpParameters.SelParam1);
+            double fitnessMax = chromosomes.Max(x => x.Fitness) * (1.0 + Globals.gpparameters.SelParam1);
             for (int i = 0; i < size; i++)
             {
                 //Slucajni index iz populacije
@@ -762,7 +765,7 @@ namespace GPdotNET.Engine
                 {
 
                     //Akoje slucajno generirani broj manji ili jednak fitnesu slucajnog hromosoma selektuj hromosom
-                    if (randomFitness <= chromosomes[randomIndex].Fitness * (1.0 + gpParameters.SelParam1 / fitnessMax))
+                    if (randomFitness <= chromosomes[randomIndex].Fitness * (1.0 + Globals.gpparameters.SelParam1 / fitnessMax))
                     {
                         newPopulation.Add(chromosomes[randomIndex].Clone());
                         break;
@@ -829,7 +832,7 @@ namespace GPdotNET.Engine
         /// <returns></returns>
         internal GPParameters GetParameters()
         {
-            return gpParameters;
+            return Globals.gpparameters;
         }
 
         /// <summary>
@@ -858,7 +861,7 @@ namespace GPdotNET.Engine
         /// <param name="gpp"></param>
         internal void SetParameters(GPParameters gpp)
         {
-            gpParameters = gpp;
+            Globals.gpparameters = gpp;
         }
     }
 }

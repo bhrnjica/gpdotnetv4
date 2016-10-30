@@ -84,6 +84,7 @@ namespace GPdotNET.Core.Experiment
             return counter;
         }
 
+        
         /// <summary>
         /// Returns Count of normalized value. 
         /// Diference Count between numericValues and normalizedValues is in case of Clasification type of data
@@ -195,7 +196,7 @@ namespace GPdotNET.Core.Experiment
         }
 
         /// <summary>
-        /// Returns values for output 
+        /// Returns values for input 
         /// </summary>
         /// <param name="testData"></param>
         /// <returns></returns>
@@ -234,7 +235,7 @@ namespace GPdotNET.Core.Experiment
 
             for (int i = 0; i < numRow; i++)
             {
-                val[i] = GetRowDataNumeric(i, true);
+                val[i] = GetRowDataNumeric(i, testData);
             }
 
             return val;
@@ -431,6 +432,54 @@ namespace GPdotNET.Core.Experiment
 
             return retVal.ToArray();
         }
+
+        public double[][] GetDataForGP(bool testData=false)
+        {
+            if (testData && m_testData == null)
+                return null;
+
+            var rowCount = GetRowCount(testData);
+            var colCount = GetColumnInputCount_FromNormalizedValue();
+
+            double[][] data = new double[rowCount][];
+            
+            for(int i=0; i<rowCount; i++)
+            {
+                data[i] = new double[colCount+1];//+1 for output column
+                var intCol = GetNormalizedInput(i, testData);
+
+                for (int j=0; j<colCount; j++)
+                    data[i][j]=intCol[j];
+
+                var output = GetNormalizedOutput(i, testData);
+               
+                var outputType = GetOutputColumnType();
+                if (outputType == ColumnDataType.Numeric)
+                    data[i][colCount] = output[0];
+                else if (outputType == ColumnDataType.Binary)
+                {
+                    //binary values 0 or 1
+                    data[i][colCount] = output[0];
+                }
+                else if (outputType == ColumnDataType.Categorical)
+                {
+                    var outValue = GetDenormalizedOutputRow(output);
+                    data[i][colCount] = outValue[0];
+                    //for (int k=0; k< output.Length; k++)
+                    //{
+                    //    if(output[k]==1.0)
+                    //    {
+                    //        data[i][colCount] = k + 1.0;
+                    //        break;
+                    //    }                         
+                    //}
+                }
+                else
+                    throw new Exception("Invalid output column type.");
+            }
+
+            return data;
+        }
         #endregion
 
 
@@ -580,6 +629,60 @@ namespace GPdotNET.Core.Experiment
         }
 
         /// <summary>
+        /// Denormalizes output value for GP Solver
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public double[] GetGPDenormalizedOutputRow(double[] normalizedOutputRow, double minValue, double maxValue)
+        {
+            //
+            var outputCols = GetColumnsFromOutput();
+            var retVal = new double[outputCols.Count];
+
+
+            var catCount = outputCols[0].Statistics.Categories.Count;
+
+            //
+            int rowIndex = 0;
+            for (int i = 0; i < outputCols.Count; i++)
+            {
+                var col = outputCols[i];
+                if (col.ColumnDataType == ColumnDataType.Numeric)
+                {
+                    retVal[i] = col.GetNumericFromNormalized(normalizedOutputRow[rowIndex]);
+                    rowIndex++;
+                }
+                else if (col.ColumnDataType == ColumnDataType.Categorical)
+                {
+                    //translate real value to segment of 0 to category count
+                    var val1= catCount * normalizedOutputRow[rowIndex];
+                    //assign value to
+                    for(int jj=1; jj<=catCount; jj++)
+                    {
+                        if(val1<jj)
+                        {
+                            retVal[i] = jj-1;
+                            break;
+                        }
+                    }
+                    
+                }
+                else if (col.ColumnDataType == ColumnDataType.Binary)
+                {
+                    if(normalizedOutputRow[rowIndex]< 0)
+                        retVal[0]=0;
+                    else
+                       retVal[0] = 1;
+                }
+                else
+                    throw new Exception("The colum type is unknown.");
+
+            }
+
+            return retVal;
+        }
+
+        /// <summary>
         /// Returns real input row from normalized input row
         /// </summary>
         /// <param name="normalizedInputRow"></param>
@@ -697,15 +800,20 @@ namespace GPdotNET.Core.Experiment
         /// <param name="precentTraining"></param>
         public void Prepare(List<ColumnProperties> colProp, int precentTraining)
         {
+
+            //remove all row which is marked Ignore for missing value
+            string[][] strData= ignoreRowsWithMissingValues(colProp);
+
             //row col count
             var colCount = colProp.Count;
-            var rowCount = m_strData.Length;
-
+            var rowCount = strData.Length;
+            
+            //
             int trainCount = (int)Math.Ceiling(rowCount * (precentTraining / 100.0));
             int testCount = rowCount - trainCount;
 
-            var dataTrn = m_strData.Skip(0).Take(trainCount).ToArray();
-            var dataTst = m_strData.Skip(trainCount).Take(testCount).ToArray();
+            var dataTrn = strData.Skip(0).Take(trainCount).ToArray();
+            var dataTst = strData.Skip(trainCount).Take(testCount).ToArray();
             
 
             if (dataTrn != null)
@@ -769,6 +877,40 @@ namespace GPdotNET.Core.Experiment
                 }
 
             }
+        }
+
+        private string[][] ignoreRowsWithMissingValues(List<ColumnProperties> colProp)
+        {
+            List<int> ignoredIndex = new List<int>();
+            
+            //parse all string data remember row index for missingValues 
+            for (int j = 0; j < colProp.Count; j++ )
+            {
+                //chech if current column ignores row with missing value
+                if (colProp[j].MissingValue == "Ignore")
+                {
+                    for(int i=0;i<m_strData.Length; i++)
+                    {
+                        if (m_strData[i][j] == "n/a")
+                            ignoredIndex.Add(i);
+                    }
+                }
+            }
+
+            //go thru all rows and remove those with remembered index
+            int ignoredRows=ignoredIndex.Distinct().ToList().Count;
+            string [][] filteredData= new string[m_strData.Length-ignoredRows][];
+            int index=0;
+            for (int i = 0; i < m_strData.Length; i++)
+            {
+                if(!ignoredIndex.Contains(i))
+                {
+                    filteredData[index] = m_strData[i];
+                    index++;
+                }
+            }
+
+            return filteredData;
         }
 
         /// <summary>
@@ -953,8 +1095,6 @@ namespace GPdotNET.Core.Experiment
                 colType = ColumnDataType.Unknown;
 
             
-
-
             //create column data type
             var isOutput = colProp.ParamType == "output";
 
@@ -967,6 +1107,18 @@ namespace GPdotNET.Core.Experiment
             else
                 col.SetNormalization(NormalizationType.Custom);
 
+
+            //set missing value action
+            if (colProp.MissingValue == "Ignore")
+                col.MissingValue = MissingRowValue.Ignore;
+            else if (colProp.MissingValue == "Average")
+                col.MissingValue = MissingRowValue.Average;
+            else if (colProp.MissingValue == "Max")
+                col.MissingValue = MissingRowValue.Max;
+            else
+                col.MissingValue = MissingRowValue.Min;
+            
+            //set column name and type
             col.Name = colProp.ColName;
             col.ColumnDataType=colType;
             return col;
@@ -1062,5 +1214,109 @@ namespace GPdotNET.Core.Experiment
         }
         #endregion
 
+
+        public string GetExperimentToString(List<ColumnProperties> list, int testProcent)
+        {
+            string retVal = "";
+            var cols = list;
+            try
+            {
+                //test procent
+                retVal += testProcent.ToString(CultureInfo.InvariantCulture) + ";";
+
+                //number of columns
+                retVal += cols.Count.ToString(CultureInfo.InvariantCulture) + ";";
+
+                //columnProperties
+                foreach (ColumnProperties col in cols)
+                {
+                    retVal += col.ToString() + ";";
+                }
+                
+                foreach(var ss in m_strData)
+                {
+                    foreach(var s in ss)
+                        retVal += s + ";";
+                }
+                
+                return retVal;
+            }
+            catch (Exception ex)
+            {
+               // MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
+        public static Experiment GetExperimentFromString(string strExperiment)
+        {
+            var pstr = strExperiment.Split(';');
+            int testProcent = 0;
+            try
+            {
+                //test procent
+                int temp = 0;
+                if (!int.TryParse(pstr[0], out temp))
+                    temp = 0;
+                testProcent = temp;
+
+                int numCol;
+                int numRow;
+                //number of columns
+                temp = 0;
+                if (!int.TryParse(pstr[1], out temp))
+                    temp = 0;
+                numCol = temp;
+
+                //number of rows
+                temp = 0;
+                if (!int.TryParse(pstr[2], out temp))
+                    temp = 0;
+                numRow = temp;
+
+                //columnProperties
+                List<ColumnProperties> cols = new List<ColumnProperties>();
+                int si=3;
+                for (int i = 0; i < numCol; i++ )
+                {
+                    var col = new ColumnProperties();
+                    col.ColIndex = i + 1;
+                    si+=i+1;
+                    col.ColName=pstr[si];
+                    si += i + 1;
+                    col.ColType=pstr[si];
+                    si += i + 1;
+                    col.ParamType=pstr[si];
+                    si += i + 1;
+                    col.NormType=pstr[si];
+                    si += i + 1;
+                    col.MissingValue=pstr[si];
+                }
+
+
+                //alocate data
+                string[][] str= new string[numRow][];
+                for (int i = 0; i < numRow; i++)
+                    str[i]= new string[numCol];
+
+                //load data
+                int k = si + 1;
+                for (int j = 0; j < numCol; j++)
+                {
+                    for (int i = 0; i < numRow; i++)
+                    {
+                        str[i][j]= pstr[k];
+                        k++;
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
     }
 }

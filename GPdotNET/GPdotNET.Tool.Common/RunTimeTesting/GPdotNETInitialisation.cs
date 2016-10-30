@@ -44,7 +44,7 @@ namespace GPdotNET.Tool
             catch (Exception)
             {
 
-                throw new Exception("Fiel not exist!");
+                throw new Exception("File not exist!");
             }
             
         }

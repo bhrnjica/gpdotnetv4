@@ -305,5 +305,15 @@ namespace GPdotNET.Tool.Common
 
         
         #endregion
+
+        public static string OptimizeToString()
+        {
+            return "-";
+        }
+
+        public static void OptimizeFromString(string strOpt)
+        {
+            return ;
+        }
     }
 }

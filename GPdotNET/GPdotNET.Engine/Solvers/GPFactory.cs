@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using GPdotNET.Core;
 using System.Threading;
+using GPdotNET.Core.Experiment;
 
 namespace GPdotNET.Engine
 {
@@ -25,12 +26,14 @@ namespace GPdotNET.Engine
     public class GPFactory
     {
         public  event EvolutionHandler ReportEvolution;
-        public  static bool StopEvolution{get;set;}
-        private int evolutionCounter;
+
         private bool IsAlgorthmPrepared;
+        public  static bool StopIteration{get;set;}
+        private int m_IterationCounter;
+        
 
         private CHPopulation Population;
-        
+        public Experiment m_Experiment;
         public GPFactory()
         {
             Population = new CHPopulation(); 
@@ -46,7 +49,7 @@ namespace GPdotNET.Engine
         /// <param name="gpParams"></param>
         public void PrepareAlgorithm(GPTerminalSet termSet,GPFunctionSet funSet,GPParameters gpParams=null)
         {
-            evolutionCounter = 0;
+            m_IterationCounter = 0;
             if(Population ==null)
                 Population = new CHPopulation();
 
@@ -55,8 +58,14 @@ namespace GPdotNET.Engine
             
             IsAlgorthmPrepared = true;
 
-            StopEvolution = false;
+            StopIteration = false;
 
+
+            //calculate model and prediction
+            GPChromosome ch = Population.bestChromosome as GPChromosome;
+            double[][] model = CalculateModel(ch);
+            double[][] prediction = CalculateModel(ch, false);
+            
             //Report the evolution has been started
             if (ReportEvolution != null)
                 ReportEvolution(this,
@@ -65,8 +74,45 @@ namespace GPdotNET.Engine
                             ReportType = ProgramState.Started,
                             AverageFitness = Population.fitnessAvg,
                             BestChromosome = Population.bestChromosome,
-                            CurrentIteration = 0,
+                            CurrentIteration = 0,LearnOutput= model,PredicOutput= prediction
                         });
+        }
+
+        /// <summary>
+        /// Calculates model/prediction using best chromosome. Also it denormalized valuse if they  were normalized
+        /// </summary>
+        /// <param name="ch"> bestchromosomes</param>
+        /// <param name="testData"></param>
+        /// <returns></returns>
+        protected virtual double[][] CalculateModel(GPChromosome ch, bool btrainingData = true)
+        {
+            if (ch != null)
+            {
+                var pts = GPdotNET.Core.Globals.CalculateGPModel(ch.expressionTree, btrainingData);
+                if (pts == null)
+                    return null;
+
+                //calculate output
+                var model = new double[1][];
+                var outv = new double[1][];
+                if (m_Experiment != null)
+                {
+                    outv[0] = new double[1];
+                    model[0] = new double[pts.Length];
+                    for (int i = 0; i < pts.Length; i++)
+                    {
+                        outv[0][0] = pts[i];
+                        var outv1 = m_Experiment.GetDenormalizedOutputRow(outv[0]);
+                        model[0][i] = outv1[0];
+                    }
+                }
+                else
+                    model[0] = pts;//old version
+
+                return model;
+            }
+            else
+                return null;
         }
 
         /// <summary>
@@ -83,13 +129,13 @@ namespace GPdotNET.Engine
                 throw new Exception("Population is null!");
 
             //before we start set variable to initial value
-             StopEvolution = false;
+            StopIteration = false;
 
 
             while (CanContinue(terValue,termType))
             {
                 //increase evolution
-                evolutionCounter++;
+                m_IterationCounter++;
 
                 Population.Crossover();
 
@@ -101,7 +147,12 @@ namespace GPdotNET.Engine
 
                 Population.CalculatePopulation();
 
-                
+                //calculate model and prediction
+                GPChromosome ch = Population.bestChromosome as GPChromosome;
+                double[][] model = CalculateModel(ch);
+                double[][] prediction = CalculateModel(ch, false);
+
+
                 if (ReportEvolution != null)
                     ReportEvolution(this, 
                             new ProgressIndicatorEventArgs() 
@@ -109,7 +160,9 @@ namespace GPdotNET.Engine
                                     ReportType = CanContinue(terValue, termType) ? ProgramState.Running : ProgramState.Finished,
                                     AverageFitness=Population.fitnessAvg,
                                     BestChromosome= Population.bestChromosome,
-                                    CurrentIteration=evolutionCounter,
+                                    CurrentIteration=m_IterationCounter,
+                                    LearnOutput = model,
+                                    PredicOutput=prediction
                                 });
             }            
         }
@@ -128,7 +181,7 @@ namespace GPdotNET.Engine
 
             if (termType == 0)
             {
-                if (!StopEvolution && !(terValue <= evolutionCounter))
+                if (!StopIteration && !(terValue <= m_IterationCounter))
                     return true;
                 else
                     return false;
@@ -137,7 +190,7 @@ namespace GPdotNET.Engine
             {
                 if (Population.bestChromosome == null)
                     return true;
-                if (!StopEvolution && !(terValue <= Population.bestChromosome.Fitness))
+                if (!StopIteration && !(terValue <= Population.bestChromosome.Fitness))
                     return true;
                 else
                     return false;

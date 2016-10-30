@@ -49,7 +49,7 @@ namespace GPdotNET.App
 
         GPModelType             _GPModel;
 
-        GPFactory               _mainFactory;
+        GPFactory               _mainGPFactory;
         GPFactory               _secondFactory;
 
         AIFactory               _mainANNFactory;
@@ -62,7 +62,7 @@ namespace GPdotNET.App
         bool                    _isFileDirty=false;
         ContextMenuStrip        _contextMenuStrip1;
 
-        string                  _appName = "GPdotNET v4.0 Beta";
+        string                  _appName = "GPdotNET v4.0 Beta 3";
         //Open document through cmd line
         public string[] CmdLineParam
         {
@@ -105,14 +105,14 @@ namespace GPdotNET.App
         private void ResetProgram()
         {
             //unscribe to events
-            if (_mainFactory != null)
-                this._mainFactory.ReportEvolution -= new EvolutionHandler(gpFactory_ReportEvolution);
+            if (_mainGPFactory != null)
+                this._mainGPFactory.ReportEvolution -= new EvolutionHandler(gpFactory_ReportEvolution);
             
             if (_secondFactory != null)
                 this._secondFactory.ReportEvolution -= new EvolutionHandler(gpFactory_ReportEvolution);
 
            
-            _mainFactory = null;
+            _mainGPFactory = null;
             _secondFactory = null;
            
         }
@@ -151,8 +151,8 @@ namespace GPdotNET.App
                         _infoPanel = new InfoPanel();
                         loadGPPanelInMainWindow(this, _infoPanel, "Info");
 
-                        this._mainFactory = new GPFactory();
-                        this._mainFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
+                        this._mainGPFactory = new GPFactory();
+                        this._mainGPFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
 
                         //set base run panel on _runPAnel
                         _baseRunPanel = _runPanel;
@@ -185,8 +185,8 @@ namespace GPdotNET.App
                         _infoPanel = new InfoPanel();
                         loadGPPanelInMainWindow(this, _infoPanel, "Info");
 
-                        this._mainFactory = new GPFactory();
-                        this._mainFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
+                        this._mainGPFactory = new GPFactory();
+                        this._mainGPFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
 
                         this._secondFactory = new GPFactory();
                         this._secondFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
@@ -219,8 +219,8 @@ namespace GPdotNET.App
                         _infoPanel = new InfoPanel();
                         loadGPPanelInMainWindow(this, _infoPanel, "Info");
 
-                        this._mainFactory = new GPFactory();
-                        this._mainFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
+                        this._mainGPFactory = new GPFactory();
+                        this._mainGPFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
 
                         //set base run panel on _runPAnel
                         _baseRunPanel = _runPanel;
@@ -274,8 +274,8 @@ namespace GPdotNET.App
                         _tspPanel = new TSPRunPanel();
                         loadGPPanelInMainWindow(this, _tspPanel, "Simulation");
 
-                        this._mainFactory = new GPFactory();
-                        this._mainFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
+                        this._mainGPFactory = new GPFactory();
+                        this._mainGPFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
 
                         _infoPanel = new InfoPanel();
                         loadGPPanelInMainWindow(this, _infoPanel, "Info");
@@ -302,8 +302,8 @@ namespace GPdotNET.App
                         _alocPanel = new ALOCRunPanel();
                         loadGPPanelInMainWindow(this, _alocPanel, "Simulation");
 
-                        this._mainFactory = new GPFactory();
-                        this._mainFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
+                        this._mainGPFactory = new GPFactory();
+                        this._mainGPFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
 
                         _infoPanel = new InfoPanel();
                         loadGPPanelInMainWindow(this, _infoPanel, "Info");
@@ -330,8 +330,8 @@ namespace GPdotNET.App
                         _alocPanel = new ALOCRunPanel();
                         loadGPPanelInMainWindow(this, _alocPanel, "Simulation");
 
-                        this._mainFactory = new GPFactory();
-                        this._mainFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
+                        this._mainGPFactory = new GPFactory();
+                        this._mainGPFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
 
                         _infoPanel = new InfoPanel();
                         loadGPPanelInMainWindow(this, _infoPanel, "Info");
@@ -341,9 +341,10 @@ namespace GPdotNET.App
                     }
                     break;
                 case GPModelType.ANNMODEL:
+                case GPModelType.GPMODEL:
                     {
                         _experimentPanel = new ExperimentPanel();
-                        loadGPPanelInMainWindow(this, _experimentPanel, "Load Experiment");
+                         loadGPPanelInMainWindow(this, _experimentPanel, "Load Experiment");
                         _experimentPanel.SetProblemType(_GPModel);
 
                         //factory creating moved on place when the experimental data is created and prepared
@@ -388,8 +389,8 @@ namespace GPdotNET.App
         /// <param name="e"></param>
         void _setPanel_ResetSolution(object sender, EventArgs e)
         {
-            if (_mainFactory != null)
-                _mainFactory.ResetSolution();
+            if (_mainGPFactory != null)
+                _mainGPFactory.ResetSolution();
             if (_secondFactory != null)
                 _secondFactory.ResetSolution();
            
@@ -403,10 +404,10 @@ namespace GPdotNET.App
                 _resultPanel.ResetSolution();
             if (_predictionPanel != null)
                 _predictionPanel.ResetSolution();
-            if (_mainFactory != null)
-                _mainFactory.ResetSolution();
-            if (_mainFactory != null)
-                _mainFactory.ResetSolution();
+            if (_mainGPFactory != null)
+                _mainGPFactory.ResetSolution();
+            if (_mainGPFactory != null)
+                _mainGPFactory.ResetSolution();
         }
 
         /// <summary>
@@ -452,7 +453,10 @@ namespace GPdotNET.App
             }
             if (_runPanel != null)
             {
-                _predictionPanel.FillPredictionData(_dataPanel.Testing);
+                if(_dataPanel!=null)
+                    _predictionPanel.FillPredictionData(_dataPanel.Testing);
+                else
+                    _predictionPanel.FillPredictionData(_experimentPanel.Experiment);
 
             }
 
@@ -515,41 +519,131 @@ namespace GPdotNET.App
         void _experimentPanel_DataLoaded(object sender, EventArgs e)
         {
             //Depending on experimental type of output data (numerical or categorical or boolean)
-            // prepare the panels for parameters and type of factory.
-            
-            //create facotry based on column data type
-            if(_experimentPanel.IsCategoricalOutput)
-                this._mainANNFactory = new PSOFactory();
-            else
-                this._mainANNFactory = new BPFactory();
-
-            //
-            if (_setANNPanel == null)
+            // prepare the panels for parameters and type of the factory.
+           if(_GPModel == GPModelType.ANNMODEL)
             {
-                _setANNPanel = new ANNSettingsPanel();
-                loadGPPanelInMainWindow(this, _setANNPanel, "Settings");
+                //create facotry based on column data type
+                if (_experimentPanel.IsCategoricalOutput)
+                    this._mainANNFactory = new PSOFactory();
+                else
+                    this._mainANNFactory = new BPFactory();
+
+                //
+                if (_setANNPanel == null)
+                {
+                    _setANNPanel = new ANNSettingsPanel();
+                    loadGPPanelInMainWindow(this, _setANNPanel, "Settings");
+
+                    //lock some parameters based on type of output variable
+                    if(_experimentPanel.Experiment.GetOutputColumnType()== Core.Experiment.ColumnDataType.Binary ||
+                       _experimentPanel.Experiment.GetOutputColumnType() == Core.Experiment.ColumnDataType.Categorical
+                        )
+                    _setANNPanel.SetLearnigAlgorithm(1);
+                    else
+                    {
+                        _setANNPanel.SetLearnigAlgorithm(0);
+                    }
+
+                    _setANNPanel.LockLearningAlgoritm();
+                }
+
+                if (_runANNPanel == null)
+                {
+                    _runANNPanel = new ANNRunPanel();
+                    loadGPPanelInMainWindow(this, _runANNPanel, "Modeling");
+
+                }
+
+                if (_infoPanel == null)
+                {
+                    _infoPanel = new InfoPanel();
+                    loadGPPanelInMainWindow(this, _infoPanel, "Info");
+
+                }
+
+                if (_runANNPanel != null)
+                {
+                    this._mainANNFactory.ReportIteration += new EvolutionHandler(annFactory_ReportIteration);
+                    _runANNPanel.UpdateChartDataPoint(_experimentPanel.GetOutputValues(), false);
+                    _isFileDirty = true;
+                }
+            }
+           else//Preparing GP for modelling nd prediction
+            {
+                //create facotry based on column data type
+                if (_experimentPanel.IsBinarylOutput)
+                    this._mainGPFactory = new GPFactoryClass();
+                if (_experimentPanel.IsCategoricalOutput)
+                    this._mainGPFactory = new GPFactoryClass();
+                else if (_experimentPanel.GetOutputColumnType() == Core.Experiment.ColumnDataType.Numeric)
+                    this._mainGPFactory = new GPFactory();
+                else
+                {
+                    throw new Exception("Unknown output value type!");
+                }
+                    
+
+               
+                if (_funPanel == null)
+                {
+                    _funPanel = new FunctionPanel();
+                    loadGPPanelInMainWindow(this, _funPanel, "Functions");
+                }
+
+                if (_setPanel == null)
+                {
+                    _setPanel = new SettingsPanel();
+                    loadGPPanelInMainWindow(this, _setPanel, "Settings");
+
+                    _setPanel.SetParamForClassification(_experimentPanel.GetOutputColumnType());
+
+
+                }
+
+                if (_runPanel == null)
+                {
+                    _runPanel = new RunPanel();
+                    loadGPPanelInMainWindow(this, _runPanel, "Run");
+                }
+
+
+                if (_resultPanel == null)
+                {
+                    _resultPanel = new ResultPanel();
+                    loadGPPanelInMainWindow(this, _resultPanel, "Result");
+                }
+
+
+                if (_infoPanel == null)
+                {
+                    _infoPanel = new InfoPanel();
+                    loadGPPanelInMainWindow(this, _infoPanel, "Info");
+                }
+
+
+                //set base run panel on _runPAnel
+                _baseRunPanel = _runPanel;
+
+                if (_runPanel != null)
+                {
+                    
+                    this._mainGPFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
+                    _runPanel.UpdateChartDataPoint(_experimentPanel.GetOutputValues(), false);
+                    _isFileDirty = true;
+                }
+
+
+
+                if (_funDefinit != null)
+                    _funDefinit.btnFinishAnalFun.Click += btnFinishAnalFun_Click;
+
+
+
+                if (_setPanel != null)
+                    _setPanel.ResetSolution += _setPanel_ResetSolution;
             }
 
-            if(_runANNPanel==null)
-            {
-                _runANNPanel = new ANNRunPanel();
-                loadGPPanelInMainWindow(this, _runANNPanel, "Modeling");
-                
-            }            
 
-            if (_infoPanel == null)
-            {
-                _infoPanel = new InfoPanel();
-                loadGPPanelInMainWindow(this, _infoPanel, "Info");
-
-            }
-
-            if (_runANNPanel != null)
-            {
-                this._mainANNFactory.ReportIteration += new EvolutionHandler(annFactory_ReportIteration);
-                _runANNPanel.UpdateChartDataPoint(_experimentPanel.GetOutputValues(), false);
-                _isFileDirty = true;
-            }
         }
         
 		/// <summary>
@@ -710,8 +804,8 @@ namespace GPdotNET.App
                         if (_predictionPanel != null)
                             _predictionPanel.ResetSolution();
                         
-                        if (_mainFactory != null)
-                            _mainFactory.ResetSolution();
+                        if (_mainGPFactory != null)
+                            _mainGPFactory.ResetSolution();
                         if (_secondFactory != null)
                             _secondFactory.ResetSolution();
                        

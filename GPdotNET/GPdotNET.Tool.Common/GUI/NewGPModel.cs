@@ -39,7 +39,11 @@ namespace GPdotNET.Tool.Common
                 }
                 else
                 {
-                    return GPModelType.ANNMODEL;
+                    if (comboBox2.SelectedIndex == 0)
+                        return GPModelType.GPMODEL;
+                    else //(comboBox2.SelectedIndex == 1)
+                        return GPModelType.ANNMODEL;
+
                 }
                 
             }
@@ -60,7 +64,13 @@ namespace GPdotNET.Tool.Common
                 comboBox2.Enabled = false;
                 comboBox1.Enabled = true;
             }
-                
+            else
+            {
+                checkBox2.Checked = true;
+                comboBox1.Enabled = false;
+                comboBox2.Enabled = true;
+            }
+
         }
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
@@ -71,6 +81,13 @@ namespace GPdotNET.Tool.Common
                 comboBox1.Enabled = false;
                 comboBox2.Enabled = true;
             }
+            else
+            {
+                checkBox1.Checked = true;
+                comboBox2.Enabled = false;
+                comboBox1.Enabled = true;
+            }
+
         }
     }
 }

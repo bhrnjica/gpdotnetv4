@@ -7,13 +7,13 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("GPdotNET.App")]
 [assembly: AssemblyDescription(
-    @"GPdotNET is artificial intelligence tool for applying Genetic Programming and Genetic Algorithm in modeling and optimization of various engineering problems. It is .NET (Mono) application written in C# which can run both on Windows and Lunux OS."
+    @"GPdotNET is artificial intelligence tool for applying Genetic Algorithm and Artificial Network in modeling and optimization of various engineering problems. It is .NET (Mono) application written in C# which can run both on Windows and Lunux OS."
 
     )]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("GPdotNET")]
-[assembly: AssemblyCopyright("Copyright © 2006-2013")]
+[assembly: AssemblyCopyright("Copyright © 2006-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

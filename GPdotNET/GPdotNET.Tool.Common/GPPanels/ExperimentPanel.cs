@@ -41,6 +41,7 @@ namespace GPdotNET.Tool.Common
         private System.Windows.Forms.ComboBox cmbBox = new System.Windows.Forms.ComboBox();
         private System.Windows.Forms.ComboBox cmbBox1 = new System.Windows.Forms.ComboBox();
         private System.Windows.Forms.ComboBox cmbBox2 = new System.Windows.Forms.ComboBox();
+        private System.Windows.Forms.ComboBox cmbBox3 = new System.Windows.Forms.ComboBox();
 
 
         public ExperimentPanel()
@@ -89,6 +90,22 @@ namespace GPdotNET.Tool.Common
             cmbBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CmbKeyPress);
             cmbBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBox2.Hide();
+
+            //forth row combobox
+            cmbBox3.Items.Add("Ignore");
+            cmbBox3.Items.Add("Average");
+            cmbBox3.Items.Add("Max");
+            cmbBox3.Items.Add("Min");
+
+            cmbBox3.Size = new System.Drawing.Size(0, 0);
+            cmbBox3.Location = new System.Drawing.Point(0, 0);
+            this.listView1.Controls.AddRange(new System.Windows.Forms.Control[] { this.cmbBox3 });
+            cmbBox3.SelectedIndexChanged += new System.EventHandler(this.CmbSelected);
+            cmbBox3.LostFocus += new System.EventHandler(this.CmbFocusOver);
+            cmbBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CmbKeyPress);
+            cmbBox3.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbBox3.Hide();
+
             numericUpDown1.Maximum = 50;
             numericUpDown1.Minimum = 0;
           
@@ -178,7 +195,7 @@ namespace GPdotNET.Tool.Common
         }
                 
         /// <summary>
-        /// Retirns output data for updating the chart for GP model 
+        /// Returns output data for updating the chart for GP model 
         /// </summary>
         /// <returns></returns>
         public double[][] GetOutputValues()
@@ -297,13 +314,31 @@ namespace GPdotNET.Tool.Common
                 LVI.BackColor = SystemColors.GradientActiveCaption;
             }
 
+            //forth row is going to represent missing values action
+            LVI = listView1.Items.Add("Missing Value:");
+            for (int i = 0; i < numCol; i++)
+            {
+                LVI.SubItems.Add("Ignore");
+
+                LVI.BackColor = SystemColors.GradientActiveCaption;
+            }
+
             //insert data
             for (int j = 0; j < numRow; j++)
             {
                 LVI = listView1.Items.Add((j + 1).ToString());
-
+                LVI.UseItemStyleForSubItems = false;
                 for (int i = 0; i < numCol; i++)
                 {
+                    if (data[j][i]=="n/a")
+                    {
+                        System.Windows.Forms.ListViewItem.ListViewSubItem itm = new ListViewItem.ListViewSubItem();
+                        itm.ForeColor = Color.Red;
+                        itm.Text = data[j][i];
+                        LVI.SubItems.Add(itm);             
+                    }
+                     
+                    else
                     LVI.SubItems.Add(data[j][i].ToString());
                 }
 
@@ -319,7 +354,7 @@ namespace GPdotNET.Tool.Common
             li = info.Item;
             subItemSelected = col;
             //only first and second Row process the mouse input 
-            if (li == null || row > 3|| row < 1 || col < 1)
+            if (li == null || row > 4|| row < 1 || col < 1)
                 return;
 
             ComboBox combo = null;
@@ -327,8 +362,10 @@ namespace GPdotNET.Tool.Common
                 combo = cmbBox;
             else if (row == 2)
                 combo = cmbBox1;
-            else
+            else if (row == 3)
                 combo = cmbBox2;
+            else
+                combo = cmbBox3;
 
             var subItm = li.SubItems[col];
             combo.Bounds =  subItm.Bounds;
@@ -372,8 +409,25 @@ namespace GPdotNET.Tool.Common
                return col[0].ColumnDataType != ColumnDataType.Numeric;
             }
         }
+
+        public bool IsBinarylOutput
+        {
+            get
+            {
+                var col = Experiment.GetColumnsFromOutput();
+                return col[0].ColumnDataType == ColumnDataType.Binary;
+            }
+        }
+
+        public ColumnDataType GetOutputColumnType()
+        {
+            var col = Experiment.GetColumnsFromOutput();
+            return col[0].ColumnDataType;
+        }
         private void btnSetupToModel_Click(object sender, EventArgs e)
         {
+           
+
             var colProperties= ParseColumns();
             try
             {
@@ -400,11 +454,12 @@ namespace GPdotNET.Tool.Common
                 return;
             }
             IsDatReady = true;
+
             //send event about data
             if (DataLoaded != null)
                 DataLoaded(this, new EventArgs());
 
-            //send event about data
+            //send event about data for vaidation
             if (DataPredictionLoaded != null && (100- (int)numericUpDown1.Value)<100)
                 DataPredictionLoaded(this, new EventArgs());
         }
@@ -421,6 +476,7 @@ namespace GPdotNET.Tool.Common
             var secondRow   = listView1.Items[1];
             var thirdRow    = listView1.Items[2];
             var forthRow    = listView1.Items[3];
+            var fifthRow    = listView1.Items[4];
  
             for(int i=1; i <firstRow.SubItems.Count; i++)
             {
@@ -429,17 +485,96 @@ namespace GPdotNET.Tool.Common
                 string colType = secondRow.SubItems[i].Text;
                 string paramType = thirdRow.SubItems[i].Text;
                 string normType = forthRow.SubItems[i].Text;
+                string missingValue = fifthRow.SubItems[i].Text;
 
-                lst.Add(new ColumnProperties() { ColIndex = colIndex, ColName = colName, ColType = colType, ParamType = paramType, NormType = normType });
+                lst.Add(new ColumnProperties() { ColIndex = colIndex, ColName = colName, ColType = colType, ParamType = paramType, NormType = normType, MissingValue = missingValue });
             }
 
 
             return lst;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string ExperimentToString()
+        {
+           return  Experiment.GetExperimentToString( ParseColumns(), (int)numericUpDown1.Value);
+        }
+
+        public void ExperimentFromString(string exp)
+        {
+            var pstr = exp.Split(';');
+            int columnCount = 0;
+            try
+            {
+                //test procent
+                int temp = 0;
+                if (!int.TryParse(pstr[0], out temp))
+                    temp = 0;
+                numericUpDown1.Value = temp;
+
+                ///col count
+                temp = 0;
+                if (!int.TryParse(pstr[2], out temp))
+                    temp = 0;
+
+                columnCount = temp;
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+        }
 
 
+        /// <summary>
+        /// GP specific method for retrieing training data
+        /// </summary>
+        /// <returns></returns>
+        public double[][] GetTrainingData()
+        {
+            try
+            {
+                return Experiment.GetDataForGP(false);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
+        /// <summary>
+        /// GP specific method for retrieing testing data
+        /// </summary>
+        /// <returns></returns>
+        public double[][] GetTestingData()
+        {
+            try
+            {
+                return Experiment.GetDataForGP(true);
+            }
+            catch (Exception)
+            {
+                return null;
+            }                
+        }
 
-     
+        public int GetClassCount()
+        {
+            if (GetOutputColumnType() == ColumnDataType.Categorical)
+            {
+                var cols = Experiment.GetColumnsFromOutput();
+                if (cols == null || cols.Count > 0)
+                {
+                    var c = cols[0];
+                    return c.Statistics.Categories.Count;
+                }
+            }
+            //
+            return 0;
+        }
     }
 }

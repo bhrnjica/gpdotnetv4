@@ -386,14 +386,26 @@ namespace GPdotNET.Tool.Common
         /// <param name="AverageFitness"></param>
         /// <param name="ch"></param>
         /// <param name="reportType"></param>
-        public void ReportProgress(int currentEvolution, float AverageFitness, Engine.GPChromosome ch, int reportType)
+        public void ReportProgress(int currentEvolution, float AverageFitness, Engine.GPChromosome ch, int reportType, double[][] prediction)
         {
             if (prevFitnesss < ch.Fitness)
             {
                 prevFitnesss = ch.Fitness;
-                var retVal=GPdotNET.Core.Globals.CalculateGPModel(ch.expressionTree, false);
-                FillGPPredictionResult(retVal);
-                UpdateChartDataPoint(retVal, true);
+                if (prediction == null)
+                {
+                    var retVal = GPdotNET.Core.Globals.CalculateGPModel(ch.expressionTree, false);
+                    FillGPPredictionResult(retVal);
+                    UpdateChartDataPoint(retVal, true);
+
+                }
+                else
+                {
+                    
+                    FillGPPredictionResult(prediction);
+                    UpdateChartDataPoint(prediction[0], true);
+                }
+
+                
             }
         }
 

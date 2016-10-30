@@ -30,6 +30,7 @@ namespace GPdotNET.Tool.Common
         AP = 6,                                 //Assignment problem
         TP = 7,                                 //Transportation problem
         ANNMODEL = 8,                           //Modeling and prediction with ANN
+        GPMODEL = 9,                            //New GUI For GP Models
     }
     /// <summary>
     /// Currently implemented solvers

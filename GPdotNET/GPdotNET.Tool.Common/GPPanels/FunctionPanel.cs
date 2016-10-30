@@ -281,5 +281,14 @@ namespace GPdotNET.Tool.Common
             return funs;
         }
         #endregion
+
+        public static string FunctionToString()
+        {
+            return "-";
+        }
+        public static void FunctionsFromString(string strFUn)
+        {
+            return ;
+        }
     }
 }

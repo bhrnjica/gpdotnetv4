@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using GPdotNET.Core;
 using GPdotNET.Engine;
 using GPdotNET.Util;
+using GPdotNET.Core.Experiment;
 
 namespace GPdotNET.Tool.Common
 {
@@ -27,7 +28,7 @@ namespace GPdotNET.Tool.Common
         #region CTor and Fields
 
         public event EventHandler ResetSolution;
-
+        ColumnDataType m_OutpuType = ColumnDataType.Numeric;
         public SettingsPanel()
         {
             InitializeComponent();
@@ -86,6 +87,7 @@ namespace GPdotNET.Tool.Common
             cmbFitnessFuncs.Items.Add("RSE	-Root square error ");
             cmbFitnessFuncs.Items.Add("RRSE	-Relative root square error ");
             cmbFitnessFuncs.Items.Add("RAE	-Root apsolute error ");
+            cmbFitnessFuncs.Items.Add("CLASS -Classification ");
             //cmbFitnessFuncs.Items.Add("rMSE	-relative MSE ");
             //cmbFitnessFuncs.Items.Add("rRMSE	-relative RMSE ");
             //cmbFitnessFuncs.Items.Add("rMAE	-relative MAE ");
@@ -95,7 +97,7 @@ namespace GPdotNET.Tool.Common
             //cmbFitnessFuncs.Items.Add("AE	-Apsolute error ");
             //cmbFitnessFuncs.Items.Add("RE	-Relative  error ");
             //cmbFitnessFuncs.Items.Add("CC	-Corelation coefficient ");
-            
+
         }
 
         /// <summary>
@@ -174,14 +176,35 @@ namespace GPdotNET.Tool.Common
                     return new RRSEFitness();
                 case 5:
                     return new RAEFitness();
+                case 6:
+                    return new ClassFitness(m_OutpuType);
                 default:
                     return new RMSEFitness();
             }
             
         }
 
+        private int getFitnessSelectedIndex(IFitnessFunction gPFitness)
+        {
 
-     
+                if (gPFitness is RMSEFitness)
+                return 0;
+            else if (gPFitness is MSEFitness)
+                return 1;
+            else if (gPFitness is MAEFitness)
+                return 2;
+            else if (gPFitness is RSEFitness)
+                return 3;
+            else if (gPFitness is RRSEFitness)
+                return 4;
+            else if (gPFitness is RAEFitness)
+                return 5;
+            else if (gPFitness is ClassFitness)
+                return 6;
+            else
+                return 0;
+        }
+
         /// <summary>
         /// When the secection method is changed, dfault parms must be set properly
         /// </summary>
@@ -267,7 +290,7 @@ namespace GPdotNET.Tool.Common
 
             txtPopSize.Text = parameters.popSize.ToString();
             cmbSelectionMethods.SelectedIndex = (int)parameters.eselectionMethod;
-            //cmbFitnessFuncs.SelectedIndex = (int)parameters.efitnessFunction;
+            cmbFitnessFuncs.SelectedIndex = getFitnessSelectedIndex(parameters.GPFitness);
 
             txtElitism.Text = parameters.elitism.ToString();
             cmbInitMethods.SelectedIndex = (int)parameters.einitializationMethod;
@@ -293,8 +316,11 @@ namespace GPdotNET.Tool.Common
 
             ///
             txtBroodSize.Text = parameters.broodSize.ToString();
+            isProtectedOperation.Checked = parameters.isProtectedOperationEnabled;
             return true;
         }
+
+        
 
         /// <summary>
         /// Return current value of GP params
@@ -402,6 +428,9 @@ namespace GPdotNET.Tool.Common
                 MessageBox.Show("Invalid Brood Size value!");
                 return null;
             }
+
+            parameters.isProtectedOperationEnabled = isProtectedOperation.Checked;
+            
             return parameters;
         }
 
@@ -539,10 +568,29 @@ namespace GPdotNET.Tool.Common
                     _constants[i] = val;
                 }
 
-                //todo
-                //default value
-                txtBroodSize.Text = "1";
-                    return;
+                //brood size
+                if(pstr.Length > 19+numCount)
+                {
+                    if (!int.TryParse(pstr[19+numCount], out temp))
+                        temp = 3;
+
+                    txtBroodSize.Text = temp.ToString();
+                }
+                else//default value
+                    txtBroodSize.Text = "3";
+
+                if (pstr.Length > 20 + numCount)
+                {
+                    bool vall = true;
+                    if (!bool.TryParse(pstr[20 + numCount], out vall))
+                        vall = true;
+                    isProtectedOperation.Checked = vall;
+                }
+                else//default value
+                    isProtectedOperation.Checked = true;
+
+
+                return;
             }
             catch (Exception ex)
             {
@@ -719,13 +767,17 @@ namespace GPdotNET.Tool.Common
                         retVal += ";";
                 }
 
-                //init depth
+                //broodsize
                 if (!int.TryParse(txtBroodSize.Text, out intValue))
                 {
                     MessageBox.Show("Invalid Brood SIze value!");
                     return null;
                 }
-                retVal += intValue.ToString() + ";";
+                retVal += intValue.ToString(CultureInfo.InvariantCulture) + ";";
+
+                //enable / disable protected operations
+                retVal += isProtectedOperation.Checked.ToString() + ";";
+
                 return retVal;
             }
             catch (Exception ex)
@@ -733,6 +785,29 @@ namespace GPdotNET.Tool.Common
                 MessageBox.Show(ex.Message);
                 return null;
             }
+        }
+
+        public void SetParamForClassification(ColumnDataType colType)
+        {
+            m_OutpuType = colType;
+
+            if (colType== ColumnDataType.Numeric)
+            {
+                cmbFitnessFuncs.SelectedIndex = 0;
+                cmbFitnessFuncs.Enabled = true;
+            }
+            else
+            {
+                cmbFitnessFuncs.SelectedIndex = 6;
+                cmbFitnessFuncs.Enabled = false;
+            }
+            
+            
+        }
+
+        public ColumnDataType GetProblemType()
+        {
+            return m_OutpuType;
         }
         #endregion
 
@@ -753,6 +828,9 @@ namespace GPdotNET.Tool.Common
             label12.Visible = false;
         }
 
-    
+        private void groupBox5_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

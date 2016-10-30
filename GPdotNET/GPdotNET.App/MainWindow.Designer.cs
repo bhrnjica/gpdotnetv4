@@ -46,6 +46,8 @@
             this.rbtnExit = new GPdotNET.Tool.Common.GUI.CustomButton();
             this.rbtnInfo = new GPdotNET.Tool.Common.GUI.CustomButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.linkLabel19 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel18 = new System.Windows.Forms.LinkLabel();
             this.linkLabel17 = new System.Windows.Forms.LinkLabel();
             this.linkLabel16 = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
@@ -77,9 +79,6 @@
             this.pbSep2 = new System.Windows.Forms.PictureBox();
             this.pbSep1 = new System.Windows.Forms.PictureBox();
             this.pbLogoHor = new System.Windows.Forms.PictureBox();
-            this.linkLabel18 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel19 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel20 = new System.Windows.Forms.LinkLabel();
             this.statusStrip1.SuspendLayout();
             this.ribbonPanel.SuspendLayout();
             this.gpModelPanel.SuspendLayout();
@@ -483,7 +482,6 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.linkLabel20);
             this.panel2.Controls.Add(this.linkLabel19);
             this.panel2.Controls.Add(this.linkLabel18);
             this.panel2.Controls.Add(this.linkLabel17);
@@ -523,29 +521,57 @@
             this.panel2.Size = new System.Drawing.Size(1017, 451);
             this.panel2.TabIndex = 14;
             // 
+            // linkLabel19
+            // 
+            this.linkLabel19.AutoSize = true;
+            this.linkLabel19.DisabledLinkColor = System.Drawing.Color.CornflowerBlue;
+            this.linkLabel19.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.linkLabel19.LinkColor = System.Drawing.Color.Blue;
+            this.linkLabel19.Location = new System.Drawing.Point(238, 321);
+            this.linkLabel19.Name = "linkLabel19";
+            this.linkLabel19.Size = new System.Drawing.Size(136, 13);
+            this.linkLabel19.TabIndex = 38;
+            this.linkLabel19.TabStop = true;
+            this.linkLabel19.Text = "Election prediction (ANN)";
+            // 
+            // linkLabel18
+            // 
+            this.linkLabel18.AutoSize = true;
+            this.linkLabel18.DisabledLinkColor = System.Drawing.Color.CornflowerBlue;
+            this.linkLabel18.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.linkLabel18.LinkColor = System.Drawing.Color.Blue;
+            this.linkLabel18.Location = new System.Drawing.Point(396, 285);
+            this.linkLabel18.Name = "linkLabel18";
+            this.linkLabel18.Size = new System.Drawing.Size(134, 13);
+            this.linkLabel18.TabIndex = 37;
+            this.linkLabel18.TabStop = true;
+            this.linkLabel18.Text = "MSFT Stock Quote (ANN)";
+            // 
             // linkLabel17
             // 
             this.linkLabel17.AutoSize = true;
+            this.linkLabel17.DisabledLinkColor = System.Drawing.Color.CornflowerBlue;
             this.linkLabel17.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.linkLabel17.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.linkLabel17.LinkColor = System.Drawing.Color.Blue;
             this.linkLabel17.Location = new System.Drawing.Point(238, 285);
             this.linkLabel17.Name = "linkLabel17";
-            this.linkLabel17.Size = new System.Drawing.Size(105, 13);
+            this.linkLabel17.Size = new System.Drawing.Size(127, 13);
             this.linkLabel17.TabIndex = 36;
             this.linkLabel17.TabStop = true;
-            this.linkLabel17.Text = "Election prediction ";
+            this.linkLabel17.Text = "Election prediction (GP)";
             // 
             // linkLabel16
             // 
             this.linkLabel16.AutoSize = true;
+            this.linkLabel16.DisabledLinkColor = System.Drawing.Color.CornflowerBlue;
             this.linkLabel16.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.linkLabel16.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.linkLabel16.LinkColor = System.Drawing.Color.Blue;
             this.linkLabel16.Location = new System.Drawing.Point(238, 249);
             this.linkLabel16.Name = "linkLabel16";
-            this.linkLabel16.Size = new System.Drawing.Size(83, 13);
+            this.linkLabel16.Size = new System.Drawing.Size(117, 13);
             this.linkLabel16.TabIndex = 35;
             this.linkLabel16.TabStop = true;
-            this.linkLabel16.Text = "Titanic Survival";
+            this.linkLabel16.Text = "Titanic Survival (ANN)";
             // 
             // label2
             // 
@@ -564,10 +590,10 @@
             this.linkLabel15.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.linkLabel15.Location = new System.Drawing.Point(579, 265);
             this.linkLabel15.Name = "linkLabel15";
-            this.linkLabel15.Size = new System.Drawing.Size(122, 13);
+            this.linkLabel15.Size = new System.Drawing.Size(147, 13);
             this.linkLabel15.TabIndex = 33;
             this.linkLabel15.TabStop = true;
-            this.linkLabel15.Text = "Transportation Sample";
+            this.linkLabel15.Text = "Transportation Sample (GP)";
             this.linkLabel15.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel15_LinkClicked);
             // 
             // linkLabel14
@@ -576,10 +602,10 @@
             this.linkLabel14.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.linkLabel14.Location = new System.Drawing.Point(579, 294);
             this.linkLabel14.Name = "linkLabel14";
-            this.linkLabel14.Size = new System.Drawing.Size(111, 13);
+            this.linkLabel14.Size = new System.Drawing.Size(132, 13);
             this.linkLabel14.TabIndex = 31;
             this.linkLabel14.TabStop = true;
-            this.linkLabel14.Text = "Assignment Sample1";
+            this.linkLabel14.Text = "Assignment Sample (GP)";
             this.linkLabel14.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel14_LinkClicked);
             // 
             // linkLabel12
@@ -588,10 +614,10 @@
             this.linkLabel12.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.linkLabel12.Location = new System.Drawing.Point(579, 210);
             this.linkLabel12.Name = "linkLabel12";
-            this.linkLabel12.Size = new System.Drawing.Size(103, 13);
+            this.linkLabel12.Size = new System.Drawing.Size(128, 13);
             this.linkLabel12.TabIndex = 29;
             this.linkLabel12.TabStop = true;
-            this.linkLabel12.Text = "TSP - 20 Cities Path";
+            this.linkLabel12.Text = "TSP - 20 Cities Path (GP)";
             this.linkLabel12.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel12_LinkClicked);
             // 
             // linkLabel11
@@ -600,10 +626,10 @@
             this.linkLabel11.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.linkLabel11.Location = new System.Drawing.Point(396, 249);
             this.linkLabel11.Name = "linkLabel11";
-            this.linkLabel11.Size = new System.Drawing.Size(100, 13);
+            this.linkLabel11.Size = new System.Drawing.Size(125, 13);
             this.linkLabel11.TabIndex = 28;
             this.linkLabel11.TabStop = true;
-            this.linkLabel11.Text = "MSFT Stock Quote";
+            this.linkLabel11.Text = "MSFT Stock Quote (GP)";
             this.linkLabel11.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.microsoft_StockModeling);
             // 
             // label1
@@ -623,10 +649,10 @@
             this.linkLabel13.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.linkLabel13.Location = new System.Drawing.Point(579, 237);
             this.linkLabel13.Name = "linkLabel13";
-            this.linkLabel13.Size = new System.Drawing.Size(105, 13);
+            this.linkLabel13.Size = new System.Drawing.Size(130, 13);
             this.linkLabel13.TabIndex = 26;
             this.linkLabel13.TabStop = true;
-            this.linkLabel13.Text = "TSP - 131 Cities Path";
+            this.linkLabel13.Text = "TSP - 131 Cities Path (GP)";
             this.linkLabel13.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel13_LinkClicked);
             // 
             // linkLabel9
@@ -635,10 +661,10 @@
             this.linkLabel9.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.linkLabel9.Location = new System.Drawing.Point(32, 393);
             this.linkLabel9.Name = "linkLabel9";
-            this.linkLabel9.Size = new System.Drawing.Size(136, 13);
+            this.linkLabel9.Size = new System.Drawing.Size(161, 13);
             this.linkLabel9.TabIndex = 24;
             this.linkLabel9.TabStop = true;
-            this.linkLabel9.Text = "CNC Param. Optimization";
+            this.linkLabel9.Text = "CNC Param. Optimization (GP)";
             this.linkLabel9.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.cnc_params_Optimization);
             // 
             // linkLabel10
@@ -647,10 +673,10 @@
             this.linkLabel10.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.linkLabel10.Location = new System.Drawing.Point(32, 357);
             this.linkLabel10.Name = "linkLabel10";
-            this.linkLabel10.Size = new System.Drawing.Size(92, 13);
+            this.linkLabel10.Size = new System.Drawing.Size(117, 13);
             this.linkLabel10.TabIndex = 23;
             this.linkLabel10.TabStop = true;
-            this.linkLabel10.Text = "Global Optimum";
+            this.linkLabel10.Text = "Global Optimum (GP)";
             this.linkLabel10.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.global_Optimization);
             // 
             // linkLabel8
@@ -784,10 +810,10 @@
             this.linkLabel3.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.linkLabel3.Location = new System.Drawing.Point(32, 321);
             this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(162, 13);
+            this.linkLabel3.Size = new System.Drawing.Size(187, 13);
             this.linkLabel3.TabIndex = 10;
             this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "Surface Roughness predictions";
+            this.linkLabel3.Text = "Surface Roughness predictions (GP)";
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.surfaceRoughnessPrediction_Click);
             // 
             // linkLabel2
@@ -796,10 +822,10 @@
             this.linkLabel2.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.linkLabel2.Location = new System.Drawing.Point(32, 285);
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(84, 13);
+            this.linkLabel2.Size = new System.Drawing.Size(109, 13);
             this.linkLabel2.TabIndex = 9;
             this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Weld Hardness";
+            this.linkLabel2.Text = "Weld Hardness (GP)";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.weldHardness_Click);
             // 
             // linkLabel1
@@ -808,10 +834,10 @@
             this.linkLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.linkLabel1.Location = new System.Drawing.Point(32, 249);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(69, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(94, 13);
             this.linkLabel1.TabIndex = 8;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Simple Case";
+            this.linkLabel1.Text = "Simple Case (GP)";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.simple_fun_mod_Clicked);
             // 
             // label5
@@ -877,42 +903,6 @@
             this.pbLogoHor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pbLogoHor.TabIndex = 2;
             this.pbLogoHor.TabStop = false;
-            // 
-            // linkLabel18
-            // 
-            this.linkLabel18.AutoSize = true;
-            this.linkLabel18.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.linkLabel18.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.linkLabel18.Location = new System.Drawing.Point(396, 285);
-            this.linkLabel18.Name = "linkLabel18";
-            this.linkLabel18.Size = new System.Drawing.Size(100, 13);
-            this.linkLabel18.TabIndex = 37;
-            this.linkLabel18.TabStop = true;
-            this.linkLabel18.Text = "MSFT Stock Quote";
-            // 
-            // linkLabel19
-            // 
-            this.linkLabel19.AutoSize = true;
-            this.linkLabel19.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.linkLabel19.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.linkLabel19.Location = new System.Drawing.Point(238, 321);
-            this.linkLabel19.Name = "linkLabel19";
-            this.linkLabel19.Size = new System.Drawing.Size(105, 13);
-            this.linkLabel19.TabIndex = 38;
-            this.linkLabel19.TabStop = true;
-            this.linkLabel19.Text = "Election prediction ";
-            // 
-            // linkLabel20
-            // 
-            this.linkLabel20.AutoSize = true;
-            this.linkLabel20.Font = new System.Drawing.Font("Segoe UI Semibold", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.linkLabel20.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.linkLabel20.Location = new System.Drawing.Point(32, 432);
-            this.linkLabel20.Name = "linkLabel20";
-            this.linkLabel20.Size = new System.Drawing.Size(136, 13);
-            this.linkLabel20.TabIndex = 39;
-            this.linkLabel20.TabStop = true;
-            this.linkLabel20.Text = "CNC Param. Optimization";
             // 
             // MainWindow
             // 
@@ -1007,7 +997,6 @@
         private System.Windows.Forms.LinkLabel linkLabel17;
         private System.Windows.Forms.LinkLabel linkLabel16;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.LinkLabel linkLabel20;
         private System.Windows.Forms.LinkLabel linkLabel19;
         private System.Windows.Forms.LinkLabel linkLabel18;
 

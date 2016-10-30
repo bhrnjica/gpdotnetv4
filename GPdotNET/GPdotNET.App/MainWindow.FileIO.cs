@@ -44,7 +44,7 @@ namespace GPdotNET.App
            if (!CloseCurrentModel())
                return false;
 
-           bool retVal= Open(strFile);
+           bool retVal= Openv4(strFile);
 
            return retVal; 
         }
@@ -137,14 +137,14 @@ namespace GPdotNET.App
                 _baseRunPanel.SetTypeofRun(lines[6]);
 
             //Line 8 to Line8+popSize: Current GP Population
-            int currentLine = MainPopulationFromString(lines, _mainFactory, 6);
-            if (_mainFactory != null && _mainFactory.GetFunctionSet() != null)
+            int currentLine = MainPopulationFromString(lines, _mainGPFactory, 6);
+            if (_mainGPFactory != null && _mainGPFactory.GetFunctionSet() != null)
             {
                 var e = new ProgressIndicatorEventArgs();
                 e.ReportType = ProgramState.Finished;
                 e.CurrentIteration = 0;
-                e.BestChromosome = _mainFactory.BestChromosome();
-                e.AverageFitness = _mainFactory.GetAverageFitness();
+                e.BestChromosome = _mainGPFactory.BestChromosome();
+                e.AverageFitness = _mainGPFactory.GetAverageFitness();
                 //enable GP engine
                 _runningEngine = 1;
                 ReportEvolution(e);
@@ -311,7 +311,7 @@ namespace GPdotNET.App
                 tw.WriteLine("!Line 8 Population: size;bestfitness:bestchromosometree");
                 if (_baseRunPanel != null)
                 {
-                    GPFactory fac = _mainFactory;
+                    GPFactory fac = _mainGPFactory;
 
                     var str = PreparePopulationForSave(fac);
                     if (str != null && str.Length > 0)
@@ -408,6 +408,135 @@ namespace GPdotNET.App
             }
         }
 
+        private bool Openv4(string strFile)
+        {
+
+            if (!File.Exists(strFile))
+            {
+                MessageBox.Show("File doesnt exist!");
+                return false;
+            }
+
+            _filePath = strFile;
+
+            string buffer;
+            ResetProgram();
+            // open selected file and retrieve the content
+            using (StreamReader reader = System.IO.File.OpenText(strFile))
+            {
+                //read TrainingData in to buffer
+                buffer = reader.ReadToEnd();
+                reader.DiscardBufferedData();
+                //reader.Close();
+            }
+
+            //define the lines from file
+            var lines = (from l in buffer.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                         where l[0] != '!' && l[0] != '\r'
+                         select l.IndexOf('!') == -1 ? l : l.Remove(l.IndexOf('!'))
+                         ).ToArray();
+
+            if (lines.Length < 6)
+                throw new Exception("The File cannot be loaded!");
+            //LOADING PROCES
+
+            //Line 1: Model type and header information
+            int mod = int.Parse(lines[0].Replace("\r", ""));
+            _GPModel = (GPModelType)mod;
+
+            //this is temporary for old models
+            if (_GPModel != GPModelType.ANNMODEL)
+            {
+               // Open();
+               return Open(strFile);
+            }
+
+          //  LoadModelWizard(_GPModel);
+
+            //Line 2: Experiment
+            var exp= lines[1];
+
+            //Line 3: Parametres 
+            var param = lines[2];
+
+            //Line 4: Function Set - only for GA 
+            var funs = lines[3];
+
+            //Line 5: Training
+            var training = lines[5];
+            
+            //Line 6: Optimization
+            var opt = lines[6];
+            
+            //Line 7: Prediction 
+            var prediction = lines[6];
+
+            //Line 8: Info
+            var rtfInfo = string.Join(Environment.NewLine, lines.Skip(7).ToList());
+
+            _isFileDirty = false;
+            return true;
+        }
+        bool SaveToFilev4(string strFile)
+        {
+            if (strFile == null)
+                return false;
+            if(_GPModel!= GPModelType.ANNMODEL)
+                return SaveToFile(strFile);
+
+            // open selected file and retrieve the content
+            using (TextWriter tw = new StreamWriter(strFile))
+            {
+
+                tw.Flush();
+                //Line1: Model type and header information
+                tw.WriteLine("!GPdotNET v4.0 File format ");
+                tw.WriteLine("!");
+                tw.WriteLine("!line 1: GP Model  1- symbolic regression; 2 -symbolic regression with optimisation, 3 - time series, 4- analytic optimisation, 5- TSP, 6 - Assigment , 7-Transportation, 8- ANN");
+                int model = (int)_GPModel;
+                tw.WriteLine(model.ToString());
+
+                //Line2: Experiment
+                tw.WriteLine("!Experimental data.");
+                var str= _experimentPanel.ExperimentToString();
+                tw.WriteLine(str);
+
+                
+                //Line 3: Parameters
+                tw.WriteLine("!Parameters.");
+                str = _setANNPanel.ParametersToString();
+                tw.WriteLine(str);
+
+                //Line 4: Function Set - only for GA 
+                tw.WriteLine("!Function et");
+                string funStr = "-";
+                if (_funPanel != null)
+                   funStr= FunctionPanel.FunctionToString();
+                tw.WriteLine(funStr);
+
+                //Line 5: Training
+                tw.WriteLine("!Training");
+                tw.WriteLine("-");
+               // string train= _mainANNFactory.TrainingToString();
+
+                //Line 6: Optimization
+                tw.WriteLine("!Optimization");
+                string optStr = "-";
+                if (_optimizePanel != null)
+                    optStr = OptimizePanel.OptimizeToString();
+                tw.WriteLine(optStr);
+
+                //Line 7: Prediction 
+                tw.WriteLine("!Prediction");
+                tw.WriteLine("-");
+
+                //Line 8: Info
+                tw.WriteLine("!GPdotNET Model info rtf");
+                tw.WriteLine(_infoPanel.InfoText);
+            }
+
+            return true;
+        }
        /// <summary>
        /// 
        /// </summary>

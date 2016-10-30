@@ -50,9 +50,11 @@
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.numericUpDown1);
             this.groupBox5.Controls.Add(this.label1);
-            this.groupBox5.Location = new System.Drawing.Point(3, 163);
+            this.groupBox5.Location = new System.Drawing.Point(4, 251);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(264, 58);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox5.Size = new System.Drawing.Size(506, 89);
             this.groupBox5.TabIndex = 5;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Settings";
@@ -60,28 +62,25 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 23);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(18, 35);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
+            this.label2.Size = new System.Drawing.Size(58, 20);
             this.label2.TabIndex = 15;
             this.label2.Text = "Select ";
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(55, 19);
-            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericUpDown1.Location = new System.Drawing.Point(82, 29);
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(40, 20);
+            this.numericUpDown1.Size = new System.Drawing.Size(60, 26);
             this.numericUpDown1.TabIndex = 14;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(95, 23);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(142, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 13);
+            this.label1.Size = new System.Drawing.Size(162, 20);
             this.label1.TabIndex = 13;
             this.label1.Text = "% for testing. (0-50%)";
             // 
@@ -91,9 +90,10 @@
             this.btnSetToGP.Enabled = false;
             this.btnSetToGP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.btnSetToGP.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSetToGP.Location = new System.Drawing.Point(282, 192);
+            this.btnSetToGP.Location = new System.Drawing.Point(533, 295);
+            this.btnSetToGP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSetToGP.Name = "btnSetToGP";
-            this.btnSetToGP.Size = new System.Drawing.Size(113, 29);
+            this.btnSetToGP.Size = new System.Drawing.Size(170, 45);
             this.btnSetToGP.TabIndex = 3;
             this.btnSetToGP.Text = "Start Modeling";
             this.btnSetToGP.UseVisualStyleBackColor = true;
@@ -107,10 +107,11 @@
             this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listView1.FullRowSelect = true;
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView1.Location = new System.Drawing.Point(3, 3);
+            this.listView1.Location = new System.Drawing.Point(4, 5);
+            this.listView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(393, 155);
+            this.listView1.Size = new System.Drawing.Size(698, 236);
             this.listView1.TabIndex = 25;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -121,9 +122,10 @@
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.button1.Location = new System.Drawing.Point(282, 163);
+            this.button1.Location = new System.Drawing.Point(533, 251);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 25);
+            this.button1.Size = new System.Drawing.Size(171, 38);
             this.button1.TabIndex = 27;
             this.button1.Text = "Load data...";
             this.button1.UseVisualStyleBackColor = true;
@@ -131,15 +133,16 @@
             // 
             // ExperimentPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(217)))), ((int)(((byte)(239)))));
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnSetToGP);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.groupBox5);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ExperimentPanel";
-            this.Size = new System.Drawing.Size(403, 229);
+            this.Size = new System.Drawing.Size(714, 352);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
