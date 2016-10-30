@@ -6,6 +6,8 @@ GPdotNET is C# open source artificial intelligence tool for applying Genetic Alg
 
 Binaries can be downloaded  at [GPdotNET v4.0 beta 3 ](https://gpdotnet.codeplex.com/downloads/get/1616122)
 
+How to citate GPdotNET
+------------------------------------------
 Everybody is free to use GPdotNET with correct citation given as follows:
 
 Example of GPdotNET citation (English):
