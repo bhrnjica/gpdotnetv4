@@ -1,5 +1,3 @@
-GPdotNET - artificial intelligence tool
-========================================
 ![alt text][logo]
 
 [logo]: https://github.com/bhrnjica/gpdotnet/blob/master/GPdotNET/GPdotNET.App/Resources/gpLogo_350x134pix.png "GPdotNET v4.0"
