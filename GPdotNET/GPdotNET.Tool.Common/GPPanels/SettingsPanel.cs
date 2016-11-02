@@ -39,7 +39,7 @@ namespace GPdotNET.Tool.Common
             //Set initial value
             cmbInitMethods.SelectedIndex = 2;
             cmbSelectionMethods.SelectedIndex = 0;
-            cmbFitnessFuncs.SelectedIndex = 0;
+            cmbFitnessFuncs.SelectedIndex = 2;
 
             txtProbMutation.Text = (5.0 / 100.0).ToString();
             txtProbPermutation.Text = (5.0 / 100.0).ToString();
@@ -80,8 +80,9 @@ namespace GPdotNET.Tool.Common
         /// </summary>
         private void LoadFitnessFunsInCombo()
         {
-            
+            cmbFitnessFuncs.Items.Add("AE	-Apsolute error ");
             cmbFitnessFuncs.Items.Add("RMSE	-Root mean square error ");
+            cmbFitnessFuncs.Items.Add("SE	-Square error ");
             cmbFitnessFuncs.Items.Add("MSE	-Mean square error ");
             cmbFitnessFuncs.Items.Add("MAE	-Mean apsolute error ");
             cmbFitnessFuncs.Items.Add("RSE	-Root square error ");
@@ -155,28 +156,35 @@ namespace GPdotNET.Tool.Common
         private IFitnessFunction SelectFitnessFun(int selIndex)
         {
             /*
-            cmbFitnessFuncs.Items.Add("MSE	-Mean square error ");
+            cmbFitnessFuncs.Items.Add("AE	-Apsolute error ");
             cmbFitnessFuncs.Items.Add("RMSE	-Root mean square error ");
+            cmbFitnessFuncs.Items.Add("SE	-Square error ");
+            cmbFitnessFuncs.Items.Add("MSE	-Mean square error ");
             cmbFitnessFuncs.Items.Add("MAE	-Mean apsolute error ");
             cmbFitnessFuncs.Items.Add("RSE	-Root square error ");
             cmbFitnessFuncs.Items.Add("RRSE	-Relative root square error ");
             cmbFitnessFuncs.Items.Add("RAE	-Root apsolute error ");
+            cmbFitnessFuncs.Items.Add("CLASS -Classification ");
             */
             switch (selIndex)
             {
                 case 0:
-                    return new RMSEFitness(); 
+                    return new AEFitness();
                 case 1:
-                    return new MSEFitness();
+                    return new RMSEFitness();
                 case 2:
-                    return new MAEFitness();
+                    return new SEFitness();
                 case 3:
-                    return new RSEFitness();
+                    return new MSEFitness();
                 case 4:
-                    return new RRSEFitness();
+                    return new MAEFitness();
                 case 5:
-                    return new RAEFitness();
+                    return new RSEFitness();
                 case 6:
+                    return new RRSEFitness();
+                case 7:
+                    return new RAEFitness();
+                case 8:
                     return new ClassFitness(m_OutpuType);
                 default:
                     return new RMSEFitness();
@@ -186,21 +194,36 @@ namespace GPdotNET.Tool.Common
 
         private int getFitnessSelectedIndex(IFitnessFunction gPFitness)
         {
+            /*
+            0 = cmbFitnessFuncs.Items.Add("AE	-Apsolute error ");
+            1 = cmbFitnessFuncs.Items.Add("RMSE	-Root mean square error ");
+            2 = cmbFitnessFuncs.Items.Add("SE	-Square error ");
+            3 = cmbFitnessFuncs.Items.Add("MSE	-Mean square error ");
+            4 = cmbFitnessFuncs.Items.Add("MAE	-Mean apsolute error ");
+            5 = cmbFitnessFuncs.Items.Add("RSE	-Root square error ");
+            6 = cmbFitnessFuncs.Items.Add("RRSE	-Relative root square error ");
+            7 = cmbFitnessFuncs.Items.Add("RAE	-Root apsolute error ");
+            8 = cmbFitnessFuncs.Items.Add("CLASS -Classification ");
+            */
 
-                if (gPFitness is RMSEFitness)
+            if (gPFitness is AEFitness)
                 return 0;
-            else if (gPFitness is MSEFitness)
+            else if (gPFitness is RMSEFitness)
                 return 1;
-            else if (gPFitness is MAEFitness)
+            else if (gPFitness is SEFitness)
                 return 2;
-            else if (gPFitness is RSEFitness)
+            else if (gPFitness is MSEFitness)
                 return 3;
-            else if (gPFitness is RRSEFitness)
+            else if (gPFitness is MAEFitness)
                 return 4;
-            else if (gPFitness is RAEFitness)
+            else if (gPFitness is RSEFitness)
                 return 5;
-            else if (gPFitness is ClassFitness)
+            else if (gPFitness is RRSEFitness)
                 return 6;
+            else if (gPFitness is RAEFitness)
+                return 7;
+            else if (gPFitness is ClassFitness)
+                return 8;
             else
                 return 0;
         }
@@ -793,7 +816,8 @@ namespace GPdotNET.Tool.Common
 
             if (colType== ColumnDataType.Numeric)
             {
-                cmbFitnessFuncs.SelectedIndex = 0;
+                //let initial fitness function be Square error
+                cmbFitnessFuncs.SelectedIndex = 2;
                 cmbFitnessFuncs.Enabled = true;
             }
             else

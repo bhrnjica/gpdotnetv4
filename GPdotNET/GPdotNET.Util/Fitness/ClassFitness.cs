@@ -24,10 +24,10 @@ namespace GPdotNET.Util
     /// GPdotNET 4.0 implements the Fitness for Clasification problems. It calculates division between correct and totaln rows.
     /// </summary>
 
-    public class ClassFitness:IFitnessFunction
+    public class ClassFitness : IFitnessFunction
     {
         #region IFitnessFunction Members
-        public ColumnDataType m_ProblemType =  ColumnDataType.Binary;
+        public ColumnDataType m_ProblemType = ColumnDataType.Binary;
         public ClassFitness(ColumnDataType ptype)
         {
             m_ProblemType = ptype;
@@ -55,7 +55,7 @@ namespace GPdotNET.Util
                 //Calculate apsolute error
                 if (m_ProblemType == ColumnDataType.Binary)
                 {
-                    if(y < 0)
+                    if (y < 0)
                         rowFitness += (0 - Globals.gpterminals.TrainingData[i][indexOutput]) == 0 ? 1 : 0;
                     else
                         rowFitness += (1 - Globals.gpterminals.TrainingData[i][indexOutput]) == 0 ? 1 : 0;
@@ -67,9 +67,9 @@ namespace GPdotNET.Util
                     var val1 = Math.Exp(-1.0 * y);
                     val1 = Globals.classCount * (1 / (1 + val1));
 
-                    for(int j=1; j<= Globals.classCount; j++)
+                    for (int j = 1; j <= Globals.classCount; j++)
                     {
-                        if(val1 <= j)
+                        if (val1 <= j)
                         {
                             valClass = j - 1;
                             break;
@@ -81,7 +81,7 @@ namespace GPdotNET.Util
                 }
                 else
                     throw new Exception("Problem type is unknown!");
-                
+
             }
 
             if (double.IsNaN(rowFitness) || double.IsInfinity(rowFitness))
@@ -89,7 +89,7 @@ namespace GPdotNET.Util
             else
                 fitness = (float)(rowFitness / Globals.gpterminals.RowCount) * 1000.0;
 
-            return (float)Math.Round(fitness,2);
+            return (float)Math.Round(fitness, 2);
         }
         #endregion
 

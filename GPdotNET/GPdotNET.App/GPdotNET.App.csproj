@@ -138,7 +138,7 @@ run both on Windows and Lunux OS.</Description>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph, Version=5.1.5.38312, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ZedGraph, Version=5.1.5.35375, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
     </Reference>

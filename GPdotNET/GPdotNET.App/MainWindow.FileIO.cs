@@ -228,9 +228,10 @@ namespace GPdotNET.App
 
                 tw.Flush();
                 //Line1: Moel type and header information
-                tw.WriteLine("!GPdotNET v2.0 File format ");
+                //tw.WriteLine("!GPdotNET v2.0 File format ");
+                tw.WriteLine("!GPdotNET v4.0 File format ");
                 tw.WriteLine("!");
-                tw.WriteLine("!line 1: GP Model  1- symbolic regression; 2 -symbolic regression with optimisation, 3 - time series, 4- analytic optimisation, 5- TSP");
+                tw.WriteLine("!line 1: GP Model  1- symbolic regression; 2 -symbolic regression with optimisation, 3 - time series, 4- analytic optimisation, 5- TSP, 6-AP ,7-TP, 8-ANNMODEL, 9 - GPMODEL");
                 int model = (int)_GPModel;
                 tw.WriteLine(model.ToString());
 

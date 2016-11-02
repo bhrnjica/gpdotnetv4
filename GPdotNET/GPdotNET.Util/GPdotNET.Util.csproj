@@ -51,7 +51,9 @@
     <Compile Include="ExcelHelper.cs" />
     <Compile Include="Fitness\FintessFunctions.cs" />
     <Compile Include="Fitness\ClassFitness.cs" />
+    <Compile Include="Fitness\AEFitness.cs" />
     <Compile Include="Fitness\MAEFitness.cs" />
+    <Compile Include="Fitness\SEFitness.cs" />
     <Compile Include="Fitness\MSEFitness.cs" />
     <Compile Include="Fitness\RAEFitness.cs" />
     <Compile Include="Fitness\RRSEFitness.cs" />

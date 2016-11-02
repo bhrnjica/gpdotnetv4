@@ -11,17 +11,20 @@ using GPdotNET.Engine;
 // bhrnjica@hotmail.com                                                                 //
 // Bihac,Bosnia and Herzegovina                                                         //
 // http://bhrnjica.wordpress.com                                                        //
-////////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////////
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace GPdotNET.Util
 {
     /// <summary>
-    /// Implement Mean Square Error fitness function
+    /// GPdotNET 4.0 implements the Absolute Error (AE) fitness function. The AE fitness is
+    /// based on the standard Value absolute error, which, is based on the absolute error.
     /// </summary>
-   
-    public class MSEFitness:IFitnessFunction
+
+    public class AEFitness:IFitnessFunction
     {
         #region IFitnessFunction Members
 
@@ -45,18 +48,18 @@ namespace GPdotNET.Util
                 if (double.IsNaN(y) || double.IsInfinity(y))
                     return float.NaN;
 
-                var temp = y - Globals.gpterminals.TrainingData[i][indexOutput];
-                rowFitness += temp*temp;
+                //Calculate apsolute error
+                rowFitness += Math.Abs(y - Globals.gpterminals.TrainingData[i][indexOutput]);
             }
 
             if (double.IsNaN(rowFitness) || double.IsInfinity(rowFitness))
                 fitness = float.NaN;
             else
-                fitness = (float)((1.0 / (1.0 + rowFitness / Globals.gpterminals.RowCount)) * 1000.0);
+                fitness = (float)((1.0 / (1.0 + rowFitness)) * 1000.0);
 
-            return (float)Math.Round(fitness, 2);
+            return (float)Math.Round(fitness,2);
         }
-
         #endregion
+
     }
 }

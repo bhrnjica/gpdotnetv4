@@ -18,10 +18,10 @@ using System.Collections.Generic;
 namespace GPdotNET.Util
 {
     /// <summary>
-    /// Implement Mean Square Error fitness function
+    /// Implement Square Error fitness function
     /// </summary>
    
-    public class MSEFitness:IFitnessFunction
+    public class SEFitness:IFitnessFunction
     {
         #region IFitnessFunction Members
 
@@ -52,7 +52,7 @@ namespace GPdotNET.Util
             if (double.IsNaN(rowFitness) || double.IsInfinity(rowFitness))
                 fitness = float.NaN;
             else
-                fitness = (float)((1.0 / (1.0 + rowFitness / Globals.gpterminals.RowCount)) * 1000.0);
+                fitness = (float)((1.0 / (1.0 + rowFitness)) * 1000.0);
 
             return (float)Math.Round(fitness, 2);
         }
