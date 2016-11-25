@@ -42,7 +42,7 @@ run both on Windows and Lunux OS.</Description>
     <MinimumRequiredVersion>2.0.0.0</MinimumRequiredVersion>
     <AutorunEnabled>true</AutorunEnabled>
     <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>4.0.3.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -126,10 +126,6 @@ run both on Windows and Lunux OS.</Description>
     <AssemblyOriginatorKeyFile>GPdotNET.App_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClosedXML, Version=0.67.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -138,8 +134,10 @@ run both on Windows and Lunux OS.</Description>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph, Version=5.1.5.35375, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="ClosedXML">
+      <HintPath>..\..\ThirdParty\Assemblies\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="ZedGraph">
       <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -193,6 +191,9 @@ run both on Windows and Lunux OS.</Description>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Resources\gpdotnet_ico48.ico" />
+    <Content Include="AppxManifest.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Resources_Files\hardness_modeling.gpa">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

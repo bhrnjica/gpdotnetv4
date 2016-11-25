@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package
+   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities">
+  <Identity Name="GPdotNET"
+    ProcessorArchitecture="x64"
+    Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+    Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>GPdotNET</DisplayName>
+    <PublisherDisplayName>Reserved</PublisherDisplayName>
+    <Description>No description entered</Description>
+    <Logo>Assets/SampleLogo.png</Logo>
+  </Properties>
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14393.0" MaxVersionTested="10.0.14393.0" />
+  </Dependencies>
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust"/>
+  </Capabilities>
+  <Applications>
+    <Application Id="App1" Executable="GPdotNET.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements
+       BackgroundColor="#464646"
+       DisplayName="GPdotNET"
+       Square150x150Logo="Assets/SampleLogo.png"
+       Square44x44Logo="Assets/SampleLogo.png"
+       Description="GPdotNET" />
+    </Application>
+  </Applications>
+</Package>
