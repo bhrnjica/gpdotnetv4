@@ -41,7 +41,7 @@ namespace GPdotNET.Core.Experiment
         /// <summary>
         /// Returns loaded experiment as string 
         /// </summary>
-        public string[][] TrainDataAsString { get { return m_strData; } }
+        public string[][] TrainDataAsString { get { return m_strData; } set { m_strData = value; } }
         #endregion
 
 
@@ -851,7 +851,7 @@ namespace GPdotNET.Core.Experiment
                     m_testData = new List<ColumnData>();
                 else
                     m_testData.Clear();
-                
+
                 //first go thru all col
                 for (int j = 0; j < colCount; j++)
                 {
@@ -867,7 +867,7 @@ namespace GPdotNET.Core.Experiment
                         col.RealValues[i] = dataTst[i][j];
                     //
                     var trainCol = m_trainData.Where(x => x.Name == col.Name).FirstOrDefault();
-                    if(trainCol!=null)
+                    if (trainCol != null)
                     {
                         col.InitializeAsTestData(trainCol.Statistics);
                         m_testData.Add(col);
@@ -875,6 +875,8 @@ namespace GPdotNET.Core.Experiment
                 }
 
             }
+            else
+                m_testData = null;
         }
 
         private string[][] ignoreRowsWithMissingValues(List<ColumnProperties> colProp)
@@ -1102,6 +1104,8 @@ namespace GPdotNET.Core.Experiment
                 col.SetNormalization(NormalizationType.MinMax);
             else if (colProp.NormType == "Gauss")
                 col.SetNormalization(NormalizationType.Gauss);
+            else if (colProp.NormType == "none")
+                col.SetNormalization(NormalizationType.None);
             else
                 col.SetNormalization(NormalizationType.Custom);
 

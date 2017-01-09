@@ -282,6 +282,9 @@ namespace GPdotNET.Tool.Common
             for (int i = 0; i < listView1.Items.Count; i++)
             {
                 var row = listView1.Items[i];
+
+                if (y == null)
+                    return;
                 //
                 double Ygp=y[i];
                 row.SubItems[row.SubItems.Count - 2].Text = Math.Round(Ygp, 5).ToString();
@@ -394,8 +397,12 @@ namespace GPdotNET.Tool.Common
                 if (prediction == null)
                 {
                     var retVal = GPdotNET.Core.Globals.CalculateGPModel(ch.expressionTree, false);
-                    FillGPPredictionResult(retVal);
-                    UpdateChartDataPoint(retVal, true);
+                    if(retVal==null)
+                    {
+                        FillGPPredictionResult(retVal);
+                        UpdateChartDataPoint(retVal, true);
+                    }
+                   
 
                 }
                 else

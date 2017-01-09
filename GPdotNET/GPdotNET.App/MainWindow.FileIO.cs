@@ -44,7 +44,7 @@ namespace GPdotNET.App
            if (!CloseCurrentModel())
                return false;
 
-           bool retVal= Openv4(strFile);
+           bool retVal= Open(strFile);
 
            return retVal; 
         }
@@ -92,6 +92,12 @@ namespace GPdotNET.App
                 MessageBox.Show("Open Analytic function optimization file is not implemented.!");
                 return false;
             }
+            if (_GPModel == GPModelType.ANNMODEL)
+            {
+                MessageBox.Show("The feture if not implemented.!");
+                return false;
+            }
+
             LoadModelWizard(_GPModel);
 
 
@@ -125,6 +131,16 @@ namespace GPdotNET.App
                     _dataPanel.LoadSeriesData(data);
             }
 
+            //Line 4: Experiment Data - suported in V4.0
+            if (_experimentPanel != null)
+            {
+                _experimentPanel.ExperimentFromString(lines[1].Replace("\r", ""));
+                //Events from experiment panel about loading dataset
+                if (_experimentPanel != null)
+                    _experimentPanel.StartModelling();
+
+            }
+
             //Line 5: GP Parameters
             _setPanel.SetParameters(lines[4]);
 
@@ -145,6 +161,11 @@ namespace GPdotNET.App
                 e.CurrentIteration = 0;
                 e.BestChromosome = _mainGPFactory.BestChromosome();
                 e.AverageFitness = _mainGPFactory.GetAverageFitness();
+                if(_GPModel == GPModelType.GPMODEL)
+                {
+                    e.LearnOutput = _mainGPFactory.CalculateTrainModel(e.BestChromosome as GPChromosome);
+                    e.PredicOutput = _mainGPFactory.CalculateTestModel(e.BestChromosome as GPChromosome);
+                }
                 //enable GP engine
                 _runningEngine = 1;
                 ReportEvolution(e);
@@ -233,47 +254,82 @@ namespace GPdotNET.App
                 tw.WriteLine("!");
                 tw.WriteLine("!line 1: GP Model  1- symbolic regression; 2 -symbolic regression with optimisation, 3 - time series, 4- analytic optimisation, 5- TSP, 6-AP ,7-TP, 8-ANNMODEL, 9 - GPMODEL");
                 int model = (int)_GPModel;
+                if(model==8)
+                {
+                    MessageBox.Show("This feature is not implemented for this kind of models.");
+                    return false; 
+                }
                 tw.WriteLine(model.ToString());
-
+                string data = null;
                 //Line2: Training DATA 
-                tw.WriteLine("!line 2 Training Data");
-                string data;
-                if (_dataPanel != null)
+                if (model < 8)
                 {
-                    data = _dataPanel.GetStringFromData(_dataPanel.Training);
-                    if (data == null)
-                        tw.WriteLine("-");
+                    tw.WriteLine("!line 2 Training Data");
+                    if (_dataPanel != null)
+                    {
+                        data = _dataPanel.GetStringFromData(_dataPanel.Training);
+                        if (data == null)
+                            tw.WriteLine("-");
+                        else
+                            tw.WriteLine(data);
+                    }
                     else
-                        tw.WriteLine(data);
+                        tw.WriteLine("-");
                 }
-                else
-                    tw.WriteLine("-");
 
-                //Line3: Teting DATA 
-                tw.WriteLine("!line 3 Testing Data");
-                if (_dataPanel != null)
+                if (model < 8)
                 {
-                    data = _dataPanel.GetStringFromData(_dataPanel.Testing);
-                    if (data == null)
-                        tw.WriteLine("-");
+                    //Line3: Teting DATA 
+                    tw.WriteLine("!line 3 Testing Data");
+                    if (_dataPanel != null)
+                    {
+                        data = _dataPanel.GetStringFromData(_dataPanel.Testing);
+                        if (data == null)
+                            tw.WriteLine("-");
+                        else
+                            tw.WriteLine(data);
+                    }
                     else
-                        tw.WriteLine(data);
+                        tw.WriteLine("-");
                 }
-                else
-                    tw.WriteLine("-");
 
-                //Line4: Series DATA 
-                tw.WriteLine("!line 4 TimeSeries Data");
-                if (_dataPanel != null)
+                if (model < 8)
                 {
-                    data = _dataPanel.GetStringFromData(_dataPanel.TimeSeries);
-                    if (data == null)
-                        tw.WriteLine("-");
+                    //Line4: Series DATA 
+                    tw.WriteLine("!line 4 TimeSeries Data");
+                    if (_dataPanel != null)
+                    {
+                        data = _dataPanel.GetStringFromData(_dataPanel.TimeSeries);
+                        if (data == null)
+                            tw.WriteLine("-");
+                        else
+                            tw.WriteLine(data);
+                    }
                     else
-                        tw.WriteLine(data);
+                        tw.WriteLine("-");
                 }
-                else
+
+                if(model == 9)
+                {
+                    //Line4: Series DATA 
+                    tw.WriteLine("!line 4 Experimental Data");
+                    if (_experimentPanel != null)
+                    {
+                        data = _experimentPanel.ExperimentToString();
+                        if (data == null)
+                            tw.WriteLine("-");
+                        else
+                            tw.WriteLine(data);
+                    }
+                    else
+                        tw.WriteLine("-");
+
+                    tw.WriteLine("!line 3 Training Data");
                     tw.WriteLine("-");
+                    tw.WriteLine("!line 4 Testing Data");
+                    tw.WriteLine("-");
+                }
+                
 
                 //Line 5: GP Parameters
                 tw.WriteLine("!line 5: GP PArameters is sorted in the following order");
@@ -508,28 +564,40 @@ namespace GPdotNET.App
                 str = _setANNPanel.ParametersToString();
                 tw.WriteLine(str);
 
-                //Line 4: Function Set - only for GA 
-                tw.WriteLine("!Function et");
-                string funStr = "-";
-                if (_funPanel != null)
-                   funStr= FunctionPanel.FunctionToString();
-                tw.WriteLine(funStr);
+                //Line 7: GP type of Running program
+                tw.WriteLine("!line 7  Type of Running program 0- means generation number, 1 - fitness value ;");
+                tw.WriteLine("!        e.g. 1;700 - run program until max fitness is greate or equel than 700 ");
+                tw.WriteLine("!             0;500 - run program for 500 evolutions ");
+                string data = null;
+                if (_baseRunPanel != null)
+                {
+                    data = _baseRunPanel.GetTypeofRun();
+                    if (data == null)
+                        tw.WriteLine("-");
+                    else
+                        tw.WriteLine(data);
+                }
+                else
+                    tw.WriteLine("-");
 
-                //Line 5: Training
-                tw.WriteLine("!Training");
-                tw.WriteLine("-");
-               // string train= _mainANNFactory.TrainingToString();
+                //Line 8 to Line8+popSize: Current GP Population
+                //tw.WriteLine("!Line 8 weights");
+                //if (_baseRunPanel != null)
+                //{
+                //    var fac = _mainANNFactory;
+                //    _mainANNFactory.be
 
-                //Line 6: Optimization
-                tw.WriteLine("!Optimization");
-                string optStr = "-";
-                if (_optimizePanel != null)
-                    optStr = OptimizePanel.OptimizeToString();
-                tw.WriteLine(optStr);
 
-                //Line 7: Prediction 
-                tw.WriteLine("!Prediction");
-                tw.WriteLine("-");
+                //}
+                //else
+                //{
+                //    tw.WriteLine("!Line 8 Population: size;bestfitness:bestchromosometree");
+                //    tw.WriteLine("-");
+                //    tw.WriteLine("!Line  represent chromosomes in population");
+                //    tw.WriteLine("-");
+                //}
+
+
 
                 //Line 8: Info
                 tw.WriteLine("!GPdotNET Model info rtf");
@@ -689,7 +757,13 @@ namespace GPdotNET.App
                str[0]+=best == null ? "-;-" : best.ToString();
 
                for (int i = 0; i < popSize; i++)
-                 str[i + 1] = chroms[i].ToString();
+                {
+                    if(i< chroms.Count)
+                        str[i + 1] = chroms[i].ToString();
+                    else
+                        str[i + 1] = "0;1000";
+                }
+                 
                
                return str;
             }

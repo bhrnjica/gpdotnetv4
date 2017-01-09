@@ -62,7 +62,7 @@ namespace GPdotNET.App
         bool                    _isFileDirty=false;
         ContextMenuStrip        _contextMenuStrip1;
 
-        string                  _appName = "GPdotNET v4.0 Beta 4";
+        string                  _appName = "GPdotNET v4.0 Beta 5";
         //Open document through cmd line
         public string[] CmdLineParam
         {
@@ -451,12 +451,26 @@ namespace GPdotNET.App
                 loadGPPanelInMainWindow(this, _predictionPanel, "Prediction");
 
             }
+            else
+            {
+                if(!_experimentPanel.Experiment.IsTestDataExist())
+                {
+                    removeGPPanel("Prediction");
+                    _predictionPanel.Dispose();
+                    _predictionPanel = null;
+                }
+            }
+            
             if (_runPanel != null)
             {
                 if(_dataPanel!=null)
                     _predictionPanel.FillPredictionData(_dataPanel.Testing);
                 else
-                    _predictionPanel.FillPredictionData(_experimentPanel.Experiment);
+                {
+                    if(_experimentPanel.Experiment.IsTestDataExist())
+                     _predictionPanel.FillPredictionData(_experimentPanel.Experiment);
+                }
+                   
 
             }
 

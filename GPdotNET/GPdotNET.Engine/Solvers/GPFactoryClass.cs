@@ -31,6 +31,16 @@ namespace GPdotNET.Engine
 
         }
 
+        public double[][] CalculateTrainModel(GPChromosome ch)
+        {
+            return CalculateModel(ch, true);
+        }
+
+        public double[][] CalculateTestModel(GPChromosome ch)
+        {
+            return CalculateModel(ch, false);
+        }
+
         /// <summary>
         /// Calculates model/prediction using best chromosome. Also it denormalized valuse if they  were normalized
         /// </summary>

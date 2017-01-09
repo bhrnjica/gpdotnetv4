@@ -114,7 +114,7 @@ run both on Windows and Lunux OS.</Description>
     <ManifestKeyFile>GPdotNET.App_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -125,16 +125,7 @@ run both on Windows and Lunux OS.</Description>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>GPdotNET.App_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClosedXML">
-      <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -143,8 +134,8 @@ run both on Windows and Lunux OS.</Description>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph">
-      <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
+    <Reference Include="ClosedXML">
+      <HintPath>..\..\ThirdParty\Assemblies\ClosedXML.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -187,7 +178,6 @@ run both on Windows and Lunux OS.</Description>
       <SubType>Form</SubType>
     </Compile>
     <None Include="GPdotNET.App_TemporaryKey.pfx" />
-    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -236,6 +226,10 @@ run both on Windows and Lunux OS.</Description>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ThirdParty\ZedGraph\zedgraph_source_v515\ZedGraph 5.1 %28.net 2%29\source\ZedGraph.csproj">
+      <Project>{2541686b-1673-43bf-af89-3163945db009}</Project>
+      <Name>ZedGraph</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GPdotNET.Core\GPdotNET.Core.csproj">
       <Project>{6ac643d4-cd0c-4d1d-b5db-7fe2c967d6a5}</Project>
       <Name>GPdotNET.Core</Name>

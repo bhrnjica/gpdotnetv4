@@ -47,10 +47,6 @@
     <Reference Include="ClosedXML">
       <HintPath>..\..\ThirdParty\Assemblies\ClosedXML.dll</HintPath>
     </Reference>
-    <Reference Include="ZedGraph, Version=5.1.5.35375, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GPPanels\AnaliticFunctionDef.cs">
@@ -206,6 +202,10 @@
     <Compile Include="TreDrawer\TreeNodeDrawer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ThirdParty\ZedGraph\zedgraph_source_v515\ZedGraph 5.1 %28.net 2%29\source\ZedGraph.csproj">
+      <Project>{2541686b-1673-43bf-af89-3163945db009}</Project>
+      <Name>ZedGraph</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GPdotNET.Core\GPdotNET.Core.csproj">
       <Project>{6ac643d4-cd0c-4d1d-b5db-7fe2c967d6a5}</Project>
       <Name>GPdotNET.Core</Name>

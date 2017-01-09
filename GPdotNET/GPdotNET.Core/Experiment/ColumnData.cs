@@ -59,7 +59,8 @@ namespace GPdotNET.Core.Experiment
         MinMax=0,
         Gauss,
         Custom,
-        Identity
+        Identity,
+        None
     }
 
     //Parameter type
@@ -214,6 +215,8 @@ namespace GPdotNET.Core.Experiment
                     double trashold = IsOutput ? 0.85 : 1.0;
                     retVal= (normalizedValue + trashold) / (factor / (m_Statistics.Max - m_Statistics.Min)) + m_Statistics.Min;
                 }
+            else if (m_normalizationType == NormalizationType.None)
+                retVal = normalizedValue;
             else
                 throw new Exception("Unknown normalization data type.");
 
@@ -506,6 +509,8 @@ namespace GPdotNET.Core.Experiment
                     m_NormalizedValues[i][0] = (m_NumericValues[i] - m_Statistics.Mean) / m_Statistics.StdDev;
                 else if (m_normalizationType == NormalizationType.MinMax)
                     m_NormalizedValues[i][0] = (m_NumericValues[i] - m_Statistics.Min) / (m_Statistics.Max - m_Statistics.Min);
+                else if (m_normalizationType == NormalizationType.None)
+                    m_NormalizedValues[i][0] = m_NumericValues[i];
                 else if (m_normalizationType == NormalizationType.Custom)
                 {
                     double factor = IsOutput ? 1.7 : 2.0;

@@ -20,47 +20,26 @@ namespace GPdotNET.Util
     {
         
 
-        public static void ExportToExcel(double[][] data, int inputVarCount, int constCount, GPNode ch, string strFilePath, bool bTest = false)
+        public static void ExportToExcel(double[][] data, int inputVarCount, int constCount, GPNode ch, string strFilePath)
         {
             try
             {
-                string workSheet = bTest ? "TESTING DATA" : "TRAINING DATA";
+                //
                 var wb = new XLWorkbook();
-                var ws = wb.Worksheets.Add(workSheet);
+                var ws1 = wb.Worksheets.Add("TRAINING DATA");
+                var ws2 = ws1;
+                if (Globals.gpterminals.TestingData != null)
+                    ws2 = wb.Worksheets.Add("TESTING DATA");
+                else
+                    ws2 = null;
 
-                //TITLE
-                ws.Cell(1, 1).Value = workSheet;
-                ws.Range("A1", "D1").Style.Font.Bold = true;
-                ws.Range("A1", "D1").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                ws1.Cell(1, 1).Value = "Normalized Training Data";
+                ws2.Cell(1, 1).Value = "Normalized Testing Data";
+                writeDataToExcel(ws1, inputVarCount, constCount, Globals.gpterminals.TrainingData);
+                if(Globals.gpterminals.TestingData!=null)
+                    writeDataToExcel(ws2, inputVarCount, constCount, Globals.gpterminals.TestingData);
 
-                //COLUMNS NAMES
-                //RowNumber
-                ws.Cell(2, 1).Value = "Nr";
-                //Input variable names
-                for (int i = 0; i < inputVarCount; i++)
-                {
-                    ws.Cell(2, i + 2).Value = "X" + (i + 1).ToString();
-                }
-                //COnstants
-                for (int i = 0; i < constCount; i++)
-                {
-                    ws.Cell(2, inputVarCount + i + 2).Value = "R" + (i + 1).ToString();
-                }
-                //Output names
-                ws.Cell(2, inputVarCount + constCount + 2).Value = "Y";
-                ws.Cell(2, inputVarCount + constCount + 3).Value = "Ygp";
 
-                //Add Data.
-                for (int i = 0; i < data.Length; i++)
-                {
-                    ws.Cell(i + 3,1).Value = i + 1;
-
-                    for (int j = 0; j < data[i].Length; j++)
-                        ws.Cell(i+3, j+2).Value = data[i][j];
-
-                }
-                
-               
                 //GP Model formula
                 string formula = Globals.functions.DecodeExpression(ch, true);
                 AlphaCharEnum alphaEnum = new AlphaCharEnum();
@@ -78,12 +57,51 @@ namespace GPdotNET.Util
                     string cell = alphaEnum.AlphabetFromIndex(inputVarCount + 2 + i) + "3";
                     formula = formula.Replace(var, cell);
                 }
-                ws.Cell(3, inputVarCount + constCount + 3).Value = formula;
+
+                ws1.Cell(3, inputVarCount + constCount + 3).Value = formula;
+                if (Globals.gpterminals.TestingData != null)
+                    ws2.Cell(3, inputVarCount + constCount + 3).Value = formula;
+                //
                 wb.SaveAs(strFilePath);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private static void writeDataToExcel(IXLWorksheet ws, int inputVarCount, int constCount, double[][] data)
+        {
+            //TITLE
+           
+            ws.Range("A1", "D1").Style.Font.Bold = true;
+            ws.Range("A1", "D1").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+
+            //COLUMNS NAMES
+            //RowNumber
+            ws.Cell(2, 1).Value = "Nr";
+            //Input variable names
+            for (int i = 0; i < inputVarCount; i++)
+            {
+                ws.Cell(2, i + 2).Value = "X" + (i + 1).ToString();
+            }
+            //COnstants
+            for (int i = 0; i < constCount; i++)
+            {
+                ws.Cell(2, inputVarCount + i + 2).Value = "R" + (i + 1).ToString();
+            }
+            //Output names
+            ws.Cell(2, inputVarCount + constCount + 2).Value = "Y";
+            ws.Cell(2, inputVarCount + constCount + 3).Value = "Ygp";
+
+            //Add Data.
+            for (int i = 0; i < data.Length; i++)
+            {
+                ws.Cell(i + 3, 1).Value = i + 1;
+
+                for (int j = 0; j < data[i].Length; j++)
+                    ws.Cell(i + 3, j + 2).Value = data[i][j];
+
             }
         }
 

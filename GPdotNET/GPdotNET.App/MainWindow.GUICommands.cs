@@ -367,9 +367,13 @@ namespace GPdotNET.App
         /// <param name="e"></param>
         private void rbtnOpenModel_Click(object sender, EventArgs e)
         {
-           
-            OpenFromFile();
+            if (_GPModel == GPModelType.ANNMODEL)
+            {
+                MessageBox.Show("Opening ANN model is not implemented.");
+                return;
+            }
 
+            OpenFromFile();
             if (string.IsNullOrEmpty(_filePath))
                 this.Text = _appName;
             else
@@ -401,12 +405,17 @@ namespace GPdotNET.App
 
         void rbtnSaveModel_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            if(_GPModel == GPModelType.ANNMODEL)
+            {
+                MessageBox.Show("Persisting ANN model is not implemented.");
+                return;
+            }
             if (e.ClickedItem.Text == "Save")
             {
                 if (_filePath == "")
                     _filePath = GPModelGlobals.GetFileFromSaveDialog();
 
-                if (SaveToFilev4(_filePath))
+                if (SaveToFile(_filePath))
                 {
                     var fName = Path.GetFileName(_filePath);
                     this.Text = string.Format("{0} - {1}", _appName, fName);
@@ -416,7 +425,7 @@ namespace GPdotNET.App
             else if (e.ClickedItem.Text == "Save as")
             {
                 _filePath = GPModelGlobals.GetFileFromSaveDialog();
-                if (SaveToFilev4(_filePath))
+                if (SaveToFile(_filePath))
                 {
                     var fName = Path.GetFileName(_filePath);
                     this.Text = string.Format("{0} - {1}", _appName, fName);
@@ -450,6 +459,13 @@ namespace GPdotNET.App
             bool forceToCSV = false;
             int selectedOption = -1;
             txtStatusMessage.Text = "Ready!";
+
+            if (_GPModel == GPModelType.ANNMODEL)
+            {
+                MessageBox.Show("Exporting ANN model is not implemented.");
+                return;
+            }
+
             if (Globals.gpterminals==null || Globals.gpterminals.TrainingData==null)
                 return;
 
@@ -587,7 +603,7 @@ namespace GPdotNET.App
                 Utility.ExportToExcel(Globals.gpterminals.TestingData,
                                       Globals.gpterminals.NumVariables,
                                       Globals.gpterminals.NumConstants,
-                                      ch.expressionTree, strPath,false);
+                                      ch.expressionTree, strPath);
             }
         }
 #endregion 
@@ -1520,10 +1536,10 @@ namespace GPdotNET.App
 
                 //gpModelPanel.Enabled = true;
                 //gpExportPanel.Enabled = true;
-                rbtnCloseModel.Enabled = false;
+                rbtnCloseModel.Enabled = true;
                 gpCommonPanel.Enabled = true;
-                rbtnOpenModel.Enabled = false;
-                rbtnNewModel.Enabled = false;
+                rbtnOpenModel.Enabled = true;
+                rbtnNewModel.Enabled = true;
                 rbtnRun.Enabled = true;
                 rbtnStop.Enabled = false;
                 rbtnOptimize.Enabled = true;

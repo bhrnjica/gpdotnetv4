@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
-
+using System.Linq;
 namespace GPdotNET.Tool.Common
 {
    
@@ -80,7 +80,7 @@ namespace GPdotNET.Tool.Common
             //third row combobox
             cmbBox2.Items.Add("none");
             cmbBox2.Items.Add("MinMax");
-            cmbBox2.Items.Add("Gaus");
+            cmbBox2.Items.Add("Gauss");
 
             cmbBox2.Size = new System.Drawing.Size(0, 0);
             cmbBox2.Location = new System.Drawing.Point(0, 0);
@@ -426,13 +426,27 @@ namespace GPdotNET.Tool.Common
         }
         private void btnSetupToModel_Click(object sender, EventArgs e)
         {
-           
 
-            var colProperties= ParseColumns();
+            StartModelling();
+            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void StartModelling()
+        {
+            var colProperties = ParseColumns();
+            if(colProperties==null)
+            {
+                MessageBox.Show("Column metadata is invalid.", "GPdotNET");
+                //throw;
+                return;
+            }
             try
             {
-                
-                Experiment.Prepare(colProperties, 100-(int)numericUpDown1.Value);
+
+                Experiment.Prepare(colProperties, 100 - (int)numericUpDown1.Value);
             }
             catch (Exception ex)
             {
@@ -441,7 +455,7 @@ namespace GPdotNET.Tool.Common
                 return;
             }
 
-            if(Experiment.GetColumnOutputCount()<1)
+            if (Experiment.GetColumnOutputCount() < 1)
             {
                 MessageBox.Show("No output column is defined. Select one column to be output colum.");
                 IsDatReady = false;
@@ -460,7 +474,7 @@ namespace GPdotNET.Tool.Common
                 DataLoaded(this, new EventArgs());
 
             //send event about data for vaidation
-            if (DataPredictionLoaded != null && (100- (int)numericUpDown1.Value)<100)
+            if (DataPredictionLoaded != null && (100 - (int)numericUpDown1.Value) <= 100)
                 DataPredictionLoaded(this, new EventArgs());
         }
 
@@ -493,6 +507,100 @@ namespace GPdotNET.Tool.Common
 
             return lst;
         }
+
+        private void setColumn(List<ColumnProperties> cols )
+        {
+            //clear the list first
+            listView1.Clear();
+            listView1.GridLines = true;
+            listView1.HideSelection = false;
+
+            int numCol = cols.Count;
+            int numRow = 5;
+
+            ColumnHeader colHeader = null;
+            colHeader = new ColumnHeader();
+            colHeader.Text = " ";
+            colHeader.Width = 120;
+            listView1.Columns.Add(colHeader);
+            //
+            for (int i = 0; i < numCol; i++)
+            {
+                colHeader = new ColumnHeader();
+
+                //if (header == null)
+                //{
+                //    if (i + 1 == numCol)
+                //        colHeader.Text = "y";
+                //    else
+                //        colHeader.Text = "x" + (i + 1).ToString();
+                //}
+                //else
+                //    colHeader.Text = header[i];
+
+                colHeader.Text = cols[i].ColName;
+                colHeader.Width = 100;
+                colHeader.TextAlign = HorizontalAlignment.Center;
+
+                listView1.Columns.Add(colHeader);
+            }
+            //first row is going to represent column names
+            ListViewItem LVI = listView1.Items.Add("Column Name:");
+            for (int i = 0; i < numCol; i++)
+            {
+                //if (Experiment.HeaderAsString == null)
+                //{
+                //    if (i + 1 == numCol)
+                //        LVI.SubItems.Add("y");
+                //    else
+                //        LVI.SubItems.Add("x" + (i + 1).ToString());
+                //}
+                //else
+                //    LVI.SubItems.Add(Experiment.HeaderAsString[i]);
+
+                LVI.SubItems.Add(cols[i].ColName);
+                LVI.BackColor = SystemColors.MenuHighlight;
+
+            }
+
+            //second row is going to represent the type of each column (input parameter, output variable)
+            LVI = listView1.Items.Add("Column Type:");
+            for (int i = 0; i < numCol; i++)
+            {
+                //LVI.SubItems.Add("numeric");
+                LVI.SubItems.Add(cols[i].ColType);
+                LVI.BackColor = SystemColors.GradientActiveCaption;
+            }
+            //second row is going to represent is the column input, output or ignored column
+            LVI = listView1.Items.Add("Param Type:");
+            for (int i = 0; i < numCol; i++)
+            {
+                //if (i + 1 >= numCol)
+                //    LVI.SubItems.Add("output");
+                //else
+                //    LVI.SubItems.Add("input");
+                LVI.SubItems.Add(cols[i].ParamType);
+                LVI.BackColor = SystemColors.GradientActiveCaption;
+            }
+
+            //third row is going to represent is the normalization for colum
+            LVI = listView1.Items.Add("Normalization:");
+            for (int i = 0; i < numCol; i++)
+            {
+                //LVI.SubItems.Add("MinMax");
+                LVI.SubItems.Add(cols[i].NormType);
+                LVI.BackColor = SystemColors.GradientActiveCaption;
+            }
+
+            //forth row is going to represent missing values action
+            LVI = listView1.Items.Add("Missing Value:");
+            for (int i = 0; i < numCol; i++)
+            {
+                //LVI.SubItems.Add("Ignore");
+                LVI.SubItems.Add(cols[i].MissingValue);
+                LVI.BackColor = SystemColors.GradientActiveCaption;
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -504,6 +612,7 @@ namespace GPdotNET.Tool.Common
 
         public void ExperimentFromString(string exp)
         {
+            Experiment = new Experiment();
             var pstr = exp.Split(';');
             int columnCount = 0;
             try
@@ -516,10 +625,47 @@ namespace GPdotNET.Tool.Common
 
                 ///col count
                 temp = 0;
-                if (!int.TryParse(pstr[2], out temp))
+                if (!int.TryParse(pstr[1], out temp))
                     temp = 0;
 
                 columnCount = temp;
+
+                //load columnMetaData
+                var cols = loadMetaDataColumn(columnCount, pstr);
+
+                setColumn(cols);
+                var  ind = columnCount * 6 + 2;
+                var strData = pstr.Skip(ind).ToArray();
+                var rowCount = strData.Length / columnCount;
+                
+                //insert data
+                int index = 0;
+                string[][] expDataString = new string[rowCount][];
+                for (int j = 0; j < rowCount; j++)
+                {
+                    index += j;
+                    var LVI = listView1.Items.Add((j + 1).ToString());
+                    LVI.UseItemStyleForSubItems = false;
+                    expDataString[j] = new string[columnCount];
+                    for (int i = 0; i < columnCount; i++)
+                    {
+                        index = j* columnCount + i;
+                        if (strData[index] == "n/a")
+                        {
+                            System.Windows.Forms.ListViewItem.ListViewSubItem itm = new ListViewItem.ListViewSubItem();
+                            itm.ForeColor = Color.Red;
+                            itm.Text = strData[index];
+                            LVI.SubItems.Add(itm);
+                        }
+
+                        else
+                            LVI.SubItems.Add(strData[index].ToString());
+
+                        expDataString[j][i]= strData[index];
+                    }
+
+                }
+                Experiment.TrainDataAsString = expDataString;
                 return;
             }
             catch (Exception ex)
@@ -529,6 +675,30 @@ namespace GPdotNET.Tool.Common
             }
         }
 
+        private List<ColumnProperties> loadMetaDataColumn(int columnCount, string[] pstr)
+        {
+            var cols = new List<ColumnProperties>();
+            int index = 2;
+            int metaDataCount = 6;
+           for(int i = 0; i < columnCount; i++)
+            {
+                var ind = i * metaDataCount + index;
+                var col = new ColumnProperties();
+                col.ColIndex = int.Parse(pstr[ind]);
+                col.ColName = pstr[ind + 1];
+                col.ColType = pstr[ind + 2];
+                col.ParamType = pstr[ind + 3];
+                col.NormType = pstr[ind + 4];
+                col.MissingValue = pstr[ind + 5];
+
+                cols.Add(col);
+
+            }
+
+            return cols;
+        }
+
+    
 
         /// <summary>
         /// GP specific method for retrieing training data
