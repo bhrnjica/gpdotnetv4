@@ -426,7 +426,13 @@ namespace GPdotNET.Tool.Common
         }
         private void btnSetupToModel_Click(object sender, EventArgs e)
         {
-
+            // if()
+            var tabs = this.Parent.Parent as TabControl;
+            if(tabs.TabCount>2)
+            {
+                if (MessageBox.Show("The current calculated model will be discarded. Do you want to continue?", "GPdotNET", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                    return;
+            }
             StartModelling();
             
         }
@@ -443,10 +449,13 @@ namespace GPdotNET.Tool.Common
                 //throw;
                 return;
             }
+
             try
             {
 
-                Experiment.Prepare(colProperties, 100 - (int)numericUpDown1.Value);
+               var retVal =  Experiment.Prepare(colProperties, (int)numericUpDown1.Value, presentigeRadio.Checked==true);
+                if (!retVal)
+                    return;
             }
             catch (Exception ex)
             {
@@ -474,7 +483,7 @@ namespace GPdotNET.Tool.Common
                 DataLoaded(this, new EventArgs());
 
             //send event about data for vaidation
-            if (DataPredictionLoaded != null && (100 - (int)numericUpDown1.Value) <= 100)
+            if (DataPredictionLoaded != null && (int)numericUpDown1.Value >= 0 /*&& (100 - (int)numericUpDown1.Value) <= 100*/)
                 DataPredictionLoaded(this, new EventArgs());
         }
 
@@ -607,7 +616,7 @@ namespace GPdotNET.Tool.Common
         /// <returns></returns>
         public string ExperimentToString()
         {
-           return  Experiment.GetExperimentToString( ParseColumns(), (int)numericUpDown1.Value);
+           return  Experiment.GetExperimentToString( ParseColumns(), (int)numericUpDown1.Value, presentigeRadio.Checked);
         }
 
         public void ExperimentFromString(string exp)
@@ -618,8 +627,15 @@ namespace GPdotNET.Tool.Common
             try
             {
                 //test procent
+                var p = pstr[0].Split(':');
+                if (p.Length == 2)
+                {
+                    if (p[1] == "1")
+                        numberRadio.Checked = true; 
+                }
+
                 int temp = 0;
-                if (!int.TryParse(pstr[0], out temp))
+                if (!int.TryParse(p[0], out temp))
                     temp = 0;
                 numericUpDown1.Value = temp;
 

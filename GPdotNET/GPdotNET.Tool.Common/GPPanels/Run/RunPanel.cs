@@ -190,6 +190,8 @@ namespace GPdotNET.Tool.Common
                 gpMaxFitnLine.Clear();
             if (gpAvgFitnLine != null)
                 gpAvgFitnLine.Clear();
+            if (gpModelLine != null)
+                gpModelLine.Clear();
         }
 
         /// <summary>

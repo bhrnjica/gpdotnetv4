@@ -114,7 +114,7 @@ run both on Windows and Lunux OS.</Description>
     <ManifestKeyFile>GPdotNET.App_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -125,13 +125,13 @@ run both on Windows and Lunux OS.</Description>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>GPdotNET.App_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML">
+      <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml">
+      <HintPath>..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -140,9 +140,6 @@ run both on Windows and Lunux OS.</Description>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
-    <Reference Include="ClosedXML">
-      <HintPath>..\..\ThirdParty\Assemblies\ClosedXML.dll</HintPath>
-    </Reference>
     <Reference Include="ZedGraph">
       <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
     </Reference>
@@ -187,7 +184,6 @@ run both on Windows and Lunux OS.</Description>
       <SubType>Form</SubType>
     </Compile>
     <None Include="GPdotNET.App_TemporaryKey.pfx" />
-    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -62,7 +62,7 @@ namespace GPdotNET.App
         bool                    _isFileDirty=false;
         ContextMenuStrip        _contextMenuStrip1;
 
-        string                  _appName = "GPdotNET v4.0 Beta 5";
+        string                  _appName = "GPdotNET v4.0 Beta 4";
         //Open document through cmd line
         public string[] CmdLineParam
         {
@@ -447,18 +447,23 @@ namespace GPdotNET.App
         {
             if (_predictionPanel == null)
             {
-                _predictionPanel = new PreditionPanel();
-                loadGPPanelInMainWindow(this, _predictionPanel, "Prediction");
-
+                var s = sender as ExperimentPanel;
+                if(s!=null && s.numericUpDown1.Value >= 1)
+                {
+                    _predictionPanel = new PreditionPanel();
+                    loadGPPanelInMainWindow(this, _predictionPanel, "Prediction");
+                }
             }
             else
             {
-                if(!_experimentPanel.Experiment.IsTestDataExist())
+                if (!_experimentPanel.Experiment.IsTestDataExist())
                 {
                     removeGPPanel("Prediction");
                     _predictionPanel.Dispose();
                     _predictionPanel = null;
                 }
+                else
+                    _predictionPanel.ResetSolution();
             }
             
             if (_runPanel != null)
@@ -642,6 +647,7 @@ namespace GPdotNET.App
                 {
                     
                     this._mainGPFactory.ReportEvolution += new EvolutionHandler(gpFactory_ReportEvolution);
+                    _runPanel.ResetSolution();
                     _runPanel.UpdateChartDataPoint(_experimentPanel.GetOutputValues(), false);
                     _isFileDirty = true;
                 }
@@ -655,6 +661,8 @@ namespace GPdotNET.App
 
                 if (_setPanel != null)
                     _setPanel.ResetSolution += _setPanel_ResetSolution;
+
+                
             }
 
 

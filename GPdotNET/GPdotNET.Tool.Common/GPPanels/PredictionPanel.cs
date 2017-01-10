@@ -257,7 +257,7 @@ namespace GPdotNET.Tool.Common
         {
             if (this.zedModel.GraphPane == null)
                 return;
-
+            
             LineItem li = null;
             if (isGPData)
                 li = gpModelLine[0];
@@ -265,8 +265,10 @@ namespace GPdotNET.Tool.Common
                 li = gpDataLine[0];
 
             li.Clear();
-            for (int i = 0; i < y.Length; i++)
+            for (int i = 0; y!=null && i < y.Length; i++)
                 li.AddPoint(i + 1, y[i]);
+
+            if (this.zedModel.GraphPane.CurveList.Count == 1)
 
 
             this.zedModel.GraphPane.AxisChange(this.CreateGraphics());
@@ -311,10 +313,16 @@ namespace GPdotNET.Tool.Common
 
             //Add aditional lines
             if(!isGPData)
+            {
                 InitChart(y);
-
-
-            for(int j=0; j<y.Length; j++)
+                if(gpModelLine!=null && gpModelLine.Count>0)
+                {
+                    foreach (var l in gpModelLine)
+                        l.Clear();
+                }
+            }
+               
+            for (int j = 0; y!=null && j < y.Length; j++)
             {
                 LineItem li = null;
                 if (isGPData)
@@ -326,14 +334,13 @@ namespace GPdotNET.Tool.Common
                 for (int i = 0; i < y[j].Length; i++)
                     li.AddPoint(i + 1, y[j][i]);
             }
-            //
             this.zedModel.GraphPane.AxisChange(this.CreateGraphics());
             this.zedModel.Refresh();
         }
 
         private void InitChart(double[][] y)
         {
-            if(y.Length>1)
+            if(y!=null && y.Length>1)
             {
                 for(int i=1; i<y.Length; i++)
                 {
@@ -441,6 +448,7 @@ namespace GPdotNET.Tool.Common
         public void ResetSolution()
         {
             prevFitnesss = -1;
+            UpdateChartDataPoint((double[][])null, true);
         }
         #endregion
 

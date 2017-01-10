@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace GPdotNET.Core.Experiment
 {
@@ -796,7 +797,7 @@ namespace GPdotNET.Core.Experiment
         /// </summary>
         /// <param name="colProp"></param>
         /// <param name="precentTraining"></param>
-        public void Prepare(List<ColumnProperties> colProp, int precentTraining)
+        public bool Prepare(List<ColumnProperties> colProp, int rows, bool ispresentige=true)
         {
 
             //remove all row which is marked Ignore for missing value
@@ -805,10 +806,23 @@ namespace GPdotNET.Core.Experiment
             //row col count
             var colCount = colProp.Count;
             var rowCount = strData.Length;
-            
+
             //
-            int trainCount = (int)Math.Ceiling(rowCount * (precentTraining / 100.0));
+            int trainCount = 0;
+            if (ispresentige)
+                trainCount = (int)Math.Ceiling(rowCount * ((100-rows) / 100.0));
+            else
+                trainCount = rowCount - rows;
+
             int testCount = rowCount - trainCount;
+
+            if(trainCount<testCount)
+            {
+                MessageBox.Show("GPdotNET", "Invalid number of testing data.");
+                return false;
+            }
+
+
 
             var dataTrn = strData.Skip(0).Take(trainCount).ToArray();
             var dataTst = strData.Skip(trainCount).Take(testCount).ToArray();
@@ -877,6 +891,8 @@ namespace GPdotNET.Core.Experiment
             }
             else
                 m_testData = null;
+
+            return true;
         }
 
         private string[][] ignoreRowsWithMissingValues(List<ColumnProperties> colProp)
@@ -1217,14 +1233,15 @@ namespace GPdotNET.Core.Experiment
         #endregion
 
 
-        public string GetExperimentToString(List<ColumnProperties> list, int testProcent)
+        public string GetExperimentToString(List<ColumnProperties> list, int testProcent, bool isPresentige = true)
         {
             string retVal = "";
             var cols = list;
             try
             {
+                var presentige = isPresentige ? "0" : "1";
                 //test procent
-                retVal += testProcent.ToString(CultureInfo.InvariantCulture) + ";";
+                retVal += testProcent.ToString(CultureInfo.InvariantCulture) + ":"+presentige + ";";
 
                 //number of columns
                 retVal += cols.Count.ToString(CultureInfo.InvariantCulture) + ";";
@@ -1254,11 +1271,18 @@ namespace GPdotNET.Core.Experiment
         {
             var pstr = strExperiment.Split(';');
             int testProcent = 0;
+            int presentige = 0;
             try
             {
                 //test procent
+                var p = pstr[0].Split(':');
+                if(p.Length==2)
+                {
+                    if (p[1] == "1")
+                        presentige = 1;
+                }
                 int temp = 0;
-                if (!int.TryParse(pstr[0], out temp))
+                if (!int.TryParse(p[0], out temp))
                     temp = 0;
                 testProcent = temp;
 

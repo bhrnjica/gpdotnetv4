@@ -35,10 +35,11 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnSetToGP = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.button1 = new System.Windows.Forms.Button();
+            this.presentigeRadio = new System.Windows.Forms.RadioButton();
+            this.numberRadio = new System.Windows.Forms.RadioButton();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -47,9 +48,10 @@
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.numberRadio);
+            this.groupBox5.Controls.Add(this.presentigeRadio);
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.numericUpDown1);
-            this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Location = new System.Drawing.Point(4, 251);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox5.Name = "groupBox5";
@@ -62,27 +64,19 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 35);
+            this.label2.Location = new System.Drawing.Point(18, 33);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 20);
+            this.label2.Size = new System.Drawing.Size(87, 20);
             this.label2.TabIndex = 15;
-            this.label2.Text = "Select ";
+            this.label2.Text = "Select last ";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(82, 29);
+            this.numericUpDown1.Location = new System.Drawing.Point(111, 29);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(60, 26);
             this.numericUpDown1.TabIndex = 14;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(142, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(162, 20);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "% for testing. (0-50%)";
             // 
             // btnSetToGP
             // 
@@ -131,6 +125,28 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // presentigeRadio
+            // 
+            this.presentigeRadio.AutoSize = true;
+            this.presentigeRadio.Checked = true;
+            this.presentigeRadio.Location = new System.Drawing.Point(176, 17);
+            this.presentigeRadio.Name = "presentigeRadio";
+            this.presentigeRadio.Size = new System.Drawing.Size(187, 24);
+            this.presentigeRadio.TabIndex = 16;
+            this.presentigeRadio.TabStop = true;
+            this.presentigeRadio.Text = "% for testing. (0-50%)";
+            this.presentigeRadio.UseVisualStyleBackColor = true;
+            // 
+            // numberRadio
+            // 
+            this.numberRadio.AutoSize = true;
+            this.numberRadio.Location = new System.Drawing.Point(176, 47);
+            this.numberRadio.Name = "numberRadio";
+            this.numberRadio.Size = new System.Drawing.Size(209, 24);
+            this.numberRadio.TabIndex = 17;
+            this.numberRadio.Text = "# for testing. (0-n/2 rows)";
+            this.numberRadio.UseVisualStyleBackColor = true;
+            // 
             // ExperimentPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -157,7 +173,8 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RadioButton numberRadio;
+        public System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.RadioButton presentigeRadio;
     }
 }
