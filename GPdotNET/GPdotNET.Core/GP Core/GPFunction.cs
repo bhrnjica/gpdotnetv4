@@ -37,6 +37,9 @@ namespace GPdotNET.Core
         //Excel definition of the function. GP model has to be provided in excel expression
         public string ExcelDefinition { get; set; }
 
+        //R Lang definition of the function. GP model has to be provided in R expression
+        public string RDefinition { get; set; }
+
         //Methematica definition of the function. GP model has to be provided in excel expression
         public string MathematicaDefinition { get; set; }
 

@@ -634,7 +634,7 @@ namespace GPdotNET.Core.Experiment
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
-        public double[] GetGPDenormalizedOutputRow(double[] normalizedOutputRow, double minValue, double maxValue)
+        public double[] GetGPDenormalizedOutputRow(double[] normalizedOutputRow)
         {
             //
             var outputCols = GetColumnsFromOutput();
@@ -650,34 +650,31 @@ namespace GPdotNET.Core.Experiment
                     retVal[i] = col.GetNumericFromNormalized(normalizedOutputRow[rowIndex]);
                     rowIndex++;
                 }
-                else if (col.ColumnDataType == ColumnDataType.Categorical)
+                else if (col.ColumnDataType == ColumnDataType.Categorical || col.ColumnDataType == ColumnDataType.Binary)
                 {
-                    //calculate sigmoid for the fitenss
-                    var val1 = Math.Exp(-1.0 * normalizedOutputRow[i]);
-                    val1 = outputCols[0].Statistics.Categories.Count * (1 / (1 + val1));
-
-                    for (int j = 1; j <= Globals.classCount; j++)
-                    {
-                        if (val1 <= j)
-                        {
-                            retVal[i] = j - 1;
-                            break;
-                        }
-                    }
-
-                }
-                else if (col.ColumnDataType == ColumnDataType.Binary)
-                {
-                    if(normalizedOutputRow[rowIndex]< 0)
-                        retVal[0]=0;
-                    else
-                       retVal[0] = 1;
+                    retVal[i] = getCategoryFromNumeric(normalizedOutputRow[i], outputCols[0].Statistics.Categories.Count);
+                    
                 }
                 else
                     throw new Exception("The colum type is unknown.");
 
             }
 
+            return retVal;
+        }
+
+        /// <summary>
+        /// calculate category value by converting numeric value
+        /// </summary>
+        /// <param name="numericValue"></param>
+        /// <param name="classCount"></param>
+        /// <returns></returns>
+        public static double getCategoryFromNumeric(double numericValue, int classCount)
+        {
+            //calculate sigmoid for the fitenss
+            var val1 = Math.Exp(-1.0 * numericValue);
+            var sigm = classCount * (1.0 / (1.0 + val1));
+            var retVal = Math.Truncate(sigm);
             return retVal;
         }
 
@@ -840,7 +837,7 @@ namespace GPdotNET.Core.Experiment
                 for (int j = 0; j < colCount; j++)
                 {
                     //skip column if type is string or parameter is ignored
-                    if (colProp[j].ColType == "string" || colProp[j].ParamType == "ignore")
+                    if (colProp[j].ColType.Contains("string") || colProp[j].ParamType == "ignore")
                         continue;
 
                     var col = CreateColumn(colProp[j]);
@@ -903,11 +900,12 @@ namespace GPdotNET.Core.Experiment
             for (int j = 0; j < colProp.Count; j++ )
             {
                 //chech if current column ignores row with missing value
-                if (colProp[j].MissingValue == "Ignore")
+                if (colProp[j].MissingValue == "Ignore" && !colProp[j].IsIngored)
                 {
                     for(int i=0;i<m_strData.Length; i++)
                     {
-                        if (m_strData[i][j] == "n/a")
+                        bool retVal = ColumnData.isMissingValue(m_strData[i][j]);
+                        if (retVal)
                             ignoredIndex.Add(i);
                     }
                 }
@@ -928,6 +926,7 @@ namespace GPdotNET.Core.Experiment
 
             return filteredData;
         }
+
 
         /// <summary>
         /// Main method for Experiment initialization. It requires train and test data. Test data can be null

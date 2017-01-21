@@ -547,6 +547,7 @@ namespace GPdotNET.Util
                             Definition = c.Element("Definition").Value,
                             ExcelDefinition = c.Element("ExcelDefinition").Value,
                             MathematicaDefinition = c.Element("MathematicaDefinition").Value,
+                            RDefinition = c.Element("RDefinition") !=null ? c.Element("RDefinition").Value : null,
                             Aritry = ushort.Parse(c.Element("Aritry").Value),
                             Description = c.Element("Description").Value,
                             IsReadOnly = bool.Parse(c.Element("ReadOnly").Value),

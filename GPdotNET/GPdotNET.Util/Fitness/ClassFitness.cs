@@ -21,7 +21,7 @@ using System.Text;
 namespace GPdotNET.Util
 {
     /// <summary>
-    /// GPdotNET 4.0 implements the Fitness for Clasification problems. It calculates division between correct and totaln rows.
+    /// GPdotNET 4.0 implements the Fitness for Clasification problems. It calculates division between number of correct and total rows.
     /// </summary>
 
     public class ClassFitness : IFitnessFunction
@@ -52,34 +52,17 @@ namespace GPdotNET.Util
                 if (double.IsNaN(y) || double.IsInfinity(y))
                     return float.NaN;
 
-                //Calculate apsolute error
-                if (m_ProblemType == ColumnDataType.Binary)
+                //this fitness algoritm is specialized only for Binary and Classification problems
+                if (m_ProblemType == ColumnDataType.Categorical || m_ProblemType == ColumnDataType.Binary)
                 {
-                    if (y < 0)
-                        rowFitness += (0 - Globals.gpterminals.TrainingData[i][indexOutput]) == 0 ? 1 : 0;
-                    else
-                        rowFitness += (1 - Globals.gpterminals.TrainingData[i][indexOutput]) == 0 ? 1 : 0;
-                }
-                else if (m_ProblemType == ColumnDataType.Categorical)
-                {
-                    int valClass = -1;
-                    //calculate sigmoid for the fitenss
-                    var val1 = Math.Exp(-1.0 * y);
-                    val1 = Globals.classCount * (1 / (1 + val1));
-
-                    for (int j = 1; j <= Globals.classCount; j++)
-                    {
-                        if (val1 <= j)
-                        {
-                            valClass = j - 1;
-                            break;
-                        }
-                    }
-                    //check if the value is correct 
+                   var valClass = Experiment.getCategoryFromNumeric(y, Globals.classCount);
+                    
+                    //check is the calculated value correct 
                     var val = Globals.gpterminals.TrainingData[i][indexOutput] == valClass ? 1 : 0;
+                    //add the result to the fitness
                     rowFitness += val;
                 }
-                else
+                else//thros exception if the problems is not as expected
                     throw new Exception("Problem type is unknown!");
 
             }

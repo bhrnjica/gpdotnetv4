@@ -450,6 +450,8 @@ namespace GPdotNET.Core
                 if (tokens[i] >= 1000 && tokens[i] < 2000)
                 {
                     string varaiable = terminals[tokens[i] - 1000].Name;
+                    if (!varaiable.EndsWith(" "))//we add extre space at the end to recognize variable index and value
+                        varaiable += " ";
                     expression.Push(varaiable);
                 }
                 else
@@ -462,6 +464,8 @@ namespace GPdotNET.Core
                         function = functions[tokens[i] - 2000].MathematicaDefinition;
                     else if(langOption==2)
                         function = functions[tokens[i] - 2000].ExcelDefinition;
+                    else if (langOption == 3)
+                        function = functions[tokens[i] - 2000].RDefinition;
                     else
                         function = functions[tokens[i] - 2000].Definition;
 

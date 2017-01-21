@@ -590,9 +590,7 @@ namespace GPdotNET.App
            else//Preparing GP for modelling nd prediction
             {
                 //create facotry based on column data type
-                if (_experimentPanel.IsBinarylOutput)
-                    this._mainGPFactory = new GPFactoryClass();
-                if (_experimentPanel.IsCategoricalOutput)
+                if (_experimentPanel.IsBinarylOutput || _experimentPanel.IsCategoricalOutput)
                     this._mainGPFactory = new GPFactoryClass();
                 else if (_experimentPanel.GetOutputColumnType() == Core.Experiment.ColumnDataType.Numeric)
                     this._mainGPFactory = new GPFactory();
@@ -901,21 +899,6 @@ namespace GPdotNET.App
             }
         }
 
-        private void microsoft_StockModeling(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
-        private void microsoft_StockModeling1(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
-        private void cnc_params_Optimization(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
-         
+       
     }
 }

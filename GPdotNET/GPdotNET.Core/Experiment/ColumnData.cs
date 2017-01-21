@@ -16,6 +16,13 @@ namespace GPdotNET.Core.Experiment
         public string ParamType { get; set; }
         public string NormType { get; set; }
         public string MissingValue { get; set; }
+        public bool IsIngored {
+            get
+            {
+                return (ColType.Contains("string") || ParamType.Contains(ParameterType.Ignored.ToString()));
+            }
+        }
+
         public override string ToString()
         {
             string retVal = "";
@@ -89,7 +96,7 @@ namespace GPdotNET.Core.Experiment
         ColumnDataType      m_ColType;//type of the column
         ParameterType       m_ParamType;
         Statistics          m_Statistics;//statistic of the column
-        MissingRowValue        m_MissingValue; //MissingValue in row 
+        MissingRowValue     m_MissingValue; //MissingValue in row 
         string[]            m_RealValues;//real  column value exstracted from the file in string format
         double[]            m_NumericValues;//if the colum  is numeric it holds numeric representation of the real value
         double[][]          m_NormalizedValues;// before apply to the solver column has to be normalized
@@ -104,13 +111,14 @@ namespace GPdotNET.Core.Experiment
         #endregion
 
         #region Properties
+        public NormalizationType Normalization { get { return m_normalizationType; } }
         internal bool           IsTest{get;private set;} // if it is test data, normalization must be performed by external stats parameters
         public bool             IsOutput { get { return m_ParamType == ParameterType.Output; } }
         internal string[]       RealValues { get { return m_RealValues; } set { m_RealValues = value; } }
         public string           Name { get; set; }//Name of the column in experiment
         internal int            RowCount { get { return m_RealValues==null ? 0 : m_RealValues.Length; } }
         public ColumnDataType   ColumnDataType { get { return m_ColType; } set { m_ColType = value; } }
-        public Statistics     Statistics { get { return m_Statistics; } }
+        public Statistics       Statistics { get { return m_Statistics; } }
 
         internal MissingRowValue MissingValue { get { return m_MissingValue; } set { m_MissingValue = value; } }
         #endregion
@@ -318,25 +326,8 @@ namespace GPdotNET.Core.Experiment
             m_Statistics.Max = m_NumericValues.Where(x => !double.IsNaN(x)).Max();
             m_Statistics.Min = m_NumericValues.Where(x => !double.IsNaN(x)).Min();
 
-            //replace missingValues
-            for(int i=0; i<m_NumericValues.Length; i++)
-            {
-                if(double.IsNaN(m_NumericValues[i]))
-                {
-                    if (m_MissingValue == MissingRowValue.Average)
-                        m_NumericValues[i] = Statistics.Mean;
-                    else if (m_MissingValue == MissingRowValue.Max)
-                        m_NumericValues[i] = Statistics.Max;
-                    else if (m_MissingValue == MissingRowValue.Min)
-                        m_NumericValues[i] = Statistics.Min;
-                    else
-                        throw new Exception("Missing value for column="+ Name+" is not defined.");
-
-                    setRealValueFromNumeric(i, m_NumericValues[i]);
-                }
-            }
-            
-                
+            //replace missing value
+            replaceMissingValue();
 
             //calculate median= middle value from the array
             int middleIndex = (int)Math.Ceiling((double)m_NumericValues.Length / 2.0);
@@ -356,6 +347,27 @@ namespace GPdotNET.Core.Experiment
             }
 
             m_Statistics.StdDev = Math.Sqrt(sum / m_NumericValues.Length);
+        }
+
+        private void replaceMissingValue()
+        {
+            //replace missingValues
+            for (int i = 0; i < m_NumericValues.Length; i++)
+            {
+                if (double.IsNaN(m_NumericValues[i]))
+                {
+                    if (m_MissingValue == MissingRowValue.Average)
+                        m_NumericValues[i] = Statistics.Mean;
+                    else if (m_MissingValue == MissingRowValue.Max)
+                        m_NumericValues[i] = Statistics.Max;
+                    else if (m_MissingValue == MissingRowValue.Min)
+                        m_NumericValues[i] = Statistics.Min;
+                    else
+                        throw new Exception("Missing value for column=" + Name + " is not defined.");
+
+                    setRealValueFromNumeric(i, m_NumericValues[i]);
+                }
+            }
         }
 
         private void setRealValueFromNumeric(int index, double value)
@@ -488,7 +500,7 @@ namespace GPdotNET.Core.Experiment
                 double v;
                 if (double.TryParse(str, NumberStyles.Number, CultureInfo.InvariantCulture, out v))
                     m_NumericValues[i] = v;
-                else if(str=="n/a")
+                else if(isMissingValue(str))
                     m_NumericValues[i] = double.NaN;
                 else
                     throw new Exception("The Values of " + Name + " column cannot be converted to numeric value. Try to change the type of the column.");
@@ -496,8 +508,12 @@ namespace GPdotNET.Core.Experiment
             //calculate stats
             if (stat == null)
                 CalculateStats();
-            else//this is testing data we used stat from training in order to get correct normalizationž
+            else//this is testing data we used stat from training in order to get correct normalization
+            {
                 m_Statistics = stat;
+                replaceMissingValue();
+            }
+                
 
             //normalize values
             m_NormalizedValues = new double[m_RealValues.Length][];
@@ -561,7 +577,7 @@ namespace GPdotNET.Core.Experiment
                     m_NumericValues[i] = classes.IndexOf(c);
                     m_NormalizedValues[i][0]= m_NumericValues[i];
                 }
-                else if(val=="n/a" && m_MissingValue!= MissingRowValue.Ignore)
+                else if(isMissingValue(val))
                     m_NumericValues[i] = double.NaN;//missing value
                 else
                     throw new Exception("Data in " + Name + " column cannot be null.");
@@ -570,9 +586,18 @@ namespace GPdotNET.Core.Experiment
             //calculate stats
             if (stat == null)
                 CalculateStats();
-            else//this is testing data we used stat from training in order to get correct normalizationž
+            else//this is testing data we used stat from training in order to get correct normalization
+            {
                 m_Statistics = stat;
+                replaceMissingValue();
+            }
+                
 
+        }
+
+        public static bool isMissingValue(string val)
+        {
+            return string.IsNullOrEmpty(val) || val.Trim() == "n/a" || val.Trim() == "-";
         }
 
         /// <summary>
@@ -621,7 +646,10 @@ namespace GPdotNET.Core.Experiment
             if (stat == null)
                 CalculateStats();
             else//this is testing data we used stat from training in order to get correct normalizationž
+            {
                 m_Statistics = stat;
+                replaceMissingValue();
+            }
 
             //
             NormalizeCategoricColumn();

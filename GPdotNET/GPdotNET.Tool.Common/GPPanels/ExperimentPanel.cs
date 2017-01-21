@@ -406,7 +406,7 @@ namespace GPdotNET.Tool.Common
             get
             {
                 var col=Experiment.GetColumnsFromOutput();
-               return col[0].ColumnDataType != ColumnDataType.Numeric;
+               return col[0].ColumnDataType == ColumnDataType.Categorical;
             }
         }
 
@@ -488,7 +488,7 @@ namespace GPdotNET.Tool.Common
         }
 
         /// <summary>
-        /// Pars experimental data na define properties for each column
+        /// Pars experimental data and define properties for each column
         /// </summary>
         /// <returns></returns>
         private List<ColumnProperties> ParseColumns()
@@ -610,6 +610,8 @@ namespace GPdotNET.Tool.Common
                 LVI.BackColor = SystemColors.GradientActiveCaption;
             }
         }
+
+       
         /// <summary>
         /// 
         /// </summary>
@@ -714,7 +716,15 @@ namespace GPdotNET.Tool.Common
             return cols;
         }
 
-    
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<ColumnProperties> GetColumnMetadata()
+        {
+            return ParseColumns();
+        }
+
 
         /// <summary>
         /// GP specific method for retrieing training data
@@ -750,7 +760,7 @@ namespace GPdotNET.Tool.Common
 
         public int GetClassCount()
         {
-            if (GetOutputColumnType() == ColumnDataType.Categorical)
+            if (GetOutputColumnType() == ColumnDataType.Categorical || GetOutputColumnType() == ColumnDataType.Binary)
             {
                 var cols = Experiment.GetColumnsFromOutput();
                 if (cols == null || cols.Count > 0)

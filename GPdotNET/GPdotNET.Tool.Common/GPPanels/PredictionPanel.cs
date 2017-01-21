@@ -364,8 +364,14 @@ namespace GPdotNET.Tool.Common
         /// <param name="y"></param>
         public void FillGPPredictionResult(double[][] y)
         {
-           // FillGPPredictionResult(y[0]);
-             var colOut=Experiment.GetColumnOutputCount();
+            // FillGPPredictionResult(y[0]);
+            if(Experiment==null && y!=null && y.Length>0)
+            {
+                FillGPPredictionResult(y[0]);
+                return;
+            }
+
+            var colOut=Experiment.GetColumnOutputCount();
              var cols= Experiment.GetColumnsFromOutput();
              for (int i = 0; i < listView1.Items.Count; i++)
              {

@@ -10,6 +10,7 @@
 // Bihac,Bosnia and Herzegovina                                                         //
 // http://bhrnjica.wordpress.com                                                        //
 //////////////////////////////////////////////////////////////////////////////////////////
+using GPdotNET.Core.Experiment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace GPdotNET.Core
         public static int StartFunctionIndex = 2000;
 
         public static ThreadSafeRandom radn = new ThreadSafeRandom();
+
         //in case of GP MUltyClass problem class ount
         public static int classCount = 0;
         public static GPTerminalSet gpterminals;

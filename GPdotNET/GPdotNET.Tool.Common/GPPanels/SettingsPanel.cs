@@ -822,7 +822,8 @@ namespace GPdotNET.Tool.Common
             }
             else
             {
-                cmbFitnessFuncs.SelectedIndex = 6;
+                cmbFitnessFuncs.Enabled = true;
+                cmbFitnessFuncs.SelectedItem = "CLASS -Classification ";
                 cmbFitnessFuncs.Enabled = false;
             }
             

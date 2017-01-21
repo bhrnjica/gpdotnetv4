@@ -11,6 +11,7 @@
     <Definition>x1+x2</Definition>
     <ExcelDefinition>x1+x2</ExcelDefinition>
     <MathematicaDefinition>x1+x2</MathematicaDefinition>
+    <RDefinition>x1+x2</RDefinition>
     <Selected> true</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -27,6 +28,7 @@
     <Definition>x1-x2</Definition>
     <ExcelDefinition>x1-x2</ExcelDefinition>
     <MathematicaDefinition>x1-x2</MathematicaDefinition>
+    <RDefinition>x1-x2</RDefinition>
     <Selected> true</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -43,6 +45,7 @@
     <Definition>x1*x2</Definition>
     <ExcelDefinition>x1*x2</ExcelDefinition>
     <MathematicaDefinition>x1*x2</MathematicaDefinition>
+    <RDefinition>x1*x2</RDefinition>
     <Selected> true</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -59,6 +62,7 @@
     <Definition>x1/x2</Definition>
     <ExcelDefinition>IF(ISNUMBER(x1/x2);x1/x2;0)</ExcelDefinition>
     <MathematicaDefinition>x1/x2</MathematicaDefinition>
+    <RDefinition>x1/x2</RDefinition>
     <Selected> true</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -75,6 +79,7 @@
     <Definition>x1+x2+x3</Definition>
     <ExcelDefinition>x1+x2+x3</ExcelDefinition>
     <MathematicaDefinition>x1+x2+x3</MathematicaDefinition>
+    <RDefinition>x1+x2+x3</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> false</ReadOnly>
@@ -91,6 +96,7 @@
     <Definition>x1-x2-x3</Definition>
     <ExcelDefinition>x1-x2-x3</ExcelDefinition>
     <MathematicaDefinition>x1-x2-x3</MathematicaDefinition>
+    <RDefinition>x1-x2-x3</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -107,6 +113,7 @@
     <Definition>x1*x2*x3</Definition>
     <ExcelDefinition>x1*x2*x3</ExcelDefinition>
     <MathematicaDefinition>x1*x2*x3</MathematicaDefinition>
+    <RDefinition>x1*x2*x3</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -123,6 +130,7 @@
     <Definition>x1/x2/x3</Definition>
     <ExcelDefinition>IF(ISNUMBER(x1/x2/x3);x1/x2/x3;0)</ExcelDefinition>
     <MathematicaDefinition>x1/x2/x3</MathematicaDefinition>
+    <RDefinition>x1/x2/x3</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -139,6 +147,7 @@
     <Definition>x1+x2+x3+x4</Definition>
     <ExcelDefinition>x1+x2+x3+x4</ExcelDefinition>
     <MathematicaDefinition>x1+x2+x3+x4</MathematicaDefinition>
+    <RDefinition>x1+x2+x3+x4</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -155,6 +164,7 @@
     <Definition>x1-x2-x3-x4</Definition>
     <ExcelDefinition>x1-x2-x3-x4</ExcelDefinition>
     <MathematicaDefinition>x1-x2-x3-x4</MathematicaDefinition>
+    <RDefinition>x1-x2-x3-x4</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -171,6 +181,7 @@
     <Definition>x1*x2*x3*x4</Definition>
     <ExcelDefinition>x1*x2*x3*x4</ExcelDefinition>
     <MathematicaDefinition>x1*x2*x3*x4</MathematicaDefinition>
+    <RDefinition>x1*x2*x3*x4</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -187,6 +198,7 @@
     <Definition>x1/x2/x3/x4</Definition>
     <ExcelDefinition>IF(ISNUMBER(x1/x2/x3/x4);x1/x2/x3/x4;0)</ExcelDefinition>
     <MathematicaDefinition>x1/x2/x3/x4</MathematicaDefinition>
+    <RDefinition>x1/x2/x3/x4</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -203,6 +215,7 @@
     <Definition>x1^2</Definition>
     <ExcelDefinition>power(x1;2)</ExcelDefinition>
     <MathematicaDefinition>Power[x1,2]</MathematicaDefinition>
+    <RDefinition>x1^2</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -219,6 +232,7 @@
     <Definition>x1^3</Definition>
     <ExcelDefinition>Power(x1;3)</ExcelDefinition>
     <MathematicaDefinition>Power[x1,3]</MathematicaDefinition>
+    <RDefinition>x1^3</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -235,6 +249,7 @@
     <Definition>x1^4</Definition>
     <ExcelDefinition>Power(x1;4)</ExcelDefinition>
     <MathematicaDefinition>Power[x1,4]</MathematicaDefinition>
+    <RDefinition>x1^4</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -251,6 +266,7 @@
     <Definition>x1^5</Definition>
     <ExcelDefinition>Power(x1;5)</ExcelDefinition>
     <MathematicaDefinition>Power[x1,5]</MathematicaDefinition>
+    <RDefinition>x1^5</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -264,9 +280,10 @@
     <Aritry>1</Aritry>
     <Name>x^1/3</Name>
     <Description>Cube root</Description>
-    <Definition>x1^1/3</Definition>
+    <Definition>x1^(1/3)</Definition>
     <ExcelDefinition>power(x1;1/3)</ExcelDefinition>
     <MathematicaDefinition>Power[x1,1/3]</MathematicaDefinition>
+    <RDefinition>x1^(1/3)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -283,6 +300,7 @@
     <Definition>x1^1/4</Definition>
     <ExcelDefinition>IF(ISNUMBER(POWER(x1;1/4));POWER(x1;1/4);0)</ExcelDefinition>
     <MathematicaDefinition>Power[x1,1/4]</MathematicaDefinition>
+    <RDefinition>x1^(1/4)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -299,6 +317,7 @@
     <Definition>x1^1/5</Definition>
     <ExcelDefinition>POWER(x1;1/5)</ExcelDefinition>
     <MathematicaDefinition>Power[x1,1/5]</MathematicaDefinition>
+    <RDefinition>x1^(1/5)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -315,6 +334,7 @@
     <Definition>1/x1</Definition>
     <ExcelDefinition>IF(x1=0;0;1/x1)</ExcelDefinition>
     <MathematicaDefinition>1/x1</MathematicaDefinition>
+    <RDefinition>1/x1</RDefinition>
     <Selected> false </Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -331,6 +351,7 @@
     <Definition>abs(x1)</Definition>
     <ExcelDefinition>abs(x1)</ExcelDefinition>
     <MathematicaDefinition>Abs[x1]</MathematicaDefinition>
+    <RDefinition>abs(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -347,6 +368,7 @@
     <Definition>floor(x1)</Definition>
     <ExcelDefinition>floor(x1)</ExcelDefinition>
     <MathematicaDefinition>Floor[x1]</MathematicaDefinition>
+    <RDefinition>floor(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -363,6 +385,7 @@
     <Definition>ceiling(x1)</Definition>
     <ExcelDefinition>ceiling(x1)</ExcelDefinition>
     <MathematicaDefinition>Ceiling[x1]</MathematicaDefinition>
+    <RDefinition>ceiling(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -379,6 +402,7 @@
     <Definition>truncate(x1)</Definition>
     <ExcelDefinition>trunc(x1)</ExcelDefinition>
     <MathematicaDefinition>Trunc[x1]</MathematicaDefinition>
+    <RDefinition>trunc(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -395,6 +419,7 @@
     <Definition>round(x1)</Definition>
     <ExcelDefinition>round(x1;p1)</ExcelDefinition>
     <MathematicaDefinition>Round[x1,p1]</MathematicaDefinition>
+    <RDefinition>round(x1,p1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -411,6 +436,7 @@
     <Definition>sin(x1)</Definition>
     <ExcelDefinition>sin(x1)</ExcelDefinition>
     <MathematicaDefinition>Sin[x1]</MathematicaDefinition>
+    <RDefinition>sin(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -427,6 +453,7 @@
     <Definition>cos(x1)</Definition>
     <ExcelDefinition>cos(x1)</ExcelDefinition>
     <MathematicaDefinition>Cos[x1]</MathematicaDefinition>
+    <RDefinition>cos(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -443,6 +470,7 @@
     <Definition>tan(x1)</Definition>
     <ExcelDefinition>tan(x1)</ExcelDefinition>
     <MathematicaDefinition>Tan[x1]</MathematicaDefinition>
+    <RDefinition>tan(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -459,6 +487,7 @@
     <Definition>asin(x1)</Definition>
     <ExcelDefinition>IF(ISNUMBER(ASIN(x1));ASIN(x1);0)</ExcelDefinition>
     <MathematicaDefinition>ASin[x1]</MathematicaDefinition>
+    <RDefinition>asin(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -475,6 +504,7 @@
     <Definition>acos(x1)</Definition>
     <ExcelDefinition>IF(ISNUMBER(ACOS(x1));ACOS(x1);0)</ExcelDefinition>
     <MathematicaDefinition>ACos[x1]</MathematicaDefinition>
+    <RDefinition>acos(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -491,6 +521,7 @@
     <Definition>atan(x1)</Definition>
     <ExcelDefinition>IF(ISNUMBER(ATAN(x1));ATAN(x1);0)</ExcelDefinition>
     <MathematicaDefinition>ATan[x1]</MathematicaDefinition>
+    <RDefinition>atan(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -507,6 +538,7 @@
     <Definition>sinh(x1)</Definition>
     <ExcelDefinition>IF(ISNUMBER(SINH(x1));SINH(x1);0)</ExcelDefinition>
     <MathematicaDefinition>Sinh[x1]</MathematicaDefinition>
+    <RDefinition>sinh(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -523,6 +555,7 @@
     <Definition>cosh(x1)</Definition>
     <ExcelDefinition>IF(ISNUMBER(COSH(x1));COSH(x1);0)</ExcelDefinition>
     <MathematicaDefinition>Cosh[x1]</MathematicaDefinition>
+    <RDefinition>cosh(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -539,6 +572,7 @@
     <Definition>tanh(x1)</Definition>
     <ExcelDefinition>IF(ISNUMBER(TANH(x1));TANH(x1);0)</ExcelDefinition>
     <MathematicaDefinition>Tanh[x1]</MathematicaDefinition>
+    <RDefinition>tanh(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -555,6 +589,7 @@
     <Definition>sqrt(x1)</Definition>
     <ExcelDefinition>IF(ISNUMBER(SQRT(x1));SQRT(x1);0)</ExcelDefinition>
     <MathematicaDefinition>Sqrt[x1]</MathematicaDefinition>
+    <RDefinition>sqrt(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -571,6 +606,7 @@
     <Definition>Exp(x1)</Definition>
     <ExcelDefinition>Exp(x1)</ExcelDefinition>
     <MathematicaDefinition>Exp[x1]</MathematicaDefinition>
+    <RDefinition>exp(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -587,6 +623,7 @@
     <Definition>Log10(x1)</Definition>
     <ExcelDefinition>IF(ISNUMBER(LOG10(x1));LOG10(x1);0)</ExcelDefinition>
     <MathematicaDefinition>Log[x1,10]</MathematicaDefinition>
+    <RDefinition>log10(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -603,6 +640,7 @@
     <Definition>Log(x1)</Definition>
     <ExcelDefinition>IF(ISNUMBER(LN(x1));LN(x1);0)</ExcelDefinition>
     <MathematicaDefinition>Log[x1]</MathematicaDefinition>
+    <RDefinition>log(x1)</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -619,6 +657,7 @@
     <Definition>x1^2+x1*x2+x2^2</Definition>
     <ExcelDefinition>x1*x1+x1*x2+x2*x2</ExcelDefinition>
     <MathematicaDefinition>x1*x1+x1*x2+x2*x2</MathematicaDefinition>
+    <RDefinition>x1*x1+x1*x2+x2*x2</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -635,6 +674,7 @@
     <Definition>x1^3+x2^3+x3^3+x1*x2*x3+x1*x2+x1*x3+x2*x3</Definition>
     <ExcelDefinition>x1*x1*x1+x2*x2*x2+x3*x3*x3+x1*x2*x3+x1*x2+x1*x3+x2*x3</ExcelDefinition>
     <MathematicaDefinition>x1*x1*x1+x2*x2*x2+x3*x3*x3+x1*x2*x3+x1*x2+x1*x3+x2*x3</MathematicaDefinition>
+    <RDefinition>x1^3+x2^3+x3^3+x1*x2*x3+x1*x2+x1*x3+x2*x3</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -651,6 +691,7 @@
     <Definition>x1^2 *x2</Definition>
     <ExcelDefinition>x1^2 *x2</ExcelDefinition>
     <MathematicaDefinition>x1^2 *x2</MathematicaDefinition>
+    <RDefinition>x1^2 *x2</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -667,6 +708,7 @@
     <Definition>x1^2 *x2^2</Definition>
     <ExcelDefinition>x1^2 *x2^2</ExcelDefinition>
     <MathematicaDefinition>x1^2 *x2^2</MathematicaDefinition>
+    <RDefinition>x1^2 *x2^2</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -683,6 +725,7 @@
     <Definition>x1^3 *x2</Definition>
     <ExcelDefinition>x1^3 *x2</ExcelDefinition>
     <MathematicaDefinition>x1^3 *x2</MathematicaDefinition>
+    <RDefinition>x1^3 *x2</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -699,6 +742,7 @@
     <Definition>x1^3 *x2^2</Definition>
     <ExcelDefinition>x1^3 *x2^2</ExcelDefinition>
     <MathematicaDefinition>x1^3 *x2^2</MathematicaDefinition>
+    <RDefinition>x1^3 *x2^2</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -715,6 +759,7 @@
     <Definition>x1^3 *x2^3</Definition>
     <ExcelDefinition>x1^3 *x2^3</ExcelDefinition>
     <MathematicaDefinition>x1^3 *x2^3</MathematicaDefinition>
+    <RDefinition>x1^3 *x2^3</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -731,6 +776,7 @@
     <Definition>x1^2 *x2^3</Definition>
     <ExcelDefinition>x1^2 *x2^3</ExcelDefinition>
     <MathematicaDefinition>x1^2 *x2^3</MathematicaDefinition>
+    <RDefinition>x1^3 *x2^3</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -747,6 +793,7 @@
     <Definition>x1 *x2^3</Definition>
     <ExcelDefinition>x1 *x2^3</ExcelDefinition>
     <MathematicaDefinition>x1 *x2^3</MathematicaDefinition>
+    <RDefinition>x1 *x2^3</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>
@@ -763,6 +810,7 @@
     <Definition>x1^4 *x2^4</Definition>
     <ExcelDefinition>x1^4 *x2^4</ExcelDefinition>
     <MathematicaDefinition>x1^4 *x2^4</MathematicaDefinition>
+    <RDefinition>x1^4 *x2^4</RDefinition>
     <Selected> false</Selected>
     <Weight>1</Weight>
     <ReadOnly> true</ReadOnly>

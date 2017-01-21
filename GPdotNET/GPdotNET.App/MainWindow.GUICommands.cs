@@ -486,9 +486,8 @@ namespace GPdotNET.App
             
             //Sample code for running agains MONO or .NET
             Type t = Type.GetType("Mono.Runtime");
-
-            //export to Mathematica
-            if (selectedOption == 2)
+            //export to R
+            if (selectedOption == 3)
             {
                 var ch = _mainGPFactory.BestChromosome() as GPChromosome;
                 if (ch == null)
@@ -496,10 +495,42 @@ namespace GPdotNET.App
                 string strPath = GPModelGlobals.GetFileFromSaveDialog("Text File Format", "*.txt");
                 if (string.IsNullOrEmpty(strPath))
                     return;
-                Utility.ExportToMathematica(Globals.gpterminals.TrainingData,
-                                                   Globals.gpterminals.NumVariables,
-                                                   Globals.gpterminals.NumConstants,
-                                                   ch.expressionTree, strPath);
+
+                if (_experimentPanel != null)//gor GPotNET v4,..
+                {
+                    Utility.ExportToR(_experimentPanel.Experiment,
+                                      Globals.gpterminals.NumVariables,
+                                      Globals.gpterminals.NumConstants,
+                                      ch.expressionTree, strPath);
+                }
+                else { MessageBox.Show("Export is not suported!", "GPdotNET"); }
+               
+            }
+
+            //export to Mathematica
+            else if (selectedOption == 2)
+            {
+                var ch = _mainGPFactory.BestChromosome() as GPChromosome;
+                if (ch == null)
+                    return;
+                string strPath = GPModelGlobals.GetFileFromSaveDialog("Text File Format", "*.txt");
+                if (string.IsNullOrEmpty(strPath))
+                    return;
+                
+                if (_experimentPanel != null)//gor GPotNET v4,..
+                {
+                    Utility.ExportToMathematica(_experimentPanel.Experiment,
+                                      Globals.gpterminals.NumVariables,
+                                      Globals.gpterminals.NumConstants,
+                                      ch.expressionTree, strPath);
+                }
+                else//for GPdotNET v1, v2, v3
+                {
+                    Utility.ExportToMathematica(Globals.gpterminals.TrainingData,
+                                            Globals.gpterminals.NumVariables,
+                                            Globals.gpterminals.NumConstants,
+                                            ch.expressionTree, strPath);
+                }
             }
 
             else if (t != null || forceToCSV)//You are running with the Mono VM
@@ -523,87 +554,19 @@ namespace GPdotNET.App
                 string strPath = GPModelGlobals.GetFileFromSaveDialog("Excel File Format", "*.xlsx");
                 if (string.IsNullOrEmpty(strPath))
                     return;
-                Utility.ExportToExcel(Globals.gpterminals.TrainingData,
+                if(_experimentPanel != null)//gor GPotNET v4,..
+                {
+                    Utility.ExportToExcel(_experimentPanel.Experiment,
                                       Globals.gpterminals.NumVariables,
                                       Globals.gpterminals.NumConstants,
                                       ch.expressionTree, strPath);
-            }
-        }
-
-        /// <summary>
-        /// Export test
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void rbtnExportTest_Click(object sender, EventArgs e)
-        {
-            int selectedOption = -1;
-            bool forceToCSV = false;
-            txtStatusMessage.Text = "Ready!";
-            if (Globals.gpterminals==null || Globals.gpterminals.TestingData == null)
-            {
-                MessageBox.Show("There is no Testing Data!");
-                return;
-            }
-
-            ExportDialog dlg = new ExportDialog();
-            if (dlg.ShowDialog() != DialogResult.OK)
-                return;
-            
-            selectedOption = dlg.SelectedOption;
-
-            if (dlg.SelectedOption == -1)
-                forceToCSV = true;
-            else if (dlg.SelectedOption == 1)
-                forceToCSV = false;
-            else
-                forceToCSV = true;
-
-            //Sample code for running agains MONO or .NET
-            Type t = Type.GetType("Mono.Runtime");
-
-            //export to Mathematica
-            if (selectedOption == 2)
-            {
-                var ch = _mainGPFactory.BestChromosome() as GPChromosome;
-                if (ch == null)
-                    return;
-                string strPath = GPModelGlobals.GetFileFromSaveDialog("Text File Format", "*.txt");
-                if (string.IsNullOrEmpty(strPath))
-                    return;
-                Utility.ExportToMathematica(Globals.gpterminals.TestingData,
-                                                   Globals.gpterminals.NumVariables,
-                                                   Globals.gpterminals.NumConstants,
-                                                   ch.expressionTree, strPath);
-            }
-
-            else if (t != null || forceToCSV)//You are running with the Mono VM
-            {
-                var ch = _mainGPFactory.BestChromosome() as GPChromosome;
-                if (ch == null)
-                    return;
-                string strPath = GPModelGlobals.GetFileFromSaveDialog("CSV File Format", "*.csv");
-                if (string.IsNullOrEmpty(strPath))
-                    return;
-                Utility.ExportToCSV(Globals.gpterminals.TestingData,
-                                     Globals.gpterminals.NumVariables,
-                                     Globals.gpterminals.NumConstants,
-                                     ch.expressionTree, strPath,false);
-            }
-            else//"You are running on .net"
-            {
-
-
-                var ch = _mainGPFactory.BestChromosome() as GPChromosome;
-                if (ch == null)
-                    return;
-                string strPath = GPModelGlobals.GetFileFromSaveDialog("Excel File Format", "*.xlsx");
-                if (string.IsNullOrEmpty(strPath))
-                    return;
-                Utility.ExportToExcel(Globals.gpterminals.TestingData,
-                                      Globals.gpterminals.NumVariables,
-                                      Globals.gpterminals.NumConstants,
-                                      ch.expressionTree, strPath);
+                }
+                else//for GPdotNET v1, v2, v3
+                {
+                    Utility.ExportToExcel(Globals.gpterminals.NumVariables,
+                                          Globals.gpterminals.NumConstants,
+                                          ch.expressionTree, strPath);
+                }
             }
         }
 #endregion 
@@ -616,7 +579,7 @@ namespace GPdotNET.App
         /// <param name="e"></param>
         private void portalLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://gpdotnet.codeplex.com");
+            System.Diagnostics.Process.Start("http://github.com/bhrnjica/gpdotnet");
             txtStatusMessage.Text = "Ready!";
         }
 
@@ -665,7 +628,7 @@ namespace GPdotNET.App
             rbtnOpenModel_Click(null, null);
             txtStatusMessage.Text = "Ready!";
         }
-
+        #region Regression and Aproximation
         /// <summary>
         /// 
         /// </summary>
@@ -731,9 +694,40 @@ namespace GPdotNET.App
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cnc_params_Optimization1(object sender, LinkLabelLinkClickedEventArgs e)
+        private void cnc_params_Optimization(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string strPath = Application.StartupPath + "\\Resources_Files\\life_tool_opt.gpa";
+
+            Open(strPath);
+            var fName = Path.GetFileName(_filePath);
+            this.Text = string.Format("{0} - {1}", _appName, fName);
+            txtStatusMessage.Text = "Ready!";
+        }
+        #endregion
+
+        #region TSP, TP AP
+        /// <summary>
+        /// Assignment problem
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void linkLabel14_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string strPath = Application.StartupPath + "\\Resources_Files\\asignacijaSample1.gpa";
+
+            Open(strPath);
+            var fName = Path.GetFileName(_filePath);
+            this.Text = string.Format("{0} - {1}", _appName, fName);
+            txtStatusMessage.Text = "Ready!";
+        }
+        /// <summary>
+        /// Transportation problems
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void linkLabel15_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string strPath = Application.StartupPath + "\\Resources_Files\\TransportSample1.gpa";
 
             Open(strPath);
             var fName = Path.GetFileName(_filePath);
@@ -764,6 +758,7 @@ namespace GPdotNET.App
             this.Text = string.Format("{0} - {1}", _appName, fName);
             txtStatusMessage.Text = "Ready!";
         }
+        #endregion
 
         /// <summary>
         /// 
@@ -780,36 +775,27 @@ namespace GPdotNET.App
             txtStatusMessage.Text = "Ready!";
         }
 
-        /// <summary>
-        /// Assignment problem
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void linkLabel14_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        #region Classification problems GP , ANN
+        private void linkLabel17_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string strPath = Application.StartupPath + "\\Resources_Files\\asignacijaSample1.gpa";
+            string strPath = Application.StartupPath + "\\Resources_Files\\gp_titanic_survival.gpa";
 
             Open(strPath);
             var fName = Path.GetFileName(_filePath);
             this.Text = string.Format("{0} - {1}", _appName, fName);
             txtStatusMessage.Text = "Ready!";
         }
-        /// <summary>
-        /// Transportation problems
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void linkLabel15_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLabel19_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string strPath = Application.StartupPath + "\\Resources_Files\\TransportSample1.gpa";
+            string strPath = Application.StartupPath + "\\Resources_Files\\gp_iris_flover.gpa";
 
             Open(strPath);
             var fName = Path.GetFileName(_filePath);
             this.Text = string.Format("{0} - {1}", _appName, fName);
             txtStatusMessage.Text = "Ready!";
         }
-
-#endregion
+        #endregion
+        #endregion
 
         #region Prepare Algoritms
         /// <summary>

@@ -56,8 +56,6 @@ namespace GPdotNET.Engine
                     return null;
 
                 //calculate output
-                var minValue = pts.Min();
-                var maxValue = pts.Max();
                 var model = new double[1][];
                 var outv = new double[1][];
                 if (m_Experiment != null)
@@ -67,7 +65,7 @@ namespace GPdotNET.Engine
                     for (int i = 0; i < pts.Length; i++)
                     {
                         outv[0][0] = pts[i];
-                        var outv1 = m_Experiment.GetGPDenormalizedOutputRow(outv[0],minValue, maxValue );
+                        var outv1 = m_Experiment.GetGPDenormalizedOutputRow(outv[0]);
                         model[0][i] = outv1[0];
                     }
                 }

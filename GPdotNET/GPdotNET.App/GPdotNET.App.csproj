@@ -230,6 +230,12 @@ run both on Windows and Lunux OS.</Description>
     <Content Include="Resources_Files\GPdotNET_User_Guide.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources_Files\gp_titanic_survival.gpa">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources_Files\gp_iris_flover.gpa">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GPdotNET.Core\GPdotNET.Core.csproj">
