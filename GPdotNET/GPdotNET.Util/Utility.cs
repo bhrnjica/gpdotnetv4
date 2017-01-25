@@ -20,7 +20,7 @@ namespace GPdotNET.Util
     public static class Utility
     {
         /// <summary>
-        /// Exports data nd the model to excel for newver GPdotNET version
+        /// Exports data and the model to excel for newver GPdotNET version
         /// </summary>
         /// <param name="experiment"></param>
         /// <param name="inputVarCount"></param>
@@ -100,11 +100,17 @@ namespace GPdotNET.Util
                     //var val1 = Math.Exp(-1.0 * normalizedOutputRow[i]);
                     // val1 = outputCols[0].Statistics.Categories.Count * (1 / (1 + val1));
                     formula = "TRUNC("+cc.ToString()+"*(1/(1+Exp(-1*" + formula + "))),0)";
-                    //in case of decimal point, semicolon of Excell formula must be replaced with comma
-                    if ("." == CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
-                        formula = formula.Replace(";",",");
+                   
+                }
+                else
+                {
+                    var normFormula  = createDeNormalizationFormulaForOutput(outCol, formula);
+                    formula = normFormula;
                 }
 
+                //in case of decimal point, semicolon of Excell formula must be replaced with comma
+                if ("." == CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+                    formula = formula.Replace(";", ",");
 
                 ws1.Cell(3, inputVarCount + 3).Value = formula;
                 if (Globals.gpterminals.TestingData != null)
@@ -362,6 +368,40 @@ namespace GPdotNET.Util
         }
 
         /// <summary>
+        /// returning the excel formula of denormalization
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="varName"></param>
+        /// <returns></returns>
+        private static string createDeNormalizationFormulaForOutput(ColumnData col, string varName)
+        {
+            //
+            if (col.Normalization == NormalizationType.Gauss)
+            {
+                //
+                var str = string.Format("(({2}*{0}+{1}))", varName, col.Statistics.Mean, col.Statistics.StdDev);
+                return str;
+            }
+            else if (col.Normalization == NormalizationType.MinMax)
+            {
+                //
+                var str = string.Format("({0}*{1}+{2})", varName, col.Statistics.Max- col.Statistics.Min, col.Statistics.Min);
+                return str;
+            }
+            else if (col.Normalization == NormalizationType.Custom)
+            {
+                return varName;
+            }
+            else if (col.Normalization == NormalizationType.None)
+            {
+                return varName;
+            }
+            else
+                throw new Exception("Unknown normalization data type.");
+
+        }
+
+        /// <summary>
         /// export training data to csv file
         /// </summary>
         /// <param name="data"></param>
@@ -496,6 +536,7 @@ namespace GPdotNET.Util
 
                         formula = formula.Replace(var, vall);
                     }
+                   
 
                     tw.WriteLine(formula+";"); 
                     tw.Close();
@@ -586,7 +627,6 @@ namespace GPdotNET.Util
 
                     //GP Model formula
                     string formula = Globals.functions.DecodeExpression(ch, 1);
-                    //string formula = "gpModel=" + Globals.functions.DecodeExpression(ch, 1);
                     List<string> inputArgs = new List<string>();
                     AlphaCharEnum alphaEnum = new AlphaCharEnum();
                     var diff = inputVarCount - cols.Count;//diference between column count and normalized culm count due to Category column clasterization
@@ -634,8 +674,16 @@ namespace GPdotNET.Util
                     {
                         int cc = outCol.Statistics.Categories.Count;
                         //then C1<1,C2<2,C3<3.....
-                        formula = "gpModel[{0}]:=" + "IntegerPart[" + cc.ToString(CultureInfo.InvariantCulture) + "*(1/(1+Exp[-1*" + formula + "]))]";                   
+                        formula ="IntegerPart[" + cc.ToString(CultureInfo.InvariantCulture) + "*(1/(1+Exp[-1*" + formula + "]))]";                   
                     }
+                    else//for numeric output we need to denormalize formula
+                    {
+                        var normFormula = createDeNormalizationFormulaForOutput(outCol, formula);
+                        formula = normFormula;
+                    }
+
+                    //add model name and arguments
+                    formula = "gpModel[{0}]:=" + formula;
 
                     //add arguments to the model
                     string arguments = "";
@@ -685,7 +733,6 @@ namespace GPdotNET.Util
 
                     //Add Data.
                     var cols = experiment.GetColumnsFromInput();
-                    string cmd = "data={";
                     var rowCount = experiment.GetRowCount(isTest);
                     var colCount = experiment.GetColumnInputCount();
 
@@ -705,15 +752,11 @@ namespace GPdotNET.Util
 
                         if (col.ColumnDataType == ColumnDataType.Categorical)
                         {
-                            //formula = formula.Replace(var, replCell);
+                            //decreas diference between nurmalized and numeric columns
                             if (diff > 0)
                                 diff -= 1;
                         }
-                        else if (col.ColumnDataType == ColumnDataType.Binary)
-                        {
-                            //formula = formula.Replace(var, replCell);
-                        }
-                        else
+                        else if (col.ColumnDataType == ColumnDataType.Numeric)
                         {
                             replCell = createNormalizationFormulaForColumn(col, var);
                             formula = formula.Replace(var, replCell);
@@ -740,8 +783,17 @@ namespace GPdotNET.Util
                     {
                         int cc = outCol.Statistics.Categories.Count;
                         //then C1<1,C2<2,C3<3.....
-                        formula = @"gpModel<- function({0}){{ return (" + "trunc(" + cc.ToString(CultureInfo.InvariantCulture) + "*(1/(1+exp(-1*" + formula + "))))";
+                        formula = " return (" + "trunc(" + cc.ToString(CultureInfo.InvariantCulture) + "*(1/(1+exp(-1*" + formula + ")))))";
                     }
+                    else
+                    {
+                        var normFormula = createDeNormalizationFormulaForOutput(outCol, formula);
+                        formula = normFormula;
+                    }
+
+
+                    //add name  of the mode
+                    formula = @"gpModel<- function({0}) {{" + formula;
 
                     //add arguments to the model
                     string arguments = "";
@@ -759,7 +811,7 @@ namespace GPdotNET.Util
                         }
                     }
                     formula = string.Format(formula, arguments);
-                    formula = formula + " )}";
+                    formula = formula + " }";
                     tw.WriteLine(formula + ";");
                     tw.Close();
                 }

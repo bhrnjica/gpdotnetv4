@@ -674,6 +674,10 @@ namespace GPdotNET.Core.Experiment
             //calculate sigmoid for the fitenss
             var val1 = Math.Exp(-1.0 * numericValue);
             var sigm = classCount * (1.0 / (1.0 + val1));
+
+            //we dont want boundary values
+            if (sigm == 0 || sigm == classCount)
+                return double.NaN;
             var retVal = Math.Truncate(sigm);
             return retVal;
         }

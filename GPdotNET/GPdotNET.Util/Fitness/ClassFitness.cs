@@ -56,7 +56,9 @@ namespace GPdotNET.Util
                 if (m_ProblemType == ColumnDataType.Categorical || m_ProblemType == ColumnDataType.Binary)
                 {
                    var valClass = Experiment.getCategoryFromNumeric(y, Globals.classCount);
-                    
+
+                    if (double.IsNaN(valClass))
+                        return float.NaN;
                     //check is the calculated value correct 
                     var val = Globals.gpterminals.TrainingData[i][indexOutput] == valClass ? 1 : 0;
                     //add the result to the fitness

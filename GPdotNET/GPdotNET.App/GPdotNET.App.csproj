@@ -126,10 +126,8 @@ run both on Windows and Lunux OS.</Description>
     <AssemblyOriginatorKeyFile>GPdotNET.App_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClosedXML">
-      <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
-    </Reference>
-    <Reference Include="DocumentFormat.OpenXml">
+    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -140,7 +138,11 @@ run both on Windows and Lunux OS.</Description>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph">
+    <Reference Include="ClosedXML">
+      <HintPath>..\..\ThirdParty\Assemblies\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="ZedGraph, Version=5.1.5.26142, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -206,13 +208,7 @@ run both on Windows and Lunux OS.</Description>
     <Content Include="Resources_Files\montly_msft_2003_2012.gpa">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources_Files\simple_case.gpa">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources_Files\simple_optimization.gpa">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources_Files\surface_roughness_prediction.gpa">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources_Files\tsp_131_cities.gpa">
@@ -221,12 +217,6 @@ run both on Windows and Lunux OS.</Description>
     <Content Include="Resources_Files\tsp_20_cities.gpa">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources_Files\asignacijaSample1.gpa">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources_Files\TransportSample1.gpa">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources_Files\GPdotNET_User_Guide.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -234,6 +224,18 @@ run both on Windows and Lunux OS.</Description>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources_Files\gp_iris_flover.gpa">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources_Files\simple_function_gp.gpa">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources_Files\surface_roughness_gp.gpa">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources_Files\as_demo.gpa">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources_Files\ts_demo.gpa">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

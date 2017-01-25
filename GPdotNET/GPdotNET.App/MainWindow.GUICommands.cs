@@ -636,7 +636,7 @@ namespace GPdotNET.App
         /// <param name="e"></param>
         private void simple_fun_mod_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string strPath = Application.StartupPath + "\\Resources_Files\\simple_case.gpa";
+            string strPath = Application.StartupPath + "\\Resources_Files\\simple_function_gp.gpa";
 
             Open(strPath);
             var fName = Path.GetFileName(_filePath);
@@ -651,7 +651,7 @@ namespace GPdotNET.App
         /// <param name="e"></param>
         private void surfaceRoughnessPrediction_Click(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string strPath = Application.StartupPath + "\\Resources_Files\\surface_roughness_prediction.gpa";
+            string strPath = Application.StartupPath + "\\Resources_Files\\surface_roughness_gp.gpa";
 
             Open(strPath);
             var fName = Path.GetFileName(_filePath);
@@ -713,7 +713,7 @@ namespace GPdotNET.App
         /// <param name="e"></param>
         private void linkLabel14_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string strPath = Application.StartupPath + "\\Resources_Files\\asignacijaSample1.gpa";
+            string strPath = Application.StartupPath + "\\Resources_Files\\as_demo.gpa";
 
             Open(strPath);
             var fName = Path.GetFileName(_filePath);
@@ -727,7 +727,7 @@ namespace GPdotNET.App
         /// <param name="e"></param>
         private void linkLabel15_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string strPath = Application.StartupPath + "\\Resources_Files\\TransportSample1.gpa";
+            string strPath = Application.StartupPath + "\\Resources_Files\\ts_demo.gpa";
 
             Open(strPath);
             var fName = Path.GetFileName(_filePath);
