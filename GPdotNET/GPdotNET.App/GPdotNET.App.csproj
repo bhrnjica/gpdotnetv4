@@ -126,6 +126,10 @@ run both on Windows and Lunux OS.</Description>
     <AssemblyOriginatorKeyFile>GPdotNET.App_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.67.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
+    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
@@ -138,9 +142,6 @@ run both on Windows and Lunux OS.</Description>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
-    <Reference Include="ClosedXML">
-      <HintPath>..\..\ThirdParty\Assemblies\ClosedXML.dll</HintPath>
-    </Reference>
     <Reference Include="ZedGraph, Version=5.1.5.26142, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
@@ -237,6 +238,18 @@ run both on Windows and Lunux OS.</Description>
     </Content>
     <Content Include="Resources_Files\ts_demo.gpa">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources_Files\ann_prediction_maintanance.gpa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources_Files\ann_regression_water_parameters.gpa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources_Files\gp_muliclass_glass_identification.gpa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources_Files\ann_muliclass_iris_flover.gpa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -35,12 +35,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClosedXML">
-      <HintPath>..\..\ThirdParty\Assemblies\ClosedXML.dll</HintPath>
+    <Reference Include="ClosedXML, Version=0.67.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,8 +54,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="ZedGraph">
+      <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfusionMatrix.cs" />
     <Compile Include="ExcelHelper.cs" />
     <Compile Include="Fitness\FintessFunctions.cs" />
     <Compile Include="Fitness\ClassFitness.cs" />
@@ -64,6 +72,7 @@
     <Compile Include="Fitness\RSEFitness.cs" />
     <Compile Include="ModelGlobals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ROC.cs" />
     <Compile Include="Statistic.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
@@ -76,6 +85,9 @@
       <Project>{0331c174-17f5-4d8d-9430-5eca08c8da3f}</Project>
       <Name>GPdotNET.Engine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Fakes Include="Fakes\ZedGraph.fakes" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

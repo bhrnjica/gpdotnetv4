@@ -16,6 +16,7 @@ using GPdotNET.Core;
 using GPdotNET.Engine;
 using ZedGraph;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace GPdotNET.Tool.Common
 {
@@ -44,7 +45,7 @@ namespace GPdotNET.Tool.Common
             get
             {
                 float val = 500;
-                if (float.TryParse(iterationNumber.Text, out val))
+                if (float.TryParse(m_eb_iterations.Text, out val))
                     return val;
                 else
                     return 500;
@@ -76,10 +77,6 @@ namespace GPdotNET.Tool.Common
            // learningErrorLine.Symbol.Border = new Border(Color.Green, 0.1f);
             this.zedFitness.GraphPane.AxisChange(this.CreateGraphics());
 
-            //gpAvgFitnLine = zedFitness.GraphPane.AddCurve("Average", null, null, Color.Blue, ZedGraph.SymbolType.None);
-            //gpAvgFitnLine.Symbol.Border = new Border(Color.Cyan, 0.1f);
-            //this.zedFitness.GraphPane.AxisChange(this.CreateGraphics());
-
             zedModel.GraphPane.Title.Text = "ANN Model Simulation";
             zedModel.GraphPane.XAxis.Title.Text = "Samples";
             zedModel.GraphPane.YAxis.Title.Text = "Output";
@@ -89,7 +86,6 @@ namespace GPdotNET.Tool.Common
             this.zedModel.GraphPane.AxisChange(this.CreateGraphics());
 
             gpModelLine = zedModel.GraphPane.AddCurve("ANN Model", null, null, Color.Blue, ZedGraph.SymbolType.Plus);
-           // gpModelLine.Symbol.Border = new Border(Color.Cyan, 0.1f);
             this.zedModel.GraphPane.AxisChange(this.CreateGraphics());
         }
 
@@ -150,13 +146,13 @@ namespace GPdotNET.Tool.Common
                 UpdateChartError(currentIteration, learningError);
 
                 //When fitness is changed, model needs to be refreshed
-                if (prevLearningError > learningError)
+                if (prevLearningError < 0 ||  prevLearningError > learningError)
                 {
                     prevLearningError = learningError;
 
-                    currentError.Text = learningError.ToString("#.#####");
+                    eb_currentError.Text = learningError.ToString("#.#####");
 
-                    bestSolutionAtIteration.Text = currentIteration.ToString();
+                    eb_bestSolutionFound.Text = currentIteration.ToString();
 
                     UpdateChartDataPoint(learning);
 
@@ -167,30 +163,39 @@ namespace GPdotNET.Tool.Common
                 prevIterationTime = DateTime.Now;
                 double sec = currIterationTime.TotalSeconds;
 
-                eTimePerRun.Text = Math.Round(sec, 2).ToString();
+                eb_timePerRun.Text = Math.Round(sec, 2).ToString();
 
                 if (comboBox2.SelectedIndex == 1)
                 {
-                    eTimeToCompleate.Text = "undefine";
-                    eTimeleft.Text = "undefine";
+                    eb_timeToCompleate.Text = "undefine";
+                    eb_timeleft.Text = "undefine";
                 }
                 else
                 {
                     int broj = 0;
-                    if (!int.TryParse(iterationNumber.Text, out broj))
+                    if (!int.TryParse(m_eb_iterations.Text, out broj))
                         broj = 500;
 
                     DateTime datToFinish = m_startTime.AddSeconds(sec * (broj - currentIteration));
 
-                    eTimeToCompleate.Text = datToFinish.ToString();
-                    eTimeleft.Text = Math.Round((datToFinish - m_startTime).TotalMinutes, 3).ToString();
+                    eb_timeToCompleate.Text = datToFinish.ToString();
+                    eb_timeleft.Text = Math.Round((datToFinish - m_startTime).TotalMinutes, 3).ToString();
 
                 }
 
-                eDuration.Text = Math.Round((DateTime.Now - m_startTime).TotalMinutes, 3).ToString();
+                eb_durationInMin.Text = Math.Round((DateTime.Now - m_startTime).TotalMinutes, 3).ToString();
             }
             else if (runType == 3)
+            {
+                prevLearningError = learningError;
                 FinishProgress();
+                UpdateChartDataPoint(learning);
+                //
+                zedFitness.RestoreScale(zedFitness.GraphPane);
+                zedFitness.Invalidate();
+                zedModel.Invalidate();
+            }
+               
 
 
             
@@ -221,7 +226,6 @@ namespace GPdotNET.Tool.Common
                 //progressBar1.Minimum = 0;
                 //progressBar1.Value = 0;
             }
-
             progressBar1.MarqueeAnimationSpeed = 0;
         }
 
@@ -239,7 +243,7 @@ namespace GPdotNET.Tool.Common
             else
             {
                 int max = 500;
-                if (!int.TryParse(iterationNumber.Text, out max))
+                if (!int.TryParse(m_eb_iterations.Text, out max))
                     max = 500;
                 progressBar1.Style = ProgressBarStyle.Blocks;
                 // progressBar1.DisplayStyle = ProgressBarDisplayText.Percentage;
@@ -250,7 +254,7 @@ namespace GPdotNET.Tool.Common
 
             m_startTime = DateTime.Now;
             prevIterationTime = m_startTime;
-            eTimeStart.Text = m_startTime.ToString();
+            eb_timeStart.Text = m_startTime.ToString();
         }
 
         /// <summary>
@@ -296,7 +300,7 @@ namespace GPdotNET.Tool.Common
 
             learningErrorLine.AddPoint(curIter, currError);
 
-            currentIteration.Text = curIter.ToString();
+            eb_currentIteration.Text = curIter.ToString();
 
             if (curIter % 10 == 0 || isFinished)
                 zedFitness.RestoreScale(zedFitness.GraphPane);
@@ -317,8 +321,19 @@ namespace GPdotNET.Tool.Common
             if (gpModelLine != null)
                 gpModelLine.Clear();
 
-        }
+            
+            eb_currentIteration.Text = "0";
+            eb_currentError.Text = "";
+            eb_bestSolutionFound.Text = 0.ToString();
 
+            eb_timeStart.Text = "";
+            eb_timePerRun.Text = "";
+            eb_timeToCompleate.Text = "";
+            eb_durationInMin.Text = "";
+            eb_timeleft.Text = "";
+
+        }
+       
         /// <summary>
         /// Check if there is a prev solution
         /// </summary>
@@ -328,18 +343,117 @@ namespace GPdotNET.Tool.Common
             return prevLearningError != float.MaxValue;
         }
 
+        /// <summary>
+        /// Deserilization of run condition
+        /// </summary>
+        /// <returns></returns>
+        public string GetTypeofRun()
+        {
+            string error = "";
+            for (int i = 0; i < learningErrorLine.Points.Count; i++)
+            {
+                var p = "";
+                if (i > 0)
+                    p = "#";
+                var mF = learningErrorLine.Points[i].X.ToString(CultureInfo.InvariantCulture) +
+                    ":" + learningErrorLine.Points[i].Y.ToString(CultureInfo.InvariantCulture);
+
+
+                //
+                error += p + mF;
+            }
+            if (comboBox2.SelectedIndex != -1)
+            {
+                //
+                string str = comboBox2.SelectedIndex.ToString() + ";"
+                            + m_eb_iterations.Text.ToString(CultureInfo.InvariantCulture) + ";"
+                            + eb_currentIteration.Text + ";"
+                            + eb_currentError.Text.ToString(CultureInfo.InvariantCulture) + ";"
+                            + eb_bestSolutionFound.Text + ";"
+                            + eb_timeStart.Text + ";"
+                            + eb_timePerRun.Text + ";"
+                            + eb_timeToCompleate.Text + ";"
+                            + eb_timeleft.Text + ";"
+                            + eb_durationInMin.Text + ";"
+                            + error
+                            ;
+
+                return str;
+            }
+            return null;
+
+
+        }
+
+
+        /// <summary>
+        /// Deserilization of run condition
+        /// </summary>
+        /// <param name="p"></param>
+        public void SetTypeofRun(string p)
+        {
+            var funs = p.Split(';');
+                comboBox2.SelectedIndex = funs[0] == "1" ? 1 : 0;
+            if (funs.Length < 2)
+                m_eb_iterations.Text = "500";
+            else
+                m_eb_iterations.Text = double.Parse(funs[1], CultureInfo.InvariantCulture).ToString(); ;
+
+            if (funs.Length > 2)
+                eb_currentIteration.Text = funs[2];
+            if (funs.Length > 3)
+                eb_currentError.Text = double.Parse(funs[3], CultureInfo.InvariantCulture).ToString();
+            if (funs.Length > 4)
+                eb_bestSolutionFound.Text = funs[4];
+            if (funs.Length > 5)
+                eb_timeStart.Text = funs[5];
+            if (funs.Length > 6)
+                eb_timePerRun.Text = funs[6];
+            if (funs.Length > 7)
+                eb_timeToCompleate.Text = funs[7];
+            if (funs.Length > 8)
+                eb_timeleft.Text = funs[8];
+            if (funs.Length > 9)
+                eb_durationInMin.Text = funs[9];
+            if (funs.Length > 10)
+                fillErrors(funs[10]);
+        }
+
+        /// <summary>
+        /// creates fitness graphs from string points
+        /// </summary>
+        /// <param name="v"></param>
+        private void fillErrors(string v)
+        {
+            if (v == "\r")
+                return;
+            var strs = v.Split('#');
+            for (int i = 0; i < strs.Length; i++)
+            {
+                var ss = strs[i].Split(':');
+                double x = double.Parse(ss[0], CultureInfo.InvariantCulture);
+                double y1 = double.Parse(ss[1], CultureInfo.InvariantCulture);
+                if (y1 < 0)
+                    y1 = 0;
+
+                learningErrorLine.AddPoint(x, y1);
+               
+            }
+            zedFitness.Invalidate();
+        }
+
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(comboBox2.SelectedIndex==0)
             {
-                if (iterationNumber.Text.Contains("0."))
-                    iterationNumber.Text = "100";
+                if (m_eb_iterations.Text.Contains("0."))
+                    m_eb_iterations.Text = "100";
                 
             }
             else
             {
-                if (!iterationNumber.Text.Contains("0."))
-                    iterationNumber.Text = "0.01";
+                if (!m_eb_iterations.Text.Contains("0."))
+                    m_eb_iterations.Text = "0.01";
                 
             }
             
@@ -348,7 +462,7 @@ namespace GPdotNET.Tool.Common
         public void EnableCtrls(bool p)
         {
             comboBox2.Enabled = p;
-            iterationNumber.Enabled = p;
+            m_eb_iterations.Enabled = p;
         }
 
         public void ContinueSearching()
@@ -357,15 +471,24 @@ namespace GPdotNET.Tool.Common
             {
                 int num = 0;
                 int cur = 0;
-                int.TryParse(currentIteration.Text, out cur);
+                int.TryParse(eb_currentIteration.Text, out cur);
 
-                if (int.TryParse(iterationNumber.Text, out num))
-                    iterationNumber.Text = (cur + num).ToString();
+                if (int.TryParse(m_eb_iterations.Text, out num))
+                    m_eb_iterations.Text = (cur + num).ToString();
             }
                
         }
 
-       
+
+        public int GetCurrentIteration()
+        {
+            if (string.IsNullOrEmpty(eb_currentIteration.Text))
+                return 0;
+            else
+               return int.Parse(eb_currentIteration.Text);
+        }
+
+
     }
 
 }

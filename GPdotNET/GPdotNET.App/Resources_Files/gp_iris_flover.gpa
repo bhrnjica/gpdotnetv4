@@ -8,7 +8,7 @@
 -
 !line 4 Testing Data
 -
-!line 5: GP PArameters is sorted in the following order
+!line 5: GP Parameters are sorted in the following order
 !popSIze;Fitness;Initialization;InitDepth;OperationDept;Elitism;Sel Method;Param1;Param2;Const_From;COnst_To;Con_COut;CrossOverProb;MutatProb;SeleProb;PermutationProb;EncaptulationProb;EnableEditing;EnableDecimation
 500;8;2;5;8;1;0;0;0;0;1;5;0.9;0.05;0.2;0.05;0.9;0;0;7.00128;0.57216;9.82194;0.58538;1.13426;5;False;
 !line 6:- Selected Function

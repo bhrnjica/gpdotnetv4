@@ -21,7 +21,7 @@ namespace GPdotNET.Engine
     /// <summary>
     /// Back Propagation Neural Network
     /// </summary>
-    public class BPNeuralNetwork:NeuralNetwork
+    public class BPNeuralNetwork : NeuralNetwork
     {
         
 

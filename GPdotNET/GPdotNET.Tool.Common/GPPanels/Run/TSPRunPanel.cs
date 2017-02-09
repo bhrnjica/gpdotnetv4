@@ -96,11 +96,11 @@ namespace GPdotNET.Tool.Common
             {
                 var chr = ch as GAVChromosome;
                 if(ch.Fitness!=0)
-                    currentErrorBox.Text = ((1000.0 - ch.Fitness) / ch.Fitness).ToString("#.#####");
+                    eb_currentFitness.Text = ((1000.0 - ch.Fitness) / ch.Fitness).ToString("#.#####");
                 else
-                    currentErrorBox.Text = "n/a";
+                    eb_currentFitness.Text = "n/a";
                 prevFitness = ch.Fitness;
-                bestFitnessAtGenerationEditBox.Text = currentEvoution.ToString();
+                eb_bestSolutionFound.Text = currentEvoution.ToString();
                 tbShortestPath.Text = chr.ToString().Split(';')[1];
                 DrawPath(chr.Value);
 

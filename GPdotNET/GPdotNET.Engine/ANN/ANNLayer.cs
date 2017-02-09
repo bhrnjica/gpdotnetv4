@@ -47,5 +47,17 @@ namespace GPdotNET.Engine.ANN
             m_output = output;
             return m_output;
         }
+
+        public override string[] GenerateFormula(string[] input)
+        {
+            string[] formula = new string[m_NeuronCount];
+            for (int i = 0; i < m_NeuronCount; i++)
+            {
+                var neuro = m_Neurons[i];
+                formula[i] = neuro.Evaluate(input);
+            }
+
+            return formula;
+        }
     }
 }

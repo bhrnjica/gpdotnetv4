@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using GPdotNET.Engine.ANN;
 using GPdotNET.Core.Interfaces;
 using GPdotNET.Core.Experiment;
+using System.Globalization;
 
 namespace GPdotNET.Engine
 {
@@ -105,7 +106,31 @@ namespace GPdotNET.Engine
             }
 
             m_ExpectedValue = 0;
-            
+
+            CalculateModel();
+
+            return (float)(error / m_expRowCount);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string GenerateFormula()
+        {
+            var input = new string[m_Experiment.GetColumnInputCount_FromNormalizedValue()];
+            for(int i=0; i < input.Length; i++)
+            {
+                input[i] = "X"+(i + 1).ToString()+" ";
+            }
+
+            // compute the network's output
+            var formula = m_Network.GenerateFormula(input);
+            return formula;
+        }
+
+        public override float CalculateModel(ProgramState state = ProgramState.Running)
+        {
             //prepare training result
             int outputCount = m_Experiment.GetColumnOutputCount();
             double[][] model = new double[outputCount][];
@@ -113,6 +138,7 @@ namespace GPdotNET.Engine
             for (int j = 0; j < outputCount; j++)
                 model[j] = new double[m_expRowCount];
 
+            var temp = m_ExpectedValue;
             // run learning procedure for all samples
             for (int i = 0; i < m_expRowCount; i++)
             {
@@ -133,7 +159,7 @@ namespace GPdotNET.Engine
                     m_ExpectedValue += Math.Abs((float)(outVal[j] - output[j]));
 
             }
-            
+
             //prediction if exist
             double[][] prediction = null;
             if (m_Experiment.IsTestDataExist())
@@ -141,10 +167,10 @@ namespace GPdotNET.Engine
                 int testCount = m_Experiment.GetRowCount(true);
 
                 if (testCount > 0)
-                { 
+                {
                     prediction = new double[outputCount][];
 
-                    for (int j = 0; j < outputCount; j++ )
+                    for (int j = 0; j < outputCount; j++)
                         prediction[j] = new double[testCount];
 
                     for (int i = 0; i < testCount; i++)
@@ -162,27 +188,80 @@ namespace GPdotNET.Engine
                     }
                 }
             }
-            
+
 
 
             //Send report for iteration
             var rp = new ProgressIndicatorEventArgs()
-                         {
-                             ReportType = ProgramState.Running,
-                             LearningError = m_ExpectedValue,
-                             CurrentIteration = m_IterationCounter,
-                             LearnOutput = model,
-                             PredicOutput = prediction
-                         };
+            {
+                ReportType = state,
+                LearningError = m_ExpectedValue,
+                CurrentIteration = m_IterationCounter,
+                LearnOutput = model,
+                PredicOutput = prediction
+            };
 
             ReportProgress(rp);
             //return average error
-            return (float)(error / m_expRowCount);
-
-
+            return 0;
         }
 
-        
+
+        public override double[] CalculateModelForExport(bool isTest)
+        {
+            //prepare training result
+            int outputCount = m_Experiment.GetColumnOutputCount();
+            var rowCount = m_Experiment.GetRowCount(isTest);
+            double[] model = new double[rowCount];
+            
+            if (!isTest)
+            {
+                // run learning procedure for all samples
+                for (int i = 0; i < m_expRowCount; i++)
+                {
+                    //retrieve input and output for specific row
+                    var input = m_Experiment.GetNormalizedInput(i);
+                    var output = m_Experiment.GetRowFromOutput(i);
+
+                    // compute the network's output
+                    var norOut = m_Network.CalculateOutputs(input);
+
+                    //denormalize output
+                    var outVal = m_Experiment.GetDenormalizedOutputRow(norOut);
+                    model[i] = outVal[0];
+                }
+                return model;
+            }
+            else
+            {
+                if (m_Experiment.IsTestDataExist())
+                {
+                    int testCount = m_Experiment.GetRowCount(true);
+
+                    if (testCount > 0)
+                    {
+                        for (int i = 0; i < testCount; i++)
+                        {
+                            //retrieve input and output for specific row
+                            var input = m_Experiment.GetNormalizedInput(i, true);
+
+                            // compute the network's output
+                            var norOut = m_Network.CalculateOutputs(input);
+
+                            //denormalize output
+                            var outVal = m_Experiment.GetDenormalizedOutputRow(norOut);
+                            model[i] = outVal[0];
+                        }
+                    }
+                }
+
+                //return average error
+                return model;
+            }
+
+            
+        }
+
 
         protected override void FinishIteration()
         {
@@ -196,6 +275,14 @@ namespace GPdotNET.Engine
             };
 
             ReportProgress(rp);
+        }
+
+        public override string SaveFactory()
+        {
+            var str = m_ExpectedValue.ToString(CultureInfo.InvariantCulture) + ";";
+            str += m_Network.WeightsToString();
+           // str += m_psoAlgorithm.SaveAlgoritm();
+            return str;
         }
 
     }

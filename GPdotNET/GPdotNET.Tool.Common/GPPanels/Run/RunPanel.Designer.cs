@@ -36,44 +36,44 @@ namespace GPdotNET.Tool.Common
             // 
             // eDuration
             // 
-            this.eDuration.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.eb_durationInMin.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             // 
             // eTimeleft
             // 
-            this.eTimeleft.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.eb_timeleft.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             // 
             // eTimeToCompleate
             // 
-            this.eTimeToCompleate.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.eb_timeToCompleate.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             // 
             // eTimePerRun
             // 
-            this.eTimePerRun.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.eb_timePerRun.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             // 
             // eTimeStart
             // 
-            this.eTimeStart.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.eb_timeStart.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             // 
             // bestFitnessAtGenerationEditBox
             // 
-            this.bestFitnessAtGenerationEditBox.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.eb_bestSolutionFound.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             // 
             // textBox3
             // 
-            this.textBox3.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.eb_maximumFitness.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             
             // 
             // currentErrorBox
             // 
-            this.currentErrorBox.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.eb_currentFitness.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             // 
             // brojIteracija
             // 
-            this.brojIteracija.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.m_eb_iterations.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             // 
-            // currentIterationBox
+            // currentIteration
             // 
-            this.currentIterationBox.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.eb_currentIteration.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             // 
             // progressBar1
             // 

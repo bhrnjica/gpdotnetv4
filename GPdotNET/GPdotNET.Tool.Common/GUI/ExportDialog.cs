@@ -18,6 +18,9 @@ namespace GPdotNET.Tool.Common.GUI
             listBox1.SelectedIndex = 1;
             this.pictureBox1.Image = GPModelGlobals.LoadImageFromName("GPdotNET.App.Resources.gpdotnet_ico48.png");
         }
+
+        public bool isAnnModelExport { get; set; }
+
         public int SelectedOption
         {
             get 
@@ -26,9 +29,22 @@ namespace GPdotNET.Tool.Common.GUI
             }
         }
 
+        public string SelectedItem
+        {
+            get
+            {
+                return listBox1.SelectedItem.ToString();
+            }
+        }
+
         private void ExportDialog_Load(object sender, EventArgs e)
         {
-
+            if(isAnnModelExport)
+            {
+                listBox1.Items.Clear();
+                listBox1.Items.Add("Excel");
+            }
+            listBox1.SelectedItem = "Excel";
         }
     }
 }

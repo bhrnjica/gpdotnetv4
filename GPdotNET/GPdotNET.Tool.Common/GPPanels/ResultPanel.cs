@@ -143,10 +143,14 @@ namespace GPdotNET.Tool.Common
                 LVI.SubItems.Add(_consts[j].ToString());
             }
         }
+
+
+
         #endregion
 
-       
+        private void btnROC_Click(object sender, System.EventArgs e)
+        {
 
-        
+        }
     }
 }

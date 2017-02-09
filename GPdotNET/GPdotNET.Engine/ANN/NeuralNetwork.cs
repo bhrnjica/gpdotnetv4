@@ -16,6 +16,8 @@ using System.Linq;
 using System.Text;
 using GPdotNET.Engine.ANN;
 using GPdotNET.Core;
+using System.Globalization;
+
 namespace GPdotNET.Engine
 {
     /// <summary>
@@ -48,6 +50,69 @@ namespace GPdotNET.Engine
             m_OutputCount = outputCount;
 
         }
+
+        internal string WeightsToString()
+        {
+            string weights = "";
+            int l = 0; // points into weights param
+            //iterate all layers in the Neural Network
+            for (int i = 0; i < m_Layers.Length; i++)
+            {
+                var layer = m_Layers[i];
+                for (int j = 0; j < layer.m_Neurons.Length; j++)
+                {
+                    var neuro = layer.m_Neurons[j];
+                    for (int k = 0; k < neuro.m_Weights.Length; k++)
+                    {
+                        weights += neuro.m_Weights[k].ToString(CultureInfo.InvariantCulture) + ";";
+                    }
+                    //set new value for bias
+                    weights += neuro.m_Biases.ToString(CultureInfo.InvariantCulture) + ";";
+                }
+            }
+            return weights;
+        }
+
+        /// <summary>
+        /// creates weights from string
+        /// </summary>
+        /// <param name="strWeights"></param>
+        /// <returns></returns>
+        internal int WeightsFromString(string[] wi)
+        {
+            try
+            {
+               
+                int l = 0;
+                //iterate all layers in the Neural Network
+                for (int i = 0; i < m_Layers.Length; i++)
+                {
+                    var layer = m_Layers[i];
+                    for (int j = 0; j < layer.m_Neurons.Length; j++)
+                    {
+                        var neuro = layer.m_Neurons[j];
+                        for (int k = 0; k < neuro.m_Weights.Length; k++)
+                        {
+                            var w = double.Parse(wi[l], CultureInfo.InvariantCulture);
+                            neuro.m_Weights[k] = w;
+                            l++;
+                        }
+                        //set new value for bias
+                        var b = double.Parse(wi[l], CultureInfo.InvariantCulture);
+                        neuro.m_Biases = b;
+                        l++;
+                    }
+                }
+                return l;
+            }
+            catch (Exception)
+            {
+                return -1;
+ //               throw;
+            }
+            
+        }
+
         /// <summary>
         /// Initialization of the network
         /// </summary>
@@ -73,7 +138,28 @@ namespace GPdotNET.Engine
         }
 
         /// <summary>
-        /// Return the total number of all weight and biases 
+        /// Calculate the output for a given input for the Neural Network
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public string GenerateFormula(string[] input)
+        {
+            string strFormula = "";
+
+            string[] output = input;
+
+            for (int i = 0; i < m_Layers.Length; i++)
+            {
+                output = m_Layers[i].GenerateFormula(output);
+            }
+
+            strFormula = output[0];
+
+            return strFormula;
+        }
+
+        /// <summary>
+        /// Return the total number of all weights and biases 
         /// </summary>
         /// <returns></returns>
         public int GetWeightsAndBiasCout()

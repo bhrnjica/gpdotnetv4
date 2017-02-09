@@ -29,10 +29,6 @@ namespace GPdotNET.Engine.ANN
 
         public double Calculate(double x)
         {
-            //if (x < -45.0) return 0.0;
-            //else if (x > 45.0) return 1.0;
-            //else return 1.0 / (1.0 + Math.Exp(-x));
-
             var retVal = Math.Exp(-1.0 * m_alpha * x);
 
             return (1 / (1 + retVal));
@@ -47,5 +43,9 @@ namespace GPdotNET.Engine.ANN
             return (m_alpha * y * (1 - y));
         }
 
+        public string StringFormula(string value)
+        {
+            return string.Format("1 / 1 (1+ Exp(-1 * {0} * ({1})))", m_alpha, value);
+        }
     }
 }

@@ -94,15 +94,13 @@ namespace GPdotNET.Tool.Common
 
             ReportProgress(currentEvoution, avgFitness, ch, runType);
 
-            
-
             //When fitness is changed, model needs to be refreshed
             if (prevFitness <= ch.Fitness && ch is GPChromosome)
             {
                 var chr = ch as GPChromosome;
-                currentErrorBox.Text = ch.Fitness.ToString("#.#####");
+                eb_currentFitness.Text = ch.Fitness.ToString("#.#####");
                 prevFitness = ch.Fitness;
-                bestFitnessAtGenerationEditBox.Text = currentEvoution.ToString();
+                eb_bestSolutionFound.Text = eb_currentIteration.Text;
                 if(model==null)
                 {
                     var pts = GPdotNET.Core.Globals.CalculateGPModel(chr.expressionTree);
@@ -192,6 +190,16 @@ namespace GPdotNET.Tool.Common
                 gpAvgFitnLine.Clear();
             if (gpModelLine != null)
                 gpModelLine.Clear();
+
+            eb_currentIteration.Text = "0";
+            eb_currentFitness.Text = "";
+            eb_bestSolutionFound.Text = 0.ToString();
+            eb_timeStart.Text = "";
+            eb_timePerRun.Text = "";
+            eb_timeToCompleate.Text = "";
+            eb_durationInMin.Text = "";
+            eb_timeleft.Text = "";
+            
         }
 
         /// <summary>

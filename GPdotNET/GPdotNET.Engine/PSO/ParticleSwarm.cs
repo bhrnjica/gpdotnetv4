@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 
 namespace GPdotNET.Engine.PSO
 {
@@ -20,7 +21,7 @@ namespace GPdotNET.Engine.PSO
         double m_MaxLoc;
 
 
-        //helper for hangling with location and velocities
+        //helper for handling with locations and velocities
         public double[] m_Location; // equivalent to x-Values and/or solution
         public double m_Fitness;
         public double[] m_Velocities;
@@ -30,6 +31,8 @@ namespace GPdotNET.Engine.PSO
 
         public double[] m_BestGlobalLocation; // best position found so far by this Particle
         public double m_BestGlobalFitness;
+
+
 
         public ParticleSwarm(PSOParameters param, CostFunction fun)
         {
@@ -158,5 +161,67 @@ namespace GPdotNET.Engine.PSO
 
             return (float)newFitness;
         }
+
+        internal bool ParticleFromSTring(string[] values)
+        {
+            int counter = 0;
+            //check if the index has right value
+            if (values[counter++] != "particles")
+                throw new Exception("The File is corrupt!");
+
+            ///
+            m_Particles = new Particle[m_Parameters.m_ParticlesNumber];
+            var persistedPosition = new double[m_Parameters.m_Dimension];
+            var persistedVelocities = new double[m_Parameters.m_Dimension];
+            var persistedBestPosition = new double[m_Parameters.m_Dimension];
+
+            //
+            for (int i = 0; i < m_Parameters.m_ParticlesNumber; i++)
+            {
+
+                //best  fitness
+               var  bestFitness = double.Parse(values[counter++], CultureInfo.InvariantCulture);// par.m_BestFitness.ToString(CultureInfo.InvariantCulture) + ";";
+               var  newFitness = double.Parse(values[counter++], CultureInfo.InvariantCulture);// par.m_Fitness.ToString(CultureInfo.InvariantCulture) + ";";
+
+                for (int j = 0; j < m_Parameters.m_Dimension; j++)
+                    persistedPosition[j] = double.Parse(values[counter++], CultureInfo.InvariantCulture);
+                for (int j = 0; j < m_Parameters.m_Dimension; j++)
+                    persistedVelocities[j] = double.Parse(values[counter++], CultureInfo.InvariantCulture);
+                for (int j = 0; j < m_Parameters.m_Dimension; j++)
+                    persistedBestPosition[j] = double.Parse(values[counter++], CultureInfo.InvariantCulture);
+
+                //initialize particle by passing position and velicity values
+                m_Particles[i] = new Particle(persistedPosition, newFitness, persistedVelocities, persistedBestPosition, bestFitness);
+            }
+            //
+            return true;
+        }
+
+        internal string SaveAlgoritm()
+        {
+
+            string str = "particles;";
+
+            for (int i=0; i < m_Particles.Length; i++)
+            {
+                var par = m_Particles[0];
+                //best  fitness
+                str += par.m_BestFitness.ToString(CultureInfo.InvariantCulture) + ";";
+                str += par.m_Fitness.ToString(CultureInfo.InvariantCulture) + ";";
+
+                foreach (var l in par.m_Locations)
+                    str += l.ToString(CultureInfo.InvariantCulture) + ";";
+
+                foreach (var v in par.m_Velocities)
+                    str += v.ToString(CultureInfo.InvariantCulture) + ";";
+
+                foreach (var bl in par.m_BestLocation)
+                    str += bl.ToString(CultureInfo.InvariantCulture) + ";";
+
+            }
+
+            return str;
+        }
+
     } 
 }

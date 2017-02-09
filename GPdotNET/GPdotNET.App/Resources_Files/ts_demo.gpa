@@ -8,7 +8,7 @@
 -
 !line 4 TimeSeries Data
 -
-!line 5: GP PArameters is sorted in the following order
+!line 5: GP Parameters are sorted in the following order
 !popSIze;Fitness;Initialization;InitDepth;OperationDept;Elitism;Sel Method;Param1;Param2;Const_From;COnst_To;Con_COut;CrossOverProb;MutatProb;SeleProb;PermutationProb;EncaptulationProb;EnableEditing;EnableDecimation
 2500;0;2;5;6;1;5;25;25;0;10;6;0.9;0.05;0.2;0.05;0.9;0;0;4.97571992874146;8.13661003112793;0.918770015239716;1.19356000423431;0.866289973258972;4.51141977310181;
 !line 6:- Selected Function

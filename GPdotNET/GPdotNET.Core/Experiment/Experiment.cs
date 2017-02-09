@@ -145,6 +145,7 @@ namespace GPdotNET.Core.Experiment
         public List<ColumnData> GetColumnsFromInput(bool testData = false)
         {
             var data = GetData(testData);
+
             return data.Where(x => !x.IsOutput).ToList();
         }
 

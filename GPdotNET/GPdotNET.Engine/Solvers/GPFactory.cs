@@ -298,5 +298,10 @@ namespace GPdotNET.Engine
             Population.bestChromosome= null;
             Population.chromosomes.Clear();
         }
+
+        public void SetCurrentIteration(int currIter)
+        {
+            m_IterationCounter = currIter;
+        }
     }
 }

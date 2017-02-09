@@ -178,10 +178,10 @@ namespace GPdotNET.Tool.Common
                 if (chkOptimumType.Checked)
                     fitStr = -1 * ch.Fitness;
 
-                currentErrorBox.Text = Math.Round(fitStr, 5).ToString("#.#####");
+                eb_currentFitness.Text = Math.Round(fitStr, 5).ToString("#.#####");
 
                 prevFitness = ch.Fitness;
-                bestFitnessAtGenerationEditBox.Text = currentEvoution.ToString();
+                eb_bestSolutionFound.Text = currentEvoution.ToString();
                 UpdateOptimizationResult(ch);
 
             }

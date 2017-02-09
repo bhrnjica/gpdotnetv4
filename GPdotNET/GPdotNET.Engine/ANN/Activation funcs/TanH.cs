@@ -38,5 +38,10 @@ namespace GPdotNET.Engine.ANN
             return (1 - y) * (1 + y);
         }
 
+        public string StringFormula(string value)
+        {
+            return string.Format("Tanh({0})", value);
+        }
+
     }
 }

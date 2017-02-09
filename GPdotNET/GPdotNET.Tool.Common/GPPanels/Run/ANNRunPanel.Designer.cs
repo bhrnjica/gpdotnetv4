@@ -30,24 +30,24 @@ namespace GPdotNET.Tool.Common
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.eDuration = new System.Windows.Forms.TextBox();
+            this.eb_durationInMin = new System.Windows.Forms.TextBox();
             this.label44 = new System.Windows.Forms.Label();
-            this.eTimeleft = new System.Windows.Forms.TextBox();
+            this.eb_timeleft = new System.Windows.Forms.TextBox();
             this.label43 = new System.Windows.Forms.Label();
-            this.eTimeToCompleate = new System.Windows.Forms.TextBox();
-            this.eTimePerRun = new System.Windows.Forms.TextBox();
-            this.eTimeStart = new System.Windows.Forms.TextBox();
+            this.eb_timeToCompleate = new System.Windows.Forms.TextBox();
+            this.eb_timePerRun = new System.Windows.Forms.TextBox();
+            this.eb_timeStart = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.bestSolutionAtIteration = new System.Windows.Forms.TextBox();
+            this.eb_bestSolutionFound = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.currentError = new System.Windows.Forms.TextBox();
-            this.iterationNumber = new System.Windows.Forms.TextBox();
-            this.currentIteration = new System.Windows.Forms.TextBox();
+            this.eb_currentError = new System.Windows.Forms.TextBox();
+            this.m_eb_iterations = new System.Windows.Forms.TextBox();
+            this.eb_currentIteration = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.zedFitness = new ZedGraph.ZedGraphControl();
@@ -56,14 +56,14 @@ namespace GPdotNET.Tool.Common
             this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
-            // eDuration
+            // eb_durationInMin
             // 
-            this.eDuration.Location = new System.Drawing.Point(183, 369);
-            this.eDuration.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.eDuration.Name = "eDuration";
-            this.eDuration.ReadOnly = true;
-            this.eDuration.Size = new System.Drawing.Size(176, 26);
-            this.eDuration.TabIndex = 35;
+            this.eb_durationInMin.Location = new System.Drawing.Point(183, 369);
+            this.eb_durationInMin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.eb_durationInMin.Name = "eb_durationInMin";
+            this.eb_durationInMin.ReadOnly = true;
+            this.eb_durationInMin.Size = new System.Drawing.Size(176, 26);
+            this.eb_durationInMin.TabIndex = 35;
             // 
             // label44
             // 
@@ -77,14 +77,14 @@ namespace GPdotNET.Tool.Common
             this.label44.Text = "Duration(min):";
             this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // eTimeleft
+            // eb_timeleft
             // 
-            this.eTimeleft.Location = new System.Drawing.Point(183, 334);
-            this.eTimeleft.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.eTimeleft.Name = "eTimeleft";
-            this.eTimeleft.ReadOnly = true;
-            this.eTimeleft.Size = new System.Drawing.Size(176, 26);
-            this.eTimeleft.TabIndex = 33;
+            this.eb_timeleft.Location = new System.Drawing.Point(183, 334);
+            this.eb_timeleft.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.eb_timeleft.Name = "eb_timeleft";
+            this.eb_timeleft.ReadOnly = true;
+            this.eb_timeleft.Size = new System.Drawing.Size(176, 26);
+            this.eb_timeleft.TabIndex = 33;
             // 
             // label43
             // 
@@ -98,32 +98,32 @@ namespace GPdotNET.Tool.Common
             this.label43.Text = "Avg. time left (min):";
             this.label43.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // eTimeToCompleate
+            // eb_timeToCompleate
             // 
-            this.eTimeToCompleate.Location = new System.Drawing.Point(183, 300);
-            this.eTimeToCompleate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.eTimeToCompleate.Name = "eTimeToCompleate";
-            this.eTimeToCompleate.ReadOnly = true;
-            this.eTimeToCompleate.Size = new System.Drawing.Size(176, 26);
-            this.eTimeToCompleate.TabIndex = 31;
+            this.eb_timeToCompleate.Location = new System.Drawing.Point(183, 300);
+            this.eb_timeToCompleate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.eb_timeToCompleate.Name = "eb_timeToCompleate";
+            this.eb_timeToCompleate.ReadOnly = true;
+            this.eb_timeToCompleate.Size = new System.Drawing.Size(176, 26);
+            this.eb_timeToCompleate.TabIndex = 31;
             // 
-            // eTimePerRun
+            // eb_timePerRun
             // 
-            this.eTimePerRun.Location = new System.Drawing.Point(183, 266);
-            this.eTimePerRun.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.eTimePerRun.Name = "eTimePerRun";
-            this.eTimePerRun.ReadOnly = true;
-            this.eTimePerRun.Size = new System.Drawing.Size(176, 26);
-            this.eTimePerRun.TabIndex = 30;
+            this.eb_timePerRun.Location = new System.Drawing.Point(183, 266);
+            this.eb_timePerRun.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.eb_timePerRun.Name = "eb_timePerRun";
+            this.eb_timePerRun.ReadOnly = true;
+            this.eb_timePerRun.Size = new System.Drawing.Size(176, 26);
+            this.eb_timePerRun.TabIndex = 30;
             // 
-            // eTimeStart
+            // eb_timeStart
             // 
-            this.eTimeStart.Location = new System.Drawing.Point(183, 232);
-            this.eTimeStart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.eTimeStart.Name = "eTimeStart";
-            this.eTimeStart.ReadOnly = true;
-            this.eTimeStart.Size = new System.Drawing.Size(176, 26);
-            this.eTimeStart.TabIndex = 29;
+            this.eb_timeStart.Location = new System.Drawing.Point(183, 232);
+            this.eb_timeStart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.eb_timeStart.Name = "eb_timeStart";
+            this.eb_timeStart.ReadOnly = true;
+            this.eb_timeStart.Size = new System.Drawing.Size(176, 26);
+            this.eb_timeStart.TabIndex = 29;
             // 
             // label18
             // 
@@ -161,14 +161,14 @@ namespace GPdotNET.Tool.Common
             this.label9.Text = "Run started at:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // bestSolutionAtIteration
+            // eb_bestSolutionFound
             // 
-            this.bestSolutionAtIteration.Location = new System.Drawing.Point(225, 164);
-            this.bestSolutionAtIteration.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.bestSolutionAtIteration.Name = "bestSolutionAtIteration";
-            this.bestSolutionAtIteration.ReadOnly = true;
-            this.bestSolutionAtIteration.Size = new System.Drawing.Size(134, 26);
-            this.bestSolutionAtIteration.TabIndex = 25;
+            this.eb_bestSolutionFound.Location = new System.Drawing.Point(225, 164);
+            this.eb_bestSolutionFound.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.eb_bestSolutionFound.Name = "eb_bestSolutionFound";
+            this.eb_bestSolutionFound.ReadOnly = true;
+            this.eb_bestSolutionFound.Size = new System.Drawing.Size(134, 26);
+            this.eb_bestSolutionFound.TabIndex = 25;
             // 
             // label33
             // 
@@ -218,32 +218,32 @@ namespace GPdotNET.Tool.Common
             this.label21.TabIndex = 18;
             this.label21.Text = "Envolve until:";
             // 
-            // currentError
+            // eb_currentError
             // 
-            this.currentError.Location = new System.Drawing.Point(225, 125);
-            this.currentError.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.currentError.Name = "currentError";
-            this.currentError.ReadOnly = true;
-            this.currentError.Size = new System.Drawing.Size(134, 26);
-            this.currentError.TabIndex = 3;
+            this.eb_currentError.Location = new System.Drawing.Point(225, 125);
+            this.eb_currentError.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.eb_currentError.Name = "eb_currentError";
+            this.eb_currentError.ReadOnly = true;
+            this.eb_currentError.Size = new System.Drawing.Size(134, 26);
+            this.eb_currentError.TabIndex = 3;
             // 
-            // iterationNumber
+            // m_eb_iterations
             // 
-            this.iterationNumber.Location = new System.Drawing.Point(225, 52);
-            this.iterationNumber.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.iterationNumber.Name = "iterationNumber";
-            this.iterationNumber.Size = new System.Drawing.Size(134, 26);
-            this.iterationNumber.TabIndex = 17;
-            this.iterationNumber.Text = "1000";
+            this.m_eb_iterations.Location = new System.Drawing.Point(225, 52);
+            this.m_eb_iterations.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.m_eb_iterations.Name = "m_eb_iterations";
+            this.m_eb_iterations.Size = new System.Drawing.Size(134, 26);
+            this.m_eb_iterations.TabIndex = 17;
+            this.m_eb_iterations.Text = "1000";
             // 
-            // currentIteration
+            // eb_currentIteration
             // 
-            this.currentIteration.Location = new System.Drawing.Point(225, 91);
-            this.currentIteration.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.currentIteration.Name = "currentIteration";
-            this.currentIteration.ReadOnly = true;
-            this.currentIteration.Size = new System.Drawing.Size(134, 26);
-            this.currentIteration.TabIndex = 1;
+            this.eb_currentIteration.Location = new System.Drawing.Point(225, 91);
+            this.eb_currentIteration.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.eb_currentIteration.Name = "eb_currentIteration";
+            this.eb_currentIteration.ReadOnly = true;
+            this.eb_currentIteration.Size = new System.Drawing.Size(134, 26);
+            this.eb_currentIteration.TabIndex = 1;
             // 
             // label20
             // 
@@ -258,24 +258,24 @@ namespace GPdotNET.Tool.Common
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.eDuration);
+            this.groupBox7.Controls.Add(this.eb_durationInMin);
             this.groupBox7.Controls.Add(this.label44);
-            this.groupBox7.Controls.Add(this.eTimeleft);
+            this.groupBox7.Controls.Add(this.eb_timeleft);
             this.groupBox7.Controls.Add(this.label43);
-            this.groupBox7.Controls.Add(this.eTimeToCompleate);
-            this.groupBox7.Controls.Add(this.eTimePerRun);
-            this.groupBox7.Controls.Add(this.eTimeStart);
+            this.groupBox7.Controls.Add(this.eb_timeToCompleate);
+            this.groupBox7.Controls.Add(this.eb_timePerRun);
+            this.groupBox7.Controls.Add(this.eb_timeStart);
             this.groupBox7.Controls.Add(this.label18);
             this.groupBox7.Controls.Add(this.label14);
             this.groupBox7.Controls.Add(this.label9);
-            this.groupBox7.Controls.Add(this.bestSolutionAtIteration);
+            this.groupBox7.Controls.Add(this.eb_bestSolutionFound);
             this.groupBox7.Controls.Add(this.label33);
             this.groupBox7.Controls.Add(this.label32);
             this.groupBox7.Controls.Add(this.comboBox2);
             this.groupBox7.Controls.Add(this.label21);
-            this.groupBox7.Controls.Add(this.currentError);
-            this.groupBox7.Controls.Add(this.iterationNumber);
-            this.groupBox7.Controls.Add(this.currentIteration);
+            this.groupBox7.Controls.Add(this.eb_currentError);
+            this.groupBox7.Controls.Add(this.m_eb_iterations);
+            this.groupBox7.Controls.Add(this.eb_currentIteration);
             this.groupBox7.Controls.Add(this.label20);
             this.groupBox7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox7.Location = new System.Drawing.Point(22, 14);
@@ -358,24 +358,24 @@ namespace GPdotNET.Tool.Common
         #endregion
 
         protected CustomProgressBar progressBar1;
-        protected System.Windows.Forms.TextBox eDuration;
+        protected System.Windows.Forms.TextBox eb_durationInMin;
         protected System.Windows.Forms.Label label44;
-        protected System.Windows.Forms.TextBox eTimeleft;
+        protected System.Windows.Forms.TextBox eb_timeleft;
         protected System.Windows.Forms.Label label43;
-        protected System.Windows.Forms.TextBox eTimeToCompleate;
-        protected System.Windows.Forms.TextBox eTimePerRun;
-        protected System.Windows.Forms.TextBox eTimeStart;
+        protected System.Windows.Forms.TextBox eb_timeToCompleate;
+        protected System.Windows.Forms.TextBox eb_timePerRun;
+        protected System.Windows.Forms.TextBox eb_timeStart;
         protected System.Windows.Forms.Label label18;
         protected System.Windows.Forms.Label label14;
         protected System.Windows.Forms.Label label9;
-        protected System.Windows.Forms.TextBox bestSolutionAtIteration;
+        protected System.Windows.Forms.TextBox eb_bestSolutionFound;
         protected System.Windows.Forms.Label label33;
         protected System.Windows.Forms.Label label32;
         protected System.Windows.Forms.ComboBox comboBox2;
         protected System.Windows.Forms.Label label21;
-        protected System.Windows.Forms.TextBox currentError;
-        protected System.Windows.Forms.TextBox iterationNumber;
-        protected System.Windows.Forms.TextBox currentIteration;
+        protected System.Windows.Forms.TextBox eb_currentError;
+        protected System.Windows.Forms.TextBox m_eb_iterations;
+        protected System.Windows.Forms.TextBox eb_currentIteration;
         protected System.Windows.Forms.Label label20;
         protected System.Windows.Forms.GroupBox groupBox7;
         protected ZedGraph.ZedGraphControl zedFitness;

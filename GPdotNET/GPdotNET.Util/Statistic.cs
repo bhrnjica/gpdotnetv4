@@ -18,7 +18,7 @@ namespace GPdotNET.Util
     /// Set of statistics functions
     /// </summary>
     /// 
-    /// <remarks>The class represents collection of functions used
+    /// <remarks>The class represents cm_points of functions used
     /// in statistics</remarks>
     /// 
     public class Statistics
@@ -50,6 +50,34 @@ namespace GPdotNET.Util
 
             return Math.Sqrt(stddev / values.Length-1);
         }
+
+        /// <summary>
+        /// Variance of discreate values
+        /// </summary>
+        public static double Variance(double[] values)
+        {
+            if (values == null || values.Length < 4)
+                throw new Exception("'coldData' cannot be null or less than 4 elements!");
+
+            //number of elements
+            int count = values.Length;
+
+            //calculate the mean
+            var mean = Mean(values);
+
+            //calculate summ of square 
+            double parSum = 0;
+            for (int i = 0; i < values.Length; i++)
+            {
+                var res = (values[i] - mean);
+
+                parSum += res * res;
+            }
+
+            return parSum / (count -1);
+        }
+
+
         /// <summary>
         ///Square of Standard deviation -Variance 
         /// </summary>

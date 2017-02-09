@@ -81,30 +81,6 @@ namespace GPdotNET.Engine
             //
             return totalError ;
         }
-
-        private void GradientHLayer(Layer hLayer, Layer prevLayer)
-        {
-            if (hLayer == null || prevLayer == null)
-                throw new Exception("The Layer cannot be null");
-
-            //
-            for (int i = 0; i < hLayer.m_NeuronCount; i++)
-            {
-                var neuro = hLayer.m_Neurons[i];
-                var der = neuro.Derivative();
-
-                var err = 0.0;
-
-                for (int j = 0; j < prevLayer.m_NeuronCount; j++)
-
-                    err += prevLayer.m_Gradients[j] * prevLayer.m_Neurons[j].m_Weights[i];
-
-                //calculate gradient for each inputs
-                hLayer.m_Gradients[i] = err * der;
-
-            }
-        }
-
         #endregion
 
         #region Public and Internal  Methods

@@ -81,7 +81,12 @@ namespace GPdotNET.App
                          where l[0] != '!' && l[0] != '\r'
                          select l.IndexOf('!') == -1 ? l : l.Remove(l.IndexOf('!'))
                          ).ToArray();
+            if(lines==null || lines.Count()==0)
+            {
+                MessageBox.Show("The file is empty!", Properties.Resources.SR_ApplicationName);
 
+                return false;
+            }
             //Line 1: GPModel 
             int mod = int.Parse(lines[0].Replace("\r", ""));
             _GPModel = (GPModelType)mod;
@@ -92,12 +97,8 @@ namespace GPdotNET.App
                 MessageBox.Show("Open Analytic function optimization file is not implemented.!");
                 return false;
             }
-            if (_GPModel == GPModelType.ANNMODEL)
-            {
-                MessageBox.Show("The feture if not implemented.!");
-                return false;
-            }
-
+            
+            //
             LoadModelWizard(_GPModel);
 
 
@@ -142,7 +143,12 @@ namespace GPdotNET.App
             }
 
             //Line 5: GP Parameters
-            _setPanel.SetParameters(lines[4]);
+            if (_setPanel != null)
+                _setPanel.SetParameters(lines[4]);
+            else if (_setANNPanel != null)
+                _setANNPanel.SetParametersFromString(lines[4]);
+            else
+                throw new Exception("File is not valid.");
 
             //Line 6:  GP Functions
             if(_funPanel!=null)
@@ -151,25 +157,43 @@ namespace GPdotNET.App
             //Line 7: GP type of Running program
             if (_baseRunPanel != null)
                 _baseRunPanel.SetTypeofRun(lines[6]);
+            else if(_runANNPanel != null)
+                _runANNPanel.SetTypeofRun(lines[6]);
+            else
+                throw new Exception("File is not valid.");
 
-            //Line 8 to Line8+popSize: Current GP Population
-            int currentLine = MainPopulationFromString(lines, _mainGPFactory, 6);
-            if (_mainGPFactory != null && _mainGPFactory.GetFunctionSet() != null)
+
+            int currentLine = 0;
+            if (_mainGPFactory != null /* && _mainGPFactory.GetFunctionSet() != null */)
             {
-                var e = new ProgressIndicatorEventArgs();
-                e.ReportType = ProgramState.Finished;
-                e.CurrentIteration = 0;
-                e.BestChromosome = _mainGPFactory.BestChromosome();
-                e.AverageFitness = _mainGPFactory.GetAverageFitness();
-                if(_GPModel == GPModelType.GPMODEL)
+                //Line 8 to Line8+popSize: Current GP Population
+                currentLine = MainPopulationFromString(lines, _mainGPFactory, 6);
+                if(_mainGPFactory.GetFunctionSet() != null)
                 {
-                    e.LearnOutput = _mainGPFactory.CalculateTrainModel(e.BestChromosome as GPChromosome);
-                    e.PredicOutput = _mainGPFactory.CalculateTestModel(e.BestChromosome as GPChromosome);
+                    var e = new ProgressIndicatorEventArgs();
+                    e.ReportType = ProgramState.Finished;
+                    e.CurrentIteration = 0;
+                    e.BestChromosome = _mainGPFactory.BestChromosome();
+                    e.AverageFitness = _mainGPFactory.GetAverageFitness();
+                    if (_GPModel == GPModelType.GPMODEL)
+                    {
+                        e.LearnOutput = _mainGPFactory.CalculateTrainModel(e.BestChromosome as GPChromosome);
+                        e.PredicOutput = _mainGPFactory.CalculateTestModel(e.BestChromosome as GPChromosome);
+                    }
+                    //enable GP engine
+                    _runningEngine = 1;
+                    ReportEvolution(e);
+                    _runningEngine = 0;
                 }
-                //enable GP engine
-                _runningEngine = 1;
-                ReportEvolution(e);
-                _runningEngine = 0;
+               
+            }
+            else if(_mainANNFactory !=null)
+            {
+                // Line 8 ANN weights
+                PrepareANN();
+                _mainANNFactory.LoadFactory(lines[7]);//load weights
+                _mainANNFactory.CalculateModel(ProgramState.Finished);
+                currentLine = 8;
             }
             else
                 currentLine++;
@@ -206,9 +230,13 @@ namespace GPdotNET.App
             //
             
             StringBuilder sb= new StringBuilder();
+            bool isStartedLine = false;
             for (int i = currentLine; i < lines.Length; i++ )
             {
-                sb.Append(lines[i]);
+                if (lines[i].StartsWith("{"))
+                    isStartedLine = true;
+                if(isStartedLine)
+                    sb.Append(lines[i]);
 
             }
             var rtf= sb.ToString();
@@ -229,9 +257,9 @@ namespace GPdotNET.App
         {
             if (strFile == null)
                 return false;
-            if (_setPanel == null)
+            if (_setPanel == null && _setANNPanel == null)
                 return false;
-            if (Globals.gpterminals == null || Globals.gpterminals.TrainingData == null)
+            if ((Globals.gpterminals == null || Globals.gpterminals.TrainingData == null) && _GPModel!= GPModelType.ANNMODEL)
             {
                 MessageBox.Show("Cannot save empty model!");
                 return false;
@@ -239,7 +267,7 @@ namespace GPdotNET.App
             //Optimization of analitic function is not implemented yet
             if (_GPModel == GPModelType.AO)
             {
-                MessageBox.Show("Saving Analytic function optimization model is not implemented.!");
+                MessageBox.Show("Saving Analytic function optimization model is not supported.!");
                 return false;
             }
 
@@ -254,11 +282,7 @@ namespace GPdotNET.App
                 tw.WriteLine("!");
                 tw.WriteLine("!line 1: GP Model  1- symbolic regression; 2 -symbolic regression with optimisation, 3 - time series, 4- analytic optimisation, 5- TSP, 6-AP ,7-TP, 8-ANNMODEL, 9 - GPMODEL");
                 int model = (int)_GPModel;
-                if(model==8)
-                {
-                    MessageBox.Show("This feature is not implemented for this kind of models.");
-                    return false; 
-                }
+                
                 tw.WriteLine(model.ToString());
                 string data = null;
                 //Line2: Training DATA 
@@ -309,7 +333,7 @@ namespace GPdotNET.App
                         tw.WriteLine("-");
                 }
 
-                if(model == 9)
+                if(model >= 8)
                 {
                     //Line4: Series DATA 
                     tw.WriteLine("!line 4 Experimental Data");
@@ -332,9 +356,9 @@ namespace GPdotNET.App
                 
 
                 //Line 5: GP Parameters
-                tw.WriteLine("!line 5: GP PArameters is sorted in the following order");
+                tw.WriteLine("!line 5: GP Parameters are sorted in the following order");
                 tw.WriteLine("!popSIze;Fitness;Initialization;InitDepth;OperationDept;Elitism;Sel Method;Param1;Param2;Const_From;COnst_To;Con_COut;CrossOverProb;MutatProb;SeleProb;PermutationProb;EncaptulationProb;EnableEditing;EnableDecimation");
-                data = _setPanel.ParametersToString();
+                data = _setPanel !=null? _setPanel.ParametersToString() : _setANNPanel.ParametersToString();
                 if (data == null)
                     tw.WriteLine("-");
                 else
@@ -352,10 +376,18 @@ namespace GPdotNET.App
                 tw.WriteLine("!line 7  Type of Running program 0- means generation number, 1 - fitness value ;");
                 tw.WriteLine("!        e.g. 1;700 - run program until max fitness is greate or equel than 700 ");
                 tw.WriteLine("!             0;500 - run program for 500 evolutions ");
-
-                if (_baseRunPanel != null)
+                
+                if (_baseRunPanel != null)//GP module
                 {
                     data = _baseRunPanel.GetTypeofRun();
+                    if (data == null)
+                        tw.WriteLine("-");
+                    else
+                        tw.WriteLine(data);
+                }
+                else if (_runANNPanel !=null)//ANN module
+                {
+                    data = _runANNPanel.GetTypeofRun();
                     if (data == null)
                         tw.WriteLine("-");
                     else
@@ -364,10 +396,12 @@ namespace GPdotNET.App
                 else
                     tw.WriteLine("-");
 
-                //Line 8 to Line8+popSize: Current GP Population
-                tw.WriteLine("!Line 8 Population: size;bestfitness:bestchromosometree");
+               
                 if (_baseRunPanel != null)
                 {
+                    //Line 8 to Line8+popSize: Current GP Population
+                    tw.WriteLine("!Line 8 Population: size;bestfitness:bestchromosometree");
+
                     GPFactory fac = _mainGPFactory;
 
                     var str = PreparePopulationForSave(fac);
@@ -386,7 +420,15 @@ namespace GPdotNET.App
                     else
                         tw.WriteLine("-");
                 }
-                else 
+                else if (_runANNPanel != null)//ANN modul
+                {
+                    tw.WriteLine("!Line 8 AnnFactory: weights");
+                    var fac = _mainANNFactory;
+                    var str = fac.SaveFactory();
+                    tw.WriteLine(str);
+                    tw.WriteLine("-");
+                }
+                else
                 {
                     tw.WriteLine("!Line 8 Population: size;bestfitness:bestchromosometree");
                     tw.WriteLine("-");
@@ -771,6 +813,7 @@ namespace GPdotNET.App
                 return null;
         }
 
+        
         /// <summary>
         /// 
         /// </summary>

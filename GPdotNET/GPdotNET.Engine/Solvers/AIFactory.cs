@@ -18,6 +18,7 @@ using GPdotNET.Core;
 using System.Threading;
 using GPdotNET.Engine.ANN;
 using GPdotNET.Core.Experiment;
+using System.Globalization;
 
 namespace GPdotNET.Engine
 {
@@ -40,6 +41,21 @@ namespace GPdotNET.Engine
         protected Experiment m_Experiment;
         protected ANNParameters m_Parameters;
 
+        public virtual string SaveFactory()
+        {
+            var str = m_ExpectedValue.ToString(CultureInfo.InvariantCulture) +";";
+            str += m_Network.WeightsToString();
+            return str;
+        }
+
+        public virtual int LoadFactory(string strWeights)
+        {
+            var wi = strWeights.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            m_ExpectedValue = (float)double.Parse(wi[0], CultureInfo.InvariantCulture);
+            var retVal = m_Network.WeightsFromString(wi.Skip(1).ToArray());
+            return retVal;
+        }
+
         public AIFactory()
         {
             m_ExpectedValue = -1;
@@ -55,6 +71,12 @@ namespace GPdotNET.Engine
         protected abstract void FinishIteration();
 
         internal abstract float RunIteration();
+
+        public abstract float CalculateModel(ProgramState state = ProgramState.Running);
+
+        public abstract double[] CalculateModelForExport(bool isTest);
+
+        public abstract string GenerateFormula();
 
         public abstract void PrepareAlgorithm(Experiment expData, ANNParameters annParams = null);
 
@@ -146,6 +168,13 @@ namespace GPdotNET.Engine
         public void ResetFactory()
         {
             m_Network = null;
+            m_IterationCounter = 0;
+            m_Parameters = null;
+        }
+
+        public void SetCurrentIteration(int currIter)
+        {
+            m_IterationCounter = currIter;
         }
     }
 }

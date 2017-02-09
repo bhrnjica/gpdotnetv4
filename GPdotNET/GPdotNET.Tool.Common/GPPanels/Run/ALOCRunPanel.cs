@@ -88,19 +88,19 @@ namespace GPdotNET.Tool.Common
                 if (chkOptimumType.Checked)
                 {
                     if (ch.Fitness != 0)
-                        currentErrorBox.Text = ((1000.0 - ch.Fitness) / ch.Fitness).ToString("#.#####");
+                        eb_currentFitness.Text = ((1000.0 - ch.Fitness) / ch.Fitness).ToString("#.#####");
                     else
-                        currentErrorBox.Text = "n/a";
+                        eb_currentFitness.Text = "n/a";
                 }
                 else
                 {
                     if (ch.Fitness != 0)
-                        currentErrorBox.Text = ch.Fitness.ToString("#.#####");
+                        eb_currentFitness.Text = ch.Fitness.ToString("#.#####");
                     else
-                        currentErrorBox.Text = "n/a";
+                        eb_currentFitness.Text = "n/a";
                 }
                 prevFitness = ch.Fitness;
-                bestFitnessAtGenerationEditBox.Text = currentEvoution.ToString();
+                eb_bestSolutionFound.Text = currentEvoution.ToString();
 
                 var s ="";
                 if(ch is GAVChromosome)
@@ -120,6 +120,9 @@ namespace GPdotNET.Tool.Common
         /// </summary>
         public void ResetSolution()
         {
+
+            this.eb_currentIteration.Text = "0";
+            this.eb_currentFitness.Text = "0";
             prevFitness = float.MinValue;
             if (gpMaxFitnLine != null)
                 gpMaxFitnLine.Clear();

@@ -20,6 +20,118 @@ namespace GPdotNET.Util
     public static class Utility
     {
         /// <summary>
+        /// Exports data and the model to excel for ann models
+        /// </summary>
+        /// <param name="experiment"></param>
+        /// <param name="inputVarCount"></param>
+        /// <param name="constCount"></param>
+        /// <param name="ch"></param>
+        /// <param name="strFilePath"></param>
+        public static void ExportToExcel(Experiment experiment, double[] y1, double[] y2, string strFilePath)
+        {
+            try
+            {
+                //
+                var wb = new XLWorkbook();
+                var ws1 = wb.Worksheets.Add("TRAINING DATA");
+                var ws2 = ws1;
+                if (experiment.IsTestDataExist())
+                    ws2 = wb.Worksheets.Add("TESTING DATA");
+                else
+                    ws2 = null;
+
+                ws1.Cell(1, 1).Value = "Training Data";
+                ws2.Cell(1, 1).Value = "Testing Data";
+
+                writeDataToExcel(experiment, ws1, false);
+                if (experiment.IsTestDataExist())
+                    writeDataToExcel(experiment, ws2, true);
+                //change header of the output column
+                ws1.Cell(2, experiment.GetColumnInputCount_FromNormalizedValue() + 3).Value = "Yann";
+                if (experiment.IsTestDataExist())
+                    ws2.Cell(2, experiment.GetColumnInputCount_FromNormalizedValue() + 3).Value = "Yann";
+
+                for (int i=0; i< experiment.GetRowCount(); i++)
+                {
+                    ws1.Cell(3+i, experiment.GetColumnInputCount_FromNormalizedValue() + 3).Value = y1[i];
+                    if (experiment.IsTestDataExist() && y2.Length >= i+1)
+                        ws2.Cell(3+i, experiment.GetColumnInputCount_FromNormalizedValue() + 3).Value = y2[i];
+                }
+
+                //
+                wb.SaveAs(strFilePath);
+
+                return;
+                //writing formula to big for excel.
+                ////GP Model formula
+                string formula = "";// strFormula;
+                AlphaCharEnum alphaEnum = new AlphaCharEnum();
+
+                //make a formula to denormalize value
+                var cols = experiment.GetColumnsFromInput();
+                int inputVarCount = experiment.GetColumnInputCount_FromNormalizedValue();
+                var diff = experiment.GetColumnInputCount_FromNormalizedValue() - experiment.GetColumnInputCount();//diference between column count and normalized culm count due to Category column clasterization
+                for (int i = inputVarCount - 1; i >= 0; i--)
+                {
+                    string var = "X" + (i + 1).ToString() + " ";
+                    string cell = alphaEnum.AlphabetFromIndex(2 + i) + "3";
+
+                    //make a formula to denormalize value
+                    var col = cols[i - diff];
+                    string replCell = cell;
+                    if (col.ColumnDataType == ColumnDataType.Categorical)
+                    {
+                        formula = formula.Replace(var, replCell);
+                        if (diff > 0)
+                            diff -= 1;
+                    }
+                    else if (col.ColumnDataType == ColumnDataType.Binary)
+                    {
+                        formula = formula.Replace(var, replCell);
+                    }
+                    else
+                    {
+                        replCell = createNormalizationFormulaForColumn(col, cell);
+                        formula = formula.Replace(var, replCell);
+                    }
+
+                }
+
+                //in case of category output
+                //category output is precalculated with sigmoid miltpy with Class count.
+                var outCol = experiment.GetColumnsFromOutput().FirstOrDefault();
+                if (outCol.ColumnDataType == ColumnDataType.Categorical || outCol.ColumnDataType == ColumnDataType.Binary)
+                {
+                    int cc = outCol.Statistics.Categories.Count;
+                    //then C1<1,C2<2,C3<3.....
+                    //var val1 = Math.Exp(-1.0 * normalizedOutputRow[i]);
+                    // val1 = outputCols[0].Statistics.Categories.Count * (1 / (1 + val1));
+                    formula = "TRUNC(" + cc.ToString() + "*(1/(1+Exp(-1*" + formula + "))),0)";
+
+                }
+                else
+                {
+                    var normFormula = createDeNormalizationFormulaForOutput(outCol, formula);
+                    formula = normFormula;
+                }
+
+                //in case of decimal point, semicolon of Excell formula must be replaced with comma
+                if ("." == CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)
+                    formula = formula.Replace(";", ",");
+
+                ws1.Cell(3, inputVarCount + 3).Value = formula;
+                if (experiment.IsTestDataExist())
+                    ws2.Cell(3, inputVarCount + 3).Value = formula;
+
+                //
+                wb.SaveAs(strFilePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        /// <summary>
         /// Exports data and the model to excel for newver GPdotNET version
         /// </summary>
         /// <param name="experiment"></param>
@@ -146,7 +258,8 @@ namespace GPdotNET.Util
 
 
                 ws1.Cell(1, 1).Value = "Training Data";
-                ws2.Cell(1, 1).Value = "Testing Data";
+                if(ws2!=null)
+                    ws2.Cell(1, 1).Value = "Testing Data";
 
                 writeDataToExcel(ws1, inputVarCount, constCount, Globals.gpterminals.TrainingData);
                 if(Globals.gpterminals.TestingData!=null)

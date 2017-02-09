@@ -27,6 +27,8 @@ namespace GPdotNET.Engine.ANN
         public double[] m_Gradients;
 
         public abstract double[] CalculateOutput(double[] input);
-       
+
+        public abstract string[] GenerateFormula(string[] input);
+
     }
 }

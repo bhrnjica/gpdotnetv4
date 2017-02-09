@@ -62,7 +62,7 @@ namespace GPdotNET.App
         bool                    _isFileDirty=false;
         ContextMenuStrip        _contextMenuStrip1;
 
-        string                  _appName = "GPdotNET v4.0 Beta 6 (jan-17)";
+        string                  _appName = "GPdotNET v4.0";
         //Open document through cmd line
         public string[] CmdLineParam
         {
@@ -831,10 +831,10 @@ namespace GPdotNET.App
                        
                         
                     }
-                    else if (_runANNPanel != null)
-                    {
-                        _runANNPanel.ContinueSearching();
-                    }
+                    //else if (_runANNPanel != null)
+                    //{
+                    //    _runANNPanel.ContinueSearching();
+                    //}
                 }
 
                 runProgram();
@@ -898,7 +898,6 @@ namespace GPdotNET.App
                 e.Effect = DragDropEffects.None;
             }
         }
-
-       
+        
     }
 }

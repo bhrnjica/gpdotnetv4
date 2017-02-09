@@ -35,6 +35,10 @@ namespace GPdotNET.Engine.ANN
         {
             return 0;
         }
+        public string StringFormula(string value)
+        {
+            return value;
+        }
 
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-
+using GPdotNET.Core.Statistics;
 namespace GPdotNET.Core.Experiment
 {
     //Class for defining ColumnData
@@ -330,23 +330,14 @@ namespace GPdotNET.Core.Experiment
             replaceMissingValue();
 
             //calculate median= middle value from the array
-            int middleIndex = (int)Math.Ceiling((double)m_NumericValues.Length / 2.0);
-            m_Statistics.Median = m_NumericValues[middleIndex];
+            var median = m_NumericValues.MedianOf();
+            m_Statistics.Median = median;
 
             //range value
             m_Statistics.Range = m_Statistics.Max - m_Statistics.Min;
 
             //Standard deviation
-            double sum = 0;
-            for (int i = 0; i < m_NumericValues.Length; i++)
-            {
-                if (double.IsNaN(m_NumericValues[i]))
-                    continue;
-                var d = (m_NumericValues[i] - m_Statistics.Mean);
-                sum += d * d;
-            }
-
-            m_Statistics.StdDev = Math.Sqrt(sum / m_NumericValues.Length);
+            m_Statistics.StdDev = m_NumericValues.Stdev();
         }
 
         private void replaceMissingValue()

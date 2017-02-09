@@ -178,7 +178,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ExportDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Export Dialog";
+            this.Text = "GPdotNET Export Dialog";
             this.Load += new System.EventHandler(this.ExportDialog_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

@@ -367,11 +367,11 @@ namespace GPdotNET.App
         /// <param name="e"></param>
         private void rbtnOpenModel_Click(object sender, EventArgs e)
         {
-            if (_GPModel == GPModelType.ANNMODEL)
-            {
-                MessageBox.Show("Opening ANN model is not implemented.");
-                return;
-            }
+            //if (_GPModel == GPModelType.ANNMODEL)
+            //{
+            //    MessageBox.Show("Opening ANN model is not implemented.");
+            //    return;
+            //}
 
             OpenFromFile();
             if (string.IsNullOrEmpty(_filePath))
@@ -405,11 +405,11 @@ namespace GPdotNET.App
 
         void rbtnSaveModel_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            if(_GPModel == GPModelType.ANNMODEL)
-            {
-                MessageBox.Show("Persisting ANN model is not implemented.");
-                return;
-            }
+            //if(_GPModel == GPModelType.ANNMODEL)
+            //{
+            //    MessageBox.Show("Persisting ANN model is not implemented.");
+            //    return;
+            //}
             if (e.ClickedItem.Text == "Save")
             {
                 if (_filePath == "")
@@ -460,24 +460,22 @@ namespace GPdotNET.App
             int selectedOption = -1;
             txtStatusMessage.Text = "Ready!";
 
-            if (_GPModel == GPModelType.ANNMODEL)
-            {
-                MessageBox.Show("Exporting ANN model is not implemented.");
-                return;
-            }
-
-            if (Globals.gpterminals==null || Globals.gpterminals.TrainingData==null)
+            if ((Globals.gpterminals==null || Globals.gpterminals.TrainingData==null) &&
+                _GPModel != GPModelType.ANNMODEL)
                 return;
 
             ExportDialog dlg = new ExportDialog();
+            dlg.isAnnModelExport = _GPModel == GPModelType.ANNMODEL; 
             if (dlg.ShowDialog() != DialogResult.OK)
                 return;
 
             selectedOption = dlg.SelectedOption;
+            var selectedItem = dlg.SelectedItem;
 
+            //
             if (dlg.SelectedOption == -1)
                 forceToCSV = true;
-            else if (dlg.SelectedOption == 1)
+            else if (dlg.SelectedOption == 1 || selectedItem.IndexOf("Excel", StringComparison.OrdinalIgnoreCase) >= 0)
                 forceToCSV = false;
             else
                 forceToCSV = true;
@@ -487,7 +485,7 @@ namespace GPdotNET.App
             //Sample code for running agains MONO or .NET
             Type t = Type.GetType("Mono.Runtime");
             //export to R
-            if (selectedOption == 3)
+            if (selectedItem.IndexOf("R Language", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 var ch = _mainGPFactory.BestChromosome() as GPChromosome;
                 if (ch == null)
@@ -508,7 +506,7 @@ namespace GPdotNET.App
             }
 
             //export to Mathematica
-            else if (selectedOption == 2)
+            else if (selectedItem.IndexOf("Mathematica", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 var ch = _mainGPFactory.BestChromosome() as GPChromosome;
                 if (ch == null)
@@ -548,18 +546,33 @@ namespace GPdotNET.App
             }
             else//"You are running on .net"
             {
-                var ch = _mainGPFactory.BestChromosome() as GPChromosome;
-                if (ch == null)
-                    return;
+                GPChromosome ch = null;
+                if (_mainGPFactory !=null)
+                {
+                    ch = _mainGPFactory.BestChromosome() as GPChromosome;
+                    if (ch == null)
+                        return;
+                }
+               
                 string strPath = GPModelGlobals.GetFileFromSaveDialog("Excel File Format", "*.xlsx");
                 if (string.IsNullOrEmpty(strPath))
                     return;
                 if(_experimentPanel != null)//gor GPotNET v4,..
                 {
+                    if(Globals.gpterminals!=null)//GP Models
                     Utility.ExportToExcel(_experimentPanel.Experiment,
                                       Globals.gpterminals.NumVariables,
                                       Globals.gpterminals.NumConstants,
                                       ch.expressionTree, strPath);
+                    else//ANN models
+                    {
+                        var strFormula = _mainANNFactory.GenerateFormula();
+                        var y1 = _mainANNFactory.CalculateModelForExport(false);
+                        var y2 = _mainANNFactory.CalculateModelForExport(true);
+
+                        Utility.ExportToExcel(_experimentPanel.Experiment, y1, y2, strPath);
+                    }
+                       
                 }
                 else//for GPdotNET v1, v2, v3
                 {
@@ -776,6 +789,7 @@ namespace GPdotNET.App
         }
 
         #region Classification problems GP , ANN
+
         private void linkLabel17_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string strPath = Application.StartupPath + "\\Resources_Files\\gp_titanic_survival.gpa";
@@ -785,9 +799,37 @@ namespace GPdotNET.App
             this.Text = string.Format("{0} - {1}", _appName, fName);
             txtStatusMessage.Text = "Ready!";
         }
+
+        private void linkLabel20_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string strPath = Application.StartupPath + "\\Resources_Files\\ann_prediction_maintanance.gpa";
+
+            Open(strPath);
+            var fName = Path.GetFileName(_filePath);
+            this.Text = string.Format("{0} - {1}", _appName, fName);
+            txtStatusMessage.Text = "Ready!";
+        }
+        private void linkLabel16_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string strPath = Application.StartupPath + "\\Resources_Files\\ann_muliclass_iris_flover.gpa";
+
+            Open(strPath);
+            var fName = Path.GetFileName(_filePath);
+            this.Text = string.Format("{0} - {1}", _appName, fName);
+            txtStatusMessage.Text = "Ready!";
+        }
+        private void linkLabel21_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string strPath = Application.StartupPath + "\\Resources_Files\\ann_regression_water_parameters.gpa";
+
+            Open(strPath);
+            var fName = Path.GetFileName(_filePath);
+            this.Text = string.Format("{0} - {1}", _appName, fName);
+            txtStatusMessage.Text = "Ready!";
+        }
         private void linkLabel19_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string strPath = Application.StartupPath + "\\Resources_Files\\gp_iris_flover.gpa";
+            string strPath = Application.StartupPath + "\\Resources_Files\\gp_muliclass_glass_identification.gpa"; //gp_iris_flover.gpa";
 
             Open(strPath);
             var fName = Path.GetFileName(_filePath);
@@ -1299,7 +1341,13 @@ namespace GPdotNET.App
                 Task tsk;
                 float tv = pn.TerminationValue;
                 int tt = pn.TerminationType;
+
                 UpdateGUI(1);
+                int currIter = pn.GetCurrentIteration();
+
+                if (_mainGPFactory != null)
+                    _mainGPFactory.SetCurrentIteration(currIter);
+
                 if (gpTYpe == GPRunType.GPMODSolver)
                     tsk = new Task(() => _mainGPFactory.StartEvolution(tv, tt));
                 else if (gpTYpe == GPRunType.GAOPTSolver)
@@ -1342,7 +1390,12 @@ namespace GPdotNET.App
                 int tt = pn.TerminationType;
                 //
                 UpdateGUI(1);
-                
+
+                int currIter = pn.GetCurrentIteration();
+
+                if (_mainANNFactory != null)
+                    _mainANNFactory.SetCurrentIteration(currIter);
+
                 if (gpTYpe == GPRunType.ANNMODSolver)
                     tsk = new Task(() => _mainANNFactory.StartIteration(tv, tt));
                 else

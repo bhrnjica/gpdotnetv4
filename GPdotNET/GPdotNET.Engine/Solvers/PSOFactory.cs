@@ -21,6 +21,7 @@ using GPdotNET.Engine.ANN;
 using GPdotNET.Core.Interfaces;
 using GPdotNET.Core.Experiment;
 using GPdotNET.Engine.PSO;
+using System.Globalization;
 
 namespace GPdotNET.Engine
 {
@@ -62,31 +63,53 @@ namespace GPdotNET.Engine
                     m_Network = new BCNeuralNetwork(annParams, expData.GetColumnInputCount_FromNormalizedValue(), expData.GetColumnOutputCount_FromNormalizedValue());
                 else//multiclass classification
                     m_Network = new MCNeuralNetwork(annParams, expData.GetColumnInputCount_FromNormalizedValue(), expData.GetColumnOutputCount_FromNormalizedValue());
+
                 m_Network.InitializeNetwork();
 
                 
             }
-           
 
+            //
             m_Experiment            = expData;
+
+            PSOParameters swarm = null;
+            if (m_Parameters != null)
+                swarm = m_Parameters.m_PSOParameters;
+            else
+            {
+                m_psoAlgorithm = null;
+                swarm = annParams.m_PSOParameters;
+            }
+               
+
+            //
             m_Parameters              = annParams;
+            m_Parameters.m_PSOParameters = swarm;
+
             m_expRowCount           = m_Experiment.GetRowCount();
             IsAlgorthmPrepared      = true;
             StopIteration           = false;
 
-            //initilaize swarm
-            m_Parameters.m_PSOParameters.m_Dimension = m_Network.GetWeightsAndBiasCout();
-            m_psoAlgorithm = new ParticleSwarm(m_Parameters.m_PSOParameters, CrossEntropy);
+            float newfitness = 0;
+            if (m_psoAlgorithm == null)
+            {
+                //initilaize swarm
+                m_Parameters.m_PSOParameters.m_Dimension = m_Network.GetWeightsAndBiasCout();
+                m_psoAlgorithm = new ParticleSwarm(m_Parameters.m_PSOParameters, CrossEntropy);
+                //init 
+                newfitness = m_psoAlgorithm.InitSwarm();
+            }
+           // else
+            newfitness = m_psoAlgorithm.RunSwarm();
 
-            //init 
-            var newFitness=m_psoAlgorithm.InitSwarm();
-            var model = CalculateModel(false);
+
+             var model = CalculateModel(false);
             
             //Send report for iteration
             var rp = new ProgressIndicatorEventArgs()
             {
                 ReportType = ProgramState.Started,
-                LearningError = newFitness,
+                LearningError = newfitness,
                 CurrentIteration = 0,
                 LearnOutput = model,
             };
@@ -115,6 +138,50 @@ namespace GPdotNET.Engine
 
             return 0;
         }
+
+        public override float CalculateModel( ProgramState state= ProgramState.Running)
+        {
+            //prepare training result
+            var model = CalculateModel(false);
+            var prediction = CalculateModel(true);
+
+            //Send report for iteration
+            var rp = new ProgressIndicatorEventArgs()
+            {
+                ReportType = state,
+                LearningError = (float) m_psoAlgorithm.m_BestGlobalFitness,
+                CurrentIteration = m_IterationCounter,
+                LearnOutput = model,
+                PredicOutput = prediction
+            };
+
+            ReportProgress(rp);
+            return 0;
+        }
+
+        public override double[] CalculateModelForExport(bool isTest)
+        {
+            var val =  CalculateModel(isTest);
+
+            return val[0];
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string GenerateFormula()
+        {
+            var input = new string[m_Experiment.GetColumnInputCount_FromNormalizedValue()];
+            for (int i = 0; i < input.Length; i++)
+            {
+                input[i] = "X" + (i + 1).ToString() + " ";
+            }
+
+            // compute the network's output
+            var formula = m_Network.GenerateFormula(input);
+            return formula;
+        }
+
 
         private double[][] CalculateModel(bool testData=false)
         {
@@ -182,6 +249,23 @@ namespace GPdotNET.Engine
             };
 
             ReportProgress(rp);
+        }
+
+        public override string SaveFactory()
+        {
+            var str = m_ExpectedValue.ToString(CultureInfo.InvariantCulture) + ";";
+            str += m_Network.WeightsToString() +";";
+            str += m_psoAlgorithm.SaveAlgoritm();
+            return str;
+        }
+
+        public override int LoadFactory(string strWeights)
+        {
+            var wi = strWeights.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            m_ExpectedValue = (float)double.Parse(wi[0], CultureInfo.InvariantCulture);
+            var index = m_Network.WeightsFromString(wi.Skip(1).ToArray());
+            m_psoAlgorithm.ParticleFromSTring(wi.Skip(index+1).ToArray());
+            return index;
         }
 
     }

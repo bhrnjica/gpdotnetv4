@@ -12,5 +12,7 @@ namespace GPdotNET.Core.Interfaces
         double Calculate(double input);
 
         double Derivative(double input);
+
+        string StringFormula(string value);
     }
 }

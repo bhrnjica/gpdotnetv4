@@ -16,6 +16,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using GPdotNET.Core;
 using ZedGraph;
+using System.Globalization;
 
 namespace GPdotNET.Tool.Common
 {
@@ -36,7 +37,7 @@ namespace GPdotNET.Tool.Common
             get
             {
                 float val= 500;
-                if (float.TryParse(brojIteracija.Text, out val))
+                if (float.TryParse(m_eb_iterations.Text, out val))
                     return val;
                 else
                     return 500;
@@ -109,7 +110,7 @@ namespace GPdotNET.Tool.Common
         public virtual void EnableCtrls(bool p)
         {
             comboBox2.Enabled = p;
-            brojIteracija.Enabled = p;
+            m_eb_iterations.Enabled = p;
         }
 
         /// <summary>
@@ -132,14 +133,6 @@ namespace GPdotNET.Tool.Common
                 progressBar1.Maximum = 100;
                 progressBar1.Minimum = 0;
                 progressBar1.Value = 100;
-
-                //int max = 500;
-                //if (!int.TryParse(brojIteracija.Text, out max))
-                //    max = 500;
-                //progressBar1.Style = ProgressBarStyle.Blocks;
-                //progressBar1.Maximum = max;
-                //progressBar1.Minimum = 0;
-                //progressBar1.Value = 0;
             }
 
             progressBar1.MarqueeAnimationSpeed = 0;
@@ -163,10 +156,11 @@ namespace GPdotNET.Tool.Common
             if (currEvolution + 1 < gpAvgFitnLine.Points.Count)
                 gpAvgFitnLine.Clear();
 
-
-            gpMaxFitnLine.AddPoint(currEvolution, max);
-            gpAvgFitnLine.AddPoint(currEvolution, avg);
-
+            if(gpMaxFitnLine.Points.Count <= currEvolution)
+            {
+                gpMaxFitnLine.AddPoint(currEvolution, max);
+                gpAvgFitnLine.AddPoint(currEvolution, avg);
+            }
             if (currEvolution % 10 == 0 || isFinished)
                 zedFitness.RestoreScale(zedFitness.GraphPane);
         }
@@ -193,7 +187,7 @@ namespace GPdotNET.Tool.Common
             else
             {
                 int max = 500;
-                if (!int.TryParse(brojIteracija.Text, out max))
+                if (!int.TryParse(m_eb_iterations.Text, out max))
                     max = 500;
                 progressBar1.Style = ProgressBarStyle.Blocks;
                 // progressBar1.DisplayStyle = ProgressBarDisplayText.Percentage;
@@ -204,7 +198,14 @@ namespace GPdotNET.Tool.Common
 
             m_startTime = DateTime.Now;
             prevIterationTime = m_startTime;
-            eTimeStart.Text = m_startTime.ToString();
+
+            //we dont overide start and duration time
+            if (string.IsNullOrEmpty(eb_timeStart.Text))
+            {
+                eb_timeStart.Text = m_startTime.ToString();
+                eb_durationInMin.Text = "0";
+            }
+
         }
 
         /// <summary>
@@ -218,13 +219,16 @@ namespace GPdotNET.Tool.Common
         {
             if (ch == null)
                 return;
+            var totEvolution = currentEvoution;
+            if (currentEvoution == 0)
+                totEvolution = (int.Parse(string.IsNullOrEmpty(eb_currentIteration.Text) ? "0" : eb_currentIteration.Text));
 
-            currentIterationBox.Text = currentEvoution.ToString();
+            eb_currentIteration.Text = totEvolution.ToString();
 
             if (runType == 3)
-                UpdateChartFitness(currentEvoution, ch.Fitness, avgFitness, true);
+                UpdateChartFitness(totEvolution, ch.Fitness, avgFitness, true);
             else
-                UpdateChartFitness(currentEvoution, ch.Fitness, avgFitness, false);
+                UpdateChartFitness(totEvolution, ch.Fitness, avgFitness, false);
 
             if (runType == 1)
                 StartProgress(ch.Fitness.ToString());
@@ -240,30 +244,44 @@ namespace GPdotNET.Tool.Common
             {
                 //calculation time
                 var currIterationTime = DateTime.Now - prevIterationTime;
-                prevIterationTime = DateTime.Now;
                 double sec = currIterationTime.TotalSeconds;
 
-                eTimePerRun.Text = Math.Round(sec, 2).ToString();
+                eb_timePerRun.Text = Math.Round(sec, 2).ToString();
 
                 if (comboBox2.SelectedIndex == 1)
                 {
-                    eTimeToCompleate.Text = "undefine";
-                    eTimeleft.Text = "undefine";
+                    eb_timeToCompleate.Text = "undefine";
+                    eb_timeleft.Text = "undefine";
                 }
                 else
                 {
                     int broj = 0;
-                    if (!int.TryParse(brojIteracija.Text, out broj))
+                    if (!int.TryParse(m_eb_iterations.Text, out broj))
                         broj = 500;
 
                     DateTime datToFinish = m_startTime.AddSeconds(sec * (broj - currentEvoution));
 
-                    eTimeToCompleate.Text = datToFinish.ToString();
-                    eTimeleft.Text = Math.Round((datToFinish - m_startTime).TotalMinutes, 3).ToString();
+                    eb_timeToCompleate.Text = datToFinish.ToString();
+                    eb_timeleft.Text = Math.Round((datToFinish - m_startTime).TotalMinutes, 3).ToString();
 
                 }
+                double durationMinutes = 0;
+                if(!double.TryParse(eb_durationInMin.Text.Replace(',', '.'),NumberStyles.Float, CultureInfo.InvariantCulture, out durationMinutes))
+                {
+                    if (eb_durationInMin.Text.Contains("."))
+                        eb_durationInMin.Text = eb_durationInMin.Text.Replace(".",",");
+                    else
+                        eb_durationInMin.Text = eb_durationInMin.Text.Replace(",", ".");
 
-                eDuration.Text = Math.Round((DateTime.Now - m_startTime).TotalMinutes, 3).ToString();
+                    //
+                    double.TryParse(eb_durationInMin.Text, out durationMinutes);
+                }
+
+
+                eb_durationInMin.Text = Math.Round((durationMinutes + (sec / 60.0)), 2).ToString();
+
+                //chage previous time in to current for the next iteration
+                prevIterationTime = DateTime.Now;
             }
 
         }
@@ -277,32 +295,56 @@ namespace GPdotNET.Tool.Common
             var funs = p.Split(';');
             comboBox2.SelectedIndex = funs[0] == "1" ? 1 : 0;
             if(funs.Length<2)
-                brojIteracija.Text = "500";
+                m_eb_iterations.Text = "500";
             else
-                brojIteracija.Text = funs[1];
+                m_eb_iterations.Text = funs[1];
             
             if (funs.Length>2)
                 chkOptimumType.Checked = funs[2] == "1" ? true : false;
             if (funs.Length > 3)
-                currentIterationBox.Text = funs[3];
+                eb_currentIteration.Text = funs[3];
             if (funs.Length > 4)
-                currentErrorBox.Text = funs[4];
+                eb_currentFitness.Text = funs[4];
             if (funs.Length > 5)
-                textBox3.Text = funs[5];
+                eb_maximumFitness.Text = funs[5];
             if (funs.Length > 6)
-                textBox3.Text = funs[6];
+                eb_maximumFitness.Text = funs[6];
             if (funs.Length > 7)
-                bestFitnessAtGenerationEditBox.Text = funs[7];
+                eb_bestSolutionFound.Text = funs[7];
             if (funs.Length > 8)
-                eTimeStart.Text = funs[8];
+                eb_timeStart.Text = funs[8];
             if (funs.Length > 9)
-                eTimePerRun.Text = funs[9];
+                eb_timePerRun.Text = funs[9];
             if (funs.Length > 10)
-                eTimeToCompleate.Text = funs[10];
+                eb_timeToCompleate.Text = funs[10];
             if (funs.Length > 11)
-                eTimeleft.Text = funs[11];
+                eb_timeleft.Text = funs[11];
             if (funs.Length > 12)
-                eDuration.Text = funs[12];
+                eb_durationInMin.Text = funs[12];
+            if (funs.Length > 13)
+                fillFitness(funs[13]);
+        }
+
+        /// <summary>
+        /// creates fitness graphs from string points
+        /// </summary>
+        /// <param name="v"></param>
+        private void fillFitness(string v)
+        {
+            if (v == "\r")
+                return;
+            var strs = v.Split('#');
+            for (int i = 0; i < strs.Length; i++)
+            {
+                var ss = strs[i].Split(':');
+                double x  = double.Parse(ss[0], CultureInfo.InvariantCulture);
+                double y1 = double.Parse(ss[1], CultureInfo.InvariantCulture);
+                double y2 = double.Parse(ss[2], CultureInfo.InvariantCulture);
+
+                gpMaxFitnLine.AddPoint(x,y1);
+                gpAvgFitnLine.AddPoint(x, y2);
+
+            }
         }
 
         /// <summary>
@@ -311,26 +353,44 @@ namespace GPdotNET.Tool.Common
         /// <returns></returns>
         public string GetTypeofRun()
         {
-
+            string fitness = "";
+            for(int i=0;i< gpMaxFitnLine.Points.Count; i++)
+            {
+                var p = "";
+                if (i > 0)
+                    p = "#";
+                var mF = gpMaxFitnLine.Points[i].X.ToString(CultureInfo.InvariantCulture) + 
+                    ":" + gpMaxFitnLine.Points[i].Y.ToString(CultureInfo.InvariantCulture) +
+                    ":" + gpAvgFitnLine.Points[i].Y.ToString(CultureInfo.InvariantCulture);
+                
+                
+                //
+                fitness += p + mF;
+            }
+           
             if (comboBox2.SelectedIndex != -1)
             {
                 //
                 string str = comboBox2.SelectedIndex.ToString() + ";"
-                            + brojIteracija.Text + ";"
+                            + m_eb_iterations.Text + ";"
                             + (chkOptimumType.Checked ? "1" : "0") + ";"
-                            + currentIterationBox.Text + ";"
-                            + currentErrorBox.Text + ";"
-                            + textBox3.Text + ";"
-                            + textBox3.Text + ";"
-                            + bestFitnessAtGenerationEditBox.Text + ";"
-                            + eTimeStart.Text + ";"
-                            + eTimePerRun.Text + ";"
-                            + eTimeToCompleate.Text + ";"
-                            + eTimeleft.Text + ";"
-                            + eDuration.Text + ";"
-                            ;
+                            + eb_currentIteration.Text + ";"
+                            + eb_currentFitness.Text + ";"
+                            + eb_maximumFitness.Text + ";"
+                            + eb_maximumFitness.Text + ";"
+                            + eb_bestSolutionFound.Text + ";"
+                            + eb_timeStart.Text + ";"
+                            + eb_timePerRun.Text + ";"
+                            + eb_timeToCompleate.Text + ";"
+                            + eb_timeleft.Text + ";"
+                            + eb_durationInMin.Text + ";"
+                            + fitness;
+                ;
                             
                 return str;
+
+
+               
             }
             return null;
 
@@ -364,7 +424,12 @@ namespace GPdotNET.Tool.Common
         {
             chkOptimumType.Checked = isMinimum;
         }
-        #endregion      
+
+        public int GetCurrentIteration()
+        {
+            return int.Parse(eb_currentIteration.Text);
+        }
+        #endregion
 
     }
 

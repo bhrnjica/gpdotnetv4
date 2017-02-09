@@ -42,5 +42,10 @@ namespace GPdotNET.Engine.ANN
             return (m_alpha * ( 1 - y * y ) / 2);
         }
 
+        public string StringFormula(string value)
+        {
+            return string.Format("((2/(1 +  Exp(-{0} * {1})) -1)", m_alpha, value);
+        }
+
     }
 }

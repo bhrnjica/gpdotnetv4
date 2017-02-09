@@ -61,6 +61,8 @@
     <Compile Include="GP Core\GPFunction.cs" />
     <Compile Include="GP Core\GPTerminal.cs" />
     <Compile Include="GP Core\GPTerminalSet.cs" />
+    <Compile Include="Statistics\AdvancedStatisticsExt.cs" />
+    <Compile Include="Statistics\BasicStatisticsExt.cs" />
     <Compile Include="System\FileNameUtility.cs" />
     <Compile Include="System\MemoryPool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

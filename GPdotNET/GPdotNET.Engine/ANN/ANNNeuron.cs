@@ -14,6 +14,7 @@ using GPdotNET.Core;
 using GPdotNET.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -99,6 +100,28 @@ namespace GPdotNET.Engine.ANN
 
             this.m_Output=retVal;
 
+            return retVal;
+        }
+
+        public string Evaluate(string[] input)
+        {
+            if (input == null || input.Length != m_Count)
+                throw new ArgumentNullException("input value cannot be null or empty.");
+
+            if (function == null)
+                throw new ArgumentNullException("Activation function cannot be null.");
+
+            string val = "";
+            for (int i = 0; i < m_Count; i++)
+                val += m_Weights[i].ToString(CultureInfo.InvariantCulture)+"*"+ input[i];
+
+            val = val + "+" + m_Biases.ToString(CultureInfo.InvariantCulture);
+
+            //calculate output value by activation fucntion 
+            var retVal = function.StringFormula(val);
+
+
+           
             return retVal;
         }
 
