@@ -13,18 +13,18 @@ Everybody is free to use GPdotNET with correct citation given as follows:
 
 Example of GPdotNET citation (English):
 
-B. I. Hrnjica, GPdotNET  V4.0- artifical intelligence tool  [Computer program],  http://github.com/bhrnjica/gpdotnet/,  accessed 01. November 2016.
+B. Hrnjica, GPdotNET  V4.0- artifical intelligence tool  [Computer program],  http://github.com/bhrnjica/gpdotnet/,  accessed 01. November 2016.
 
 or
 
-Bahrudin I. Hrnjica, GPdotNET V4.0 – artifical intelligence tool [Computer program], http://github.com/bhrnjica/gpdotnet/, accessed 01. November 2016.
+Bahrudin Hrnjica, GPdotNET V4.0 – artifical intelligence tool [Computer program], http://github.com/bhrnjica/gpdotnet/, accessed 01. November 2016.
 
  
 
 Primjer citata za GPdotNET (Bosanski):
 
-B. I. Hrnjica, GPdotNET  V4.0- artifical intelligence tool  [kompjuterski program],  http://github.com/bhrnjica/gpdotnet/,  zadnja posjeta  01/11/ 2016.
+B. Hrnjica, GPdotNET  V4.0- artifical intelligence tool  [kompjuterski program],  http://github.com/bhrnjica/gpdotnet/,  zadnja posjeta  01/11/ 2016.
 
 ili
 
-Bahrudin I. Hrnjica, GPdotNET V4.0 – artifical intelligence tool [kompjuterski program], http://github.com/bhrnjica/gpdotnet/, zadnja posjeta 01/11/ 2016.
+Bahrudin Hrnjica, GPdotNET V4.0 – artifical intelligence tool [kompjuterski program], http://github.com/bhrnjica/gpdotnet/, zadnja posjeta 01/11/ 2016.
