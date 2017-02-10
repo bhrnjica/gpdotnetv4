@@ -27,7 +27,7 @@ using System.IO;
 using System.Threading.Tasks;
 using GPdotNET.Util;
 using GPdotNET.Core.Experiment;
-
+using ClosedXML.Excel;
 namespace GPdotNET.App
 {
     public partial class MainWindow

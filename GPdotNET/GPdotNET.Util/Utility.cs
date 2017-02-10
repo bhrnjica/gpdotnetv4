@@ -62,7 +62,7 @@ namespace GPdotNET.Util
                 wb.SaveAs(strFilePath);
 
                 return;
-                //writing formula to big for excel.
+                //writing formula is to big for excel.
                 ////GP Model formula
                 string formula = "";// strFormula;
                 AlphaCharEnum alphaEnum = new AlphaCharEnum();

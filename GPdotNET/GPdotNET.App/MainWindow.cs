@@ -78,9 +78,10 @@ namespace GPdotNET.App
             _contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
             Load += new EventHandler(MainWindow_Load);
             this.Icon = Extensions.LoadIconFromName("GPdotNET.App.Resources.gpdotnet_ico48.ico");
-           // this.logoPictureBox.Image = Extensions.LoadImageFromName("GPdotNET.App.Resources.gp256V.png");
-            
-            
+            // this.logoPictureBox.Image = Extensions.LoadImageFromName("GPdotNET.App.Resources.gp256V.png");
+
+           
+
         }
 
        

@@ -107,7 +107,7 @@ namespace GPdotNET.Engine
 
             m_ExpectedValue = 0;
 
-            CalculateModel();
+            CalculateModel( ProgramState.Running);
 
             return (float)(error / m_expRowCount);
         }
