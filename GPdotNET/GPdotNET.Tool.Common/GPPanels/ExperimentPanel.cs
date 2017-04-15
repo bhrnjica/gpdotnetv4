@@ -106,7 +106,7 @@ namespace GPdotNET.Tool.Common
             cmbBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBox3.Hide();
 
-            numericUpDown1.Maximum = 50;
+            numericUpDown1.Maximum = int.MaxValue;
             numericUpDown1.Minimum = 0;
           
         }
@@ -237,7 +237,8 @@ namespace GPdotNET.Tool.Common
             listView1.Clear();
             listView1.GridLines = true;
             listView1.HideSelection = false;
-
+            if (data == null)
+                return;
             int numCol = data[0].Length;
             int numRow = data.Length;
 

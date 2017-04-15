@@ -769,7 +769,12 @@ namespace GPdotNET.Core.Experiment
                 else 
                     m_strData[i - headerCount] = new string[colCount];
                
-
+                if(row.Length != colCount)
+                {
+                    MessageBox.Show("Data is not consistant.", "GPdotNET");
+                    m_strData = null;
+                    return;
+                }
                 //column enumeratrion
                 for (int j = 0; j < colCount; j++)
                 {

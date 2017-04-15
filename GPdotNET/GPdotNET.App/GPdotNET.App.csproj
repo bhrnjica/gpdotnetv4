@@ -22,6 +22,8 @@ It is .NET (Mono) application written in C# which can
 run both on Windows and Lunux OS.</Description>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <ReleaseVersion>2.1</ReleaseVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
     <PublishUrl>publish/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -47,8 +49,6 @@ run both on Windows and Lunux OS.</Description>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -114,18 +114,6 @@ run both on Windows and Lunux OS.</Description>
     <ApplicationIcon>gpdotnet_ico48.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>FE2AB52C64F6B1AFB16706295D9ADCA1A9402777</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>GPdotNET.App_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
@@ -133,10 +121,10 @@ run both on Windows and Lunux OS.</Description>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML">
-      <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
+      <HintPath>..\..\Assemblies\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml">
-      <HintPath>..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
+      <HintPath>..\..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -146,9 +134,6 @@ run both on Windows and Lunux OS.</Description>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph">
-      <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutGPdotNET.cs">
@@ -257,6 +242,10 @@ run both on Windows and Lunux OS.</Description>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ThirdParty\ZedGraph\zedgraph_source_v515\ZedGraph 5.1 %28.net 2%29\source\ZedGraph.csproj">
+      <Project>{2541686b-1673-43bf-af89-3163945db009}</Project>
+      <Name>ZedGraph</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GPdotNET.Core\GPdotNET.Core.csproj">
       <Project>{6ac643d4-cd0c-4d1d-b5db-7fe2c967d6a5}</Project>
       <Name>GPdotNET.Core</Name>
@@ -380,12 +369,12 @@ run both on Windows and Lunux OS.</Description>
   <ItemGroup>
     <PublishFile Include="Resources_Files\FunctionSet.xml">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
