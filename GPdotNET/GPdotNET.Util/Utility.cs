@@ -41,20 +41,22 @@ namespace GPdotNET.Util
                     ws2 = null;
 
                 ws1.Cell(1, 1).Value = "Training Data";
-                ws2.Cell(1, 1).Value = "Testing Data";
+
+                if(ws2 != null)
+                    ws2.Cell(1, 1).Value = "Testing Data";
 
                 writeDataToExcel(experiment, ws1, false);
                 if (experiment.IsTestDataExist())
                     writeDataToExcel(experiment, ws2, true);
                 //change header of the output column
                 ws1.Cell(2, experiment.GetColumnInputCount_FromNormalizedValue() + 3).Value = "Yann";
-                if (experiment.IsTestDataExist())
+                if (ws2 != null)
                     ws2.Cell(2, experiment.GetColumnInputCount_FromNormalizedValue() + 3).Value = "Yann";
 
                 for (int i=0; i< experiment.GetRowCount(); i++)
                 {
                     ws1.Cell(3+i, experiment.GetColumnInputCount_FromNormalizedValue() + 3).Value = y1[i];
-                    if (experiment.IsTestDataExist() && y2.Length >= i+1)
+                    if (ws2 != null && y2.Length >= i+1)
                         ws2.Cell(3+i, experiment.GetColumnInputCount_FromNormalizedValue() + 3).Value = y2[i];
                 }
 
@@ -120,7 +122,7 @@ namespace GPdotNET.Util
                     formula = formula.Replace(";", ",");
 
                 ws1.Cell(3, inputVarCount + 3).Value = formula;
-                if (experiment.IsTestDataExist())
+                if ((ws2 != null))
                     ws2.Cell(3, inputVarCount + 3).Value = formula;
 
                 //
@@ -154,9 +156,12 @@ namespace GPdotNET.Util
 
 
                 ws1.Cell(1, 1).Value = "Training Data";
-                ws2.Cell(1, 1).Value = "Testing Data";
+                //
+                if(ws2 != null)
+                    ws2.Cell(1, 1).Value = "Testing Data";
 
                 writeDataToExcel(experiment, ws1, false);
+
                 if (Globals.gpterminals.TestingData != null)
                     writeDataToExcel(experiment, ws2, true);
 
@@ -225,7 +230,8 @@ namespace GPdotNET.Util
                     formula = formula.Replace(";", ",");
 
                 ws1.Cell(3, inputVarCount + 3).Value = formula;
-                if (Globals.gpterminals.TestingData != null)
+
+                if (ws2 != null)
                     ws2.Cell(3, inputVarCount + 3).Value = formula;
                 //
                 wb.SaveAs(strFilePath);
@@ -286,6 +292,7 @@ namespace GPdotNET.Util
                 }
 
                 ws1.Cell(3, inputVarCount + constCount + 3).Value = formula;
+
                 if (Globals.gpterminals.TestingData != null)
                     ws2.Cell(3, inputVarCount + constCount + 3).Value = formula;
                 //

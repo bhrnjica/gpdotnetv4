@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/GPdotNET/GPdotNET.Util/obj
+/GPdotNET/GPdotNET.Util/bin
+/GPdotNET/GPdotNET.Tool.Common/obj
+/GPdotNET/GPdotNET.Tool.Common/bin
+/GPdotNET/GPdotNET.Engine/bin
+/GPdotNET/GPdotNET.Engine/obj
+/GPdotNET/GPdotNET.Core/obj
+/GPdotNET/GPdotNET.Core/bin
+/GPdotNET/GPdotNET.App/obj
+/GPdotNET/GPdotNET.App/bin
+/GPdotNET/.vs/
+/.vs

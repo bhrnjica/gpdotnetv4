@@ -120,9 +120,8 @@ run both on Windows and Lunux OS.</Description>
     <AssemblyOriginatorKeyFile>gpdotnetkey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClosedXML, Version=0.80.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
+    <Reference Include="ClosedXML">
+      <HintPath>..\..\Assemblies\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml">
       <HintPath>..\..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
@@ -135,7 +134,7 @@ run both on Windows and Lunux OS.</Description>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph, Version=5.1.5.37550, Culture=neutral, PublicKeyToken=285cb7792c27d72c, processorArchitecture=MSIL">
+    <Reference Include="ZedGraph, Version=5.1.5.36316, Culture=neutral, PublicKeyToken=285cb7792c27d72c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
     </Reference>
@@ -370,12 +369,12 @@ run both on Windows and Lunux OS.</Description>
   <ItemGroup>
     <PublishFile Include="Resources_Files\FunctionSet.xml">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>

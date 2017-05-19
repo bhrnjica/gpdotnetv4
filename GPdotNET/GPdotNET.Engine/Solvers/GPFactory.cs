@@ -186,7 +186,7 @@ namespace GPdotNET.Engine
         private bool CanContinue(float terValue, int termType)
         {
             //First condition is if the current best fitness is equal to maximum fitness
-            if (Population.bestChromosome.Fitness == 1000.0f)
+            if (Population.bestChromosome==null || Population.bestChromosome.Fitness == 1000.0f)
                 return false;
 
             if (termType == 0)

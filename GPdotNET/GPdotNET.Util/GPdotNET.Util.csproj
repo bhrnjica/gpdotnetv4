@@ -47,11 +47,11 @@
   <ItemGroup>
     <Reference Include="ClosedXML, Version=0.67.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
+      <HintPath>..\..\Assemblies\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
+      <HintPath>..\..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,7 +61,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph, Version=5.1.5.37550, Culture=neutral, PublicKeyToken=285cb7792c27d72c, processorArchitecture=MSIL">
+    <Reference Include="ZedGraph, Version=5.1.5.36316, Culture=neutral, PublicKeyToken=285cb7792c27d72c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\ZedGraph.dll</HintPath>
     </Reference>
@@ -69,15 +69,15 @@
   <ItemGroup>
     <Compile Include="ConfusionMatrix.cs" />
     <Compile Include="ExcelHelper.cs" />
-    <Compile Include="Fitness\FintessFunctions.cs" />
-    <Compile Include="Fitness\ClassFitness.cs" />
-    <Compile Include="Fitness\AEFitness.cs" />
-    <Compile Include="Fitness\MAEFitness.cs" />
-    <Compile Include="Fitness\SEFitness.cs" />
-    <Compile Include="Fitness\MSEFitness.cs" />
-    <Compile Include="Fitness\RAEFitness.cs" />
-    <Compile Include="Fitness\RRSEFitness.cs" />
-    <Compile Include="Fitness\RSEFitness.cs" />
+    <Compile Include="Fitness\regression\FintessFunctions.cs" />
+    <Compile Include="Fitness\binary\AccuracyFitness.cs" />
+    <Compile Include="Fitness\regression\AEFitness.cs" />
+    <Compile Include="Fitness\regression\MAEFitness.cs" />
+    <Compile Include="Fitness\regression\SEFitness.cs" />
+    <Compile Include="Fitness\regression\MSEFitness.cs" />
+    <Compile Include="Fitness\regression\RAEFitness.cs" />
+    <Compile Include="Fitness\regression\RRSEFitness.cs" />
+    <Compile Include="Fitness\regression\RSEFitness.cs" />
     <Compile Include="ModelGlobals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ROC.cs" />

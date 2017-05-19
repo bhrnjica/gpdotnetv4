@@ -49,7 +49,7 @@ namespace GPdotNET.Tool.Common
             checkBox2.Checked = false;
             checkBox3.Checked = false;
             txtElitism.Text = 1.ToString();
-            
+
         }
         #endregion
 
@@ -58,15 +58,15 @@ namespace GPdotNET.Tool.Common
         private double[] _constants;
         public double[] Constants
         {
-            get 
+            get
             {
                 if (_constants == null)
-                    _constants= GPModelGlobals.GenerateConstants(GetParameters().rConstFrom, GetParameters().rConstTo, GetParameters().rConstNum);
+                    _constants = GPModelGlobals.GenerateConstants(GetParameters().rConstFrom, GetParameters().rConstTo, GetParameters().rConstNum);
 
                 return _constants;
-                                                                        
+
             }
-            set 
+            set
             {
                 _constants = value;
             }
@@ -80,15 +80,16 @@ namespace GPdotNET.Tool.Common
         /// </summary>
         private void LoadFitnessFunsInCombo()
         {
-            cmbFitnessFuncs.Items.Add("AE	-Apsolute error ");
-            cmbFitnessFuncs.Items.Add("RMSE	-Root mean square error ");
-            cmbFitnessFuncs.Items.Add("SE	-Square error ");
-            cmbFitnessFuncs.Items.Add("MSE	-Mean square error ");
-            cmbFitnessFuncs.Items.Add("MAE	-Mean apsolute error ");
-            cmbFitnessFuncs.Items.Add("RSE	-Root square error ");
-            cmbFitnessFuncs.Items.Add("RRSE	-Relative root square error ");
-            cmbFitnessFuncs.Items.Add("RAE	-Root apsolute error ");
-            cmbFitnessFuncs.Items.Add("CLASS -Classification ");
+            cmbFitnessFuncs.Items.Add("AE	-Apsolute error (regression) ");
+            cmbFitnessFuncs.Items.Add("RMSE	-Root mean square error (regression) ");
+            cmbFitnessFuncs.Items.Add("SE	-Square error (regression) ");
+            cmbFitnessFuncs.Items.Add("MSE	-Mean square error (regression) ");
+            cmbFitnessFuncs.Items.Add("MAE	-Mean apsolute error (regression) ");
+            cmbFitnessFuncs.Items.Add("RSE	-Root square error  (regression) ");
+            cmbFitnessFuncs.Items.Add("RRSE	-Relative root square error (regression) ");
+            cmbFitnessFuncs.Items.Add("RAE	-Root apsolute error (regression) ");
+            cmbFitnessFuncs.Items.Add("ACC -Total accuracy (classification) ");
+            
             //cmbFitnessFuncs.Items.Add("rMSE	-relative MSE ");
             //cmbFitnessFuncs.Items.Add("rRMSE	-relative RMSE ");
             //cmbFitnessFuncs.Items.Add("rMAE	-relative MAE ");
@@ -144,7 +145,7 @@ namespace GPdotNET.Tool.Common
         {
             //fill combo with initialization methdos
             foreach (var initM in Enum.GetValues(typeof(GPSelectionMethod)))
-               cmbSelectionMethods.Items.Add(initM.ToString());
+                cmbSelectionMethods.Items.Add(initM.ToString());
         }
 
         /// <summary>
@@ -156,15 +157,16 @@ namespace GPdotNET.Tool.Common
         private IFitnessFunction SelectFitnessFun(int selIndex)
         {
             /*
-            cmbFitnessFuncs.Items.Add("AE	-Apsolute error ");
-            cmbFitnessFuncs.Items.Add("RMSE	-Root mean square error ");
-            cmbFitnessFuncs.Items.Add("SE	-Square error ");
-            cmbFitnessFuncs.Items.Add("MSE	-Mean square error ");
-            cmbFitnessFuncs.Items.Add("MAE	-Mean apsolute error ");
-            cmbFitnessFuncs.Items.Add("RSE	-Root square error ");
-            cmbFitnessFuncs.Items.Add("RRSE	-Relative root square error ");
-            cmbFitnessFuncs.Items.Add("RAE	-Root apsolute error ");
-            cmbFitnessFuncs.Items.Add("CLASS -Classification ");
+            cmbFitnessFuncs.Items.Add("AE	-Apsolute error  (regression) ");
+            cmbFitnessFuncs.Items.Add("RMSE	-Root mean square error  (regression) ");
+            cmbFitnessFuncs.Items.Add("SE	-Square error  (regression) ");
+            cmbFitnessFuncs.Items.Add("MSE	-Mean square error  (regression) ");
+            cmbFitnessFuncs.Items.Add("MAE	-Mean apsolute error  (regression) ");
+            cmbFitnessFuncs.Items.Add("RSE	-Root square error  (regression) ");
+            cmbFitnessFuncs.Items.Add("RRSE	-Relative root square error  (regression) ");
+            cmbFitnessFuncs.Items.Add("RAE	-Root apsolute error  (regression) ");
+            cmbFitnessFuncs.Items.Add("ACC  -Total accuracy  (binary, multiclass) ");
+         
             */
             switch (selIndex)
             {
@@ -185,25 +187,25 @@ namespace GPdotNET.Tool.Common
                 case 7:
                     return new RAEFitness();
                 case 8:
-                    return new ClassFitness(m_OutpuType);
+                    return new AccuracyFitness(m_OutpuType);
                 default:
                     return new RMSEFitness();
             }
-            
+
         }
 
         private int getFitnessSelectedIndex(IFitnessFunction gPFitness)
         {
             /*
-            0 = cmbFitnessFuncs.Items.Add("AE	-Apsolute error ");
-            1 = cmbFitnessFuncs.Items.Add("RMSE	-Root mean square error ");
-            2 = cmbFitnessFuncs.Items.Add("SE	-Square error ");
-            3 = cmbFitnessFuncs.Items.Add("MSE	-Mean square error ");
-            4 = cmbFitnessFuncs.Items.Add("MAE	-Mean apsolute error ");
-            5 = cmbFitnessFuncs.Items.Add("RSE	-Root square error ");
-            6 = cmbFitnessFuncs.Items.Add("RRSE	-Relative root square error ");
-            7 = cmbFitnessFuncs.Items.Add("RAE	-Root apsolute error ");
-            8 = cmbFitnessFuncs.Items.Add("CLASS -Classification ");
+            0 = cmbFitnessFuncs.Items.Add("AE	-Apsolute error  (regression) ");
+            1 = cmbFitnessFuncs.Items.Add("RMSE	-Root mean square error  (regression) ");
+            2 = cmbFitnessFuncs.Items.Add("SE	-Square error  (regression) ");
+            3 = cmbFitnessFuncs.Items.Add("MSE	-Mean square error  (regression) ");
+            4 = cmbFitnessFuncs.Items.Add("MAE	-Mean apsolute error  (regression) ");
+            5 = cmbFitnessFuncs.Items.Add("RSE	-Root square error  (regression) ");
+            6 = cmbFitnessFuncs.Items.Add("RRSE	-Relative root square error  (regression) ");
+            7 = cmbFitnessFuncs.Items.Add("RAE	-Root apsolute error (regression) ");
+            8 = cmbFitnessFuncs.Items.Add("ACC  -Total accuracy (binary, multiclass) ");
             */
 
             if (gPFitness is AEFitness)
@@ -222,7 +224,7 @@ namespace GPdotNET.Tool.Common
                 return 6;
             else if (gPFitness is RAEFitness)
                 return 7;
-            else if (gPFitness is ClassFitness)
+            else if (gPFitness is AccuracyFitness)
                 return 8;
             else
                 return 0;
@@ -235,7 +237,7 @@ namespace GPdotNET.Tool.Common
         /// <param name="e"></param>
         private void cmbSelectionMethods_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cmbSelectionMethods.SelectedItem==null)
+            if (cmbSelectionMethods.SelectedItem == null)
                 return;
 
 
@@ -300,7 +302,7 @@ namespace GPdotNET.Tool.Common
                     break;
             }
         }
-#endregion
+        #endregion
 
         #region Public Methods
         /// <summary>
@@ -343,7 +345,7 @@ namespace GPdotNET.Tool.Common
             return true;
         }
 
-        
+
 
         /// <summary>
         /// Return current value of GP params
@@ -453,7 +455,7 @@ namespace GPdotNET.Tool.Common
             }
 
             parameters.isProtectedOperationEnabled = isProtectedOperation.Checked;
-            
+
             return parameters;
         }
 
@@ -488,14 +490,14 @@ namespace GPdotNET.Tool.Common
         public void SetParameters(string p)
         {
             var pstr = p.Split(';');
-            
+
             try
             {
 
                 //PopSize
-                txtPopSize.Text=pstr[0];
+                txtPopSize.Text = pstr[0];
                 //Fitness
-                int temp=0;
+                int temp = 0;
                 if (!int.TryParse(pstr[1], out temp))
                     temp = 0;
                 cmbFitnessFuncs.SelectedIndex = temp;
@@ -539,7 +541,7 @@ namespace GPdotNET.Tool.Common
 
                 //Crossover method
                 float val = 0;
-                if (!float.TryParse(pstr[12],System.Globalization.NumberStyles.Float, CultureInfo.InvariantCulture, out val))
+                if (!float.TryParse(pstr[12], System.Globalization.NumberStyles.Float, CultureInfo.InvariantCulture, out val))
                     val = 0;
                 txtProbCrossover.Text = val.ToString();
 
@@ -571,7 +573,7 @@ namespace GPdotNET.Tool.Common
                 temp = 0;
                 if (!int.TryParse(pstr[17], out temp))
                     temp = 0;
-                checkBox2.Checked = temp==0?false:true;
+                checkBox2.Checked = temp == 0 ? false : true;
                 //decimation
                 temp = 0;
                 if (!int.TryParse(pstr[18], out temp))
@@ -581,20 +583,20 @@ namespace GPdotNET.Tool.Common
                 if (pstr.Length <= 20)
                     return;
 
-                int numCount=int.Parse(pstr[11]);
-                _constants= new double[numCount];
+                int numCount = int.Parse(pstr[11]);
+                _constants = new double[numCount];
                 for (int i = 0; i < numCount; i++)
                 {
                     val = 0;
-                    if (!float.TryParse(pstr[19+i], System.Globalization.NumberStyles.Float, CultureInfo.InvariantCulture, out val))
+                    if (!float.TryParse(pstr[19 + i], System.Globalization.NumberStyles.Float, CultureInfo.InvariantCulture, out val))
                         val = 0;
                     _constants[i] = val;
                 }
 
                 //brood size
-                if(pstr.Length > 19+numCount)
+                if (pstr.Length > 19 + numCount)
                 {
-                    if (!int.TryParse(pstr[19+numCount], out temp))
+                    if (!int.TryParse(pstr[19 + numCount], out temp))
                         temp = 3;
 
                     txtBroodSize.Text = temp.ToString();
@@ -631,7 +633,7 @@ namespace GPdotNET.Tool.Common
             string retVal = "";
             try
             {
-               
+
                 //PopSize
                 int intValue = 0;
                 if (!int.TryParse(txtPopSize.Text, out intValue))
@@ -641,12 +643,12 @@ namespace GPdotNET.Tool.Common
                 }
                 retVal += intValue.ToString() + ";";
                 //Fitness
-                if(cmbFitnessFuncs.SelectedIndex==-1)
+                if (cmbFitnessFuncs.SelectedIndex == -1)
                 {
                     MessageBox.Show("Invalid value for Fitness function!");
                     return null;
                 }
-                retVal += cmbFitnessFuncs.SelectedIndex.ToString() + ";"; 
+                retVal += cmbFitnessFuncs.SelectedIndex.ToString() + ";";
 
                 ///Init method
                 if (cmbInitMethods.SelectedIndex == -1)
@@ -654,7 +656,7 @@ namespace GPdotNET.Tool.Common
                     MessageBox.Show("Invalid value for Initalize method!");
                     return null;
                 }
-                retVal += cmbInitMethods.SelectedIndex.ToString() + ";"; 
+                retVal += cmbInitMethods.SelectedIndex.ToString() + ";";
 
                 //init depth
                 if (!int.TryParse(txtInitTreeDepth.Text, out intValue))
@@ -688,7 +690,7 @@ namespace GPdotNET.Tool.Common
                     MessageBox.Show("Invalid value for Initalize method!");
                     return null;
                 }
-                retVal += cmbSelectionMethods.SelectedIndex.ToString() + ";"; 
+                retVal += cmbSelectionMethods.SelectedIndex.ToString() + ";";
 
                 //Selection param1
                 float floatValue;
@@ -738,7 +740,7 @@ namespace GPdotNET.Tool.Common
                     return null;
                 }
                 retVal += floatValue.ToString(CultureInfo.InvariantCulture) + ";";
-               
+
 
                 //mutation method
                 if (!float.TryParse(txtProbMutation.Text, out floatValue))
@@ -747,7 +749,7 @@ namespace GPdotNET.Tool.Common
                     return null;
                 }
                 retVal += floatValue.ToString(CultureInfo.InvariantCulture) + ";";
-                
+
 
                 //reproduction method
                 if (!float.TryParse(txtProbReproduction.Text, out floatValue))
@@ -756,7 +758,7 @@ namespace GPdotNET.Tool.Common
                     return null;
                 }
                 retVal += floatValue.ToString(CultureInfo.InvariantCulture) + ";";
-                
+
 
                 //Permutation method
                 if (!float.TryParse(txtProbPermutation.Text, out floatValue))
@@ -765,7 +767,7 @@ namespace GPdotNET.Tool.Common
                     return null;
                 }
                 retVal += floatValue.ToString(CultureInfo.InvariantCulture) + ";";
-               
+
 
                 //Encaptualtion method
                 if (!float.TryParse(txtProbEncaptulation.Text, out floatValue))
@@ -774,10 +776,10 @@ namespace GPdotNET.Tool.Common
                     return null;
                 }
                 retVal += floatValue.ToString(CultureInfo.InvariantCulture) + ";";
-              
+
                 //Editing
-                retVal += checkBox2.Checked==true? "1" : "0" + ";";
-                
+                retVal += checkBox2.Checked == true ? "1" : "0" + ";";
+
                 //decimation
                 retVal += checkBox3.Checked == true ? "1" : "0" + ";";
 
@@ -814,7 +816,7 @@ namespace GPdotNET.Tool.Common
         {
             m_OutpuType = colType;
 
-            if (colType== ColumnDataType.Numeric)
+            if (colType == ColumnDataType.Numeric)
             {
                 //let initial fitness function be Square error
                 cmbFitnessFuncs.SelectedIndex = 2;
@@ -822,12 +824,12 @@ namespace GPdotNET.Tool.Common
             }
             else
             {
-                cmbFitnessFuncs.Enabled = true;
-                cmbFitnessFuncs.SelectedItem = "CLASS -Classification ";
-                cmbFitnessFuncs.Enabled = false;
+                //cmbFitnessFuncs.Enabled = true;
+                cmbFitnessFuncs.SelectedItem = "ACC -Total accuracy (binary) ";
+                //cmbFitnessFuncs.Enabled = false;
             }
-            
-            
+
+
         }
 
         public ColumnDataType GetProblemType()

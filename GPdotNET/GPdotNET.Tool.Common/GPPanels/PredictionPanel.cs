@@ -404,6 +404,8 @@ namespace GPdotNET.Tool.Common
         /// <param name="reportType"></param>
         public void ReportProgress(int currentEvolution, float AverageFitness, Engine.GPChromosome ch, int reportType, double[][] prediction)
         {
+            if (ch == null)
+                return;
             if (prevFitnesss < ch.Fitness)
             {
                 prevFitnesss = ch.Fitness;

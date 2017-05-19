@@ -612,11 +612,9 @@ namespace GPdotNET.App
                 {
                     _setPanel = new SettingsPanel();
                     loadGPPanelInMainWindow(this, _setPanel, "Settings");
-
-                    _setPanel.SetParamForClassification(_experimentPanel.GetOutputColumnType());
-
-
                 }
+                //set problem type 
+                _setPanel.SetParamForClassification(_experimentPanel.GetOutputColumnType());
 
                 if (_runPanel == null)
                 {
