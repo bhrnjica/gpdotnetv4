@@ -121,10 +121,10 @@ run both on Windows and Lunux OS.</Description>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML">
-      <HintPath>..\..\Assemblies\ClosedXML.dll</HintPath>
+      <HintPath>..\Assemblies\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml">
-      <HintPath>..\..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
+      <HintPath>..\Assemblies\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
