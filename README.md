@@ -8,8 +8,8 @@ Binaries can be downloaded  at release section.
 More info about GPdotNET can be found at  [https://bhrnjica.net/gpdotnet](http://bhrnjica.net/gpdotnet)
 
 Note: The latest version of GPdotNET is separated into two projects:
-- GPdotNET v5.0 (http://bhrnjica.net/gpdotnet) - Genetic programming tool
-- ANNdotNET v1.0 (http://bhrnjica.net/anndotnet) - Artificial Neural Network tool running on top of CNTK. 
+- [GPdotNET v5.0] (https://github.com/bhrnjica/gpdotnet) - Genetic programming tool
+- [ANNdotNET v1.0] (https://github.com/bhrnjica/anndotnet) - Artificial Neural Network tool running on top of CNTK. 
 
 How to citate GPdotNET
 ------------------------------------------
