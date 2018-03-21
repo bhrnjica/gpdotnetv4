@@ -2,7 +2,7 @@
 
 [logo]: https://github.com/bhrnjica/gpdotnet/blob/master/GPdotNET/GPdotNET.App/Resources/gpLogo_350x134pix.png "GPdotNET v4.0"
 
-GPdotNET is C# open source artificial intelligence tool for applying Genetic Programming, Genetic Algorithm and Artificial Neural Networks in modeling, prediction, optimization and pattern recognitions. With GPdotNET you can solve various engineering problems from classic regression and approximation to linear programming transportation and location problems and other machine learning based problems. By providing the learning algorithms GPdotNET uses a data of the research or experimental measures to learn about the problem. The results of learning algorithms are analytical models which can describe or predict the state of the problem, or can recognize the pattern. GPdotNET is very easy to use, even if you have no deep knowledge of GA, GP or ANN, you can apply those methods in finding solutions. The project can be used in modeling any kind of engineering process, which can be described with discrete data, as well as in education during teaching students about evolutionary methods, mainly GP and GA, as well as machine learning mainly Artificial Neural Networks.
+GPdotNET v4.0 is C# open source artificial intelligence tool for applying Genetic Programming, Genetic Algorithm and Artificial Neural Networks in modeling, prediction, optimization and pattern recognitions. With GPdotNET you can solve various engineering problems from classic regression and approximation to linear programming transportation and location problems and other machine learning based problems. By providing the learning algorithms GPdotNET uses a data of the research or experimental measures to learn about the problem. The results of learning algorithms are analytical models which can describe or predict the state of the problem, or can recognize the pattern. GPdotNET is very easy to use, even if you have no deep knowledge of GA, GP or ANN, you can apply those methods in finding solutions. The project can be used in modeling any kind of engineering process, which can be described with discrete data, as well as in education during teaching students about evolutionary methods, mainly GP and GA, as well as machine learning mainly Artificial Neural Networks.
 
 Binaries can be downloaded  at release section.
 More info about GPdotNET can be found at  [https://bhrnjica.net/gpdotnet](http://bhrnjica.net/gpdotnet)
@@ -11,20 +11,5 @@ How to citate GPdotNET
 ------------------------------------------
 Everybody is free to use GPdotNET with correct citation given as follows:
 
-Example of GPdotNET citation (English):
+Hrnjica B. & Danandeh A. (2018), Optimized Genetic Programming Applications: Emerging Research and Opportunities,IGI-Global,2018.
 
-B. Hrnjica, GPdotNET  V4.0- artifical intelligence tool  [Computer program],  http://github.com/bhrnjica/gpdotnet/,  accessed 01. November 2016.
-
-or
-
-Bahrudin Hrnjica, GPdotNET V4.0 – artifical intelligence tool [Computer program], http://github.com/bhrnjica/gpdotnet/, accessed 01. November 2016.
-
- 
-
-Primjer citata za GPdotNET (Bosanski):
-
-B. Hrnjica, GPdotNET  V4.0- artifical intelligence tool  [kompjuterski program],  http://github.com/bhrnjica/gpdotnet/,  zadnja posjeta  01/11/ 2016.
-
-ili
-
-Bahrudin Hrnjica, GPdotNET V4.0 – artifical intelligence tool [kompjuterski program], http://github.com/bhrnjica/gpdotnet/, zadnja posjeta 01/11/ 2016.
