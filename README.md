@@ -7,9 +7,13 @@ GPdotNET v4.0 is C# open source artificial intelligence tool for applying Geneti
 Binaries can be downloaded  at release section.
 More info about GPdotNET can be found at  [https://bhrnjica.net/gpdotnet](http://bhrnjica.net/gpdotnet)
 
+Note: The latest version of GPdotNET is separated into two project:
+- GPdotNET v5.0 - Genetic programming tool
+- ANNdotNET v1.0 - Artificial Neural Network tool running on top of CNTK. 
+
 How to citate GPdotNET
 ------------------------------------------
 Everybody is free to use GPdotNET with correct citation given as follows:
 
-Hrnjica B. & Danandeh A. (2018), Optimized Genetic Programming Applications: Emerging Research and Opportunities,IGI-Global,2018.
+Hrnjica B. & Danandeh A. (2018), Optimized Genetic Programming Applications: Emerging Research and Opportunities,IGI-Global, ISBN13: 9781522560050,DOI: 10.4018/978-1-5225-6005-0.
 
