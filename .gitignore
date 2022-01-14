@@ -14,3 +14,13 @@
 /GPdotNET/GPdotNET.App/bin
 /GPdotNET/.vs/
 /.vs
+/GPdotNET.App/bin/Debug
+/GPdotNET.App/obj/Debug
+/GPdotNET.Core/bin/Debug
+/GPdotNET.Core/obj/Debug
+/GPdotNET.Engine/bin/Debug
+/GPdotNET.Engine/obj/Debug
+/GPdotNET.Tool.Common/bin/Debug
+/GPdotNET.Tool.Common/obj/Debug
+/GPdotNET.Util/bin/Debug
+/GPdotNET.Util/obj/Debug

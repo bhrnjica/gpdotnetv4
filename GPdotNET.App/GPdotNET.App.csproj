@@ -22,7 +22,7 @@ It is .NET (Mono) application written in C# which can
 run both on Windows and Lunux OS.</Description>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <ReleaseVersion>2.1</ReleaseVersion>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish/</PublishUrl>
     <Install>true</Install>
@@ -353,14 +353,7 @@ run both on Windows and Lunux OS.</Description>
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <FileAssociation Include=".gpa">
-      <Visible>False</Visible>
-      <Description>GPdotNET file format.</Description>
-      <Progid>GPdotNET</Progid>
-      <DefaultIcon>gpdotnet_ico48.ico</DefaultIcon>
-    </FileAssociation>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Resources_Files\FunctionSet.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -369,12 +362,12 @@ run both on Windows and Lunux OS.</Description>
   <ItemGroup>
     <PublishFile Include="Resources_Files\FunctionSet.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
